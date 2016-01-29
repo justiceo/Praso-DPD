@@ -1,5 +1,7 @@
 package DPD.DSMMapper;
 
+import DPD.ILogger;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
@@ -18,4 +20,6 @@ public interface IPattern {
 
     @XmlElement(name="rules")
     List<PatternRule> getRules();
+
+    public void displayMembers(ILogger logger);
 }

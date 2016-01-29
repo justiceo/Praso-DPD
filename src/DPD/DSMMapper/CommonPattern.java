@@ -1,5 +1,7 @@
 package DPD.DSMMapper;
 
+import DPD.ILogger;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -32,5 +34,21 @@ public class CommonPattern implements IPattern {
     @Override
     public List<PatternRule> getRules() {
         return rules;
+    }
+
+    @Override
+    public void displayMembers(ILogger logger) {
+        logger.log("\n======= begin display pattern ==========\n");
+        logger.log("Pattern: " + name );
+
+        for(PatternEntity entity: entities) {
+            logger.log("\n" + entity.name + " is satisfied by: ");
+            for(String className: entity.compliantClasses) {
+                logger.log("\t" + className);
+            }
+        }
+
+        logger.log("\n======= end display pattern ==========\n");
+
     }
 }

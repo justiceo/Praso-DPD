@@ -1,3 +1,4 @@
+import DPD.ConsoleLogger;
 import DPD.DSMBrowser.DSMBrowser;
 import DPD.DSMBrowser.IBrowser;
 import DPD.DSMMapper.DSMMapper;
@@ -56,12 +57,19 @@ public class RuleFilterTests {
         String concreteObserverBucket = observerPattern.getEntities().get(1).id;
         String subjectBucket = observerPattern.getEntities().get(2).id;
 
+        //todo: re-write test
+        // formal approach, get list of rules from observerPattern
+        // foreach rule, parse in the source, target and exclusion to ruleFilters.
+
         assertTrue(ruleFilters.filterImplements(observerPattern, concreteObserverBucket, observerBucket));
         assertTrue(ruleFilters.filterUses(observerPattern, subjectBucket, observerBucket));
         assertTrue(ruleFilters.filterTypes(observerPattern, subjectBucket, observerBucket));
         assertTrue(ruleFilters.filterIsPlural(observerPattern, concreteObserverBucket)); // run plural lasts!
 
-        // test adding include
+        observerPattern.displayMembers(new ConsoleLogger());
+
+        //todo: make exhaustive
+        //todo: add exclude parameter
     }
 
     @Test
