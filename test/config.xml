@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<config>
+	<pattern name="Observer Pattern" config-file="observer-pattern.xml" include="true" />
+	<pattern name="Strategy Pattern" config-file="strategy-pattern.xml" include="false" />
+</config>
