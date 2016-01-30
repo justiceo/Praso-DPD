@@ -11,6 +11,8 @@ import java.util.Objects;
 @XmlRootElement
 public class PatternConfig {
     @XmlAttribute
+    public String id;
+    @XmlAttribute
     public String name;
     @XmlAttribute(name = "config-file")
     public String configFile;
@@ -28,7 +30,8 @@ public class PatternConfig {
     @Override
     public boolean equals(Object other) {
         PatternConfig otherConfig = (PatternConfig) other;
-        return this.name.equals(otherConfig.name)
+        return this.id.equals(otherConfig.id)
+                && this.name.equals(otherConfig.name)
                 && this.configFile.equals(otherConfig.configFile)
                 && this.include == otherConfig.include;
     }

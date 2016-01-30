@@ -1,6 +1,6 @@
 import DPD.DependencyBrowser.DSMBrowser;
-import DPD.DependencyBrowser.ClassType;
-import DPD.DependencyBrowser.DependencyType;
+import DPD.Enums.ClassType;
+import DPD.Enums.DependencyType;
 import DPD.DependencyBrowser.IBrowser;
 import org.junit.After;
 import org.junit.Before;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static DPD.DependencyBrowser.ClassType.*;
+import static DPD.Enums.ClassType.*;
 import static org.junit.Assert.*;
 
 /**
@@ -21,11 +21,12 @@ import static org.junit.Assert.*;
 public class DSMBrowserTest {
 
     private IBrowser browser;
+    private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\observer-sample.dsm";
 
     @Before
     public void setup() {
         browser = new DSMBrowser();
-        File dsmFile = new File("observer-sample.dsm");
+        File dsmFile = new File(testDsmFile);
         browser.init(dsmFile);
     }
 

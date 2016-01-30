@@ -1,4 +1,4 @@
-import DPD.DependencyBrowser.ClassType;
+import DPD.Enums.ClassType;
 import DPD.DSMMapper.IPattern;
 import DPD.DSMMapper.PatternEntity;
 import DPD.DSMMapper.PatternRule;
@@ -21,11 +21,12 @@ import static org.junit.Assert.assertEquals;
 public class IPatternsTest { // tests that loaded patterns contain the right information
 
     private IPattern observerPattern;
+    private final String configFilePath = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
 
     @Before
     public void setup() {
         IPatternsParser patternsParser = new CommonPatternsParser();
-        patternsParser.init(new File("config.xml"));
+        patternsParser.init(new File(configFilePath));
         observerPattern = patternsParser.parse(patternsParser.getRunnableConfigs().get(0));
     }
 

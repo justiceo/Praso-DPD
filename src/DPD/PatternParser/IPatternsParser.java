@@ -18,4 +18,6 @@ public interface IPatternsParser {
     List<PatternConfig> getRunnableConfigs();
 
     IPattern parse(PatternConfig observerConfig);
+
+    IPattern loadPatternById(String patternId);
 }

@@ -1,6 +1,6 @@
 package DPD.DSMMapper;
 
-import DPD.DependencyBrowser.DependencyType;
+import DPD.Enums.DependencyType;
 import DPD.DependencyBrowser.IBrowser;
 import DPD.Enums.RuleType;
 

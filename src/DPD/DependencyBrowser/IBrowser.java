@@ -1,5 +1,8 @@
 package DPD.DependencyBrowser;
 
+import DPD.Enums.ClassType;
+import DPD.Enums.DependencyType;
+
 import java.io.File;
 import java.util.List;
 

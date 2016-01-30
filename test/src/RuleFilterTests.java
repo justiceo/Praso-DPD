@@ -1,7 +1,6 @@
 import DPD.ConsoleLogger;
 import DPD.DSMMapper.*;
 import DPD.DependencyBrowser.DSMBrowser;
-import DPD.DependencyBrowser.DependencyType;
 import DPD.DependencyBrowser.IBrowser;
 import DPD.PatternParser.CommonPatternsParser;
 import DPD.PatternParser.IPatternsParser;
@@ -10,8 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Justice on 1/27/2016.
@@ -22,15 +19,16 @@ public class RuleFilterTests {
     private EntityMapper mapper;
     private IBrowser browser;
     private IPattern observerPattern;
+    private final String configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
+    private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\observer-sample.dsm";
 
     @Before
     public void setup() {
         IPatternsParser patternsParser = new CommonPatternsParser();
-        patternsParser.init(new File("config.xml"));
+        patternsParser.init(new File(configFile));
         observerPattern = patternsParser.parse(patternsParser.getRunnableConfigs().get(0));
 
-        File dsmFile = new File("D:\\Code\\IdeaProjects\\DesignPatterns\\test\\jhotdraw.dsm");
-        System.out.println(dsmFile.exists());
+        File dsmFile = new File(testDsmFile);
         browser = new DSMBrowser();
         browser.init(dsmFile);
 

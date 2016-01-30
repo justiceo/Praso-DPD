@@ -8,8 +8,5 @@ public enum RuleType {
     IsPlural,
     Extends,
     Types,
-    Uses,
-    DontType,
-    Aggregates,
-    Composes
+    Uses
 }

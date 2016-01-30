@@ -1,5 +1,8 @@
 package DPD.DependencyBrowser;
 
+import DPD.Enums.ClassType;
+import DPD.Enums.DependencyType;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -70,6 +73,7 @@ public class DSMBrowser implements IBrowser{
     @Override
     public List<String> getClassesOfType(ClassType classType) {
         List<String> desiredClasses = new ArrayList<>();
+        // dedicating this beautiful line below to choir practice
         jClasses.stream()
                 .filter( j -> j.classType.equals(classType))
                 .forEach( j -> desiredClasses.add(j.fileName));
@@ -160,8 +164,6 @@ public class DSMBrowser implements IBrowser{
 
     private ClassType determineClassType(JClass jClass) {
 
-        // get the matrix column that matches class' index
-        // use it as dependency line
         String depLine = String.join(" ", getMatrixCol(jClass.matrixIndex));
         List<DependencyType> classDeps = getLineDependency(depLine);
 

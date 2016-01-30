@@ -15,11 +15,12 @@ import java.util.List;
 public class PatternsParserTest { // just confirms we can load patterns from xml into IPatternObjects
 
     private IPatternsParser patternsParser;
+    private final String configFilePath = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
 
     @Before
     public void setup() {
         patternsParser = new CommonPatternsParser();
-        File configFile = new File("config.xml");
+        File configFile = new File(configFilePath);
         patternsParser.init(configFile);
     }
 
@@ -44,6 +45,7 @@ public class PatternsParserTest { // just confirms we can load patterns from xml
     @Test
     public void TestPatternConfigEquals() {
         PatternConfig strategyConfig = new PatternConfig();
+        strategyConfig.id = "strategy1";
         strategyConfig.name = "Strategy Pattern";
         strategyConfig.include = true;
         strategyConfig.configFile = "strategy-pattern.xml";
@@ -54,16 +56,17 @@ public class PatternsParserTest { // just confirms we can load patterns from xml
     public void TestGetPatternConfigs() {
         List<PatternConfig> expectedPatternConfigs = new ArrayList<>();
 
-
         PatternConfig observerConfig = new PatternConfig();
+        observerConfig.id = "observer1";
         observerConfig.name = "Observer Pattern";
         observerConfig.include = true;
-        observerConfig.configFile = "observer-pattern.xml";
+        observerConfig.configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\observer-pattern.xml";
 
         PatternConfig strategyConfig = new PatternConfig();
+        strategyConfig.id = "strategy1";
         strategyConfig.name = "Strategy Pattern";
         strategyConfig.include = false;
-        strategyConfig.configFile = "strategy-pattern.xml";
+        strategyConfig.configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\strategy-pattern.xml";
 
         expectedPatternConfigs.add(observerConfig);
         expectedPatternConfigs.add(strategyConfig);
@@ -77,9 +80,10 @@ public class PatternsParserTest { // just confirms we can load patterns from xml
         List<PatternConfig> expectedPatternConfigs = new ArrayList<>();
 
         PatternConfig observerConfig = new PatternConfig();
+        observerConfig.id = "observer1";
         observerConfig.name = "Observer Pattern";
         observerConfig.include = true;
-        observerConfig.configFile = "observer-pattern.xml";
+        observerConfig.configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\observer-pattern.xml";
 
         expectedPatternConfigs.add(observerConfig);
 
@@ -91,6 +95,14 @@ public class PatternsParserTest { // just confirms we can load patterns from xml
     @Test
     public void TestParseConfig() {
         IPattern actualObserverPattern = patternsParser.parse(patternsParser.getRunnableConfigs().get(0));
+        Assert.assertEquals("Observer Pattern", actualObserverPattern.getName());
+        Assert.assertEquals(3, actualObserverPattern.getEntities().size());
+        Assert.assertEquals(6, actualObserverPattern.getRules().size());
+    }
+
+    @Test
+    public void TestLoadPatternById() {
+        IPattern actualObserverPattern = patternsParser.loadPatternById("observer1");
         Assert.assertEquals("Observer Pattern", actualObserverPattern.getName());
         Assert.assertEquals(3, actualObserverPattern.getEntities().size());
         Assert.assertEquals(6, actualObserverPattern.getRules().size());

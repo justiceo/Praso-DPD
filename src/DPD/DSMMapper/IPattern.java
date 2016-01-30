@@ -21,5 +21,8 @@ public interface IPattern {
     @XmlElement(name="rules")
     List<PatternRule> getRules();
 
+    @XmlElement(name="resolver")
+    List<PatternResolver> getResolvers();
+
     public void displayMembers(ILogger logger);
 }

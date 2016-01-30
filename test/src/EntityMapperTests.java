@@ -1,4 +1,4 @@
-import DPD.DependencyBrowser.ClassType;
+import DPD.Enums.ClassType;
 import DPD.DependencyBrowser.DSMBrowser;
 import DPD.DependencyBrowser.IBrowser;
 import DPD.DSMMapper.DSMMapper;
@@ -24,14 +24,16 @@ public class EntityMapperTests {
     private EntityMapper mapper;
     private IBrowser browser;
     private IPattern observerPattern;
+    private final String configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
+    private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\observer-sample.dsm";
 
     @Before
     public void setup() {
         IPatternsParser patternsParser = new CommonPatternsParser();
-        patternsParser.init(new File("config.xml"));
+        patternsParser.init(new File(configFile));
         observerPattern = patternsParser.parse(patternsParser.getRunnableConfigs().get(0));
 
-        File dsmFile = new File("observer-sample.dsm");
+        File dsmFile = new File(testDsmFile);
         browser = new DSMBrowser();
         browser.init(dsmFile);
 

@@ -37,6 +37,11 @@ public class CommonPattern implements IPattern {
     }
 
     @Override
+    public List<PatternResolver> getResolvers() {
+        return null;
+    }
+
+    @Override
     public void displayMembers(ILogger logger) {
         logger.log("\n======= begin display pattern ==========\n");
         logger.log("Pattern: " + name );

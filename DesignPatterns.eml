@@ -3,8 +3,4 @@
 	<output-test url="file://$MODULE_DIR$/out/test/DesignPatterns"/>
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$"/>
-	<levels>
-		<level name="junit-4.12" value="project"/>
-		<level name="commons-lang3-3.4" value="project"/>
-	</levels>
 </component>

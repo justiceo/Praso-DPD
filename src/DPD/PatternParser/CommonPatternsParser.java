@@ -35,4 +35,14 @@ public class CommonPatternsParser implements IPatternsParser {
         IPattern pattern = FileIO.loadPattern(new File(observerConfig.configFile));
         return pattern;
     }
+
+    @Override
+    public IPattern loadPatternById(String patternId) {
+        for(PatternConfig p: patternConfigs) {
+            if(p.id.equals(patternId)) {
+                return parse(p);
+            }
+        }
+        return null;
+    }
 }
