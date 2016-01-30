@@ -1,4 +1,0 @@
-<patterns>
-	<pattern name="Observer Pattern" config-file="observer-pattern.xml" include="true" />
-	<pattern name="Strategy pattern" config-file="strategy-pattern.xml" include="false" />
-</patterns>
