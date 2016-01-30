@@ -1,4 +1,4 @@
-package DPD.DSMBrowser;
+package DPD.DependencyBrowser;
 
 /**
  * Created by Justice on 1/27/2016.

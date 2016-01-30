@@ -1,0 +1,56 @@
+[Call,Typed,Set,Import,Extend,Create,Use,Implement]
+27
+0 01000000 0 0 0 0 0 0 0 0 00000010 0 0 0 0 0 0 0 0 0 10010000 0 0 0 0 11100110 0 
+0 0 0 0 0 0 00001000 0 0 0 01000010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 00000001 0 0 0 0 0 0 0 10011000 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 00000001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 01000000 0 0 0 0 0 0 0 0 10000100 0 0 0 0 0 0 0 0 0 0 0 11100000 0 0 
+0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 00001000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 01000000 0 01000010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10001000 00100000 0 
+0 0 0 0 0 0 00001000 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 00010001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 00000001 0 0 0 0 0 0 0 0 0 0 0 0 0 10011000 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 11000110 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 11000100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 00001000 0 0 0 01000010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 11000100 0 
+0 0 0 0 0 0 00001000 0 0 0 01000010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 10010100 0 0 0 0 0 0 0 0 0 10001000 00100000 0 
+0 0 0 10000100 0 0 0 0 11000001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10001000 0 
+0 0 0 0 00000100 0 01000010 11000000 0 11000001 01000010 0 0 0 10010100 10001000 0 0 0 0 0 0 0 0 0 0 0 
+0 00000100 0 0 0 0 0 0 0 0 0 0 0 00000100 0 10000000 10010000 0 0 00000100 10010000 0 00000100 0 0 11000100 0 
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.test.java.com.archdia.tutorial.alarm.clock.ObserverPatternTest_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.Lights_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.Clock_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.SimpleRadio_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.SimpleAlarmClock_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.test.java.com.archdia.tutorial.alarm.clock.AlarmClockRadioTest_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.IObserver_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.AlarmAction_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.Radio_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.AlarmClock_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.SnoozingClockEvent_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.AlarmClockFactory_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.AlarmClockRadioPlayer_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.Shower_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.action.PrintAlarmAction_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.TickingClock_java
+D:.Code.Eclipse.tutorials.jalarm.jtick.src.main.java.com.archdia.tutorial.alarm.tick.Ticker_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.test.java.com.archdia.tutorial.alarm.clock.SimpleRadioTest_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.test.java.com.archdia.tutorial.alarm.clock.SimpleAlarmClockTest_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.Email_java
+D:.Code.Eclipse.tutorials.jalarm.jtick.src.main.java.com.archdia.tutorial.alarm.tick.ThreadUtils_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.test.java.com.archdia.tutorial.alarm.clock.SnoozingAlarmClockTest_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.Television_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.AlarmClockRadioBuzzer_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.AlarmClockRadio_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.SnoozingAlarmClock_java
+D:.Code.Eclipse.tutorials.jalarm.jclock.src.main.java.com.archdia.tutorial.alarm.clock.Program_java

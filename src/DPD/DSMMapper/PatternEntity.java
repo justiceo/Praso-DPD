@@ -1,6 +1,6 @@
 package DPD.DSMMapper;
 
-import DPD.DSMBrowser.ClassType;
+import DPD.DependencyBrowser.ClassType;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;

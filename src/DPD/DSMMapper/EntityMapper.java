@@ -1,6 +1,6 @@
 package DPD.DSMMapper;
 
-import DPD.DSMBrowser.IBrowser;
+import DPD.DependencyBrowser.IBrowser;
 
 import java.util.List;
 

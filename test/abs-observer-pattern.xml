@@ -1,0 +1,11 @@
+<pattern name="Observer Pattern - Abstract">
+	<entity id="e1" name="Observer" type="Abstraction" />
+	<entity id="e2" name="Concrete Observer" type="Class" />
+	<entity id="e3" name="Subject" type="Class" />
+	<rule source="e2" type="Specializes" target="e1" />
+	<rule source="e3" type="Types" target="e1" />
+	<rule source="e3" type="Uses" target="e1" />
+	<rule exclude="true" source="e3" type="Types" target="e2" />
+	<rule exclude="true" source="e3" type="Specializes" target="e1" />
+	<rule Source="e2" type="IsPlural" />
+</pattern>

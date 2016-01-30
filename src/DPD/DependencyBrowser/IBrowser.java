@@ -1,4 +1,4 @@
-package DPD.DSMBrowser;
+package DPD.DependencyBrowser;
 
 import java.io.File;
 import java.util.List;
@@ -29,6 +29,8 @@ public interface IBrowser {
     boolean isOfClassType(String className, ClassType classType);
 
     List<String> getAssociatedDependency(String fullClassName, DependencyType dependencyType);
+
+    boolean isAssociatedWithDependency(String testClass, DependencyType implement);
 }
 
 

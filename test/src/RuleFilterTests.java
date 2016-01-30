@@ -1,10 +1,8 @@
 import DPD.ConsoleLogger;
-import DPD.DSMBrowser.DSMBrowser;
-import DPD.DSMBrowser.IBrowser;
-import DPD.DSMMapper.DSMMapper;
-import DPD.DSMMapper.EntityMapper;
-import DPD.DSMMapper.IPattern;
-import DPD.DSMMapper.RuleFilters;
+import DPD.DSMMapper.*;
+import DPD.DependencyBrowser.DSMBrowser;
+import DPD.DependencyBrowser.DependencyType;
+import DPD.DependencyBrowser.IBrowser;
 import DPD.PatternParser.CommonPatternsParser;
 import DPD.PatternParser.IPatternsParser;
 import org.junit.After;
@@ -12,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -32,7 +29,8 @@ public class RuleFilterTests {
         patternsParser.init(new File("config.xml"));
         observerPattern = patternsParser.parse(patternsParser.getRunnableConfigs().get(0));
 
-        File dsmFile = new File("observer-sample.dsm");
+        File dsmFile = new File("D:\\Code\\IdeaProjects\\DesignPatterns\\test\\jhotdraw.dsm");
+        System.out.println(dsmFile.exists());
         browser = new DSMBrowser();
         browser.init(dsmFile);
 
@@ -60,13 +58,20 @@ public class RuleFilterTests {
         //todo: re-write test
         // formal approach, get list of rules from observerPattern
         // foreach rule, parse in the source, target and exclusion to ruleFilters.
-
-        assertTrue(ruleFilters.filterImplements(observerPattern, concreteObserverBucket, observerBucket));
+        /*assertTrue(ruleFilters.filterIsAssociatedWithDependency(observerPattern, observerBucket, DependencyType.TYPED));
+        assertTrue(ruleFilters.filterIsAssociatedWithDependency(observerPattern, observerBucket, DependencyType.USE));
+        assertTrue(ruleFilters.filterImplements(observerPattern, concreteObserverBucket,                ));
         assertTrue(ruleFilters.filterUses(observerPattern, subjectBucket, observerBucket));
-        assertTrue(ruleFilters.filterTypes(observerPattern, subjectBucket, observerBucket));
-        assertTrue(ruleFilters.filterIsPlural(observerPattern, concreteObserverBucket)); // run plural lasts!
-
+        assertTrue(ruleFilters.filterTypes(observerPattern, subjectBucket, observerBucket));*/
+        for(PatternRule rule: observerPattern.getRules()) {
+            ruleFilters.filter(observerPattern, rule);
+        }
+        //assertTrue(ruleFilters.filterIsPlural(observerPattern, concreteObserverBucket)); // run plural lasts!
         observerPattern.displayMembers(new ConsoleLogger());
+
+        // resolver
+        // get subjectBucket
+        // for each subject, create a new pattern object, with niceName appended, addAll compliance
 
         //todo: make exhaustive
         //todo: add exclude parameter
@@ -76,7 +81,14 @@ public class RuleFilterTests {
     public void TestFilter() {
         // TestRule(EntityBuckets, Rule) : boolean
         // returns true if entityBuckets passes rules, i.e. affected buckets are not empty.
-        ruleFilters.filter(observerPattern);
+        //ruleFilters.filter(observerPattern);
+    }
+
+    private IPattern filter(IPattern pattern) {
+        for(PatternRule rule: pattern.getRules()) {
+            ruleFilters.filter(pattern, rule);
+        }
+        return pattern;
     }
 
 

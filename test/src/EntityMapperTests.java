@@ -1,6 +1,6 @@
-import DPD.DSMBrowser.ClassType;
-import DPD.DSMBrowser.DSMBrowser;
-import DPD.DSMBrowser.IBrowser;
+import DPD.DependencyBrowser.ClassType;
+import DPD.DependencyBrowser.DSMBrowser;
+import DPD.DependencyBrowser.IBrowser;
 import DPD.DSMMapper.DSMMapper;
 import DPD.DSMMapper.EntityMapper;
 import DPD.DSMMapper.IPattern;

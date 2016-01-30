@@ -1,6 +1,7 @@
 package DPD.DSMMapper;
 
-import DPD.DSMBrowser.IBrowser;
+import DPD.DependencyBrowser.ClassType;
+import DPD.DependencyBrowser.IBrowser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +23,21 @@ public class DSMMapper implements EntityMapper {
 
     @Override
     public void mapPatternEntities(IPattern pattern) {
+
         for(PatternEntity pE: pattern.getEntities()) {
-            List<String> compliantClasses = browser.getClassesOfType(pE.type);
             pE.compliantClasses = new ArrayList<>();
-            pE.compliantClasses.addAll(compliantClasses);
+            if(pE.type.equals(ClassType.Abstraction)) {
+                pE.compliantClasses.addAll(browser.getClassesOfType(ClassType.Interface));
+                pE.compliantClasses.addAll(browser.getClassesOfType(ClassType.Abstract));
+            }
+            else if(pE.type.equals(ClassType.Concrete)) {
+                pE.compliantClasses.addAll(browser.getClassesOfType(ClassType.Class));
+                pE.compliantClasses.addAll(browser.getClassesOfType(ClassType.Final));
+                // add partial later
+            }
+            else {
+                pE.compliantClasses = browser.getClassesOfType(pE.type);
+            }
         }
     }
 

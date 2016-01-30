@@ -1,7 +1,7 @@
-import DPD.DSMBrowser.DSMBrowser;
-import DPD.DSMBrowser.ClassType;
-import DPD.DSMBrowser.DependencyType;
-import DPD.DSMBrowser.IBrowser;
+import DPD.DependencyBrowser.DSMBrowser;
+import DPD.DependencyBrowser.ClassType;
+import DPD.DependencyBrowser.DependencyType;
+import DPD.DependencyBrowser.IBrowser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static DPD.DSMBrowser.ClassType.*;
+import static DPD.DependencyBrowser.ClassType.*;
 import static org.junit.Assert.*;
 
 /**
@@ -159,5 +159,20 @@ public class DSMBrowserTest {
         List<String> actualResult = browser.getAssociatedDependency(sourceClass, DependencyType.IMPLEMENT);
         assertEquals(1, actualResult.size());
         assertTrue(actualResult.contains(expectedResult));
+    }
+
+    @Test
+    public void TestHasDependencyType() {
+        String testClass = "D:.Code.IdeaProjects.DesignPatterns.src.observer.SubjectA_java";
+        assertTrue(browser.hasDependency(testClass, DependencyType.TYPED));
+        assertTrue(browser.hasDependency(testClass, DependencyType.USE));
+    }
+
+    @Test
+    public void TestIsAssociatedWithDependencyType() {
+        String testClass = "D:.Code.IdeaProjects.DesignPatterns.src.observer.IObserver_java";
+        assertTrue(browser.isAssociatedWithDependency(testClass, DependencyType.TYPED));
+        assertTrue(browser.isAssociatedWithDependency(testClass, DependencyType.USE));
+        assertTrue(browser.isAssociatedWithDependency(testClass, DependencyType.IMPLEMENT));
     }
 }

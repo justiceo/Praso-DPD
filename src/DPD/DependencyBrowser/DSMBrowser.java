@@ -1,4 +1,4 @@
-package DPD.DSMBrowser;
+package DPD.DependencyBrowser;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -48,6 +48,13 @@ public class DSMBrowser implements IBrowser{
     public boolean hasDependency(String className, DependencyType dependencyType) {
         List<DependencyType> deps = getDependenciesOfClass(className);
         return deps.contains(dependencyType);
+    }
+
+    @Override
+    public boolean isAssociatedWithDependency(String fullClassName, DependencyType dependencyType) {
+        String depLine = String.join(" ", getMatrixCol(getJClassFromName(fullClassName).matrixIndex));
+        List<DependencyType> classDeps = getLineDependency(depLine);
+        return classDeps.contains(dependencyType);
     }
 
     @Override
@@ -161,6 +168,8 @@ public class DSMBrowser implements IBrowser{
         if(classDeps.contains(DependencyType.IMPLEMENT))
             return ClassType.Interface;
         else if(classDeps.contains(DependencyType.EXTEND))
+            return ClassType.Abstract;
+        else if(classDeps.contains(DependencyType.SPECIALIZE))
             return ClassType.Abstraction;
         else return ClassType.Class;
     }

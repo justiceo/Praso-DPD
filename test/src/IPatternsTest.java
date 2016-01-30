@@ -1,8 +1,8 @@
-import DPD.DSMBrowser.ClassType;
+import DPD.DependencyBrowser.ClassType;
 import DPD.DSMMapper.IPattern;
 import DPD.DSMMapper.PatternEntity;
 import DPD.DSMMapper.PatternRule;
-import DPD.Enums.RuleTypes;
+import DPD.Enums.RuleType;
 import DPD.PatternParser.CommonPatternsParser;
 import DPD.PatternParser.IPatternsParser;
 import junit.framework.Assert;
@@ -50,7 +50,7 @@ public class IPatternsTest { // tests that loaded patterns contain the right inf
         List<PatternRule> actualRules = observerPattern.getRules();
         assertEquals(6, actualRules.size());
         PatternRule firstRule = new PatternRule();
-        firstRule.ruleType = RuleTypes.Implements;
+        firstRule.ruleType = RuleType.Implements;
         firstRule.source = "e2";
         firstRule.target = "e1";
         PatternRule actual1 = actualRules.get(0);
