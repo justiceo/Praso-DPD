@@ -1,5 +1,6 @@
 package DPD.DSMMapper;
 
+import DPD.Enums.CardinalityType;
 import DPD.Enums.DependencyType;
 import DPD.DependencyBrowser.IBrowser;
 import DPD.Enums.RuleType;
@@ -20,23 +21,19 @@ public class RuleFilters {
     }
 
     public boolean filter(IPattern pattern, PatternRule rule) {
-        if(rule.ruleType.equals(RuleType.Implements)) {
-            return filter(pattern, rule.source, rule.target, DependencyType.IMPLEMENT, rule.exclude); // use formal exclude
+        if(rule.ruleType.equals(RuleType.Dependency)) {
+            return filter(pattern, rule.source, rule.target, DependencyType.valueOf(rule.value.toUpperCase()), rule.exclude);
         }
-        else if(rule.ruleType.equals(RuleType.Uses)) {
-            return filter(pattern, rule.source, rule.target, DependencyType.USE, rule.exclude);
+        else if(rule.ruleType.equals(RuleType.Cardinality)) {
+            CardinalityType cardinality = CardinalityType.valueOf(rule.value.toUpperCase());
+            if(cardinality.equals(CardinalityType.PLURAL))
+                return filterIsPlural(pattern, rule.source);
+            else if(cardinality.equals(CardinalityType.SINGULAR))
+                return false; // filter is singular.
         }
-        else if(rule.ruleType.equals(RuleType.Types)) {
-            return filter(pattern, rule.source, rule.target, DependencyType.TYPED, rule.exclude);
-        }
-        else if(rule.ruleType.equals(RuleType.Extends)) {
-            return filter(pattern, rule.source, rule.target, DependencyType.EXTEND, rule.exclude);
-        }
-        else if(rule.ruleType.equals(RuleType.IsPlural)) {
-            return filterIsPlural(pattern, rule.source); // instead of exclude, use filterSingular.
-        }
-        else
-            return false; // we haven't added this rule yet
+
+
+        return false; // we haven't added this rule yet
 
     }
 
@@ -45,6 +42,8 @@ public class RuleFilters {
         List<String> sourceBucket = null;
         int sourceBucketIndex = 0;
         int counter = 0;
+
+        // get the entity buckets to filter
         for(PatternEntity entity: pattern.getEntities()) {
             if(entity.id.equals(targetId))
                 targetBucket = entity.compliantClasses;
@@ -54,16 +53,18 @@ public class RuleFilters {
             }
             counter++;
         }
+
+        // if any is empty, job is already done
         if(targetBucket.isEmpty() || sourceBucket.isEmpty())
             return false;
 
-        //todo: test for exclude
+        // perform the filter
         List<String> filteredList = new ArrayList<>();
-        for(String concreteClass: sourceBucket) {
-            for(String classStr: browser.getAssociatedDependency(concreteClass, dependencyType)) {
+        for(String sourceClassStr: sourceBucket) {
+            for(String classStr: browser.getAssociatedDependency(sourceClassStr, dependencyType)) {
                 if(targetBucket.contains(classStr)) {
-                    filteredList.add(concreteClass);
-                    continue;
+                    filteredList.add(sourceClassStr);
+                    break;
                 }
             }
         }
@@ -77,19 +78,6 @@ public class RuleFilters {
         return  !filteredList.isEmpty();
     }
 
-    public boolean filterImplements(IPattern pattern, String concreteBucketId, String interfaceBucketId) {
-        return  filter(pattern, concreteBucketId, interfaceBucketId, DependencyType.IMPLEMENT, exclude);
-    }
-
-    public boolean filterUses(IPattern pattern, String userId, String subjectId) {
-        return  filter(pattern, userId, subjectId, DependencyType.USE, exclude);
-    }
-
-    public boolean filterTypes(IPattern pattern, String objectBucketId, String subjectBucketId) {
-        return  filter(pattern, objectBucketId, subjectBucketId, DependencyType.TYPED, exclude);
-    }
-
-
     public boolean filterIsPlural(IPattern pattern, String subjectBucketId) {
         int bucketSize = 0;
         for(PatternEntity entity: pattern.getEntities()) {
@@ -97,6 +85,13 @@ public class RuleFilters {
                 bucketSize = entity.compliantClasses.size();
         }
         return  bucketSize > 1;
+    }
+    public boolean filterIsAssociatedWithDependency(IPattern pattern, String subjectBucketId, String...depStr) {
+        for(String str: depStr) {
+            filterIsAssociatedWithDependency(pattern, subjectBucketId, DependencyType.valueOf(str));
+        }
+        PatternEntity bucket = pattern.getEntities().stream().filter(b -> b.id.equals(depStr)).findFirst().get();
+        return !bucket.compliantClasses.isEmpty();
     }
 
     public boolean filterIsAssociatedWithDependency(IPattern pattern, String subjectBucketId, DependencyType dependencyType) {
@@ -120,36 +115,4 @@ public class RuleFilters {
         pattern.getEntities().get(subjectBucketIndex).compliantClasses = filteredList;
         return  !filteredList.isEmpty();
     }
-
-    /*
-    private boolean genericFilter(IPattern pattern, String sourceId, String targetId, DependencyType dependencyType) {
-        List<String> targetBucket = null;
-        List<String> sourceBucket = null;
-        int sourceBucketIndex = 0;
-        int counter = 0;
-        for(PatternEntity entity: pattern.getEntities()) {
-            if(entity.id.equals(targetId))
-                targetBucket = entity.compliantClasses;
-            else if(entity.id.equals(sourceId)) {
-                sourceBucket = entity.compliantClasses;
-                sourceBucketIndex = counter;
-            }
-            counter++;
-        }
-        if(targetBucket.isEmpty() || sourceBucket.isEmpty())
-            return false;
-
-        List<String> filteredList = new ArrayList<>();
-        for(String concreteClass: sourceBucket) {
-            for(String classStr: browser.getAssociatedDependency(concreteClass, dependencyType)) {
-                if(targetBucket.contains(classStr)) {
-                    filteredList.add(concreteClass);
-                    continue;
-                }
-            }
-        }
-
-        pattern.getEntities().get(sourceBucketIndex).compliantClasses = filteredList;
-        return  !filteredList.isEmpty();
-    }*/
 }

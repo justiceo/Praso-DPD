@@ -16,6 +16,8 @@ public class PatternRule {
     public String source;
     @XmlAttribute
     public String target;
+    @XmlAttribute
+    public String value;
     @XmlAttribute(required = false)
     public boolean exclude = false;
 
@@ -25,6 +27,7 @@ public class PatternRule {
         return ruleType.equals(otherRule.ruleType)
                 && source.equals(otherRule.source)
                 && exclude == otherRule.exclude
-                && target.equals(otherRule.target);
+                && target.equals(otherRule.target)
+                && value.equals(otherRule.value);
     }
 }

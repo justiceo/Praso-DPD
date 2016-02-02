@@ -2,10 +2,11 @@
 	<entity id="e1" name="Observer" type="Interface" />
 	<entity id="e2" name="Concrete Observer" type="Class" />
 	<entity id="e3" name="Subject" type="Class" />
-	<rule source="e2" rule-type="Implements" target="e1" />
-	<rule source="e3" rule-type="Types" target="e1" />
-	<rule source="e3" rule-type="Uses" target="e1" />
-	<rule source="e2" rule-type="IsPlural" />
-	<rule exclude="true" source="e3" rule-type="Types" target="e2" />
-	<rule exclude="true" source="e3" rule-type="Uses" target="e2" />
+	<rule source="e1" rule-type="IsAssociatedWith" target="Implements_rule,Types_rule,Uses_rule" />
+	<rule source="e2" rule-type="Implements_rule" target="e1" />
+	<rule source="e3" rule-type="Types_rule" target="e1" />
+	<rule source="e3" rule-type="Uses_rule" target="e1" />
+	<rule source="e2" rule-type="Is_Plural_rule" />
+	<rule exclude="true" source="e3" rule-type="Types_rule" target="e2" />
+	<rule exclude="true" source="e3" rule-type="Uses_rule" target="e2" />
 </pattern>

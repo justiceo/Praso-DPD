@@ -49,22 +49,13 @@ public class RuleFilterTests {
 
     @Test
     public void TestRules() {
-        String observerBucket = observerPattern.getEntities().get(0).id;
-        String concreteObserverBucket = observerPattern.getEntities().get(1).id;
-        String subjectBucket = observerPattern.getEntities().get(2).id;
-
         //todo: re-write test
         // formal approach, get list of rules from observerPattern
         // foreach rule, parse in the source, target and exclusion to ruleFilters.
-        /*assertTrue(ruleFilters.filterIsAssociatedWithDependency(observerPattern, observerBucket, DependencyType.TYPED));
-        assertTrue(ruleFilters.filterIsAssociatedWithDependency(observerPattern, observerBucket, DependencyType.USE));
-        assertTrue(ruleFilters.filterImplements(observerPattern, concreteObserverBucket,                ));
-        assertTrue(ruleFilters.filterUses(observerPattern, subjectBucket, observerBucket));
-        assertTrue(ruleFilters.filterTypes(observerPattern, subjectBucket, observerBucket));*/
+
         for(PatternRule rule: observerPattern.getRules()) {
             ruleFilters.filter(observerPattern, rule);
         }
-        //assertTrue(ruleFilters.filterIsPlural(observerPattern, concreteObserverBucket)); // run plural lasts!
         observerPattern.displayMembers(new ConsoleLogger());
 
         // resolver

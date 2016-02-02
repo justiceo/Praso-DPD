@@ -16,6 +16,11 @@ public class PatternsParserTest { // just confirms we can load patterns from xml
 
     private IPatternsParser patternsParser;
     private final String configFilePath = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
+    private final int observer1RuleCount = 6;
+    private final int observer1EntityCount = 3;
+    private final String observer1Name = "Observer Pattern";
+    private final String observer1Id = "observer1";
+    private final String observer1ConfigFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\observer-pattern-v2.xml";
 
     @Before
     public void setup() {
@@ -27,19 +32,6 @@ public class PatternsParserTest { // just confirms we can load patterns from xml
     @After
     public void tearDown() {
         patternsParser = null;
-    }
-
-    @Test
-    public void TestLoadConfig() {
-        Config config = new Config();
-        config.patterns = new ArrayList<>();
-        PatternConfig observer = new PatternConfig();
-        observer.name = "true";
-        observer.include = true;
-        observer.configFile = "trash";
-        config.patterns.add(observer);
-        config.patterns.add(observer);
-        FileIO.saveConfig(config);
     }
 
     @Test
@@ -57,10 +49,10 @@ public class PatternsParserTest { // just confirms we can load patterns from xml
         List<PatternConfig> expectedPatternConfigs = new ArrayList<>();
 
         PatternConfig observerConfig = new PatternConfig();
-        observerConfig.id = "observer1";
-        observerConfig.name = "Observer Pattern";
+        observerConfig.id = observer1Id;
+        observerConfig.name = observer1Name;
         observerConfig.include = true;
-        observerConfig.configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\observer-pattern.xml";
+        observerConfig.configFile = observer1ConfigFile;
 
         PatternConfig strategyConfig = new PatternConfig();
         strategyConfig.id = "strategy1";
@@ -80,10 +72,10 @@ public class PatternsParserTest { // just confirms we can load patterns from xml
         List<PatternConfig> expectedPatternConfigs = new ArrayList<>();
 
         PatternConfig observerConfig = new PatternConfig();
-        observerConfig.id = "observer1";
-        observerConfig.name = "Observer Pattern";
+        observerConfig.id = observer1Id;
+        observerConfig.name = observer1Name;
         observerConfig.include = true;
-        observerConfig.configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\observer-pattern.xml";
+        observerConfig.configFile = observer1ConfigFile;
 
         expectedPatternConfigs.add(observerConfig);
 
@@ -95,16 +87,16 @@ public class PatternsParserTest { // just confirms we can load patterns from xml
     @Test
     public void TestParseConfig() {
         IPattern actualObserverPattern = patternsParser.parse(patternsParser.getRunnableConfigs().get(0));
-        Assert.assertEquals("Observer Pattern", actualObserverPattern.getName());
-        Assert.assertEquals(3, actualObserverPattern.getEntities().size());
-        Assert.assertEquals(6, actualObserverPattern.getRules().size());
+        Assert.assertEquals(observer1Name, actualObserverPattern.getName());
+        Assert.assertEquals(observer1EntityCount, actualObserverPattern.getEntities().size());
+        Assert.assertEquals(observer1RuleCount, actualObserverPattern.getRules().size());
     }
 
     @Test
     public void TestLoadPatternById() {
-        IPattern actualObserverPattern = patternsParser.loadPatternById("observer1");
-        Assert.assertEquals("Observer Pattern", actualObserverPattern.getName());
-        Assert.assertEquals(3, actualObserverPattern.getEntities().size());
-        Assert.assertEquals(6, actualObserverPattern.getRules().size());
+        IPattern actualObserverPattern = patternsParser.loadPatternById(observer1Id);
+        Assert.assertEquals(observer1Name, actualObserverPattern.getName());
+        Assert.assertEquals(observer1EntityCount, actualObserverPattern.getEntities().size());
+        Assert.assertEquals(observer1RuleCount, actualObserverPattern.getRules().size());
     }
 }

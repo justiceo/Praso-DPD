@@ -2,6 +2,7 @@ package DPD.DSMMapper;
 
 import DPD.Enums.ResolverType;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import java.util.List;
  */
 @XmlRootElement(name = "resolver")
 public class PatternResolver {
-    public String entity;
+    @XmlAttribute
+    public String source;
+    @XmlAttribute(name="resolver-type")
     public ResolverType resolverType;
 }

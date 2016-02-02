@@ -6,6 +6,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -48,7 +50,9 @@ public class CommonPattern implements IPattern {
 
         for(PatternEntity entity: entities) {
             logger.log("\n" + entity.name + " is satisfied by: ");
-            for(String className: entity.compliantClasses) {
+            List<String> sorted = new ArrayList<>(entity.compliantClasses);
+            Collections.sort(sorted);
+            for(String className: sorted) {
                 logger.log("\t" + className);
             }
         }
