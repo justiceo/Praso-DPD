@@ -1,0 +1,11 @@
+<pattern name="Observer Pattern">
+	<entity id="e1" name="Observer" type="Interface" />
+	<entity id="e2" name="Concrete Observer" type="Class"/>
+	<entity id="e3" name="Subject" type="Class"/>
+
+	<rule rule-type="Dependency"  source="e2" value="Implement" target="e1" />
+	<rule rule-type="Dependency"  source="e3" value="Typed" target="e1" />
+	<rule rule-type="Dependency"  source="e3" value="Use" target="e1" />
+
+	<resolver resolver-type="SEPARATE" source="e1" />
+</pattern>

@@ -4,12 +4,13 @@ import DPD.Enums.RuleType;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * Created by Justice on 1/26/2016.
  */
 @XmlRootElement(name = "rule")
-public class PatternRule {
+public class PatternRule implements Serializable {
     @XmlAttribute(name = "rule-type")
     public RuleType ruleType;
     @XmlAttribute

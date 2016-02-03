@@ -10,5 +10,5 @@
 	<rule rule-type="Dependency"  exclude="true" source="e3" value="Typed" target="e2" />
 	<rule rule-type="Dependency"  exclude="true" source="e3" value="Use" target="e2" />
 
-	<resolver resolver-type="Separate" source="e1" />
+	<resolver resolver-type="SEPARATE" source="e1" />
 </pattern>

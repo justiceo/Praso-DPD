@@ -21,6 +21,8 @@ public class CommonPattern implements IPattern {
     List<PatternEntity> entities;
     @XmlElement (name = "rule")
     List<PatternRule> rules;
+    @XmlElement (name = "resolver")
+    List<PatternResolver> resolvers;
 
 
     @Override
@@ -40,7 +42,7 @@ public class CommonPattern implements IPattern {
 
     @Override
     public List<PatternResolver> getResolvers() {
-        return null;
+        return resolvers;
     }
 
     @Override

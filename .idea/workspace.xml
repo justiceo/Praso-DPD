@@ -5,18 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dfcbf76a-6d8f-403e-b65b-b36343fb603a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/DPD/Enums/CardinalityType.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/files/observer-pattern-simple.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.classpath" afterPath="$PROJECT_DIR$/.classpath" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DesignPatterns.eml" afterPath="$PROJECT_DIR$/DesignPatterns.eml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.xml" afterPath="$PROJECT_DIR$/config.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/files/abs-observer-pattern.xml" afterPath="$PROJECT_DIR$/files/abs-observer-pattern.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/files/observer-pattern.xml" afterPath="$PROJECT_DIR$/files/observer-pattern.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/files/observer-pattern-v2.xml" afterPath="$PROJECT_DIR$/files/observer-pattern-v2.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DSMMapper/CommonPattern.java" afterPath="$PROJECT_DIR$/src/DPD/DSMMapper/CommonPattern.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DSMMapper/DSMMapper.java" afterPath="$PROJECT_DIR$/src/DPD/DSMMapper/DSMMapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DSMMapper/IPattern.java" afterPath="$PROJECT_DIR$/src/DPD/DSMMapper/IPattern.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DSMMapper/PatternEntity.java" afterPath="$PROJECT_DIR$/src/DPD/DSMMapper/PatternEntity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DSMMapper/PatternResolver.java" afterPath="$PROJECT_DIR$/src/DPD/DSMMapper/PatternResolver.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DSMMapper/PatternRule.java" afterPath="$PROJECT_DIR$/src/DPD/DSMMapper/PatternRule.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DSMMapper/RuleFilters.java" afterPath="$PROJECT_DIR$/src/DPD/DSMMapper/RuleFilters.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/Enums/RuleType.java" afterPath="$PROJECT_DIR$/src/DPD/Enums/RuleType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/src/IPatternsTest.java" afterPath="$PROJECT_DIR$/test/src/IPatternsTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/src/PatternsParserTest.java" afterPath="$PROJECT_DIR$/test/src/PatternsParserTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java" afterPath="$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java" afterPath="$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/src/RuleFilterTests.java" afterPath="$PROJECT_DIR$/test/src/RuleFilterTests.java" />
     </list>
     <ignored path="DesignPatterns.iws" />
@@ -47,66 +51,48 @@
         <entry file="file://$PROJECT_DIR$/test/src/RuleFilterTests.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+              <caret line="80" column="9" selection-start-line="80" selection-start-column="9" selection-end-line="80" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#setup#0;class#RuleFilterTests#0" expanded="true" />
                 <element signature="method#teardown#0;class#RuleFilterTests#0" expanded="true" />
                 <element signature="method#TestRules#0;class#RuleFilterTests#0" expanded="true" />
-                <element signature="method#TestFilter#0;class#RuleFilterTests#0" expanded="true" />
                 <element signature="method#filter#0;class#RuleFilterTests#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="observer-pattern-v2.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/files/observer-pattern-v2.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.2692308">
-              <caret line="5" column="31" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PatternEntity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/PatternEntity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26953566">
-              <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PatternsParserTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/src/PatternsParserTest.java">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="22" column="114" selection-start-line="22" selection-start-column="114" selection-end-line="22" selection-end-column="114" />
+              <caret line="20" column="95" selection-start-line="20" selection-start-column="95" selection-end-line="20" selection-end-column="95" />
               <folding>
-                <element signature="method#setup#0;class#PatternsParserTest#0" expanded="true" />
-                <element signature="method#TestPatternConfigEquals#0;class#PatternsParserTest#0" expanded="true" />
-                <element signature="method#TestGetPatternConfigs#0;class#PatternsParserTest#0" expanded="true" />
-                <element signature="method#TestGetRunnablePatternConfigs#0;class#PatternsParserTest#0" expanded="true" />
-                <element signature="method#TestParseConfig#0;class#PatternsParserTest#0" expanded="true" />
-                <element signature="method#TestLoadPatternById#0;class#PatternsParserTest#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="method#main#0;class#Main#0" expanded="true" />
+                <element signature="method#analyze#0;class#Main#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RuleFilters.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/RuleFilters.java">
+      <file leaf-file-name="config.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="107" column="9" selection-start-line="107" selection-start-column="9" selection-end-line="107" selection-end-column="9" />
-              <folding>
-                <element signature="method#filter#0;class#RuleFilters#0" expanded="true" />
-                <element signature="method#filter#1;class#RuleFilters#0" expanded="true" />
-                <element signature="method#filterIsAssociatedWithDependency#0;class#RuleFilters#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-1.3076923">
+              <caret line="2" column="107" selection-start-line="2" selection-start-column="107" selection-end-line="2" selection-end-column="107" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="observer-pattern-simple.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/files/observer-pattern-simple.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.38116592">
+              <caret line="10" column="10" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -140,8 +126,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/DPD/Browser/DSMBrowser.java" />
-        <option value="$PROJECT_DIR$/src/DPD/DSMMapper/PatternRules.java" />
         <option value="$PROJECT_DIR$/src/DPD/DSMMapper/Rules.java" />
         <option value="$PROJECT_DIR$/src/DPD/DSMMapper/EntityType.java" />
         <option value="$PROJECT_DIR$/src/DPD/DTO/PatternItem.java" />
@@ -150,8 +134,6 @@
         <option value="$PROJECT_DIR$/src/DPD/Browser/DependencyType.java" />
         <option value="$PROJECT_DIR$/src/DPD/PatternParser/IPatternParser.java" />
         <option value="$PROJECT_DIR$/src/DPD/PatternParser/Config.java" />
-        <option value="$PROJECT_DIR$/src/DPD/PatternParser/FileIO.java" />
-        <option value="$PROJECT_DIR$/src/DPD/DSMMapper/PatternEntity.java" />
         <option value="$PROJECT_DIR$/src/DPD/Browser/ClassType.java" />
         <option value="$PROJECT_DIR$/src/DPD/DSMMapper/EntityMapper.java" />
         <option value="$PROJECT_DIR$/test/src/RuleMapperTests.java" />
@@ -159,14 +141,10 @@
         <option value="$PROJECT_DIR$/src/DPD/SourceParser/ConsoleLogger.java" />
         <option value="$PROJECT_DIR$/src/DPD/ConsoleLogger.java" />
         <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/CytoscapeToDsm/CytoscapeBrowser.java" />
-        <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java" />
         <option value="$PROJECT_DIR$/test/abs-observer-pattern.xml" />
         <option value="$PROJECT_DIR$/src/DPD/Enums/RuleTypes.java" />
         <option value="$PROJECT_DIR$/test/observer-pattern.xml" />
         <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/DependencyType.java" />
-        <option value="$PROJECT_DIR$/src/DPD/DSMMapper/IPattern.java" />
-        <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java" />
-        <option value="$PROJECT_DIR$/src/DPD/DSMMapper/DSMMapper.java" />
         <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/ClassType.java" />
         <option value="$PROJECT_DIR$/src/DPD/Enums/DependencyType.java" />
         <option value="$PROJECT_DIR$/src/DPD/Enums/ResolverType.java" />
@@ -176,21 +154,29 @@
         <option value="$PROJECT_DIR$/src/DPD/PatternParser/IPatternsParser.java" />
         <option value="$PROJECT_DIR$/src/DPD/PatternParser/CommonPatternsParser.java" />
         <option value="$PROJECT_DIR$/test/src/EntityMapperTests.java" />
-        <option value="$PROJECT_DIR$/test/src/DSMBrowserTest.java" />
         <option value="$PROJECT_DIR$/files/abs-observer-pattern.xml" />
         <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/CytoscapeToDsm/CGraph.java" />
         <option value="$PROJECT_DIR$/files/observer-pattern.xml" />
         <option value="$PROJECT_DIR$/src/DPD/Enums/RuleType.java" />
-        <option value="$PROJECT_DIR$/src/DPD/DSMMapper/PatternRule.java" />
-        <option value="$PROJECT_DIR$/src/DPD/DSMMapper/PatternResolver.java" />
-        <option value="$PROJECT_DIR$/config.xml" />
         <option value="$PROJECT_DIR$/test/src/IPatternsTest.java" />
         <option value="$PROJECT_DIR$/src/DPD/Enums/CardinalityType.java" />
-        <option value="$PROJECT_DIR$/files/observer-pattern-v2.xml" />
-        <option value="$PROJECT_DIR$/src/DPD/DSMMapper/CommonPattern.java" />
-        <option value="$PROJECT_DIR$/src/DPD/DSMMapper/RuleFilters.java" />
         <option value="$PROJECT_DIR$/test/src/PatternsParserTest.java" />
+        <option value="$PROJECT_DIR$/src/DPD/DSMMapper/DSMMapper.java" />
+        <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java" />
+        <option value="$PROJECT_DIR$/test/src/DSMBrowserTest.java" />
+        <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java" />
+        <option value="$PROJECT_DIR$/src/DPD/DSMMapper/CommonPattern.java" />
+        <option value="$PROJECT_DIR$/src/DPD/PatternParser/FileIO.java" />
+        <option value="$PROJECT_DIR$/src/DPD/DSMMapper/IPattern.java" />
+        <option value="$PROJECT_DIR$/src/DPD/DSMMapper/PatternEntity.java" />
+        <option value="$PROJECT_DIR$/src/DPD/DSMMapper/PatternRule.java" />
+        <option value="$PROJECT_DIR$/src/DPD/DSMMapper/PatternResolver.java" />
+        <option value="$PROJECT_DIR$/src/DPD/DSMMapper/RuleFilters.java" />
+        <option value="$PROJECT_DIR$/files/observer-pattern-v2.xml" />
+        <option value="$PROJECT_DIR$/files/observer-pattern-simple.xml" />
+        <option value="$PROJECT_DIR$/config.xml" />
         <option value="$PROJECT_DIR$/test/src/RuleFilterTests.java" />
+        <option value="$PROJECT_DIR$/src/Main.java" />
       </list>
     </option>
   </component>
@@ -207,10 +193,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1912" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
-    <option name="height" value="1176" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -302,68 +288,6 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DPD" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignPatterns" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignPatterns" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DPD" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Enums" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignPatterns" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignPatterns" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DPD" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DSMMapper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignPatterns" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignPatterns" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -393,7 +317,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/files/libraries/hamcrest-core-1.3.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../jhotdraw60b1" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -413,7 +337,7 @@
       <recent name="D:\Code\IdeaProjects\DesignPatterns\test" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.All in test">
+  <component name="RunManager" selected="Application.Main">
     <configuration default="false" name="All in test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="test" />
@@ -456,48 +380,6 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="PatternsParserTest.TestLoadPatternById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="test" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="PatternsParserTest" />
-      <option name="METHOD_NAME" value="TestLoadPatternById" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="RuleFilterTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="test" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="RuleFilterTests" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
     <configuration default="false" name="IPatternsTest.getRulesTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="test" />
@@ -517,6 +399,42 @@
       </option>
       <envs />
       <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="RuleFilterTests.TestFilter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="RuleFilterTests" />
+      <option name="METHOD_NAME" value="TestFilter" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="DesignPatterns" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -932,17 +850,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="JUnit.All in test" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.RuleFilterTests.TestRules" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.PatternsParserTest.TestLoadPatternById" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.RuleFilterTests" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.IPatternsTest.getRulesTest" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.IPatternsTest.getRulesTest" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.RuleFilterTests.TestFilter" />
+      <item index="4" class="java.lang.String" itemvalue="Application.Main" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.All in test" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.RuleFilterTests.TestRules" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.IPatternsTest.getRulesTest" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.RuleFilterTests" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.PatternsParserTest.TestLoadPatternById" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.RuleFilterTests.TestFilter" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.RuleFilterTests.TestRules" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.All in test" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.IPatternsTest.getRulesTest" />
       </list>
     </recent_temporary>
   </component>
@@ -964,57 +882,57 @@
       <workItem from="1454117086120" duration="585000" />
       <workItem from="1454127342861" duration="246000" />
       <workItem from="1454127618313" duration="2650000" />
-      <workItem from="1454332577384" duration="7509000" />
+      <workItem from="1454332577384" duration="19984000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_in_test - 2016.02.02 at 11h 31m 09s.xml">
-      <configuration name="All in test" configurationId="JUnit" />
+    <history-entry file="RuleFilterTests_TestFilter - 2016.02.02 at 13h 59m 33s.xml">
+      <configuration name="RuleFilterTests.TestFilter" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_test - 2016.02.02 at 11h 31m 56s.xml">
-      <configuration name="All in test" configurationId="JUnit" />
+    <history-entry file="RuleFilterTests_TestFilter - 2016.02.02 at 14h 00m 25s.xml">
+      <configuration name="RuleFilterTests.TestFilter" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_test - 2016.02.02 at 11h 33m 12s.xml">
-      <configuration name="All in test" configurationId="JUnit" />
+    <history-entry file="RuleFilterTests_TestFilter - 2016.02.02 at 14h 01m 30s.xml">
+      <configuration name="RuleFilterTests.TestFilter" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_test - 2016.02.02 at 11h 33m 56s.xml">
-      <configuration name="All in test" configurationId="JUnit" />
+    <history-entry file="RuleFilterTests_TestFilter - 2016.02.02 at 14h 01m 48s.xml">
+      <configuration name="RuleFilterTests.TestFilter" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RuleFilterTests_TestRules - 2016.02.02 at 11h 14m 33s.xml">
-      <configuration name="RuleFilterTests.TestRules" configurationId="JUnit" />
+    <history-entry file="RuleFilterTests_TestFilter - 2016.02.02 at 14h 01m 56s.xml">
+      <configuration name="RuleFilterTests.TestFilter" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RuleFilterTests_TestRules - 2016.02.02 at 11h 15m 57s.xml">
-      <configuration name="RuleFilterTests.TestRules" configurationId="JUnit" />
+    <history-entry file="RuleFilterTests_TestFilter - 2016.02.02 at 14h 04m 03s.xml">
+      <configuration name="RuleFilterTests.TestFilter" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RuleFilterTests_TestRules - 2016.02.02 at 11h 16m 26s.xml">
-      <configuration name="RuleFilterTests.TestRules" configurationId="JUnit" />
+    <history-entry file="RuleFilterTests_TestFilter - 2016.02.02 at 14h 04m 56s.xml">
+      <configuration name="RuleFilterTests.TestFilter" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RuleFilterTests_TestRules - 2016.02.02 at 11h 22m 19s.xml">
-      <configuration name="RuleFilterTests.TestRules" configurationId="JUnit" />
+    <history-entry file="RuleFilterTests_TestFilter - 2016.02.02 at 14h 05m 48s.xml">
+      <configuration name="RuleFilterTests.TestFilter" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RuleFilterTests_TestRules - 2016.02.02 at 11h 26m 09s.xml">
-      <configuration name="RuleFilterTests.TestRules" configurationId="JUnit" />
+    <history-entry file="RuleFilterTests_TestFilter - 2016.02.02 at 14h 06m 15s.xml">
+      <configuration name="RuleFilterTests.TestFilter" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="RuleFilterTests_TestRules - 2016.02.02 at 11h 26m 59s.xml">
-      <configuration name="RuleFilterTests.TestRules" configurationId="JUnit" />
+    <history-entry file="RuleFilterTests_TestFilter - 2016.02.02 at 14h 22m 05s.xml">
+      <configuration name="RuleFilterTests.TestFilter" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="101938000" />
+    <option name="totallyTimeSpent" value="114413000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1176" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33846155" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33824974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.104228124" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4425864" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12633263" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1023,7 +941,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2723697" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.6558505" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1067,18 +985,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/test/src/RuleFilterTests.java</url>
-          <line>56</line>
+          <line>57</line>
           <properties />
           <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/DPD/DSMMapper/RuleFilters.java</url>
-          <line>72</line>
+          <line>37</line>
           <properties />
-          <option name="timeStamp" value="31" />
+          <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="33" />
+      <option name="time" value="38" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1087,20 +1005,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/DPD/PatternParser/CommonPatternsParser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="54" selection-start-line="39" selection-start-column="54" selection-end-line="39" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/PatternParser/Config.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1389,13 +1293,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/DSMMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38059703">
-          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/EntityMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.090618335">
@@ -1403,24 +1300,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="83" selection-start-line="35" selection-start-column="83" selection-end-line="35" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DPD/PatternParser/Config.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/PatternParser/FileIO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="47" column="45" selection-start-line="47" selection-start-column="45" selection-end-line="47" selection-end-column="45" />
         </state>
       </provider>
     </entry>
@@ -1446,42 +1329,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/Enums/ResolverType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DPD/Enums/ClassType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/src/DSMBrowserTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="docComment;class#DSMBrowserTest#0" expanded="false" />
-            <element signature="e#796#797#0" expanded="false" />
-            <element signature="e#826#827#0" expanded="false" />
-            <element signature="method#getDependencyTypesTest#0;class#DSMBrowserTest#0" expanded="false" />
-            <element signature="method#getDependencyMatrixTest#0;class#DSMBrowserTest#0" expanded="false" />
-            <element signature="method#getFilesListTest#0;class#DSMBrowserTest#0" expanded="false" />
-            <element signature="method#getNiceNameTest#0;class#DSMBrowserTest#0" expanded="false" />
-            <element signature="method#getInterfacesTest#0;class#DSMBrowserTest#0" expanded="false" />
-            <element signature="method#getSpecializers#0;class#DSMBrowserTest#0" expanded="false" />
-            <element signature="method#getClassesOfTypeTest#0;class#DSMBrowserTest#0" expanded="false" />
-            <element signature="method#getConcreteClassesTest#0;class#DSMBrowserTest#0" expanded="false" />
-            <element signature="method#getClassTypeTest#0;class#DSMBrowserTest#0" expanded="false" />
-            <element signature="method#isOfClassTypeTest#0;class#DSMBrowserTest#0" expanded="false" />
-            <element signature="method#TestGetAssociatedDependencies#0;class#DSMBrowserTest#0" expanded="false" />
-            <element signature="method#TestHasDependencyType#0;class#DSMBrowserTest#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1501,55 +1352,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="215" column="0" selection-start-line="215" selection-start-column="0" selection-end-line="215" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/src/EntityMapperTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13285458">
-          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#tearDown#0;class#EntityMapperTests#0" expanded="true" />
-            <element signature="method#getPatternEntitiesTest#0;class#EntityMapperTests#0" expanded="true" />
-            <element signature="method#resolvePatternEntitiesTest#0;class#EntityMapperTests#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/IPattern.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.54937166">
-          <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/PatternRule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.76301616">
-          <caret line="30" column="47" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DPD/Enums/DependencyType.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6439791">
           <caret line="18" column="9" selection-start-line="18" selection-start-column="9" selection-end-line="18" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/PatternResolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15470172">
-          <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -1570,7 +1376,7 @@
         <state vertical-scroll-proportion="0.13751264">
           <caret line="8" column="7" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
           <folding>
-            <element signature="docComment;class#CardinalityType#0" expanded="true" />
+            <element signature="docComment;class#CardinalityType#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1583,14 +1389,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.047486033">
-          <caret line="2" column="126" selection-start-line="2" selection-start-column="126" selection-end-line="2" selection-end-column="126" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/files/observer-pattern.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.21368715">
@@ -1599,40 +1397,126 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/CommonPattern.java">
+    <entry file="file://$PROJECT_DIR$/test/src/PatternsParserTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8831169">
-          <caret line="54" column="40" selection-start-line="54" selection-start-column="40" selection-end-line="54" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/src/RuleFilterTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.15402038">
+          <caret line="22" column="114" selection-start-line="22" selection-start-column="114" selection-end-line="22" selection-end-column="114" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#setup#0;class#RuleFilterTests#0" expanded="true" />
-            <element signature="method#teardown#0;class#RuleFilterTests#0" expanded="true" />
-            <element signature="method#TestRules#0;class#RuleFilterTests#0" expanded="true" />
-            <element signature="method#TestFilter#0;class#RuleFilterTests#0" expanded="true" />
-            <element signature="method#filter#0;class#RuleFilterTests#0" expanded="true" />
+            <element signature="method#setup#0;class#PatternsParserTest#0" expanded="false" />
+            <element signature="method#TestPatternConfigEquals#0;class#PatternsParserTest#0" expanded="false" />
+            <element signature="method#TestGetPatternConfigs#0;class#PatternsParserTest#0" expanded="false" />
+            <element signature="method#TestGetRunnablePatternConfigs#0;class#PatternsParserTest#0" expanded="false" />
+            <element signature="method#TestParseConfig#0;class#PatternsParserTest#0" expanded="false" />
+            <element signature="method#TestLoadPatternById#0;class#PatternsParserTest#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/src/PatternsParserTest.java">
+    <entry file="file://$PROJECT_DIR$/test/src/EntityMapperTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17228465">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="method#setup#0;class#EntityMapperTests#0" expanded="false" />
+            <element signature="method#tearDown#0;class#EntityMapperTests#0" expanded="false" />
+            <element signature="method#resolvePatternEntitiesTest#0;class#EntityMapperTests#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="114" selection-start-line="22" selection-start-column="114" selection-end-line="22" selection-end-column="114" />
+          <caret line="37" column="83" selection-start-line="37" selection-start-column="83" selection-end-line="37" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/src/DSMBrowserTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8064919">
+          <caret line="106" column="73" selection-start-line="106" selection-start-column="73" selection-end-line="106" selection-end-column="73" />
           <folding>
-            <element signature="method#setup#0;class#PatternsParserTest#0" expanded="true" />
-            <element signature="method#TestPatternConfigEquals#0;class#PatternsParserTest#0" expanded="true" />
-            <element signature="method#TestGetPatternConfigs#0;class#PatternsParserTest#0" expanded="true" />
-            <element signature="method#TestGetRunnablePatternConfigs#0;class#PatternsParserTest#0" expanded="true" />
-            <element signature="method#TestParseConfig#0;class#PatternsParserTest#0" expanded="true" />
-            <element signature="method#TestLoadPatternById#0;class#PatternsParserTest#0" expanded="true" />
+            <element signature="method#setup#0;class#DSMBrowserTest#0" expanded="false" />
+            <element signature="method#getConcreteClassesTest#0;class#DSMBrowserTest#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/Enums/ResolverType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.119382024">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4150613">
+          <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <folding>
+            <element signature="method#hasDependency#0;class#DSMBrowser#0" expanded="false" />
+            <element signature="method#getClassesOfType#0;class#DSMBrowser#0" expanded="false" />
+            <element signature="method#isOfClassType#0;class#DSMBrowser#0" expanded="false" />
+            <element signature="method#getNiceNames#0;class#DSMBrowser#0" expanded="false" />
+            <element signature="docComment;method#getAssociatedDependency#0;class#DSMBrowser#0" expanded="false" />
+            <element signature="method#getAssociatedDependency#0;class#DSMBrowser#0" expanded="false" />
+            <element signature="method#getIndexOfDependency#0;class#DSMBrowser#0" expanded="false" />
+            <element signature="method#getDependenciesOfClass#0;class#DSMBrowser#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/CommonPattern.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0420315">
+          <caret line="53" column="56" selection-start-line="53" selection-start-column="56" selection-end-line="53" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/DSMMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.68476355">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/PatternParser/FileIO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="47" column="87" selection-start-line="47" selection-start-column="87" selection-end-line="47" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/PatternEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
+          <folding>
+            <element signature="method#equals#0;class#PatternEntity#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/IPattern.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="47" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/PatternRule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="48" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="48" />
+          <folding>
+            <element signature="method#equals#0;class#PatternRule#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1640,27 +1524,71 @@
     <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/RuleFilters.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="107" column="9" selection-start-line="107" selection-start-column="9" selection-end-line="107" selection-end-column="9" />
+          <caret line="63" column="32" selection-start-line="63" selection-start-column="32" selection-end-line="63" selection-end-column="32" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="method#filter#0;class#RuleFilters#0" expanded="true" />
             <element signature="method#filter#1;class#RuleFilters#0" expanded="true" />
             <element signature="method#filterIsAssociatedWithDependency#0;class#RuleFilters#0" expanded="true" />
+            <element signature="method#filterIsAssociatedWithDependency#1;class#RuleFilters#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/PatternResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="52" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3076923">
+          <caret line="2" column="107" selection-start-line="2" selection-start-column="107" selection-end-line="2" selection-end-column="107" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/src/RuleFilterTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="80" column="9" selection-start-line="80" selection-start-column="9" selection-end-line="80" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#setup#0;class#RuleFilterTests#0" expanded="true" />
+            <element signature="method#teardown#0;class#RuleFilterTests#0" expanded="true" />
+            <element signature="method#TestRules#0;class#RuleFilterTests#0" expanded="true" />
+            <element signature="method#filter#0;class#RuleFilterTests#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/files/observer-pattern-v2.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.2692308">
-          <caret line="5" column="31" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.096045196">
+          <caret line="3" column="46" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/PatternEntity.java">
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26953566">
-          <caret line="21" column="41" selection-start-line="21" selection-start-column="41" selection-end-line="21" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="95" selection-start-line="20" selection-start-column="95" selection-end-line="20" selection-end-column="95" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#main#0;class#Main#0" expanded="true" />
+            <element signature="method#analyze#0;class#Main#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/files/observer-pattern-simple.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38116592">
+          <caret line="10" column="10" selection-start-line="10" selection-start-column="10" selection-end-line="10" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -1717,11 +1645,12 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>test</last-edited>
+          <last-edited>DesignPatterns</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -1741,7 +1670,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>hamcrest-core-1.3</last-edited>
+          <last-edited>commons-lang3-3.4</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

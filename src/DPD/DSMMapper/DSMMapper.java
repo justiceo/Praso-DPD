@@ -24,14 +24,14 @@ public class DSMMapper implements EntityMapper {
     @Override
     public void mapPatternEntities(IPattern pattern) {
 
-        for(PatternEntity pE: pattern.getEntities()) {
-            pE.compliantClasses = new ArrayList<>();
-            if(pE.type.equals(ClassType.Abstraction)) {
-                pE.compliantClasses.addAll(browser.getClassesOfType(ClassType.Interface));
-                pE.compliantClasses.addAll(browser.getClassesOfType(ClassType.Abstract));
+        for(PatternEntity pEntity: pattern.getEntities()) {
+            pEntity.compliantClasses = new ArrayList<>();
+            if(pEntity.type.equals(ClassType.Abstraction)) {
+                pEntity.compliantClasses.addAll(browser.getClassesOfType(ClassType.Interface, pEntity.hasDependency));
+                pEntity.compliantClasses.addAll(browser.getClassesOfType(ClassType.Abstract, pEntity.hasDependency));
             }
             else {
-                pE.compliantClasses = browser.getClassesOfType(pE.type);
+                pEntity.compliantClasses = browser.getClassesOfType(pEntity.type, pEntity.hasDependency);
             }
         }
     }

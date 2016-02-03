@@ -27,13 +27,17 @@ public interface IBrowser {
 
     String[] getNiceNames(String[] testNames);
 
-    List<String> getClassesOfType(ClassType anInterface);
+    List<String> getClassesOfType(ClassType classType);
+
+    List<String> getClassesOfType(ClassType type, String hasDependency);
 
     boolean isOfClassType(String className, ClassType classType);
 
     List<String> getAssociatedDependency(String fullClassName, DependencyType dependencyType);
 
     boolean isAssociatedWithDependency(String testClass, DependencyType implement);
+
+    String getNiceName(String fullClassName);
 }
 
 

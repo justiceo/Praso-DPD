@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Created by Justice on 1/27/2016.
@@ -68,9 +69,16 @@ public class RuleFilterTests {
 
     @Test
     public void TestFilter() {
-        // TestRule(EntityBuckets, Rule) : boolean
-        // returns true if entityBuckets passes rules, i.e. affected buckets are not empty.
-        //ruleFilters.filter(observerPattern);
+        for(PatternRule rule: observerPattern.getRules()) {
+            ruleFilters.filter(observerPattern, rule);
+        }
+        //observerPattern.displayMembers(new ConsoleLogger());
+
+        System.out.println("\n\n=== Resolving ===\n\n");
+        for(PatternResolver resolver: observerPattern.getResolvers()) {
+            List<IPattern> resolved = ruleFilters.resolve(observerPattern, resolver);
+            resolved.forEach(p -> p.displayMembers(new ConsoleLogger()));
+        }
     }
 
     private IPattern filter(IPattern pattern) {

@@ -4,10 +4,7 @@ import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by Justice on 1/27/2016.
@@ -47,6 +44,15 @@ public class DSMBrowser implements IBrowser{
         buildJClasses();                            /* build jClasses for faster search operations */
     }
 
+    private boolean hasAllDependencies(String className, String dependencyLine) {
+        List<DependencyType> classDeps = getDependenciesOfClass(className);
+        List<DependencyType> desiredDeps = new ArrayList<>();
+        Arrays.asList(dependencyLine.split(""))
+                .stream().map(s -> DependencyType.valueOf(s.toUpperCase()))
+                .forEach(s -> desiredDeps.add(s));
+        return classDeps.containsAll(desiredDeps);
+    }
+
     @Override
     public boolean hasDependency(String className, DependencyType dependencyType) {
         List<DependencyType> deps = getDependenciesOfClass(className);
@@ -77,6 +83,32 @@ public class DSMBrowser implements IBrowser{
         jClasses.stream()
                 .filter( j -> j.classType.equals(classType))
                 .forEach( j -> desiredClasses.add(j.fileName));
+
+        return desiredClasses;
+    }
+
+    @Override
+    public List<String> getClassesOfType(ClassType classType, String dependencyLine) {
+        List<String> desiredClasses = new ArrayList<>();
+        // dedicating this beautiful line below to choir practice
+        jClasses.stream()
+                .filter( j -> j.classType.equals(classType))
+                .forEach( j -> desiredClasses.add(j.fileName));
+
+
+        if(dependencyLine != null) {
+            List<String> filteredByDependencies = new ArrayList<>();
+            for(String desiredClass: desiredClasses) {
+                List<DependencyType> dependencyTypes = new LinkedList<>();
+                for (String str : dependencyLine.split(",")) {
+                    dependencyTypes.add(DependencyType.valueOf(str.toUpperCase()));
+                }
+                List<DependencyType> classDependencies = getDependenciesOfClass(desiredClass);
+                if(classDependencies.containsAll(dependencyTypes))
+                    filteredByDependencies.add(desiredClass);
+            }
+            return filteredByDependencies;
+        }
         return desiredClasses;
     }
 
@@ -96,7 +128,7 @@ public class DSMBrowser implements IBrowser{
         return files;
     }
 
-    @Override
+    @Override // remove this guy later, lazy code
     public String[] getNiceNames(String[] fullClassNames) {
         String[] niceNames = new String[fullClassNames.length];
         int counter = 0;
@@ -133,7 +165,8 @@ public class DSMBrowser implements IBrowser{
         return result;
     }
 
-    private String getNiceName(String fullClassName) {
+    @Override
+    public String getNiceName(String fullClassName) {
         int start = fullClassName.lastIndexOf(".");
         int end = fullClassName.lastIndexOf("_");
         return fullClassName.substring(start+1, end);

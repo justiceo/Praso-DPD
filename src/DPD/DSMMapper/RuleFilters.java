@@ -5,7 +5,10 @@ import DPD.Enums.DependencyType;
 import DPD.DependencyBrowser.IBrowser;
 import DPD.Enums.RuleType;
 
+import org.apache.commons.lang3.SerializationUtils;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -18,6 +21,47 @@ public class RuleFilters {
 
     public RuleFilters(IBrowser browser) {
         this.browser = browser;
+    }
+
+    public List<IPattern> resolve(IPattern pattern, PatternResolver resolver) {
+        // list to hold resolved patterns
+        List<IPattern> resolvedPatterns = new LinkedList<>();
+        // get entity to resolve
+        PatternEntity entityToResolve = pattern.getEntities().stream().filter(e -> e.id.equals(resolver.source)).findFirst().get();
+
+        // create new patterns from each item in the entity
+        for(String className: entityToResolve.compliantClasses) {
+            CommonPattern newPattern = SerializationUtils.deserialize(SerializationUtils.serialize(pattern));
+            newPattern.name = pattern.getName() + " - " + browser.getNiceName(className);
+
+            // reset it's entity to its self alone
+            for(PatternEntity pE: newPattern.entities) {
+                if(pE.id.equals(entityToResolve.id)) {
+                    pE.compliantClasses = new LinkedList<>();
+                    pE.compliantClasses.add(className);
+                }
+            }
+            resolvedPatterns.add(newPattern);
+        }
+
+        // apply the rules to each individual pattern
+        for(IPattern pattern1: resolvedPatterns) {
+            for(PatternRule rule: pattern1.getRules()) {
+                filter(pattern1, rule);
+            }
+        }
+
+        // remove patterns that are empty
+        List<IPattern> incompletePatterns = new LinkedList<>();
+        for(IPattern p: resolvedPatterns) {
+            for(PatternEntity entity: p.getEntities()) {
+                if(entity.compliantClasses.isEmpty()) {
+                    incompletePatterns.add(p);
+                }
+            }
+        }
+        resolvedPatterns.removeAll(incompletePatterns);
+        return resolvedPatterns;
     }
 
     public boolean filter(IPattern pattern, PatternRule rule) {
