@@ -3,8 +3,7 @@ package DPD.Enums;
 /**
  * Created by Justice on 1/27/2016.
  */
-public
-enum DependencyType {
+public enum DependencyType implements Enumeration {
     TYPED,
     USE,
     IMPLEMENT,

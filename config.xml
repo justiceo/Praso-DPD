@@ -2,4 +2,5 @@
 <config>
 	<pattern id="observer1" name="Observer Pattern" config-file="D:\Code\IdeaProjects\DesignPatterns\files\observer-pattern-simple.xml" include="true" />
 	<pattern id="strategy1" name="Strategy Pattern" config-file="D:\Code\IdeaProjects\DesignPatterns\files\strategy-pattern.xml" include="false" />
+	<pattern id="template1" name="Template Method Pattern" config-file="D:\Code\IdeaProjects\DesignPatterns\files\template-method-pattern.xml" include="true" />
 </config>

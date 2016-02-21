@@ -5,5 +5,6 @@
 	<contentEntry url="file://$MODULE_DIR$"/>
 	<levels>
 		<level name="commons-lang3-3.4" value="project"/>
+		<level name="com.github.javaparser:javaparser-core:2.0.0" value="project"/>
 	</levels>
 </component>

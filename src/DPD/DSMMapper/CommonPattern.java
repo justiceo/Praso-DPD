@@ -59,7 +59,12 @@ public class CommonPattern implements IPattern {
             }
         }
 
-        logger.log("\n======= end display pattern ==========\n");
+        //logger.log("\n======= end display pattern ==========\n");
 
+    }
+
+    @Override
+    public PatternEntity getEntityById(String id) {
+        return entities.stream().filter(e -> e.id.equals(id)).findFirst().get();
     }
 }

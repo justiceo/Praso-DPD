@@ -26,4 +26,6 @@ public interface IPattern extends Serializable {
     List<PatternResolver> getResolvers();
 
     public void displayMembers(ILogger logger);
+
+    public PatternEntity getEntityById(String id);
 }
