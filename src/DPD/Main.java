@@ -9,6 +9,7 @@ import DPD.SourceParser.ASTAnalyzer;
 import DPD.SourceParser.JParser;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,24 +49,28 @@ public class Main {
         ruleFilters = new RuleFilters(browser);
         ruleFilters.addSourceParser(sourceParser);
 
+        // run filters through entities
         for(PatternRule rule: pattern.getRules()) {
             ruleFilters.filter(pattern, rule);
         }
 
-        /*for(PatternResolver resolver: pattern.getResolvers()) {
-            List<IPattern> resolved = ruleFilters.resolve(pattern, resolver);
-            System.out.println("total patterns: " + resolved.size());
-            resolved.forEach(p -> p.displayMembers(new ConsoleLogger()));
-        }*/
-
-        for(PatternRule rule: pattern.getRules()) {
-            ruleFilters.checkSource(pattern, rule);
+        // resolve patterns
+        List<IPattern> resolved = new ArrayList<>();
+        for(PatternResolver resolver: pattern.getResolvers()) {
+            resolved.addAll(ruleFilters.resolve(pattern, resolver));
+            System.out.println("total patterns added: " + resolved.size());
         }
 
-        for(PatternResolver resolver: pattern.getResolvers()) {
-            List<IPattern> resolved = ruleFilters.resolve(pattern, resolver);
-            System.out.println("total patterns: " + resolved.size());
-            resolved.forEach(p -> p.displayMembers(new ConsoleLogger()));
+        // run ast
+        for(IPattern pattern: resolved) {
+            for (PatternRule rule : pattern.getRules()) {
+                ruleFilters.checkSource(pattern, rule);
+            }
+        }
+
+        // print out remaining ones
+        for(IPattern pattern: resolved) {
+            pattern.displayMembers(new ConsoleLogger());
         }
     }
 }

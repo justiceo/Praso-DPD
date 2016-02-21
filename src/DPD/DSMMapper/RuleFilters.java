@@ -1,14 +1,12 @@
 package DPD.DSMMapper;
 
+import DPD.DependencyBrowser.IBrowser;
 import DPD.Enums.ASTAnalysisType;
 import DPD.Enums.CardinalityType;
 import DPD.Enums.DependencyType;
-import DPD.DependencyBrowser.IBrowser;
 import DPD.Enums.RuleType;
-
 import DPD.SourceParser.ASTAnalyzer;
 import DPD.SourceParser.JParser;
-import DPD.SourceParser.ObserverASTAnalyzer;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.util.ArrayList;
@@ -139,12 +137,6 @@ public class RuleFilters {
     public boolean astAnalyzeFilter(IPattern pattern, String sourceId, String targetId, ASTAnalysisType astAnalysisType, boolean exclude) {
         if(patternHasEmptyEntity(pattern))
             return false;
-
-        /*if(pattern.getName().equals("Observer Pattern")) { // un-hard code this.
-            ObserverASTAnalyzer obs = new ObserverASTAnalyzer();
-            obs.validate(pattern);
-
-        }*/
 
         List<String> sourceBucket = pattern.getEntityById(sourceId).compliantClasses;
         //String sourceClass = pattern.getEntityById(sourceId).compliantClasses.get(0);
