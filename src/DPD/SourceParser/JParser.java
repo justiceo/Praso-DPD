@@ -50,6 +50,7 @@ public class JParser implements ASTAnalyzer {
         CompilationUnit sourceCU = this.init(sourceClass.replace(".", "\\").replace("_", "."));
         CompilationUnit targetCU = this.init(targetClass.replace(".", "\\").replace("_", "."));
         String targetClassName = targetClass.substring(targetClass.lastIndexOf(".")+1, targetClass.lastIndexOf("_"));
+
         // get all for loops
         MethodVisitor mv = new MethodVisitor();
         mv.visit(sourceCU, null);
@@ -120,6 +121,7 @@ public class JParser implements ASTAnalyzer {
 
         @Override
         public void visit(MethodDeclaration n, Object arg) {
+            if(n.getBody() == null) return;
             List<Statement> statementList = n.getBody().getStmts();
             if(statementList != null) {
                 forLoops.addAll(statementList.stream()

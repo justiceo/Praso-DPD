@@ -9,4 +9,5 @@ enum ClassType {
     Class,
     Abstract,
     Abstraction, // true for Abstract class or Interface
+    Any, // match any class or interface
 }

@@ -5,6 +5,7 @@ import DPD.Enums.DependencyType;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Justice on 1/27/2016.
@@ -80,6 +81,9 @@ public class DSMBrowser implements IBrowser{
     public List<String> getClassesOfType(ClassType classType) {
         List<String> desiredClasses = new ArrayList<>();
         // dedicating this beautiful line below to choir practice
+        if(classType.equals(ClassType.Any))
+            return jClasses.stream()
+                            .map(j -> j.fileName).collect(Collectors.toList());
         jClasses.stream()
                 .filter( j -> j.classType.equals(classType))
                 .forEach( j -> desiredClasses.add(j.fileName));
@@ -89,6 +93,10 @@ public class DSMBrowser implements IBrowser{
 
     @Override
     public List<String> getClassesOfType(ClassType classType, String dependencyLine) {
+        if(classType.equals(ClassType.Any))
+            return jClasses.stream()
+                    .map(j -> j.fileName).collect(Collectors.toList());
+
         List<String> desiredClasses = new ArrayList<>();
         // dedicating this beautiful line below to choir practice
         jClasses.stream()
@@ -106,6 +114,23 @@ public class DSMBrowser implements IBrowser{
                 List<DependencyType> classDependencies = getDependenciesOfClass(desiredClass);
                 if(classDependencies.containsAll(dependencyTypes))
                     filteredByDependencies.add(desiredClass);
+                else if(dependencyTypes.contains(DependencyType.SPECIALIZE)) {
+                    // if classDependencies contains all - specialize & extend or implement
+                    dependencyTypes.remove(DependencyType.SPECIALIZE);
+                    if(dependencyTypes.size() == 0) {
+                        if (classDependencies.contains(DependencyType.EXTEND)
+                                || classDependencies.contains(DependencyType.IMPLEMENT))
+                        {
+                            filteredByDependencies.add(desiredClass);
+                        }
+                    }
+                    else if (classDependencies.contains(dependencyTypes)
+                            && (classDependencies.contains(DependencyType.EXTEND)
+                            || classDependencies.contains(DependencyType.IMPLEMENT)))
+                    {
+                        filteredByDependencies.add(desiredClass);
+                    }
+                }
             }
             return filteredByDependencies;
         }

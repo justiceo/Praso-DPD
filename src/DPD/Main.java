@@ -22,7 +22,7 @@ public class Main {
     private IBrowser browser;
     private IPattern pattern;
     private final String configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
-    private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\ObserverPattern_2.dsm";
+    private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\jalarm.dsm";
 
     public static void main(String[] args) {
         Main dpd = new Main();
