@@ -87,21 +87,9 @@ public class RuleFilters {
         if(patternHasEmptyEntity(pattern))
             return false;
 
-        List<String> targetBucket = null;
-        List<String> sourceBucket = null;
-        int sourceBucketIndex = 0;
-        int counter = 0;
-
         // get the entity buckets to dependencyFilter
-        for(PatternEntity entity: pattern.getEntities()) {
-            if(entity.id.equals(targetId))
-                targetBucket = entity.compliantClasses;
-            else if(entity.id.equals(sourceId)) {
-                sourceBucket = entity.compliantClasses;
-                sourceBucketIndex = counter;
-            }
-            counter++;
-        }
+        List<String> targetBucket = pattern.getEntityById(targetId).compliantClasses;
+        List<String> sourceBucket = pattern.getEntityById(sourceId).compliantClasses;
 
         // perform the dependencyFilter
         List<String> filteredList = new ArrayList<>();
@@ -116,11 +104,12 @@ public class RuleFilters {
         }
 
         if(exclude) {
+            System.out.println("exclude flag is on");
             sourceBucket.removeAll(filteredList);
             filteredList = sourceBucket;
         }
 
-        pattern.getEntities().get(sourceBucketIndex).compliantClasses = filteredList;
+        pattern.getEntityById(sourceId).compliantClasses = filteredList;
         return  !filteredList.isEmpty();
     }
 

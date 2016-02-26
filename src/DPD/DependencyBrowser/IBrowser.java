@@ -4,6 +4,7 @@ import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
 
 import java.io.File;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -27,6 +28,14 @@ public interface IBrowser {
 
     String[] getNiceNames(String[] testNames);
 
+    /**
+     * Given an absolute or relative* class type, it would return list of class names that satisfy this type
+     * Absolute class types are Class, Abstract, Interface and relative are Abstraction, Specialization and Any.
+     * Specialization is a combo of Any and DependencyType.Extend, DependencyType.Implement
+     * Abstraction is a combo of Any and hasDependencyType(Extend), hasDependencyType(Implement).
+     * @param classType
+     * @return
+     */
     List<String> getClassesOfType(ClassType classType);
 
     List<String> getClassesOfType(ClassType type, String hasDependency);
@@ -38,6 +47,7 @@ public interface IBrowser {
     boolean isAssociatedWithDependency(String testClass, DependencyType implement);
 
     String getNiceName(String fullClassName);
+
 }
 
 

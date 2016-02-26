@@ -7,6 +7,7 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 /**
  * Created by Justice on 1/27/2016.
  */
@@ -45,14 +46,6 @@ public class DSMBrowser implements IBrowser{
         buildJClasses();                            /* build jClasses for faster search operations */
     }
 
-    private boolean hasAllDependencies(String className, String dependencyLine) {
-        List<DependencyType> classDeps = getDependenciesOfClass(className);
-        List<DependencyType> desiredDeps = new ArrayList<>();
-        Arrays.asList(dependencyLine.split(""))
-                .stream().map(s -> DependencyType.valueOf(s.toUpperCase()))
-                .forEach(s -> desiredDeps.add(s));
-        return classDeps.containsAll(desiredDeps);
-    }
 
     @Override
     public boolean hasDependency(String className, DependencyType dependencyType) {
@@ -77,70 +70,98 @@ public class DSMBrowser implements IBrowser{
         return getJClassFromName(className).classType;
     }
 
+    /**
+     * Given a classType, returns all classes that fit the bill
+     * if given an absolute type, returns it as determined by determineClassType()
+     * if relative type, uses dependency matrix to figure it out.
+     * @param classType
+     * @return
+     */
     @Override
     public List<String> getClassesOfType(ClassType classType) {
-        List<String> desiredClasses = new ArrayList<>();
-        // dedicating this beautiful line below to choir practice
-        if(classType.equals(ClassType.Any))
-            return jClasses.stream()
-                            .map(j -> j.fileName).collect(Collectors.toList());
-        jClasses.stream()
-                .filter( j -> j.classType.equals(classType))
-                .forEach( j -> desiredClasses.add(j.fileName));
 
-        return desiredClasses;
+        switch (classType) {
+            case Any:
+                return jClasses.stream()
+                        .map(j -> j.fileName).collect(Collectors.toList());
+            case Specialization:
+                return jClasses.stream()
+                        .filter(j -> hasDependency(j.fileName, DependencyType.IMPLEMENT) || hasDependency(j.fileName, DependencyType.EXTEND))
+                        .map(j -> j.fileName).collect(Collectors.toList());
+            case Abstraction:
+                return jClasses.stream()
+                        .filter(j -> isAssociatedWithDependency(j.fileName, DependencyType.IMPLEMENT) || isAssociatedWithDependency(j.fileName, DependencyType.EXTEND))
+                        .map(j -> j.fileName).collect(Collectors.toList());
+            default: // it's an absolute type!
+                return jClasses.stream()
+                        .filter( j -> j.classType.equals(classType))
+                        .map(j -> j.fileName).collect(Collectors.toList());
+        }
     }
 
+    /**
+     * Given a class type and a dependency line
+     * Returns all classes with these type that meets ALL the dependencies specified
+     * Even for relative types, the dependencies would still be processed - so don't include them because you double the work
+     * @param classType
+     * @param dependencyLine
+     * @return
+     */
     @Override
     public List<String> getClassesOfType(ClassType classType, String dependencyLine) {
-        if(classType.equals(ClassType.Any))
-            return jClasses.stream()
-                    .map(j -> j.fileName).collect(Collectors.toList());
-
-        List<String> desiredClasses = new ArrayList<>();
-        // dedicating this beautiful line below to choir practice
-        jClasses.stream()
-                .filter( j -> j.classType.equals(classType))
-                .forEach( j -> desiredClasses.add(j.fileName));
+        List<String> desiredClasses = getClassesOfType(classType);
+        if(dependencyLine == null) return desiredClasses;
 
 
-        if(dependencyLine != null) {
-            List<String> filteredByDependencies = new ArrayList<>();
-            for(String desiredClass: desiredClasses) {
-                List<DependencyType> dependencyTypes = new LinkedList<>();
-                for (String str : dependencyLine.split(",")) {
-                    dependencyTypes.add(DependencyType.valueOf(str.toUpperCase()));
-                }
-                List<DependencyType> classDependencies = getDependenciesOfClass(desiredClass);
-                if(classDependencies.containsAll(dependencyTypes))
-                    filteredByDependencies.add(desiredClass);
-                else if(dependencyTypes.contains(DependencyType.SPECIALIZE)) {
-                    // if classDependencies contains all - specialize & extend or implement
-                    dependencyTypes.remove(DependencyType.SPECIALIZE);
-                    if(dependencyTypes.size() == 0) {
-                        if (classDependencies.contains(DependencyType.EXTEND)
-                                || classDependencies.contains(DependencyType.IMPLEMENT))
-                        {
-                            filteredByDependencies.add(desiredClass);
-                        }
-                    }
-                    else if (classDependencies.contains(dependencyTypes)
-                            && (classDependencies.contains(DependencyType.EXTEND)
-                            || classDependencies.contains(DependencyType.IMPLEMENT)))
-                    {
-                        filteredByDependencies.add(desiredClass);
-                    }
-                }
+        List<DependencyType> dependencyTypes = Arrays.asList(dependencyLine.split(","))
+                                                    .stream().map(s -> DependencyType.valueOf(s.toUpperCase()))
+                                                    .collect(Collectors.toList());
+
+        for(Iterator<String> iterator = desiredClasses.iterator(); iterator.hasNext();) {
+            List<DependencyType> classDependencies = getDependenciesOfClass(iterator.next());
+            if(!containsDependencies(classDependencies, dependencyTypes)) {
+                iterator.remove();
             }
-            return filteredByDependencies;
         }
         return desiredClasses;
     }
 
+    /**
+     * Determines if the list of avaialable dependencies contains the required dependencies
+     * @param availableDependencies
+     * @param requiredDependencies
+     * @return
+     */
+    private boolean containsDependencies(List<DependencyType> availableDependencies, List<DependencyType> requiredDependencies) {
+        boolean isContained;
+        for(DependencyType req: requiredDependencies){
+            switch (req) {
+                case SPECIALIZE:
+                    isContained = availableDependencies.contains(DependencyType.EXTEND)
+                            || availableDependencies.contains(DependencyType.IMPLEMENT);
+                    break;
+                default:
+                    isContained = availableDependencies.contains(req);
+            }
+            if(!isContained) return isContained;
+        }
+        return true;
+    }
+
     @Override
-    public boolean isOfClassType(String className, ClassType classType) {
-        // not sufficient for Abstraction and Sealed etc. Fine for now.
-        return getJClassFromName(className).classType.equals(classType);
+    public boolean isOfClassType(String className, ClassType desiredType) {
+        switch (desiredType) {
+            case Any:
+                return true;
+            case Specialization:
+                return hasDependency(className, DependencyType.IMPLEMENT)
+                        || hasDependency(className, DependencyType.EXTEND);
+            case Abstraction:
+                return isAssociatedWithDependency(className, DependencyType.IMPLEMENT)
+                        || isAssociatedWithDependency(className, DependencyType.EXTEND);
+            default:
+                return getJClassFromName(className).classType.equals(desiredType);
+        }
     }
 
     @Override
@@ -165,18 +186,30 @@ public class DSMBrowser implements IBrowser{
 
     /**
      * Returns the class that specified one depends on
+     * Todo: Would not work for relative dependency types - needs refactoring
      * @param fullClassName
      * @param dependencyType
      * @return
      */
     @Override
     public List<String> getAssociatedDependency(String fullClassName, DependencyType dependencyType) {
+        switch (dependencyType) {
+            case SPECIALIZE:
+                List x = getAssociatedDependencyNative(fullClassName, DependencyType.EXTEND);
+                x.addAll(getAssociatedDependencyNative(fullClassName, DependencyType.IMPLEMENT));
+                return x;
+            default:
+                return getAssociatedDependencyNative(fullClassName, dependencyType);
+        }
+    }
+    private List<String> getAssociatedDependencyNative(String fullClassName, DependencyType dependencyType) {
         JClass jClass = getJClassFromName(fullClassName);
         List<Integer> depLocations = getIndexOfDependency(jClass, dependencyType);
         List<String> desiredDependencies = new ArrayList<>();
         jClasses.stream().filter(j -> depLocations.contains(j.matrixIndex)).forEach(j -> desiredDependencies.add(j.fileName));
         return desiredDependencies;
     }
+
 
     private List<Integer> getIndexOfDependency(JClass jClass, DependencyType dependencyType) {
         String depLine = jClass.dependencyLine;

@@ -2,6 +2,7 @@ package DPD.DSMMapper;
 
 import DPD.Enums.ClassType;
 import DPD.DependencyBrowser.IBrowser;
+import DPD.Enums.DependencyType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,16 +24,8 @@ public class DSMMapper implements EntityMapper {
 
     @Override
     public void mapPatternEntities(IPattern pattern) {
-
         for(PatternEntity pEntity: pattern.getEntities()) {
-            pEntity.compliantClasses = new ArrayList<>();
-            if(pEntity.type.equals(ClassType.Abstraction)) {
-                pEntity.compliantClasses.addAll(browser.getClassesOfType(ClassType.Interface, pEntity.hasDependency));
-                pEntity.compliantClasses.addAll(browser.getClassesOfType(ClassType.Abstract, pEntity.hasDependency));
-            }
-            else {
-                pEntity.compliantClasses = browser.getClassesOfType(pEntity.type, pEntity.hasDependency);
-            }
+            pEntity.compliantClasses = browser.getClassesOfType(pEntity.type, pEntity.hasDependency);
         }
     }
 
