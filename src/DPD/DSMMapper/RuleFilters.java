@@ -35,14 +35,14 @@ public class RuleFilters {
         PatternEntity entityToResolve = pattern.getEntities().stream().filter(e -> e.id.equals(resolver.source)).findFirst().get();
 
         // create new patterns from each item in the entity
-        for(String className: entityToResolve.compliantClasses) {
+        for(int classId: entityToResolve.compliantClasses) {
             CommonPattern newPattern = SerializationUtils.deserialize(SerializationUtils.serialize(pattern));
-            newPattern.name = pattern.getName() + " - " + browser.getNiceName(browser.getClassIdFromPath(className));
+            newPattern.name = pattern.getName() + " - " + browser.getNiceName(classId);
 
             // reset it's entity to its self alone
             newPattern.entities.stream().filter(pE -> pE.id.equals(entityToResolve.id)).forEach(pE -> {
                 pE.compliantClasses = new LinkedList<>();
-                pE.compliantClasses.add(className);
+                pE.compliantClasses.add(classId);
             });
             resolvedPatterns.add(newPattern);
         }
@@ -82,21 +82,22 @@ public class RuleFilters {
         return false; // we haven't added this rule yet
     }
 
-    public boolean dependencyFilter(IPattern pattern, String sourceId, String targetId, DependencyType dependencyType, boolean exclude) {
+    public boolean dependencyFilter(IPattern pattern, String sourceEntityId, String targetEntityId, DependencyType dependencyType, boolean exclude) {
         // if any is empty, job is already done
         if(patternHasEmptyEntity(pattern))
             return false;
 
         // get the entity buckets to dependencyFilter
-        List<String> targetBucket = pattern.getEntityById(targetId).compliantClasses;
-        List<String> sourceBucket = pattern.getEntityById(sourceId).compliantClasses;
+        List<Integer> targetBucket = pattern.getEntityById(targetEntityId).compliantClasses;
+        List<Integer> sourceBucket = pattern.getEntityById(sourceEntityId).compliantClasses;
 
         // perform the dependencyFilter
-        List<String> filteredList = new ArrayList<>();
-        for(String sourceClassStr: sourceBucket) {
-            for(Integer classId: browser.getAssociatedDependency(browser.getClassIdFromPath(sourceClassStr), dependencyType)) {
-                if(targetBucket.contains(browser.getClassPathFromId(classId))) {
-                    filteredList.add(sourceClassStr);
+        List<Integer> filteredList = new ArrayList<>();
+        for(Integer srcClass: sourceBucket) {
+            List<Integer> associatedDeps = browser.getAssociatedDependency(srcClass, dependencyType);
+            for(Integer assocClass: associatedDeps) {
+                if(targetBucket.contains(assocClass)) {
+                    filteredList.add(srcClass);
                     break;
                 }
             }
@@ -109,7 +110,7 @@ public class RuleFilters {
             filteredList = sourceBucket;
         }
 
-        pattern.getEntityById(sourceId).compliantClasses = filteredList;
+        pattern.getEntityById(sourceEntityId).compliantClasses = filteredList;
         return  !filteredList.isEmpty();
     }
 
@@ -127,14 +128,14 @@ public class RuleFilters {
         if(patternHasEmptyEntity(pattern))
             return false;
 
-        List<String> sourceBucket = pattern.getEntityById(sourceId).compliantClasses;
+        List<Integer> sourceBucket = pattern.getEntityById(sourceId).compliantClasses;
         //String sourceClass = pattern.getEntityById(sourceId).compliantClasses.get(0);
-        String targetClass = pattern.getEntityById(targetId).compliantClasses.get(0);
+        int targetClassId = pattern.getEntityById(targetId).compliantClasses.get(0);
         sourceParser = new JParser();
-        for(String sourceClass: sourceBucket) {
-            if (!sourceParser.examine(sourceClass, astAnalysisType, targetClass)) {
+        for(Integer sourceClassId: sourceBucket) {
+            if (!sourceParser.examine(browser.getClassPathFromId(sourceClassId), astAnalysisType, browser.getClassPathFromId(targetClassId))) {
                 PatternEntity bucket = pattern.getEntityById(sourceId);
-                bucket.compliantClasses.remove(sourceClass);
+                bucket.compliantClasses.remove(sourceClassId);
                 return false;
             }
         }

@@ -1,23 +1,26 @@
 package DPD.DSMMapper;
 
+import DPD.Enums.ClassType;
 import DPD.DependencyBrowser.IBrowser;
+import DPD.Enums.DependencyType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Justice on 1/27/2016.
- *
- * This interfaces exposes methods for placing classes into entity buckets
- * When it is done, it should return a list of entity buckets
- * Each bucket contains classes that satisfy some base conditions
  */
-public interface EntityMapper {
+public class EntityMapper {
 
-    List<PatternEntity> getEntityBuckets(List<String> classes);
+    private IBrowser browser;
 
-    void init(IBrowser browser);
+    public EntityMapper(IBrowser browser) {
+        this.browser = browser;
+    }
 
-    void mapPatternEntities(IPattern pattern);
-
-    List<IPattern> resolvePatternEntities(IPattern pattern);
+    public void mapPatternEntities(IPattern pattern) {
+        for(PatternEntity pEntity: pattern.getEntities()) {
+            pEntity.compliantClasses = browser.getClassesOfType(pEntity.type, pEntity.hasDependency);
+        }
+    }
 }

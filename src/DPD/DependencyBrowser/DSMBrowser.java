@@ -67,8 +67,8 @@ public class DSMBrowser implements IBrowser{
      * @return
      */
     @Override
-    public List<String> getClassesOfType(ClassType classType, String dependencyLine) {
-        List<String> desiredClasses = getClassesOfType(classType);
+    public List<Integer> getClassesOfType(ClassType classType, String dependencyLine) {
+        List<Integer> desiredClasses = getClassesOfType(classType);
         if(dependencyLine == null) return desiredClasses;
 
 
@@ -76,7 +76,7 @@ public class DSMBrowser implements IBrowser{
                                                     .stream().map(s -> DependencyType.valueOf(s.toUpperCase()))
                                                     .collect(Collectors.toList());
 
-        for(Iterator<String> iterator = desiredClasses.iterator(); iterator.hasNext();) {
+        for(Iterator<Integer> iterator = desiredClasses.iterator(); iterator.hasNext();) {
             List<DependencyType> classDependencies = getDependenciesOfClass(iterator.next());
             if(!containsDependencies(classDependencies, dependencyTypes)) {
                 iterator.remove();
@@ -118,24 +118,24 @@ public class DSMBrowser implements IBrowser{
 
 
 
-    private List<String> getClassesOfType(ClassType classType) {
+    private List<Integer> getClassesOfType(ClassType classType) {
 
         switch (classType) {
             case Any:
                 return jClasses.stream()
-                        .map(j -> j.classPath).collect(Collectors.toList());
+                        .map(j -> j.classId).collect(Collectors.toList());
             case Specialization:
                 return jClasses.stream()
                         .filter(j -> hasDependency(j.classId, DependencyType.IMPLEMENT) || hasDependency(j.classId, DependencyType.EXTEND))
-                        .map(j -> j.classPath).collect(Collectors.toList());
+                        .map(j -> j.classId).collect(Collectors.toList());
             case Abstraction:
                 return jClasses.stream()
                         .filter(j -> isAssociatedWithDependency(j.classId, DependencyType.IMPLEMENT) || isAssociatedWithDependency(j.classId, DependencyType.EXTEND))
-                        .map(j -> j.classPath).collect(Collectors.toList());
+                        .map(j -> j.classId).collect(Collectors.toList());
             default: // it's an absolute type!
                 return jClasses.stream()
                         .filter( j -> j.classType.equals(classType))
-                        .map(j -> j.classPath).collect(Collectors.toList());
+                        .map(j -> j.classId).collect(Collectors.toList());
         }
     }
 

@@ -42,8 +42,7 @@ public class Main {
 
         ASTAnalyzer sourceParser = new JParser();
 
-        mapper = new DSMMapper();
-        mapper.init(browser);
+        mapper = new EntityMapper(browser);
         mapper.mapPatternEntities(pattern);
 
         ruleFilters = new RuleFilters(browser);

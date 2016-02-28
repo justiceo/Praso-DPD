@@ -25,7 +25,7 @@ public interface IBrowser {
      * @param classType, withDependencies
      * @return
      */
-    List getClassesOfType(ClassType classType, String withDependencies);
+    List<Integer> getClassesOfType(ClassType classType, String withDependencies);
 
     List<Integer> getAssociatedDependency(int classId, DependencyType dependencyType);
 

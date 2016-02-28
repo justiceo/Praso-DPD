@@ -33,7 +33,7 @@ public class RuleFilterTests {
         browser = new DSMBrowser();
         browser.init(dsmFile);
 
-        mapper = new DSMMapper();
+        mapper = new EntityMapper();
         mapper.init(browser);
         mapper.mapPatternEntities(observerPattern);
 

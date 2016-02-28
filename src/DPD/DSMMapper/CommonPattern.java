@@ -52,10 +52,10 @@ public class CommonPattern implements IPattern {
 
         for(PatternEntity entity: entities) {
             logger.log("\n" + entity.name + " is satisfied by: ");
-            List<String> sorted = new ArrayList<>(entity.compliantClasses);
+            List<Integer> sorted = new ArrayList<>(entity.compliantClasses);
             Collections.sort(sorted);
-            for(String className: sorted) {
-                logger.log("\t" + className);
+            for(int classId: sorted) {
+                logger.log("\t" + classId);
             }
         }
 

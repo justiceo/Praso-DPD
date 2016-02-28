@@ -22,7 +22,7 @@ public class PatternEntity implements Serializable {
     @XmlAttribute
     public String hasDependency;
     @XmlElement
-    public List<String> compliantClasses;
+    public List<Integer> compliantClasses;
 
     public boolean equals(Object other) {
         PatternEntity otherP = (PatternEntity) other;

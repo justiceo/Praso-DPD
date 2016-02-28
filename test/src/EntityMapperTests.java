@@ -1,7 +1,6 @@
 import DPD.Enums.ClassType;
 import DPD.DependencyBrowser.DSMBrowser;
 import DPD.DependencyBrowser.IBrowser;
-import DPD.DSMMapper.DSMMapper;
 import DPD.DSMMapper.EntityMapper;
 import DPD.DSMMapper.IPattern;
 import DPD.DSMMapper.PatternEntity;
@@ -37,7 +36,7 @@ public class EntityMapperTests {
         browser = new DSMBrowser();
         browser.init(dsmFile);
 
-        mapper = new DSMMapper();
+        mapper = new EntityMapper();
         mapper.init(browser);
     }
 
