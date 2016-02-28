@@ -133,7 +133,7 @@ public class RuleFilters {
         int targetClassId = pattern.getEntityById(targetId).compliantClasses.get(0);
         sourceParser = new JParser();
         for(Integer sourceClassId: sourceBucket) {
-            if (!sourceParser.examine(browser.getClassPathFromId(sourceClassId), astAnalysisType, browser.getClassPathFromId(targetClassId))) {
+            if (!sourceParser.examine(browser.getClassPath(sourceClassId), astAnalysisType, browser.getClassPath(targetClassId))) {
                 PatternEntity bucket = pattern.getEntityById(sourceId);
                 bucket.compliantClasses.remove(sourceClassId);
                 return false;

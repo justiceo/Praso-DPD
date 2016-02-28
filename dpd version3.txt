@@ -11,7 +11,7 @@ Allow executing of pattern specific code.
 Allow easy classification of class types as realization, specialization, enum and abstraction.
 
 
-ClassItem :-
+ClassItem :-                                                                                        -- Done
 	classPath      : String 
 	classId		   : Int (first a string by renaming fileName)
 	dependencyLine : String
@@ -23,19 +23,11 @@ DependencyTypes :- Enum
 	getIndexofDependency(DependencyType d) 	: int
 	
 DSMBrowser :-
-	all methods are preserved but their implementation reversed.
-	instead of returning class names, we return their indexes.
-	add new method getClassPath(int classId) which returns the path.
-	getClassesOfType would not be handled by the browser since this information cannot be determined affirmatively by the browser.
-	getClassesOfAbsoluteType(AbsoluteType t) would not accept things like Abstraction and Specialize, another class that accesses the AST handles this.
-	getClassesOfRelativeType(RelativeType t) would accept things like Abstraction, Specialization, Concrete.
-	
-	
-infering classType:
-- a class is an interface if it has Implement dependency
-- a class is a concrete class if it has a Create dependency
-- a class is an abstract class if it has an Extend "and" not Create dependency. This distinguishes from Interfaces and Classes that can be extended
-	
+	all methods are preserved but their implementation reversed.        -- Done
+	instead of returning class names, we return their indexes.          -- Done
+	add new method getClassPath(int classId) which returns the path.    -- Done
+
+
 dsmx format
 ===========
 fileName :: classType :: DependencyLine
@@ -44,6 +36,6 @@ before reading dsm, see if objectAid file contains all this information.
 
 Add logging information and nicely formatted output - use you logger! Add verbose flag to logger class
 Add List<String> claims to entities. So filters, resolvers and ast-analyzers can add information about why they chose or didn't choose something
-Put an Id in JClass and substitute fileName for classId.
-Put an classPath var in JClass.
+Put an Id in JClass and substitute fileName for classId.                -- Done
+Put an classPath var in JClass.                                         -- Done
 Create XDSMBrowser - that extends IBrowser.

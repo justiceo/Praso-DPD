@@ -33,10 +33,7 @@ public interface IBrowser {
 
     String getNiceName(int classId);
 
-    // for migration sake
-    int getClassIdFromPath(String classPath);
-    String getClassPathFromId(int classId);
-
+    String getClassPath(int classId);
 }
 
 

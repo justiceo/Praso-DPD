@@ -6,15 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="dfcbf76a-6d8f-403e-b65b-b36343fb603a" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DSMMapper/CommonPattern.java" afterPath="$PROJECT_DIR$/src/DPD/DSMMapper/CommonPattern.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DSMMapper/PatternEntity.java" afterPath="$PROJECT_DIR$/src/DPD/DSMMapper/PatternEntity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dpd version3.txt" afterPath="$PROJECT_DIR$/dpd version3.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DSMMapper/RuleFilters.java" afterPath="$PROJECT_DIR$/src/DPD/DSMMapper/RuleFilters.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java" afterPath="$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java" afterPath="$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/Main.java" afterPath="$PROJECT_DIR$/src/DPD/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/src/EntityMapperTests.java" afterPath="$PROJECT_DIR$/test/src/EntityMapperTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/src/RuleFilterTests.java" afterPath="$PROJECT_DIR$/test/src/RuleFilterTests.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/DPD/DSMMapper/DSMMapper.java" afterPath="$PROJECT_DIR$/src/DPD/DSMMapper/EntityMapper.java" />
     </list>
     <ignored path="DesignPatterns.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,11 +35,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="IBrowser.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="IBrowser.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.35533553">
+              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -54,36 +49,20 @@
         <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="137" column="43" selection-start-line="137" selection-start-column="43" selection-end-line="137" selection-end-column="43" />
+              <caret line="105" column="5" selection-start-line="105" selection-start-column="5" selection-end-line="105" selection-end-column="5" />
               <folding>
-                <element signature="method#getClassesOfType#0;class#DSMBrowser#0" expanded="true" />
+                <element signature="method#getClassesOfType#1;class#DSMBrowser#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RuleFilters.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/RuleFilters.java">
+      <file leaf-file-name="dpd version3.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/dpd version3.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="98" column="51" selection-start-line="98" selection-start-column="51" selection-end-line="98" selection-end-column="51" />
-              <folding>
-                <element signature="method#filter#0;class#RuleFilters#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EntityMapper.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/EntityMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24285714">
-              <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
-              <folding>
-                <element signature="e#323#324#0" expanded="true" />
-                <element signature="e#361#362#0" expanded="true" />
-                <element signature="method#mapPatternEntities#0;class#EntityMapper#0" expanded="true" />
-              </folding>
+              <caret line="36" column="11" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="11" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -117,7 +96,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/DPD/PatternParser/IPatternsParser.java" />
         <option value="$PROJECT_DIR$/src/DPD/PatternParser/CommonPatternsParser.java" />
         <option value="$PROJECT_DIR$/test/src/EntityMapperTests.java" />
         <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/CytoscapeToDsm/CGraph.java" />
@@ -162,12 +140,13 @@
         <option value="$PROJECT_DIR$/files/observer-pattern-v3.xml" />
         <option value="$PROJECT_DIR$/src/DPD/DSMMapper/PatternEntity.java" />
         <option value="$PROJECT_DIR$/src/DPD/DSMMapper/CommonPattern.java" />
-        <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java" />
-        <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java" />
         <option value="$PROJECT_DIR$/src/DPD/DSMMapper/RuleFilters.java" />
         <option value="$PROJECT_DIR$/src/DPD/Main.java" />
         <option value="$PROJECT_DIR$/src/DPD/DSMMapper/DSMMapper.java" />
         <option value="$PROJECT_DIR$/src/DPD/DSMMapper/EntityMapper.java" />
+        <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java" />
+        <option value="$PROJECT_DIR$/dpd version3.txt" />
+        <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java" />
       </list>
     </option>
   </component>
@@ -946,7 +925,7 @@
       <workItem from="1456176932988" duration="2042000" />
       <workItem from="1456247645967" duration="5146000" />
       <workItem from="1456421845841" duration="17777000" />
-      <workItem from="1456547158384" duration="8314000" />
+      <workItem from="1456547158384" duration="8815000" />
     </task>
     <servers />
   </component>
@@ -983,10 +962,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="193693000" />
+    <option name="totallyTimeSpent" value="194194000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -996,12 +975,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.59658486" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.59658486" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20735608" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26574174" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.46851653" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1472,34 +1451,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="137" column="43" selection-start-line="137" selection-start-column="43" selection-end-line="137" selection-end-column="43" />
-          <folding>
-            <element signature="method#getClassesOfType#0;class#DSMBrowser#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/RuleFilters.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="98" column="51" selection-start-line="98" selection-start-column="51" selection-end-line="98" selection-end-column="51" />
-          <folding>
-            <element signature="method#filter#0;class#RuleFilters#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DPD/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.4085715">
@@ -1512,13 +1463,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/EntityMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24285714">
-          <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.35533553">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding>
             <element signature="e#323#324#0" expanded="true" />
             <element signature="e#361#362#0" expanded="true" />
             <element signature="method#mapPatternEntities#0;class#EntityMapper#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/RuleFilters.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5511551">
+          <caret line="98" column="51" selection-start-line="98" selection-start-column="51" selection-end-line="98" selection-end-column="51" />
+          <folding>
+            <element signature="method#filter#0;class#RuleFilters#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="105" column="5" selection-start-line="105" selection-start-column="5" selection-end-line="105" selection-end-column="5" />
+          <folding>
+            <element signature="method#getClassesOfType#1;class#DSMBrowser#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dpd version3.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="36" column="11" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35533553">
+          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

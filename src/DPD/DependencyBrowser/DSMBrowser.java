@@ -99,19 +99,14 @@ public class DSMBrowser implements IBrowser{
 
     @Override
     public String getNiceName(int classId) {
-        String fullClassName = getClassPathFromId(classId);
+        String fullClassName = getClassPath(classId);
         int start = fullClassName.lastIndexOf(".");
         int end = fullClassName.lastIndexOf("_");
         return fullClassName.substring(start+1, end);
     }
 
     @Override
-    public int getClassIdFromPath(String path) {
-        return jClasses.stream().filter(j -> j.classPath.equals(path)).findFirst().get().classId;
-    }
-
-    @Override
-    public String getClassPathFromId(int classId) {
+    public String getClassPath(int classId) {
         return jClasses.stream().filter(j -> j.classId == classId).findFirst().get().classPath;
     }
 
@@ -273,5 +268,9 @@ public class DSMBrowser implements IBrowser{
             if(!isContained) return isContained;
         }
         return true;
+    }
+
+    private int getClassIdFromPath(String path) {
+        return jClasses.stream().filter(j -> j.classPath.equals(path)).findFirst().get().classId;
     }
 }
