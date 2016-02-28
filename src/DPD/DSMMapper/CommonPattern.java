@@ -1,5 +1,6 @@
 package DPD.DSMMapper;
 
+import DPD.DependencyBrowser.IBrowser;
 import DPD.ILogger;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -46,7 +47,7 @@ public class CommonPattern implements IPattern {
     }
 
     @Override
-    public void displayMembers(ILogger logger) {
+    public void displayMembers(ILogger logger, IBrowser browser) {
         logger.log("\n======= begin display pattern ==========\n");
         logger.log("Pattern: " + name );
 
@@ -55,7 +56,7 @@ public class CommonPattern implements IPattern {
             List<Integer> sorted = new ArrayList<>(entity.compliantClasses);
             Collections.sort(sorted);
             for(int classId: sorted) {
-                logger.log("\t" + classId);
+                logger.log("\t" + browser.getNiceName(classId));
             }
         }
 

@@ -69,7 +69,7 @@ public class Main {
 
         // print out remaining ones
         for(IPattern pattern: resolved) {
-            pattern.displayMembers(new ConsoleLogger());
+            pattern.displayMembers(new ConsoleLogger(), browser);
         }
     }
 }

@@ -24,6 +24,8 @@ public class PatternEntity implements Serializable {
     @XmlElement
     public List<Integer> compliantClasses;
 
+    public List<String> claims;
+
     public boolean equals(Object other) {
         PatternEntity otherP = (PatternEntity) other;
         return id.equals(otherP.id)
