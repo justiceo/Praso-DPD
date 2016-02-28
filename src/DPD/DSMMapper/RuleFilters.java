@@ -37,7 +37,7 @@ public class RuleFilters {
         // create new patterns from each item in the entity
         for(String className: entityToResolve.compliantClasses) {
             CommonPattern newPattern = SerializationUtils.deserialize(SerializationUtils.serialize(pattern));
-            newPattern.name = pattern.getName() + " - " + browser.getNiceName(className);
+            newPattern.name = pattern.getName() + " - " + browser.getNiceName(browser.getClassIdFromPath(className));
 
             // reset it's entity to its self alone
             newPattern.entities.stream().filter(pE -> pE.id.equals(entityToResolve.id)).forEach(pE -> {
@@ -94,8 +94,8 @@ public class RuleFilters {
         // perform the dependencyFilter
         List<String> filteredList = new ArrayList<>();
         for(String sourceClassStr: sourceBucket) {
-            for(String classStr: browser.getAssociatedDependency(sourceClassStr, dependencyType)) {
-                if(targetBucket.contains(classStr)) {
+            for(Integer classId: browser.getAssociatedDependency(browser.getClassIdFromPath(sourceClassStr), dependencyType)) {
+                if(targetBucket.contains(browser.getClassPathFromId(classId))) {
                     filteredList.add(sourceClassStr);
                     break;
                 }
