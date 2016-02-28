@@ -16,17 +16,12 @@ public interface IBrowser {
     void init(File dsmFileName);
 
     boolean hasDependency(String className, DependencyType dependencyType);
+    boolean hasDependency(int classId, DependencyType dependencyType);
 
     ClassType getClassType(String className);
-
+    ClassType getClassType(int classId);
 
     List<DependencyType> getDependencyTypes();
-
-    String[][] getDependencyMatrix();
-
-    List<String> getFilesList();
-
-    String[] getNiceNames(String[] testNames);
 
     /**
      * Given an absolute or relative* class type, it would return list of class names that satisfy this type
@@ -36,17 +31,21 @@ public interface IBrowser {
      * @param classType
      * @return
      */
-    List<String> getClassesOfType(ClassType classType);
+    List getClassesOfType(ClassType classType);
 
-    List<String> getClassesOfType(ClassType type, String hasDependency);
+    List getClassesOfType(ClassType type, String withDependencies);
 
     boolean isOfClassType(String className, ClassType classType);
+    boolean isOfClassType(int classId, ClassType classType);
 
     List<String> getAssociatedDependency(String fullClassName, DependencyType dependencyType);
+    List<String> getAssociatedDependency(int classId, DependencyType dependencyType);
 
     boolean isAssociatedWithDependency(String testClass, DependencyType implement);
+    boolean isAssociatedWithDependency(int classId, DependencyType dependencyType);
 
     String getNiceName(String fullClassName);
+    String getNiceName(int classId);
 
 }
 

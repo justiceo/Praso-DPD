@@ -9,6 +9,6 @@ class JClass {
     public ClassType classType;
     public String[] matrixRow;
     public String dependencyLine;
-    public int matrixIndex;
-    public String fileName;
+    public int classId;
+    public String classPath;
 }

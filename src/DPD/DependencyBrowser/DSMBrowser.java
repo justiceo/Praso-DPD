@@ -52,10 +52,22 @@ public class DSMBrowser implements IBrowser{
         List<DependencyType> deps = getDependenciesOfClass(className);
         return deps.contains(dependencyType);
     }
+    @Override
+    public boolean hasDependency(int classId, DependencyType dependencyType) {
+        List<DependencyType> deps = getDependenciesOfClass(classId);
+        return deps.contains(dependencyType);
+    }
 
     @Override
     public boolean isAssociatedWithDependency(String fullClassName, DependencyType dependencyType) {
-        String depLine = String.join(" ", getMatrixCol(getJClassFromName(fullClassName).matrixIndex));
+        String depLine = String.join(" ", getMatrixCol(getJClassFromName(fullClassName).classId));
+        List<DependencyType> classDeps = getLineDependency(depLine);
+        return classDeps.contains(dependencyType);
+    }
+
+    @Override
+    public boolean isAssociatedWithDependency(int classId, DependencyType dependencyType) {
+        String depLine = String.join(" ", getMatrixCol(classId));
         List<DependencyType> classDeps = getLineDependency(depLine);
         return classDeps.contains(dependencyType);
     }
@@ -70,32 +82,30 @@ public class DSMBrowser implements IBrowser{
         return getJClassFromName(className).classType;
     }
 
-    /**
-     * Given a classType, returns all classes that fit the bill
-     * if given an absolute type, returns it as determined by determineClassType()
-     * if relative type, uses dependency matrix to figure it out.
-     * @param classType
-     * @return
-     */
+    @Override
+    public ClassType getClassType(int classId) {
+        return getJClassFromName(classId).classType;
+    }
+
     @Override
     public List<String> getClassesOfType(ClassType classType) {
 
         switch (classType) {
             case Any:
                 return jClasses.stream()
-                        .map(j -> j.fileName).collect(Collectors.toList());
+                        .map(j -> j.classPath).collect(Collectors.toList());
             case Specialization:
                 return jClasses.stream()
-                        .filter(j -> hasDependency(j.fileName, DependencyType.IMPLEMENT) || hasDependency(j.fileName, DependencyType.EXTEND))
-                        .map(j -> j.fileName).collect(Collectors.toList());
+                        .filter(j -> hasDependency(j.classPath, DependencyType.IMPLEMENT) || hasDependency(j.classPath, DependencyType.EXTEND))
+                        .map(j -> j.classPath).collect(Collectors.toList());
             case Abstraction:
                 return jClasses.stream()
-                        .filter(j -> isAssociatedWithDependency(j.fileName, DependencyType.IMPLEMENT) || isAssociatedWithDependency(j.fileName, DependencyType.EXTEND))
-                        .map(j -> j.fileName).collect(Collectors.toList());
+                        .filter(j -> isAssociatedWithDependency(j.classPath, DependencyType.IMPLEMENT) || isAssociatedWithDependency(j.classPath, DependencyType.EXTEND))
+                        .map(j -> j.classPath).collect(Collectors.toList());
             default: // it's an absolute type!
                 return jClasses.stream()
                         .filter( j -> j.classType.equals(classType))
-                        .map(j -> j.fileName).collect(Collectors.toList());
+                        .map(j -> j.classPath).collect(Collectors.toList());
         }
     }
 
@@ -150,38 +160,23 @@ public class DSMBrowser implements IBrowser{
 
     @Override
     public boolean isOfClassType(String className, ClassType desiredType) {
+        return isOfClassType(getClassPathFromId(getClassIdFromPath(className)), desiredType);
+    }
+
+    @Override
+    public boolean isOfClassType(int classId, ClassType desiredType) {
         switch (desiredType) {
             case Any:
                 return true;
             case Specialization:
-                return hasDependency(className, DependencyType.IMPLEMENT)
-                        || hasDependency(className, DependencyType.EXTEND);
+                return hasDependency(classId, DependencyType.IMPLEMENT)
+                        || hasDependency(classId, DependencyType.EXTEND);
             case Abstraction:
-                return isAssociatedWithDependency(className, DependencyType.IMPLEMENT)
-                        || isAssociatedWithDependency(className, DependencyType.EXTEND);
+                return isAssociatedWithDependency(classId, DependencyType.IMPLEMENT)
+                        || isAssociatedWithDependency(classId, DependencyType.EXTEND);
             default:
-                return getJClassFromName(className).classType.equals(desiredType);
+                return getJClassFromName(classId).classType.equals(desiredType);
         }
-    }
-
-    @Override
-    public String[][] getDependencyMatrix() {
-        return matrix;
-    }
-
-    @Override
-    public List<String> getFilesList() {
-        return files;
-    }
-
-    @Override // remove this guy later, lazy code
-    public String[] getNiceNames(String[] fullClassNames) {
-        String[] niceNames = new String[fullClassNames.length];
-        int counter = 0;
-        for(String className: fullClassNames) {
-            niceNames[counter++] = getNiceName(className);
-        }
-        return niceNames;
     }
 
     /**
@@ -193,20 +188,26 @@ public class DSMBrowser implements IBrowser{
      */
     @Override
     public List<String> getAssociatedDependency(String fullClassName, DependencyType dependencyType) {
+        return getAssociatedDependency(getClassIdFromPath(fullClassName), dependencyType);
+    }
+
+    @Override
+    public List<String> getAssociatedDependency(int classId, DependencyType dependencyType) {
         switch (dependencyType) {
             case SPECIALIZE:
-                List x = getAssociatedDependencyNative(fullClassName, DependencyType.EXTEND);
-                x.addAll(getAssociatedDependencyNative(fullClassName, DependencyType.IMPLEMENT));
+                List x = getAssociatedDependencyNative(classId, DependencyType.EXTEND);
+                x.addAll(getAssociatedDependencyNative(classId, DependencyType.IMPLEMENT));
                 return x;
             default:
-                return getAssociatedDependencyNative(fullClassName, dependencyType);
+                return getAssociatedDependencyNative(classId, dependencyType);
         }
     }
-    private List<String> getAssociatedDependencyNative(String fullClassName, DependencyType dependencyType) {
-        JClass jClass = getJClassFromName(fullClassName);
+
+    private List<String> getAssociatedDependencyNative(int classId, DependencyType dependencyType) {
+        JClass jClass = getJClassFromName(classId);
         List<Integer> depLocations = getIndexOfDependency(jClass, dependencyType);
         List<String> desiredDependencies = new ArrayList<>();
-        jClasses.stream().filter(j -> depLocations.contains(j.matrixIndex)).forEach(j -> desiredDependencies.add(j.fileName));
+        jClasses.stream().filter(j -> depLocations.contains(j.classId)).forEach(j -> desiredDependencies.add(j.classPath));
         return desiredDependencies;
     }
 
@@ -230,6 +231,14 @@ public class DSMBrowser implements IBrowser{
         return fullClassName.substring(start+1, end);
     }
 
+    @Override
+    public String getNiceName(int classId) {
+        String fullClassName = getClassPathFromId(classId);
+        int start = fullClassName.lastIndexOf(".");
+        int end = fullClassName.lastIndexOf("_");
+        return fullClassName.substring(start+1, end);
+    }
+
     private void buildDependencyTypesList(String dependencyString) {
         dependencyString = dependencyString.replace("[", "").replace("]", "");
         String[] depStrings = dependencyString.split(",");
@@ -244,8 +253,8 @@ public class DSMBrowser implements IBrowser{
         jClasses = new ArrayList<>();
         for(int i=0; i<files.size(); i++) {
             JClass jClass = new JClass();
-            jClass.fileName = files.get(i);
-            jClass.matrixIndex = i;
+            jClass.classPath = files.get(i);
+            jClass.classId = i;
             jClass.matrixRow = matrix[i];
             jClass.dependencyLine = String.join(" ", matrix[i]);
             jClass.classType = determineClassType(jClass);
@@ -255,7 +264,7 @@ public class DSMBrowser implements IBrowser{
 
     private ClassType determineClassType(JClass jClass) {
 
-        String depLine = String.join(" ", getMatrixCol(jClass.matrixIndex));
+        String depLine = String.join(" ", getMatrixCol(jClass.classId));
         List<DependencyType> classDeps = getLineDependency(depLine);
 
         if(classDeps.contains(DependencyType.IMPLEMENT))
@@ -269,7 +278,15 @@ public class DSMBrowser implements IBrowser{
 
     private JClass getJClassFromName(String fileName) {
         for(JClass jClass: jClasses) {
-            if(jClass.fileName.equals(fileName))
+            if(jClass.classPath.equals(fileName))
+                return jClass;
+        }
+        return null;
+    }
+
+    private JClass getJClassFromName(int classId) {
+        for(JClass jClass: jClasses) {
+            if(jClass.classId == classId)
                 return jClass;
         }
         return null;
@@ -298,11 +315,15 @@ public class DSMBrowser implements IBrowser{
     }
 
     private List<DependencyType> getDependenciesOfClass(String className) {
-        JClass jClass = getJClassFromName(className);
+        return getDependenciesOfClass(getClassIdFromPath(className));
+    }
+
+    private List<DependencyType> getDependenciesOfClass(int classId) {
+        JClass jClass = getJClassFromName(classId);
         String[] depsArray = jClass.matrixRow;
         List<DependencyType> dependencyTypes = new ArrayList<>();
         for(String s: depsArray) {
-                dependencyTypes.addAll(getAtomicDependency(s));
+            dependencyTypes.addAll(getAtomicDependency(s));
         }
         return dependencyTypes;
     }
@@ -321,6 +342,13 @@ public class DSMBrowser implements IBrowser{
             resultRow[col] = matrix[row][col];
         }
         return resultRow;
+    }
+
+    private String getClassPathFromId(int classId) {
+        return jClasses.stream().filter(j -> j.classId == classId).findFirst().get().classPath;
+    }
+    private int getClassIdFromPath(String path) {
+        return jClasses.stream().filter(j -> j.classPath.equals(path)).findFirst().get().classId;
     }
 
 }

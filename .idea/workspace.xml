@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dfcbf76a-6d8f-403e-b65b-b36343fb603a" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/files/observer-pattern-v3.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/hamcrest_core_1_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/junit_4_12.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.classpath" afterPath="$PROJECT_DIR$/.classpath" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DesignPatterns.eml" afterPath="$PROJECT_DIR$/DesignPatterns.eml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java" afterPath="$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java" afterPath="$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/DPD/DependencyBrowser/JClass.java" afterPath="$PROJECT_DIR$/src/DPD/DependencyBrowser/JClass.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/test.iml" afterPath="$PROJECT_DIR$/test/test.iml" />
     </list>
     <ignored path="DesignPatterns.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,11 +41,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="IBrowser.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="IBrowser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4015544">
-              <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="23" column="46" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
               <folding>
                 <element signature="docComment;method#getClassesOfType#0;class#IBrowser#0" expanded="true" />
               </folding>
@@ -43,40 +53,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="observer-pattern.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/files/observer-pattern.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.2452831">
-              <caret line="7" column="53" selection-start-line="7" selection-start-column="53" selection-end-line="7" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JClass.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/JClass.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="20" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DependencyType.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DPD/Enums/DependencyType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/DPD/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="0.50250626">
               <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding>
                 <element signature="method#main#0;class#Main#0" expanded="true" />
@@ -85,26 +65,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RuleFilters.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/RuleFilters.java">
+      <file leaf-file-name=".project" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.project">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="96" column="56" selection-start-line="96" selection-start-column="41" selection-end-line="96" selection-end-column="64" />
-              <folding>
-                <element signature="method#filter#0;class#RuleFilters#0" expanded="true" />
-              </folding>
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DSMMapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/DSMMapper.java">
+      <file leaf-file-name="DesignPatterns.iml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DesignPatterns.iml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="51" selection-start-line="32" selection-start-column="51" selection-end-line="32" selection-end-column="51" />
-              <folding>
-                <element signature="method#mapPatternEntities#0;class#DSMMapper#0" expanded="true" />
-              </folding>
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -113,27 +89,25 @@
         <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="202" column="9" selection-start-line="202" selection-start-column="9" selection-end-line="202" selection-end-column="9" />
+              <caret line="338" column="44" selection-start-line="338" selection-start-column="44" selection-end-line="338" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#init#0;class#DSMBrowser#0" expanded="true" />
-                <element signature="docComment;method#getClassesOfType#0;class#DSMBrowser#0" expanded="true" />
-                <element signature="method#getClassesOfType#0;class#DSMBrowser#0" expanded="true" />
-                <element signature="docComment;method#getClassesOfType#1;class#DSMBrowser#0" expanded="true" />
-                <element signature="method#getClassesOfType#1;class#DSMBrowser#0" expanded="true" />
-                <element signature="docComment;method#containsDependencies#0;class#DSMBrowser#0" expanded="true" />
-                <element signature="method#containsDependencies#0;class#DSMBrowser#0" expanded="true" />
+                <element signature="method#hasDependency#0;class#DSMBrowser#0" expanded="true" />
+                <element signature="method#hasDependency#1;class#DSMBrowser#0" expanded="true" />
+                <element signature="method#isAssociatedWithDependency#1;class#DSMBrowser#0" expanded="true" />
                 <element signature="method#isOfClassType#0;class#DSMBrowser#0" expanded="true" />
-                <element signature="e#6444#6445#0" expanded="true" />
-                <element signature="e#6473#6474#0" expanded="true" />
-                <element signature="e#6529#6530#0" expanded="true" />
-                <element signature="e#6557#6558#0" expanded="true" />
-                <element signature="method#getNiceNames#0;class#DSMBrowser#0" expanded="true" />
-                <element signature="docComment;method#getAssociatedDependency#0;class#DSMBrowser#0" expanded="true" />
+                <element signature="method#isOfClassType#1;class#DSMBrowser#0" expanded="true" />
+                <element signature="method#getAssociatedDependency#0;class#DSMBrowser#0" expanded="true" />
+                <element signature="method#getAssociatedDependency#1;class#DSMBrowser#0" expanded="true" />
                 <element signature="method#getAssociatedDependencyNative#0;class#DSMBrowser#0" expanded="true" />
-                <element signature="method#getIndexOfDependency#0;class#DSMBrowser#0" expanded="true" />
-                <element signature="method#getNiceName#0;class#DSMBrowser#0" expanded="true" />
-                <element signature="method#buildDependencyTypesList#0;class#DSMBrowser#0" expanded="true" />
+                <element signature="method#getNiceName#1;class#DSMBrowser#0" expanded="true" />
+                <element signature="method#getJClassFromName#1;class#DSMBrowser#0" expanded="true" />
+                <element signature="method#getAtomicDependency#0;class#DSMBrowser#0" expanded="true" />
+                <element signature="method#getLineDependency#0;class#DSMBrowser#0" expanded="true" />
+                <element signature="method#getDependenciesOfClass#0;class#DSMBrowser#0" expanded="true" />
+                <element signature="method#getDependenciesOfClass#1;class#DSMBrowser#0" expanded="true" />
+                <element signature="method#getClassPathFromId#0;class#DSMBrowser#0" expanded="true" />
+                <element signature="method#getClassIdFromPath#0;class#DSMBrowser#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -168,8 +142,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/DPD/Enums/ResolverType.java" />
-        <option value="$PROJECT_DIR$/test/config.xml" />
         <option value="$PROJECT_DIR$/src/DPD/PatternParser/PatternConfig.java" />
         <option value="$PROJECT_DIR$/src/DPD/PatternParser/IPatternsParser.java" />
         <option value="$PROJECT_DIR$/src/DPD/PatternParser/CommonPatternsParser.java" />
@@ -207,18 +179,20 @@
         <option value="$PROJECT_DIR$/src/DPD/SourceParser/JParser.java" />
         <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/ClassUtils.java" />
         <option value="$PROJECT_DIR$/files/abs-observer-pattern.xml" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser2.java" />
         <option value="$PROJECT_DIR$/files/composite-pattern.xml" />
         <option value="$PROJECT_DIR$/files/observer-pattern-simple.xml" />
         <option value="$PROJECT_DIR$/config.xml" />
-        <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java" />
         <option value="$PROJECT_DIR$/src/DPD/DSMMapper/DSMMapper.java" />
         <option value="$PROJECT_DIR$/src/DPD/Enums/ClassType.java" />
         <option value="$PROJECT_DIR$/src/DPD/DSMMapper/RuleFilters.java" />
-        <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java" />
         <option value="$PROJECT_DIR$/files/observer-pattern.xml" />
         <option value="$PROJECT_DIR$/src/DPD/Main.java" />
+        <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/JClass.java" />
+        <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/files/observer-pattern-v3.xml" />
+        <option value="$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java" />
       </list>
     </option>
   </component>
@@ -235,10 +209,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1912" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1216" />
+    <option name="x" value="-40" />
+    <option name="y" value="15" />
+    <option name="width" value="1932" />
+    <option name="height" value="1092" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -265,8 +239,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -274,6 +248,10 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="DesignPatterns" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -340,6 +318,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DesignPatterns" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DesignPatterns" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="files" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DesignPatterns" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DesignPatterns" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="files" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -360,8 +370,11 @@
     <property name="Repository.Attach.Sources" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="DPD.DTO" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Code\IdeaProjects\DesignPatterns\files" />
+      <recent name="D:\Code\IdeaProjects\DesignPatterns\files\libraries" />
+      <recent name="D:\Code\IdeaProjects\DesignPatterns" />
+      <recent name="D:\Code\IdeaProjects\DesignPatterns\test" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Code\IdeaProjects\DesignPatterns\files" />
@@ -372,11 +385,8 @@
       <recent name="DPD.DependencyBrowser" />
       <recent name="observer" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Code\IdeaProjects\DesignPatterns\files\libraries" />
-      <recent name="D:\Code\IdeaProjects\DesignPatterns" />
-      <recent name="D:\Code\IdeaProjects\DesignPatterns\files" />
-      <recent name="D:\Code\IdeaProjects\DesignPatterns\test" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="DPD.DTO" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
@@ -935,6 +945,7 @@
       <workItem from="1456176932988" duration="2042000" />
       <workItem from="1456247645967" duration="5146000" />
       <workItem from="1456421845841" duration="17777000" />
+      <workItem from="1456547158384" duration="4409000" />
     </task>
     <servers />
   </component>
@@ -971,10 +982,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="185379000" />
+    <option name="totallyTimeSpent" value="189788000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1216" extended-state="6" />
+    <frame x="-40" y="15" width="1932" height="1092" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -984,12 +995,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24314097" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.114683814" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12899786" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20779915" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.56575215" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27419356" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1047,8 +1058,14 @@
           <properties />
           <option name="timeStamp" value="72" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java</url>
+          <line>109</line>
+          <properties />
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="73" />
+      <option name="time" value="74" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1057,48 +1074,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/DPD/PatternParser/FileIO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="47" column="87" selection-start-line="47" selection-start-column="87" selection-end-line="47" selection-end-column="87" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/PatternRule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="48" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/DSMMapper/PatternResolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="52" selection-start-line="13" selection-start-column="52" selection-end-line="13" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CommonPatterns/templateMethod/AbstractClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CommonPatterns/templateMethod/ConcreteClassA.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CommonPatterns/templateMethod/ConcreteClassB.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_60/src.zip!/java/util/function/Consumer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.41925466">
@@ -1282,13 +1257,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/files/libraries/observer-pattern-v3.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13385826">
-          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DPD/SourceParser/ASTAnalyzer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.033864543">
@@ -1300,10 +1268,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="method#visit#0;class#MethodVisitor#0;class#JParser#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1337,14 +1301,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.075723834">
-          <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/files/composite-pattern.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.6037736">
@@ -1357,7 +1313,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1389,7 +1344,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="110" column="17" selection-start-line="110" selection-start-column="17" selection-end-line="110" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1405,7 +1359,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.12592593">
           <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1413,9 +1366,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4617284">
           <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-          <folding>
-            <element signature="docComment;class#ClassType#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1424,7 +1374,14 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="32" column="51" selection-start-line="32" selection-start-column="51" selection-end-line="32" selection-end-column="51" />
           <folding>
-            <element signature="method#mapPatternEntities#0;class#DSMMapper#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="docComment;class#DSMMapper#0" expanded="false" />
+            <element signature="e#384#385#0" expanded="false" />
+            <element signature="e#411#412#0" expanded="false" />
+            <element signature="e#467#468#0" expanded="false" />
+            <element signature="e#505#506#0" expanded="false" />
+            <element signature="e#837#838#0" expanded="false" />
+            <element signature="e#864#865#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1434,53 +1391,17 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="96" column="56" selection-start-line="96" selection-start-column="41" selection-end-line="96" selection-end-column="64" />
           <folding>
-            <element signature="method#filter#0;class#RuleFilters#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="202" column="9" selection-start-line="202" selection-start-column="9" selection-end-line="202" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#init#0;class#DSMBrowser#0" expanded="true" />
-            <element signature="docComment;method#getClassesOfType#0;class#DSMBrowser#0" expanded="true" />
-            <element signature="method#getClassesOfType#0;class#DSMBrowser#0" expanded="true" />
-            <element signature="docComment;method#getClassesOfType#1;class#DSMBrowser#0" expanded="true" />
-            <element signature="method#getClassesOfType#1;class#DSMBrowser#0" expanded="true" />
-            <element signature="docComment;method#containsDependencies#0;class#DSMBrowser#0" expanded="true" />
-            <element signature="method#containsDependencies#0;class#DSMBrowser#0" expanded="true" />
-            <element signature="method#isOfClassType#0;class#DSMBrowser#0" expanded="true" />
-            <element signature="e#6444#6445#0" expanded="true" />
-            <element signature="e#6473#6474#0" expanded="true" />
-            <element signature="e#6529#6530#0" expanded="true" />
-            <element signature="e#6557#6558#0" expanded="true" />
-            <element signature="method#getNiceNames#0;class#DSMBrowser#0" expanded="true" />
-            <element signature="docComment;method#getAssociatedDependency#0;class#DSMBrowser#0" expanded="true" />
-            <element signature="method#getAssociatedDependencyNative#0;class#DSMBrowser#0" expanded="true" />
-            <element signature="method#getIndexOfDependency#0;class#DSMBrowser#0" expanded="true" />
-            <element signature="method#getNiceName#0;class#DSMBrowser#0" expanded="true" />
-            <element signature="method#buildDependencyTypesList#0;class#DSMBrowser#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/Enums/DependencyType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-          <folding>
-            <element signature="method#main#0;class#Main#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="docComment;class#RuleFilters#0" expanded="false" />
+            <element signature="e#577#578#0" expanded="false" />
+            <element signature="e#615#616#0" expanded="false" />
+            <element signature="e#708#709#0" expanded="false" />
+            <element signature="e#756#757#0" expanded="false" />
+            <element signature="method#resolve#0;class#RuleFilters#0" expanded="false" />
+            <element signature="method#cardinalityFilter#0;class#RuleFilters#0" expanded="false" />
+            <element signature="method#astAnalyzeFilter#0;class#RuleFilters#0" expanded="false" />
+            <element signature="method#patternHasEmptyEntity#0;class#RuleFilters#0" expanded="false" />
+            <element signature="method#checkSource#0;class#RuleFilters#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1493,28 +1414,146 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/JClass.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="20" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/files/observer-pattern.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.2452831">
+        <state vertical-scroll-proportion="0.0">
           <caret line="7" column="53" selection-start-line="7" selection-start-column="53" selection-end-line="7" selection-end-column="53" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/Enums/DependencyType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.049707603">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/JClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="27" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DesignPatterns.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/hs_err_pid13636.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.50956285">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DesignPatterns.userlibraries">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.classpath">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.11333334">
+          <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/files/observer-pattern-v3.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14447592">
+          <caret line="6" column="66" selection-start-line="6" selection-start-column="66" selection-end-line="6" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.project">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/src/DSMBrowserTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19535519">
+          <caret line="95" column="39" selection-start-line="95" selection-start-column="39" selection-end-line="95" selection-end-column="39" />
+          <folding>
+            <element signature="method#getDependencyMatrixTest#0;class#DSMBrowserTest#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/DSMBrowser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="338" column="44" selection-start-line="338" selection-start-column="44" selection-end-line="338" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#hasDependency#0;class#DSMBrowser#0" expanded="true" />
+            <element signature="method#hasDependency#1;class#DSMBrowser#0" expanded="true" />
+            <element signature="method#isAssociatedWithDependency#1;class#DSMBrowser#0" expanded="true" />
+            <element signature="method#isOfClassType#0;class#DSMBrowser#0" expanded="true" />
+            <element signature="method#isOfClassType#1;class#DSMBrowser#0" expanded="true" />
+            <element signature="method#getAssociatedDependency#0;class#DSMBrowser#0" expanded="true" />
+            <element signature="method#getAssociatedDependency#1;class#DSMBrowser#0" expanded="true" />
+            <element signature="method#getAssociatedDependencyNative#0;class#DSMBrowser#0" expanded="true" />
+            <element signature="method#getNiceName#1;class#DSMBrowser#0" expanded="true" />
+            <element signature="method#getJClassFromName#1;class#DSMBrowser#0" expanded="true" />
+            <element signature="method#getAtomicDependency#0;class#DSMBrowser#0" expanded="true" />
+            <element signature="method#getLineDependency#0;class#DSMBrowser#0" expanded="true" />
+            <element signature="method#getDependenciesOfClass#0;class#DSMBrowser#0" expanded="true" />
+            <element signature="method#getDependenciesOfClass#1;class#DSMBrowser#0" expanded="true" />
+            <element signature="method#getClassPathFromId#0;class#DSMBrowser#0" expanded="true" />
+            <element signature="method#getClassIdFromPath#0;class#DSMBrowser#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/DPD/DependencyBrowser/IBrowser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4015544">
-          <caret line="28" column="46" selection-start-line="28" selection-start-column="46" selection-end-line="28" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="46" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
           <folding>
             <element signature="docComment;method#getClassesOfType#0;class#IBrowser#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/DPD/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.50250626">
+          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <element signature="method#main#0;class#Main#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1596,11 +1635,11 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>com.github.javaparser:javaparser-core:2.0.0</last-edited>
+          <last-edited>org.apache.commons:commons-lang3:3.4</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.2" />
+                <option value="0.34827587" />
               </list>
             </option>
           </splitter-proportions>
