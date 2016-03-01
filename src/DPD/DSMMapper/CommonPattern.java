@@ -68,4 +68,13 @@ public class CommonPattern implements IPattern {
     public PatternEntity getEntityById(String id) {
         return entities.stream().filter(e -> e.id.equals(id)).findFirst().get();
     }
+
+    @Override
+    public boolean isVoid() {
+        for(PatternEntity entity: entities)
+            if(entity.compliantClasses.size() == 0) {
+                return true;
+            }
+        return false;
+    }
 }

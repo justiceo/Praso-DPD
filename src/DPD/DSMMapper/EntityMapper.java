@@ -1,11 +1,7 @@
 package DPD.DSMMapper;
 
-import DPD.Enums.ClassType;
 import DPD.DependencyBrowser.IBrowser;
-import DPD.Enums.DependencyType;
-
-import java.util.ArrayList;
-import java.util.List;
+import DPD.ILogger;
 
 /**
  * Created by Justice on 1/27/2016.
@@ -14,7 +10,7 @@ public class EntityMapper {
 
     private IBrowser browser;
 
-    public EntityMapper(IBrowser browser) {
+    public EntityMapper(IBrowser browser, ILogger logger) {
         this.browser = browser;
     }
 

@@ -10,6 +10,7 @@ import DPD.SourceParser.JParser;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -22,7 +23,8 @@ public class Main {
     private IBrowser browser;
     private IPattern pattern;
     private final String configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
-    private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\jalarm.dsm";
+    private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\jhotdraw.dsm";
+    private ILogger logger;
 
     public static void main(String[] args) {
         Main dpd = new Main();
@@ -31,27 +33,33 @@ public class Main {
 
     public void analyze() {
 
+        logger = new ConsoleLogger();
+        logger.setVerbose(false);
+
         IPatternsParser patternsParser = new CommonPatternsParser();
         patternsParser.init(new File(configFile));
-        pattern = patternsParser.loadPatternById("observer1");
+        pattern = patternsParser.loadPatternById("composite1");
 
 
         File dsmFile = new File(testDsmFile);
-        browser = new DSMBrowser();
+        browser = new DSMBrowser(logger);
         browser.init(dsmFile);
 
-        ASTAnalyzer sourceParser = new JParser();
+        ASTAnalyzer sourceParser = new JParser(logger);
 
-        mapper = new EntityMapper(browser);
+        mapper = new EntityMapper(browser, logger);
         mapper.mapPatternEntities(pattern);
 
-        ruleFilters = new RuleFilters(browser);
+        ruleFilters = new RuleFilters(browser, logger);
         ruleFilters.addSourceParser(sourceParser);
+
 
         // run filters through entities
         for(PatternRule rule: pattern.getRules()) {
             ruleFilters.filter(pattern, rule);
         }
+
+        //pattern.displayMembers(logger, browser);
 
         // resolve patterns
         List<IPattern> resolved = new ArrayList<>();
@@ -67,9 +75,20 @@ public class Main {
             }
         }
 
+
+        // remove empty pattern
+        Iterator<IPattern> pIterator = resolved.iterator();
+        while(pIterator.hasNext()){
+            IPattern pattern = pIterator.next();
+            if(pattern.isVoid()) {
+                pIterator.remove();
+            }
+        }
+
+
         // print out remaining ones
         for(IPattern pattern: resolved) {
-            pattern.displayMembers(new ConsoleLogger(), browser);
+            pattern.displayMembers(logger, browser);
         }
     }
 }

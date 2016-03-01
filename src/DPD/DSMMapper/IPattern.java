@@ -30,4 +30,6 @@ public interface IPattern extends Serializable {
     public void displayMembers(ILogger logger, IBrowser browser);
 
     public PatternEntity getEntityById(String id);
+
+    boolean isVoid();
 }

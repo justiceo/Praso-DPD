@@ -1,6 +1,7 @@
 package DPD.SourceParser;
 
 import DPD.Enums.ASTAnalysisType;
+import DPD.ILogger;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;
@@ -35,6 +36,12 @@ import java.util.stream.Collectors;
  */
 public class JParser implements ASTAnalyzer {
 
+    ILogger logger;
+
+    public JParser(ILogger logger) {
+        this.logger = logger;
+    }
+
     @Override
     public boolean examine(String sourceClass, ASTAnalysisType astAnalysisType, String targetClass) {
         switch (astAnalysisType) {
@@ -44,6 +51,12 @@ public class JParser implements ASTAnalyzer {
                 return testLoop(sourceClass, targetClass);
         }
         return false;
+    }
+
+    private boolean testExternal(String sourceClass, String targetClass) {
+        MethodChanger mc = new MethodChanger(logger);
+        mc.init(fixClassPath(sourceClass));
+        return mc.getForEachLoops(fixClassPath(targetClass));
     }
 
     private boolean testLoop(String sourceClass, String targetClass) {
@@ -130,6 +143,10 @@ public class JParser implements ASTAnalyzer {
                         .collect(Collectors.toList()));
             }
         }
+    }
+
+    private String fixClassPath(String damagedPath) {
+        return damagedPath.replace(".", "\\").replace("_", ".");
     }
 }
 

@@ -5,11 +5,13 @@ import DPD.Enums.ASTAnalysisType;
 import DPD.Enums.CardinalityType;
 import DPD.Enums.DependencyType;
 import DPD.Enums.RuleType;
+import DPD.ILogger;
 import DPD.SourceParser.ASTAnalyzer;
 import DPD.SourceParser.JParser;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,10 +22,13 @@ public class RuleFilters {
 
     private IBrowser browser;
     private ASTAnalyzer sourceParser;
+    private ILogger logger;
 
-    public RuleFilters(IBrowser browser) {
+    public RuleFilters(IBrowser browser, ILogger logger) {
         this.browser = browser;
-    } // todo: remove from constructor
+        this.logger = logger;
+    }
+
     public void addSourceParser(ASTAnalyzer sourceParser) {
         this.sourceParser = sourceParser;
     }
@@ -131,12 +136,14 @@ public class RuleFilters {
         List<Integer> sourceBucket = pattern.getEntityById(sourceId).compliantClasses;
         //String sourceClass = pattern.getEntityById(sourceId).compliantClasses.get(0);
         int targetClassId = pattern.getEntityById(targetId).compliantClasses.get(0);
-        sourceParser = new JParser();
-        for(Integer sourceClassId: sourceBucket) {
+        sourceParser = new JParser(logger);
+
+        PatternEntity bucket = pattern.getEntityById(sourceId);
+        Iterator<Integer> sourceClassIterator = bucket.compliantClasses.iterator();
+        while(sourceClassIterator.hasNext()) {
+            int sourceClassId = sourceClassIterator.next();
             if (!sourceParser.examine(browser.getClassPath(sourceClassId), astAnalysisType, browser.getClassPath(targetClassId))) {
-                PatternEntity bucket = pattern.getEntityById(sourceId);
-                bucket.compliantClasses.remove(sourceClassId);
-                return false;
+                sourceClassIterator.remove();
             }
         }
 
@@ -144,11 +151,7 @@ public class RuleFilters {
     }
 
     private boolean patternHasEmptyEntity(IPattern pattern) {
-        for(PatternEntity entity: pattern.getEntities())
-            if(entity.compliantClasses.size() == 0) {
-                return true;
-            }
-        return false;
+        return pattern.isVoid(); // todo: refactor
     }
 
     public void checkSource(IPattern pattern, PatternRule rule) {

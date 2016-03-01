@@ -2,6 +2,7 @@ package DPD.DependencyBrowser;
 
 import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
+import DPD.ILogger;
 
 import java.io.*;
 import java.util.*;
@@ -18,6 +19,11 @@ public class DSMBrowser implements IBrowser{
     private List<String> files;
     private List<DependencyType> dependencyTypes;
     private List<JClass> jClasses;
+    private ILogger logger;
+
+    public DSMBrowser(ILogger logger) {
+        this.logger = logger;
+    }
 
     @Override
     public void init(File dsmFileName) {
