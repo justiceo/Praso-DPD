@@ -53,12 +53,6 @@ public class JParser implements ASTAnalyzer {
         return false;
     }
 
-    private boolean testExternal(String sourceClass, String targetClass) {
-        MethodChanger mc = new MethodChanger(logger);
-        mc.init(fixClassPath(sourceClass));
-        return mc.getForEachLoops(fixClassPath(targetClass));
-    }
-
     private boolean testLoop(String sourceClass, String targetClass) {
         CompilationUnit sourceCU = this.init(sourceClass.replace(".", "\\").replace("_", "."));
         CompilationUnit targetCU = this.init(targetClass.replace(".", "\\").replace("_", "."));
