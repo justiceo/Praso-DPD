@@ -24,13 +24,13 @@ public class Main {
     private IBrowser browser;
     private IPattern pattern;
     private final String configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
-    private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\dsm\\head-first-design-patterns.dsm";
+    private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\dsm\\simpleObserverPattern.dsm";
     private ILogger logger;
 
     public static void main(String[] args) {
         Main dpd = new Main();
         dpd.testIdm();
-        //dpd.analyze();
+        dpd.analyze();
     }
 
     public void testIdm() {
@@ -60,23 +60,16 @@ public class Main {
         ruleFilters = new RuleFilters(browser, logger);
         ruleFilters.addSourceParser(sourceParser);
 
-
         // run filters through entities
         for(PatternRule rule: pattern.getRules()) {
             ruleFilters.filter(pattern, rule);
-            pattern.displayMembers(logger, browser);
-            System.out.println("\n" + rule.source + " - " +rule.value + " - " + rule.target + "\t####################");
         }
-
-
-
-        logger.log("end here");
 
         // resolve patterns
         List<IPattern> resolved = new ArrayList<>();
         for(PatternResolver resolver: pattern.getResolvers()) {
             resolved.addAll(ruleFilters.resolve(pattern, resolver));
-            System.out.println("total patterns added: " + resolved.size());
+            System.out.println("\ntotal patterns added: " + resolved.size());
         }
 
         // run ast
@@ -85,7 +78,6 @@ public class Main {
                 ruleFilters.checkSource(pattern, rule);
             }
         }
-
 
         // remove empty pattern
         Iterator<IPattern> pIterator = resolved.iterator();
@@ -96,10 +88,11 @@ public class Main {
             }
         }
 
-
         // print out remaining ones
         for(IPattern pattern: resolved) {
             pattern.displayMembers(logger, browser);
         }
+
+        // todo: convert this for-loop chain to a pipe
     }
 }

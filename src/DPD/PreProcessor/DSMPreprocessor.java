@@ -50,8 +50,6 @@ public class DSMPreprocessor {
             input.close();
         }
 
-        buildJClasses();
-
         return true;
     }
 
@@ -59,8 +57,7 @@ public class DSMPreprocessor {
         jClassList = Collections.synchronizedList(new LinkedList<>());
         ClassTypeFilter classTypeFilter = new ClassTypeFilter();
         classTypeFilter.init(jClassList, matrixSize);
-        Thread t = new Thread(classTypeFilter);
-        t.start();
+        new Thread(classTypeFilter).start();
         ExtendsObservableFilter extendsObservableFilter = new ExtendsObservableFilter("Observable", Flag.ObservableFlag);
         extendsObservableFilter.init(jClassList, matrixSize);
         Thread p = new Thread(extendsObservableFilter);
@@ -73,12 +70,9 @@ public class DSMPreprocessor {
             jClass.dependencyLine = matrixLines[i];
             jClassList.add(jClass);
         }
+        System.out.println("main-thread: done writing objects");
 
-        try {
-            p.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
 
         for(JClass jClass: jClassList) {
             if(jClass.flags != null) {

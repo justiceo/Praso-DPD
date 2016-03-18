@@ -27,26 +27,30 @@ public class ClassTypeFilter extends Filter {
 
     @Override
     public void run()  {
+        long startTime = System.currentTimeMillis();
         if(jClasses.size() == 0) {
-            try { sleep(100); }
+            try { sleep(50); }
             catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
-        int counter = 0;
-            Iterator<JClass> iterator = jClasses.iterator();
-            while (counter < matrixSize) {
-                JClass jClass = null;
-                try {
+        int counter = 1;
+        Iterator<JClass> iterator = jClasses.iterator();
+        while (counter < matrixSize) {
+            JClass jClass = null;
+            counter++;
+            try {
+                synchronized (jClasses) {
                     jClass = iterator.next();
                     jClass.classType = getClassType(jClass.classPath);
-                }catch (NoSuchElementException | ParseException | IOException e) {
-                    continue;
                 }
-                counter++;
+            }catch (NoSuchElementException | ParseException | IOException | ClassCastException | NullPointerException e) {
+                // todo: log which exceptions are thrown most, so we can optimize those segments
+                continue;
             }
-
+        }
+        System.out.println("**type filter is done. took " + (System.currentTimeMillis() - startTime) + " micro-secs");
 
     }
 
@@ -71,7 +75,7 @@ public class ClassTypeFilter extends Filter {
             }
             else return ClassType.Unknown;
         }
-        return null;
+        return ClassType.Unknown;
     }
 
 }

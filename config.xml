@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <config>
-	<pattern id="observer1" name="Observer Pattern" config-file="D:\Code\IdeaProjects\DesignPatterns\files\observer-pattern.xml" include="true" />
+	<pattern id="observer1" name="Observer Pattern" config-file="D:\Code\IdeaProjects\DesignPatterns\files\rules\observer-pattern-simple.xml" include="true" />
 	<pattern id="observer2" name="Observer Pattern" config-file="D:\Code\IdeaProjects\DesignPatterns\files\observer-pattern-abs.xml" include="true" />
 	<pattern id="composite1" name="Composite Pattern" config-file="D:\Code\IdeaProjects\DesignPatterns\files\composite-pattern.xml" />
+	<pattern id="visitor1" name="Composite Pattern" config-file="D:\Code\IdeaProjects\DesignPatterns\files\visitor-pattern.xml" />
 	<pattern id="strategy1" name="Strategy Pattern" config-file="D:\Code\IdeaProjects\DesignPatterns\files\strategy-pattern.xml" include="false" />
 	<pattern id="template1" name="Template Method Pattern" config-file="D:\Code\IdeaProjects\DesignPatterns\files\template-method-pattern.xml" include="true" />
 </config>

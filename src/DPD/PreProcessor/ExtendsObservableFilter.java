@@ -33,6 +33,7 @@ public class ExtendsObservableFilter extends Filter {
 
     @Override
     public void run() {
+        long startTime = System.currentTimeMillis();
         if(jClasses.size() == 0) {
             try { sleep(100); }
             catch (InterruptedException e) {
@@ -40,35 +41,44 @@ public class ExtendsObservableFilter extends Filter {
             }
         }
 
-        int counter = 0;
-            Iterator<JClass> iterator = jClasses.iterator();
-            while (counter < matrixSize) {
-                JClass jClass = null;
-                Flag usesObservable = null;
+        int counter = 1;
+        Iterator<JClass> iterator = jClasses.iterator();
+        while (counter < matrixSize) {
+            JClass jClass = null;
+            Flag usesObservable = null;
+            counter++;
+
+            synchronized (jClasses) {
                 try {
                     jClass = iterator.next();
                     usesObservable = filterExtends(jClass.classPath, filterStr, flag);
-                } catch (NoSuchElementException | ParseException | IOException e) {
+                } catch (NoSuchElementException | ParseException | IOException | NullPointerException e) {
                     continue;
                 }
 
-                if(usesObservable != null) {
-                    if(jClass.flags == null) jClass.flags = new ArrayList<>();
+                if (usesObservable != null) {
+                    if (jClass.flags == null) jClass.flags = new ArrayList<>();
                     jClass.flags.add(usesObservable);
                 }
-                counter++;
             }
+        }
+
+        System.out.println("**exts observer is done. took " + (System.currentTimeMillis() - startTime) + " micro-secs");
 
     }
 
     private Flag filterExtends(String classPath, String filterStr, Flag flag) throws IOException, ParseException {
-        if(!Files.exists(Paths.get(classPath))) return null;
+        if(classPath == null || !Files.exists(Paths.get(classPath))) return null;
         CompilationUnit cu = JavaParser.parse(new File(classPath));
         List<TypeDeclaration> typeDecs = cu.getTypes();
         for(TypeDeclaration t: typeDecs) {
-            ClassOrInterfaceDeclaration cd = (ClassOrInterfaceDeclaration) t;
-            if(cd.getExtends() != null) {
-                return cd.getExtends().toString().contains(filterStr) ? flag : null;
+            try {
+                ClassOrInterfaceDeclaration cd = (ClassOrInterfaceDeclaration) t;
+                if(cd.getExtends() != null) {
+                    return cd.getExtends().toString().contains(filterStr) ? flag : null;
+                }
+            } catch (ClassCastException c) {
+                continue;
             }
         }
         return null;
