@@ -41,7 +41,6 @@ public class ExtendsObservableFilter extends Filter {
         }
 
         int counter = 0;
-        synchronized (jClasses) {
             Iterator<JClass> iterator = jClasses.iterator();
             while (counter < matrixSize) {
                 JClass jClass = null;
@@ -59,7 +58,7 @@ public class ExtendsObservableFilter extends Filter {
                 }
                 counter++;
             }
-        }
+
     }
 
     private Flag filterExtends(String classPath, String filterStr, Flag flag) throws IOException, ParseException {

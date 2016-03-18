@@ -35,7 +35,6 @@ public class ClassTypeFilter extends Filter {
         }
 
         int counter = 0;
-        synchronized (jClasses) {
             Iterator<JClass> iterator = jClasses.iterator();
             while (counter < matrixSize) {
                 JClass jClass = null;
@@ -47,7 +46,7 @@ public class ClassTypeFilter extends Filter {
                 }
                 counter++;
             }
-        }
+
 
     }
 

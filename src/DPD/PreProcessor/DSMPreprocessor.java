@@ -12,8 +12,6 @@ import java.util.*;
  * Created by Justice on 3/17/2016.
  */
 public class DSMPreprocessor {
-    // loads a dsm file into an abstract representation of dependency
-    private AbstractDependency abstractDependency;
     String[] matrixLines;
     String[] filePaths;
     String dependencyLine;
@@ -21,11 +19,15 @@ public class DSMPreprocessor {
     private int matrixSize;
     private List<JClass> jClassList;
 
+    private long startTime;
+
     public boolean load(String dsmFilePath) {
         if(!Files.exists(Paths.get(dsmFilePath))) {
             System.out.println("dsm file does not exist");
             return false;
         }
+
+        startTime = System.currentTimeMillis();
 
         currFilePath = dsmFilePath;
         File dsmFile = new File(dsmFilePath);
@@ -66,6 +68,7 @@ public class DSMPreprocessor {
 
         for(int i = 0; i < matrixSize; i++) {
             JClass jClass = new JClass();
+            jClass.classId = i;
             jClass.classPath = fixClassPath(filePaths[i]);
             jClass.dependencyLine = matrixLines[i];
             jClassList.add(jClass);
@@ -82,6 +85,8 @@ public class DSMPreprocessor {
                 System.out.println("\nobs " + jClass.classPath);
             }
         }
+
+        System.out.println("took: " + (System.currentTimeMillis() - startTime ));
     }
 
     public void saveAsIDM() {
@@ -104,10 +109,6 @@ public class DSMPreprocessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public AbstractDependency getAbstractDependency(){
-        return abstractDependency;
     }
 
     public String fixClassPath(String damagedPath) {
