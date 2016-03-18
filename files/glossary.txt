@@ -1,0 +1,30 @@
+Definition of Dependency Types
+==============================
+
+TYPED,
+
+USE:
+====
+A class Foo USE another class Bar when one of its member fields or variables need Bar to be instanciated.
+A common/typical example is Map<String, Bar> barDicts = new Map(); in Foo.java
+example 2:
+RedissionTest.java uses Node.java because of the line below in RedissionTest.java in redisson project.
+Iterator<Node> iter = nodes.getNodes().iterator();
+
+
+IMPLEMENT,
+EXTEND,
+AGGREGATE,
+
+CALL
+====
+Foo has a CALL dependency on Bar if Foo calls any method in Bar.java (including the constructor as in new Bar())
+example: barVariable.getValue(); inside a method in Foo.java
+
+
+SET,
+IMPORT,
+CREATE,
+SPECIALIZE,
+CAST,
+THROW

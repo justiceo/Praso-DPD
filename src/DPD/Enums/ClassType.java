@@ -9,5 +9,6 @@ public enum ClassType {
     Abstract,
     Abstraction,
     Any,
-    Specialization
+    Specialization,
+    Unknown
 }

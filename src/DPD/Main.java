@@ -5,6 +5,7 @@ import DPD.DependencyBrowser.DSMBrowser;
 import DPD.DependencyBrowser.IBrowser;
 import DPD.PatternParser.CommonPatternsParser;
 import DPD.PatternParser.IPatternsParser;
+import DPD.PreProcessor.DSMPreprocessor;
 import DPD.SourceParser.ASTAnalyzer;
 import DPD.SourceParser.JParser;
 
@@ -23,22 +24,28 @@ public class Main {
     private IBrowser browser;
     private IPattern pattern;
     private final String configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
-    private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\jhotdraw.dsm";
+    private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\hfdp.dsm";
     private ILogger logger;
 
     public static void main(String[] args) {
         Main dpd = new Main();
-        dpd.analyze();
+        dpd.testIdm();
+        //dpd.analyze();
     }
 
-    public void analyze() {
+    public void testIdm() {
+        DSMPreprocessor preprocessor = new DSMPreprocessor();
+        if(preprocessor.load(testDsmFile)) preprocessor.saveAsIDM();
+    }
+
+    public void analyze() {;
 
         logger = new ConsoleLogger();
         logger.setVerbose(false);
 
         IPatternsParser patternsParser = new CommonPatternsParser();
         patternsParser.init(new File(configFile));
-        pattern = patternsParser.loadPatternById("composite1");
+        pattern = patternsParser.loadPatternById("observer1");
 
 
         File dsmFile = new File(testDsmFile);
@@ -57,9 +64,13 @@ public class Main {
         // run filters through entities
         for(PatternRule rule: pattern.getRules()) {
             ruleFilters.filter(pattern, rule);
+            pattern.displayMembers(logger, browser);
+            System.out.println("\n" + rule.source + " - " +rule.value + " - " + rule.target + "\t####################");
         }
 
-        //pattern.displayMembers(logger, browser);
+
+
+        logger.log("end here");
 
         // resolve patterns
         List<IPattern> resolved = new ArrayList<>();
