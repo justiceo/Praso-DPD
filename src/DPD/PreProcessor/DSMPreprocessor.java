@@ -63,24 +63,20 @@ public class DSMPreprocessor {
         Thread p = new Thread(extendsObservableFilter);
         p.start();
 
+        LoopsFilter loopsFilter = new LoopsFilter("IObserver", Flag.ObservableFlag);
+        loopsFilter.init(jClassList, matrixSize);
+        Thread t = new Thread(loopsFilter);
+        t.start();
+
         for(int i = 0; i < matrixSize; i++) {
             JClass jClass = new JClass();
             jClass.classId = i;
             jClass.classPath = fixClassPath(filePaths[i]);
             jClass.dependencyLine = matrixLines[i];
+            jClass.flags = new LinkedList<>();
             jClassList.add(jClass);
         }
         System.out.println("main-thread: done writing objects");
-
-
-
-        for(JClass jClass: jClassList) {
-            if(jClass.flags != null) {
-                System.out.println("\nobs " + jClass.classPath);
-            }
-        }
-
-        System.out.println("took: " + (System.currentTimeMillis() - startTime ));
     }
 
     public void saveAsIDM() {
