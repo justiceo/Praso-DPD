@@ -1,0 +1,46 @@
+
+<pattern name="Observer Pattern with Abstract subject" base-pattern="Observer" >
+
+	<hierarchy id="h1" name="Observer hierarchy" include-intermediaries="false">	<!-- we know something about classes in a hierarchy, they're related! Must be related! so let's use the space for better info -->
+		<entity id="e1" name="Observer Interface" type="Abstraction" />
+		<entity id="e2" name="Concrete Observer" type="Class">
+			<rule rule-type="Dependency" value="Call" target="h2" optional="true" />
+			<rule rule-type="Cardinality" value="Plural" optional="true" />
+		</entity>		
+	</hierarchy>
+	
+	<hierarchy id="h2" name="Subject hierarchy" include-intermediaries="false">
+		<entity id="e3" name="Abstract Subject" type="Abstraction" optional="true" />
+		<entity id="e4" name="Concrete Subject" type="Class" />
+		
+		<rule rule-type="Dependency"  value="Call" target="e1" />				<!-- it makes a call to notify() somehow somewhere -->
+		<rule rule-type="Dependency"  value="Use" target="e1" />				<!-- it contains a data-structure of observers -->
+		<code-analysis type="Variable" value="Aggregates" target="e1" />		<!-- we already know subject uses observer, this validates that this usage is in the form of a collection of observers-->
+		<code-analysis type="Statement" value="Loops" target="e1" />			<!-- we already know that there is a method in the subject that calls the observer; this validates that the call is made inside a loop of observers -->
+	</hierarchy>
+
+	<resolver resolver-type="SEPARATE" source="h1" />	
+</pattern>
+
+<!-- Justification
+	==============
+- Is Compositional, pattern, hierarchy, entity can compose each other.
+- Extensible, both in a compositional sense and abstract sense. Set a base pattern an extend it. Allows variations in patterns.
+- Power shift to User - the interpretation of a pattern is left to the user - not the programmer.
+- Allows for fine-grained and high-level definition of rules. This is important in distinguishing between behavioral & structural patterns
+	where inheritance instead of communication may be emphasized more.
+	
+-->
+
+
+<!--
+
+Test cases
+==========
+how do you ensure that same classes don't fall into concrete observer and observer interface
+how do you ensure that same classes don't fall into concrete observer and subject
+if there are multiple void methods in the observer interface, how do you select the notify() method?
+if there are multiple forLoops in the subject to the observer, how do you select the notify() method?
+if there are intermediary inheritance heirachies between the observer interface and concrete observers, where do they go?
+
+-->

@@ -1,8 +1,0 @@
-<pattern name="Template Method Pattern">
-	<entity id="e1" name="Abstract Class (Template)" type="Abstract" />
-	<entity id="e2" name="Concrete Class" type="Class"/>
-
-	<rule rule-type="Dependency"  source="e2" value="Extend" target="e1" />
-
-	<resolver resolver-type="SEPARATE" source="e1" />
-</pattern>

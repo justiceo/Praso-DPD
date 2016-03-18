@@ -24,7 +24,7 @@ public class Main {
     private IBrowser browser;
     private IPattern pattern;
     private final String configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
-    private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\hfdp.dsm";
+    private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\dsm\\head-first-design-patterns.dsm";
     private ILogger logger;
 
     public static void main(String[] args) {
@@ -35,7 +35,7 @@ public class Main {
 
     public void testIdm() {
         DSMPreprocessor preprocessor = new DSMPreprocessor();
-        if(preprocessor.load(testDsmFile)) preprocessor.saveAsIDM();
+        if(preprocessor.load(testDsmFile)) preprocessor.buildJClasses();
     }
 
     public void analyze() {;

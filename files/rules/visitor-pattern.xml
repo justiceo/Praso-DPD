@@ -1,0 +1,28 @@
+<pattern name="Visitor Pattern">
+	<hierarchy id="h1" name="Visitor hierarchy" exclusive="true" >
+		<entity id="e2" name="Visitor" type="Abstraction" />
+		<entity id="e3" name="Concrete Visitor" type="Specialization" />
+		
+		<code-analysis type="traverses" target="element" />
+	</hierarchy>
+	<hierarchy id="h2" name="Element hierarchy" exclusive="true">
+		<entity id="e4" name="Element" type="Abstraction" />
+		<entity id="e5" name="Concrete Element" type="Class" />
+	</hierarchy>
+	<entity id="e1" name="Client" type="Class" />
+
+	<rule rule-type="Dependency" source="e5" value="Typed" target="e2" />
+	<rule rule-type="Dependency" source="e5" value="Call" target="e2" />
+	<rule rule-type="Dependency" source="e1" value="Typed" target="e4" />
+	<rule rule-type="Dependency" source="e1" value="Call" target="e4" />
+	<rule rule-type="Dependency" source="e1" value="Create" target="e3" />
+
+	<resolver resolver-type="SEPARATE" source="e1" />
+</pattern>
+<!--
+// benchmark for evaluation
+// collect sample projects for benchmarking
+
+// traditional design patterns
+// gang of 4
+-->
