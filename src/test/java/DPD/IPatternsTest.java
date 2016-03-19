@@ -1,3 +1,5 @@
+package DPD;
+
 import DPD.Enums.ClassType;
 import DPD.DSMMapper.IPattern;
 import DPD.DSMMapper.PatternEntity;
@@ -39,7 +41,7 @@ public class IPatternsTest { // tests that loaded patterns contain the right inf
     @Test
     public void getEntitiesTest() {
         List<PatternEntity> actualEntityList = observerPattern.getEntities();
-        assertEquals(3, actualEntityList.size());
+        Assert.assertEquals(3, actualEntityList.size());
         PatternEntity firstEntity = new PatternEntity();
         firstEntity.id = "e1";
         firstEntity.name = "Observer";
@@ -57,6 +59,6 @@ public class IPatternsTest { // tests that loaded patterns contain the right inf
         firstRule.value = "Implement";
         firstRule.target = "e1";
         PatternRule actual1 = actualRules.get(0);
-        assertTrue(firstRule.equals(actualRules.get(0)));
+        Assert.assertTrue(firstRule.equals(actualRules.get(0)));
     }
 }

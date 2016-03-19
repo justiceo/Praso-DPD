@@ -1,3 +1,5 @@
+package DPD;
+
 import DPD.DSMMapper.IPattern;
 import DPD.PatternParser.*;
 import org.junit.After;

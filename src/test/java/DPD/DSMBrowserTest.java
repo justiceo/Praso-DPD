@@ -1,17 +1,17 @@
-import DPD.ConsoleLogger;
+package DPD;
+
 import DPD.DependencyBrowser.DSMBrowser;
 import DPD.DependencyBrowser.IBrowser;
 import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by Justice on 1/27/2016.
@@ -42,7 +42,7 @@ public class DSMBrowserTest {
         expectedDependencyTypes.add(DependencyType.USE);
 
         List<DependencyType> actualDependencyTypes = browser.getDependencyTypes();
-        assertEquals(expectedDependencyTypes, actualDependencyTypes);
+        Assert.assertEquals(expectedDependencyTypes, actualDependencyTypes);
     }
 
     @Test
