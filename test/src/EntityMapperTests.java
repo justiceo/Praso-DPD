@@ -1,17 +1,13 @@
-import DPD.Enums.ClassType;
-import DPD.DependencyBrowser.DSMBrowser;
-import DPD.DependencyBrowser.IBrowser;
 import DPD.DSMMapper.EntityMapper;
 import DPD.DSMMapper.IPattern;
 import DPD.DSMMapper.PatternEntity;
-import DPD.PatternParser.CommonPatternsParser;
-import DPD.PatternParser.IPatternsParser;
+import DPD.DependencyBrowser.IBrowser;
+import DPD.Enums.ClassType;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +24,7 @@ public class EntityMapperTests {
 
     @Before
     public void setup() {
-        IPatternsParser patternsParser = new CommonPatternsParser();
+        /* IPatternsParser patternsParser = new CommonPatternsParser();
         patternsParser.init(new File(configFile));
         observerPattern = patternsParser.parse(patternsParser.getRunnableConfigs().get(0));
 
@@ -38,6 +34,7 @@ public class EntityMapperTests {
 
         mapper = new EntityMapper();
         mapper.init(browser);
+        */
     }
 
     @After
@@ -79,7 +76,7 @@ public class EntityMapperTests {
         expectedCompliantClasses.add("D:.Code.IdeaProjects.DesignPatterns.src.observer.IObserver_java");
         Assert.assertEquals(expectedCompliantClasses, observerEntity.compliantClasses);
 
-        List<IPattern> resolvedPatterns = mapper.resolvePatternEntities(observerPattern);
+        //List<IPattern> resolvedPatterns = mapper.resolvePatternEntities(observerPattern);
 
     }
 }

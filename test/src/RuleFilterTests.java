@@ -1,6 +1,4 @@
-import DPD.ConsoleLogger;
 import DPD.DSMMapper.*;
-import DPD.DependencyBrowser.DSMBrowser;
 import DPD.DependencyBrowser.IBrowser;
 import DPD.PatternParser.CommonPatternsParser;
 import DPD.PatternParser.IPatternsParser;
@@ -29,6 +27,7 @@ public class RuleFilterTests {
         patternsParser.init(new File(configFile));
         observerPattern = patternsParser.parse(patternsParser.getRunnableConfigs().get(0));
 
+        /*
         File dsmFile = new File(testDsmFile);
         browser = new DSMBrowser();
         browser.init(dsmFile);
@@ -38,6 +37,7 @@ public class RuleFilterTests {
         mapper.mapPatternEntities(observerPattern);
 
         ruleFilters = new RuleFilters(browser);
+        */
     }
 
     @After
@@ -57,7 +57,7 @@ public class RuleFilterTests {
         for(PatternRule rule: observerPattern.getRules()) {
             ruleFilters.filter(observerPattern, rule);
         }
-        observerPattern.displayMembers(new ConsoleLogger());
+        //observerPattern.displayMembers(new ConsoleLogger());
 
         // resolver
         // get subjectBucket
@@ -77,7 +77,7 @@ public class RuleFilterTests {
         System.out.println("\n\n=== Resolving ===\n\n");
         for(PatternResolver resolver: observerPattern.getResolvers()) {
             List<IPattern> resolved = ruleFilters.resolve(observerPattern, resolver);
-            resolved.forEach(p -> p.displayMembers(new ConsoleLogger()));
+            //resolved.forEach(p -> p.displayMembers(new ConsoleLogger()));
         }
     }
 

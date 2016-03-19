@@ -21,8 +21,8 @@ public class Main {
     private EntityMapper mapper;
     private IBrowser browser;
     private IPattern pattern;
-    private final String configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
-    private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\dsm\\simpleObserverPattern.dsm";
+    private final String configFile = "config.xml";
+    private final String testDsmFile = "files\\dsm\\simpleObserverPattern.dsm";
     private ILogger logger;
 
     public static void main(String[] args) {
