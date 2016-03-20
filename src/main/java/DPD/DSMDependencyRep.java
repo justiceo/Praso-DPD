@@ -7,6 +7,8 @@ import com.github.javaparser.ast.CompilationUnit;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -20,6 +22,7 @@ public class DSMDependencyRep implements DependencyRep {
     private String[] matrixLines;
     private String fileName;
     private String absDir;
+    private ArrayList locations;
 
     public DSMDependencyRep() {
     }
@@ -37,32 +40,16 @@ public class DSMDependencyRep implements DependencyRep {
         }
 
         filePaths = new String[matrixSize];
-        if(isDamaged) { // todo: put flag for damaged files
-            for (int i = 0; i < matrixSize; i++) {                    /* read the java files */
-                filePaths[i] = fixFilepath(in.nextLine());
-            }
-        }
-        else {
-            for (int i = 0; i < matrixSize; i++) {                    /* read the java files */
-                filePaths[i] = in.nextLine();
-            }
+        for (int i = 0; i < matrixSize; i++) {                    /* read the java files */
+            filePaths[i] = fixFilePath(in.nextLine());
         }
 
         // test
         //
 
-        try {
-            for(int i=0; i<filePaths.length; i++)
-                filePaths[i] = fixFilepath(filePaths[i]);
-            setAbsDir();
-            // for file in filePaths, set relative paths
-            // save them to new file.
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        setAbsDirFromPath();
+
     }
 
     public String getDependencyLine() {
@@ -108,6 +95,11 @@ public class DSMDependencyRep implements DependencyRep {
         }
 
         int matrixSize = filePaths.length;
+        for(int i = 0; i < filePaths.length; i++) {
+            filePaths[i] = getRelativePath(filePaths[i]);
+        }
+
+
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(fileName)));
         writer.write(dependencyLine + "\n");
@@ -115,17 +107,12 @@ public class DSMDependencyRep implements DependencyRep {
         for (int i = 0; i < matrixSize; i++) {
             writer.write(matrixLines[i] + "\n");
         }
-        if (true) { // put in flag for damaged files
-            for (int i = 0; i < matrixSize; i++) {
-                writer.write(filePaths[i] + "\n");
-            }
+        for (int i = 0; i < matrixSize; i++) {
+            writer.write(filePaths[i] + "\n");
         }
+        writer.write(locations.toString() + "\n");
         writer.flush();
         writer.close();
-    }
-
-    public boolean isPathsAbsolute() {
-        return new File(filePaths[0]).isAbsolute();
     }
 
     private void setAbsDir() throws IOException, ParseException {
@@ -137,17 +124,26 @@ public class DSMDependencyRep implements DependencyRep {
         String packageName = cu.getPackage().toString().replace("package ", "");
         packageName = packageName.substring(0, packageName.lastIndexOf(";"));
         String fileName = packageName + "." + cu.getTypes().get(0).getName() + "_java";
-        fileName = fixFilepath(fileName);
+        fileName = fixFilePath(fileName);
         absDir = filePath.replace(fileName, "");
+        locations = new ArrayList<>();
+        locations.add(absDir);
+    }
 
-        System.out.println("abs dir is: " + absDir);
+    private void setAbsDirFromPath() {
+        String filePath = filePaths[0];
+        int cutoff = filePath.indexOf("src");
+        absDir = filePath.substring(0, cutoff);
+        locations = new ArrayList();
+        locations.add(absDir);
+        System.out.println("package: " + absDir);
     }
 
     public String getRelativePath(String absolutePath) {
         return absolutePath.replace(absDir, "");
     }
 
-    public String fixFilepath(String damagedPath) {
+    public String fixFilePath(String damagedPath) {
         try {
             int l = damagedPath.lastIndexOf("_");
             if(l == -1) return damagedPath; // it's good.

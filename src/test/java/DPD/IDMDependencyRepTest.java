@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 public class IDMDependencyRepTest {
 
 
-    private final String testDsmFile = "files\\dsm\\simpleObserverPattern.dsm";
+    private final String testDsmFile = "files\\dsm\\Maze2.dsm";
 
     @Test
     public void TestSaveIdm() throws IOException {
@@ -29,5 +29,12 @@ public class IDMDependencyRepTest {
         // todo: re-load and verify contents with those of dsm (works by inspection lol)
         // then discard
         Files.delete(Paths.get(targetFile));
+    }
+
+    @Test
+    public void TestSaveCDSM() throws IOException {
+
+        DSMDependencyRep dsmDependencyRep = new DSMDependencyRep(testDsmFile);
+        dsmDependencyRep.saveWithRelativePaths();
     }
 }
