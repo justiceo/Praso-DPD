@@ -33,6 +33,7 @@ public class ExtendsObservableFilter extends Filter {
 
     @Override
     public void run() {
+        System.out.println("starting ext. observable filter...");
         long startTime = System.currentTimeMillis();
         if(jClasses.size() == 0) {
             try { sleep(100); }
@@ -62,8 +63,7 @@ public class ExtendsObservableFilter extends Filter {
                 }
             }
         }
-
-        System.out.println("**exts observer is done. took " + (System.currentTimeMillis() - startTime) + " micro-secs");
+        System.out.println("exiting ext. obs. filter (" + (System.currentTimeMillis() - startTime) + "ms)");
 
     }
 

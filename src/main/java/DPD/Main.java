@@ -33,7 +33,11 @@ public class Main {
 
     public void testIdm() {
         DSMPreprocessor preprocessor = new DSMPreprocessor();
-        if(preprocessor.load(testDsmFile)) preprocessor.buildJClasses();
+        if(preprocessor.load(testDsmFile)) try {
+            preprocessor.buildJClasses();
+        } catch (InterruptedException e) {
+            System.out.println("unable to load " + testDsmFile);
+        }
     }
 
     public void analyze() {;

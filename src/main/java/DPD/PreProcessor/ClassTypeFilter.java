@@ -1,6 +1,5 @@
 package DPD.PreProcessor;
 
-import DPD.DependencyBrowser.Flag;
 import DPD.DependencyBrowser.JClass;
 import DPD.Enums.ClassType;
 import com.github.javaparser.JavaParser;
@@ -27,6 +26,7 @@ public class ClassTypeFilter extends Filter {
 
     @Override
     public void run()  {
+        System.out.println("starting class type filter...");
         long startTime = System.currentTimeMillis();
         if(jClasses.size() == 0) {
             try { sleep(50); }
@@ -50,7 +50,7 @@ public class ClassTypeFilter extends Filter {
                 continue;
             }
         }
-        System.out.println("**type filter is done. took " + (System.currentTimeMillis() - startTime) + " micro-secs");
+        System.out.println("exiting class type filter (" + (System.currentTimeMillis() - startTime) + "ms)");
 
     }
 

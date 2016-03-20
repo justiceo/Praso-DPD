@@ -6,7 +6,10 @@ import DPD.DependencyBrowser.JClass;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by Justice on 3/17/2016.
@@ -53,20 +56,25 @@ public class DSMPreprocessor {
         return true;
     }
 
-    public void buildJClasses() {
+    public void buildJClasses() throws InterruptedException {
+        long startTime = System.currentTimeMillis();
         jClassList = Collections.synchronizedList(new LinkedList<>());
+
+        // create and start the threads
         ClassTypeFilter classTypeFilter = new ClassTypeFilter();
         classTypeFilter.init(jClassList, matrixSize);
-        new Thread(classTypeFilter).start();
+        Thread classTypeFThread = new Thread(classTypeFilter);
+        classTypeFThread.start();
+
         ExtendsObservableFilter extendsObservableFilter = new ExtendsObservableFilter("Observable", Flag.ObservableFlag);
         extendsObservableFilter.init(jClassList, matrixSize);
-        Thread p = new Thread(extendsObservableFilter);
-        p.start();
+        Thread extObservableFThread = new Thread(extendsObservableFilter);
+        extObservableFThread.start();
 
         LoopsFilter loopsFilter = new LoopsFilter("IObserver", Flag.ObservableFlag);
         loopsFilter.init(jClassList, matrixSize);
-        Thread t = new Thread(loopsFilter);
-        t.start();
+        Thread loopsFThread = new Thread(loopsFilter);
+        loopsFThread.start();
 
         for(int i = 0; i < matrixSize; i++) {
             JClass jClass = new JClass();
@@ -76,7 +84,20 @@ public class DSMPreprocessor {
             jClass.flags = new LinkedList<>();
             jClassList.add(jClass);
         }
-        System.out.println("main-thread: done writing objects");
+
+        // join all the threads
+        classTypeFThread.join();
+        extObservableFThread.join();
+        loopsFThread.join();
+
+        System.out.println("all filters have finished (" + (System.currentTimeMillis() - startTime) + "ms)" );
+    }
+
+    public List<JClass> getjClassList() {
+        return jClassList;
+    }
+    public String getDependencyLine() {
+        return dependencyLine;
     }
 
     public void saveAsIDM() {

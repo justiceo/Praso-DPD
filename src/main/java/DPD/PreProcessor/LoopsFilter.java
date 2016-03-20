@@ -5,7 +5,6 @@ import DPD.DependencyBrowser.JClass;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.BodyDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.stmt.ForStmt;
@@ -35,7 +34,7 @@ public class LoopsFilter extends Filter {
 
     @Override
     public void run() {
-        System.out.println("loops filter has been started");
+        System.out.println("starting loops filter...");
 
         long startTime = System.currentTimeMillis();
         if(jClasses.size() == 0) {
@@ -65,7 +64,7 @@ public class LoopsFilter extends Filter {
                 counter++;
             }
         }
-        System.out.println("**loops filter is done. took " + (System.currentTimeMillis() - startTime) + " micro-secs");
+        System.out.println("exiting loops filter (" + (System.currentTimeMillis() - startTime) + "ms)");
     }
 
 
