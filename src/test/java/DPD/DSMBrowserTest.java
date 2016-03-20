@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +23,9 @@ public class DSMBrowserTest {
     private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\observer-sample.dsm";
 
     @Before
-    public void setup() {
+    public void setup() throws FileNotFoundException {
         browser = new DSMBrowser(new ConsoleLogger());
-        File dsmFile = new File(testDsmFile);
-        browser.init(dsmFile);
+        browser.init(testDsmFile);
     }
 
     @After

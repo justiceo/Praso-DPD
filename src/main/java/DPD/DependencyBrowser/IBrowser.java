@@ -3,8 +3,7 @@ package DPD.DependencyBrowser;
 import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
 
-import java.io.File;
-import java.util.Collection;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -13,7 +12,7 @@ import java.util.List;
  */
 public interface IBrowser {
 
-    void init(File dsmFileName);
+    void init(String dsmFileName) throws FileNotFoundException;
 
     List<DependencyType> getDependencyTypes();
 

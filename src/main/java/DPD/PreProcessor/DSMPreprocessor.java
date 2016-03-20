@@ -100,28 +100,6 @@ public class DSMPreprocessor {
         return dependencyLine;
     }
 
-    public void saveAsIDM() {
-        if(dependencyLine == null || filePaths == null || matrixLines == null) {
-            System.out.println("incomplete file structure");
-            return;
-        }
-
-        String idmFilePath = currFilePath.substring(0, currFilePath.lastIndexOf(".")) + ".idm";
-
-        BufferedWriter writer = null;
-        try {
-            writer = new BufferedWriter(new FileWriter(new File(idmFilePath)));
-            writer.write(dependencyLine + "\n");
-            for(int i = 0; i < matrixSize; i++) {
-                writer.write(filePaths[i] + " ::: " + matrixLines[i] + "\n");
-            }
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public String fixClassPath(String damagedPath) {
         int l = damagedPath.lastIndexOf("_");
         String ext = damagedPath.substring(l).replace("_", ".");

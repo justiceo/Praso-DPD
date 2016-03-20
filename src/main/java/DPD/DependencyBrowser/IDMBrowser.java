@@ -2,9 +2,10 @@ package DPD.DependencyBrowser;
 
 import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
+import DPD.IDMDependencyRep;
 import DPD.ILogger;
 
-import java.io.*;
+import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -12,44 +13,37 @@ import java.util.stream.Collectors;
 /**
  * Created by Justice on 1/27/2016.
  */
-public class DSMBrowser implements IBrowser{
+public class IDMBrowser implements IBrowser{
 
     private int matrixSize;
-    private String[][] matrix;
+    private List<String> matrix;
     private List<String> files;
     private List<DependencyType> dependencyTypes;
     private List<JClass> jClasses;
     private ILogger logger;
+    private String dependencyLine;
 
-    public DSMBrowser(ILogger logger) {
+    public IDMBrowser(ILogger logger) {
         this.logger = logger;
     }
+    public IDMBrowser(ILogger logger, List<JClass> jClasses, String dependencyLine) {
+        this.logger = logger;
+        this.jClasses = jClasses;
+        this.dependencyLine = dependencyLine;
 
-    @Override
-    public void init(String dsmFileName) {
-        Scanner in = null;
-        try {
-            in = new Scanner(new File(dsmFileName));          /* load dsm file */
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-                                                    /* read dependency types and matrixSize */
-        buildDependencyTypesList(in.nextLine());
-        matrixSize = Integer.parseInt(in.nextLine());
+    }
 
-        matrix = new String[matrixSize][matrixSize];
-        for(int i=0; i<matrixSize; i++) {           /* read the matrix */
-            String matrixRow = in.nextLine();
-            matrix[i] = matrixRow.split(" ");
-        }
 
-        files = new ArrayList<>();
-        while(in.hasNext()) {                       /* read the java files */
-            files.add(in.nextLine());
-        }
+    public void init(String idmFileName) throws FileNotFoundException {
+        IDMDependencyRep idm = new IDMDependencyRep(idmFileName);
+        this.matrix = Arrays.asList(idm.getMatrixLines());
+        this.files = Arrays.asList(idm.getFilePaths());
+        this.dependencyLine = idm.getDependencyLine();
 
         /*todo: move rest of initializations here */
-        buildJClasses();                            /* build jClasses for faster search operations */
+        buildJClasses();
+        /* build jClasses for faster search operations */
+
     }
 
     @Override
@@ -176,8 +170,7 @@ public class DSMBrowser implements IBrowser{
             JClass jClass = new JClass();
             jClass.classPath = files.get(i);
             jClass.classId = i;
-            jClass.matrixRow = matrix[i];
-            jClass.dependencyLine = String.join(" ", matrix[i]);
+            jClass.dependencyLine = matrix.get(i);
             jClass.classType = determineClassType(jClass);
             jClasses.add(jClass);
         }
@@ -244,7 +237,7 @@ public class DSMBrowser implements IBrowser{
     private String[] getMatrixCol(int col) {
         String[] resultColumn = new String[matrixSize];
         for(int row = 0; row < matrixSize; row++) {
-            resultColumn[row] = matrix[row][col];
+            //resultColumn[row] = matrix[row][col];
         }
         return resultColumn;
     }

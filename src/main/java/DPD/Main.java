@@ -10,7 +10,10 @@ import DPD.SourceParser.ASTAnalyzer;
 import DPD.SourceParser.JParser;
 
 import java.io.File;
-import java.util.*;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Justice on 2/2/2016.
@@ -50,9 +53,13 @@ public class Main {
         pattern = patternsParser.loadPatternById("observer1");
 
 
-        File dsmFile = new File(testDsmFile);
         browser = new DSMBrowser(logger);
-        browser.init(dsmFile);
+        try {
+            browser.init(testDsmFile);
+        } catch (FileNotFoundException e) {
+            System.out.println("error loading dsm file");
+            System.exit(0);
+        }
 
         ASTAnalyzer sourceParser = new JParser(logger);
 
