@@ -1,26 +1,48 @@
+<pattern-component>
+	<pattern name="Observer Pattern with Abstract subject" base-pattern="Observer" >
+		<hierarchy id="h1" name="Observer hierarchy" include-intermediaries="false">	<!-- we know something about classes in a hierarchy, they're related! Must be related! so let's use the space for better info -->
+			<entity id="e1" name="Observer Interface" type="Abstraction" />
+			<entity id="e2" name="Concrete Observer" type="Class">
+				<rule rule-type="Dependency" value="Call" target="h2" optional="true" />
+				<rule rule-type="Cardinality" value="Plural" optional="true" />
+			</entity>
+		</hierarchy>
 
-<pattern name="Observer Pattern with Abstract subject" base-pattern="Observer" >
+		<hierarchy id="h2" name="Subject hierarchy" include-intermediaries="false">
+			<entity id="e3" name="Abstract Subject" type="Abstraction" optional="true" />
+			<entity id="e4" name="Concrete Subject" type="Class" />
 
-	<hierarchy id="h1" name="Observer hierarchy" include-intermediaries="false">	<!-- we know something about classes in a hierarchy, they're related! Must be related! so let's use the space for better info -->
-		<entity id="e1" name="Observer Interface" type="Abstraction" />
-		<entity id="e2" name="Concrete Observer" type="Class">
-			<rule rule-type="Dependency" value="Call" target="h2" optional="true" />
-			<rule rule-type="Cardinality" value="Plural" optional="true" />
-		</entity>		
-	</hierarchy>
-	
-	<hierarchy id="h2" name="Subject hierarchy" include-intermediaries="false">
-		<entity id="e3" name="Abstract Subject" type="Abstraction" optional="true" />
-		<entity id="e4" name="Concrete Subject" type="Class" />
-		
-		<rule rule-type="Dependency"  value="Call" target="e1" />				<!-- it makes a call to notify() somehow somewhere -->
-		<rule rule-type="Dependency"  value="Use" target="e1" />				<!-- it contains a data-structure of observers -->
-		<code-analysis type="Variable" value="Aggregates" target="e1" />		<!-- we already know subject uses observer, this validates that this usage is in the form of a collection of observers-->
-		<code-analysis type="Statement" value="Loops" target="e1" />			<!-- we already know that there is a method in the subject that calls the observer; this validates that the call is made inside a loop of observers -->
-	</hierarchy>
+			<rule rule-type="Dependency"  value="Call" target="e1" />				<!-- it makes a call to notify() somehow somewhere -->
+			<rule rule-type="Dependency"  value="Use" target="e1" />				<!-- it contains a data-structure of observers -->
+			<code-analysis type="Variable" value="Aggregates" target="e1" />		<!-- we already know subject uses observer, this validates that this usage is in the form of a collection of observers-->
+			<code-analysis type="Statement" value="Loops" target="e1" />			<!-- we already know that there is a method in the subject that calls the observer; this validates that the call is made inside a loop of observers -->
+		</hierarchy>
 
-	<resolver resolver-type="SEPARATE" source="h1" />	
-</pattern>
+		<resolver resolver-type="SEPARATE" source="h1" />
+	</pattern>
+
+	<pattern name="Observer Pattern using Java's observer" base-pattern="Observer" >
+		<hierarchy id="h1" name="Observer hierarchy" include-intermediaries="false">
+			<entity id="e1" name="Observer Interface" absolute-type="java.util.Observer" type="Abstraction" />
+			<entity id="e2" name="Concrete Observer" type="Class">
+				<rule rule-type="Dependency" value="Call" target="h2" optional="true" />
+				<rule rule-type="Cardinality" value="Plural" optional="true" />
+			</entity>
+		</hierarchy>
+
+		<hierarchy id="h2" name="Subject hierarchy" include-intermediaries="false">
+			<entity id="e3" name="Abstract Subject" absolute-type="java.util.Observable" type="Abstraction" optional="true" />
+			<entity id="e4" name="Concrete Subject" type="Class" />
+
+			<rule rule-type="Dependency"  value="Call" target="e1" />
+			<rule rule-type="Dependency"  value="Use" target="e1" />
+			<code-analysis type="Variable" value="Aggregates" target="e1" />
+			<code-analysis type="Statement" value="Loops" target="e1" />
+		</hierarchy>
+
+		<resolver resolver-type="SEPARATE" source="h1" />
+	</pattern>
+</pattern-component>
 
 <!-- Justification
 	==============
