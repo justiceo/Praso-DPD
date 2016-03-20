@@ -61,6 +61,7 @@ public class ClassTypeFilter extends Filter {
         List<TypeDeclaration> typeDecs = cu.getTypes();
         for(TypeDeclaration t: typeDecs) {
             ClassOrInterfaceDeclaration cd = (ClassOrInterfaceDeclaration) t;
+
             if(cd.getModifiers() == 1025) {
                 return ClassType.Abstract;
             }
