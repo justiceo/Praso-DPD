@@ -4,3 +4,6 @@ out/
 files/libraries
 src/CommonPatterns
 target/
+.settings/
+.classpath
+.project
