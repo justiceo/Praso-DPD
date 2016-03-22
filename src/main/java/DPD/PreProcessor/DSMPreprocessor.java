@@ -76,6 +76,11 @@ public class DSMPreprocessor {
         Thread loopsFThread = new Thread(loopsFilter);
         loopsFThread.start();
 
+        ExpandMatrixFilter expandMatrixFilter = new ExpandMatrixFilter(dependencyLine);
+        expandMatrixFilter.init(jClassList, matrixSize);
+        Thread expMatrixThread = new Thread(expandMatrixFilter);
+        expMatrixThread.start();
+
         for(int i = 0; i < matrixSize; i++) {
             JClass jClass = new JClass();
             jClass.classId = i;
@@ -89,6 +94,7 @@ public class DSMPreprocessor {
         classTypeFThread.join();
         extObservableFThread.join();
         loopsFThread.join();
+        expMatrixThread.join();
 
         System.out.println("all filters have finished (" + (System.currentTimeMillis() - startTime) + "ms)" );
     }

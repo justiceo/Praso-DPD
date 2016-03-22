@@ -28,7 +28,7 @@ public class ClassTypeFilter extends Filter {
     public void run()  {
         System.out.println("starting class type filter...");
         long startTime = System.currentTimeMillis();
-        if(jClasses.size() == 0) {
+        while(jClasses.size() == 0) {
             try { sleep(50); }
             catch (InterruptedException e) {
                 e.printStackTrace();

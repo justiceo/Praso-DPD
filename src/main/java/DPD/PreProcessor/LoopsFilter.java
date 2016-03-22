@@ -37,8 +37,8 @@ public class LoopsFilter extends Filter {
         System.out.println("starting loops filter...");
 
         long startTime = System.currentTimeMillis();
-        if(jClasses.size() == 0) {
-            try { sleep(100); }
+        while(jClasses.size() == 0) {
+            try { sleep(70); }
             catch (InterruptedException e) {
                 e.printStackTrace();
             }

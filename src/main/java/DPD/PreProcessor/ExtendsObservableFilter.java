@@ -35,8 +35,8 @@ public class ExtendsObservableFilter extends Filter {
     public void run() {
         System.out.println("starting ext. observable filter...");
         long startTime = System.currentTimeMillis();
-        if(jClasses.size() == 0) {
-            try { sleep(100); }
+        while(jClasses.size() == 0) {
+            try { sleep(10); }
             catch (InterruptedException e) {
                 e.printStackTrace();
             }
