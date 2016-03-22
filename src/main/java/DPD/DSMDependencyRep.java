@@ -147,7 +147,8 @@ public class DSMDependencyRep implements DependencyRep {
         try {
             int l = damagedPath.lastIndexOf("_");
             if(l == -1) return damagedPath; // it's good.
-            if(!damagedPath.split("_")[1].equals("java")) {
+            int count = damagedPath.split("_").length;
+            if(!damagedPath.split("_")[count-1].equals("java")) {
                 System.out.println("cannot fix path: " + damagedPath);
                 return damagedPath;
             }
