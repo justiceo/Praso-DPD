@@ -20,10 +20,9 @@ import java.util.List;
  */
 public class Main {
 
-    private RuleFilters ruleFilters;
-    private EntityMapper mapper;
+    private PatternDetector patternDetector;
     private IBrowser browser;
-    private IPattern pattern;
+    private PatternComponent pattern;
     private final String configFile = "config.xml";
     private final String testDsmFile = "files\\dsm\\redisson.dsm";
     private ILogger logger;
@@ -62,43 +61,41 @@ public class Main {
 
         ASTAnalyzer sourceParser = new JParser(logger);
 
-        mapper = new EntityMapper(browser, logger);
-        mapper.mapPatternEntities(pattern);
-
-        ruleFilters = new RuleFilters(browser, logger);
-        ruleFilters.addSourceParser(sourceParser);
+        patternDetector = new PatternDetector(browser, logger);
+        patternDetector.mapPatternEntities(pattern);
+        patternDetector.addSourceParser(sourceParser);
 
         // run filters through entities
         for(PatternRule rule: pattern.getRules()) {
-            ruleFilters.filter(pattern, rule);
+            patternDetector.filter(pattern, rule);
         }
 
         // resolve patterns
-        List<IPattern> resolved = new ArrayList<>();
+        List<PatternComponent> resolved = new ArrayList<>();
         for(PatternResolver resolver: pattern.getResolvers()) {
-            resolved.addAll(ruleFilters.resolve(pattern, resolver));
+            resolved.addAll(patternDetector.resolve(pattern, resolver));
             System.out.println("\ntotal patterns added: " + resolved.size());
         }
 
         // run ast
-        /*
-        for(IPattern pattern: resolved) {
+
+        for(PatternComponent pattern: resolved) {
             for (PatternRule rule : pattern.getRules()) {
-                ruleFilters.checkSource(pattern, rule);
+                patternDetector.checkSource(pattern, rule);
             }
-        }*/
+        }
 
         // remove empty pattern
-        Iterator<IPattern> pIterator = resolved.iterator();
+        Iterator<PatternComponent> pIterator = resolved.iterator();
         while(pIterator.hasNext()){
-            IPattern pattern = pIterator.next();
+            PatternComponent pattern = pIterator.next();
             if(pattern.isVoid()) {
                 pIterator.remove();
             }
         }
 
         // print out remaining ones
-        for(IPattern pattern: resolved) {
+        for(PatternComponent pattern: resolved) {
             pattern.displayMembers(logger, browser);
         }
 

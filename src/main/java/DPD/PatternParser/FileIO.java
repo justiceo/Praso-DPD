@@ -1,7 +1,7 @@
 package DPD.PatternParser;
 
-import DPD.DSMMapper.CommonPattern;
-import DPD.DSMMapper.IPattern;
+import DPD.DSMMapper.SimplePattern;
+import DPD.DSMMapper.PatternComponent;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -41,11 +41,11 @@ public final class FileIO {
         }
     }
 
-    public static IPattern loadPattern(File patternFile) {
+    public static PatternComponent loadPattern(File patternFile) {
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(CommonPattern.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(SimplePattern.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            IPattern pattern = (CommonPattern) jaxbUnmarshaller.unmarshal(patternFile);
+            PatternComponent pattern = (SimplePattern) jaxbUnmarshaller.unmarshal(patternFile);
             return pattern;
 
         } catch (JAXBException e) {
@@ -54,10 +54,10 @@ public final class FileIO {
         return null;
     }
 
-    public static void savePattern(IPattern pattern) {
+    public static void savePattern(PatternComponent pattern) {
         try {
             File file = new File(pattern.getName() + " - Hydrated.xml");
-            JAXBContext jaxbContext = JAXBContext.newInstance(IPattern.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(PatternComponent.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             jaxbMarshaller.marshal(pattern, file);

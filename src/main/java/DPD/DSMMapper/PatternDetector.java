@@ -18,30 +18,36 @@ import java.util.List;
 /**
  * Created by Justice on 1/28/2016.
  */
-public class RuleFilters {
+public class PatternDetector implements Runnable {
 
     private IBrowser browser;
     private ASTAnalyzer sourceParser;
     private ILogger logger;
 
-    public RuleFilters(IBrowser browser, ILogger logger) {
+    public PatternDetector(IBrowser browser, ILogger logger) {
         this.browser = browser;
         this.logger = logger;
+    }
+
+    public void mapPatternEntities(PatternComponent pattern) {
+        for(PatternEntity pEntity: pattern.getEntities()) {
+            pEntity.compliantClasses = browser.getClassesOfType(pEntity.type, pEntity.hasDependency);
+        }
     }
 
     public void addSourceParser(ASTAnalyzer sourceParser) {
         this.sourceParser = sourceParser;
     }
 
-    public List<IPattern> resolve(IPattern pattern, PatternResolver resolver) {
+    public List<PatternComponent> resolve(PatternComponent pattern, PatternResolver resolver) {
         // list to hold resolved patterns
-        List<IPattern> resolvedPatterns = new LinkedList<>();
+        List<PatternComponent> resolvedPatterns = new LinkedList<>();
         // get entity to resolve
         PatternEntity entityToResolve = pattern.getEntities().stream().filter(e -> e.id.equals(resolver.source)).findFirst().get();
 
         // create new patterns from each item in the entity
         for(int classId: entityToResolve.compliantClasses) {
-            CommonPattern newPattern = SerializationUtils.deserialize(SerializationUtils.serialize(pattern));
+            SimplePattern newPattern = SerializationUtils.deserialize(SerializationUtils.serialize(pattern));
             newPattern.name = pattern.getName() + " - " + browser.getClassPath(classId);
 
             // reset it's entity to its self alone
@@ -53,15 +59,15 @@ public class RuleFilters {
         }
 
         // apply the rules to each individual pattern
-        for(IPattern pattern1: resolvedPatterns) {
+        for(PatternComponent pattern1: resolvedPatterns) {
             for(PatternRule rule: pattern1.getRules()) {
                 filter(pattern1, rule);
             }
         }
 
         // remove patterns that are empty
-        List<IPattern> incompletePatterns = new LinkedList<>();
-        for(IPattern p: resolvedPatterns) {
+        List<PatternComponent> incompletePatterns = new LinkedList<>();
+        for(PatternComponent p: resolvedPatterns) {
             for(PatternEntity entity: p.getEntities()) {
                 if(entity.compliantClasses.isEmpty()) {
                     incompletePatterns.add(p);
@@ -72,7 +78,7 @@ public class RuleFilters {
         return resolvedPatterns;
     }
 
-    public boolean filter(IPattern pattern, PatternRule rule) {
+    public boolean filter(PatternComponent pattern, PatternRule rule) {
         if(rule.ruleType.equals(RuleType.Dependency)) {
             return dependencyFilter(pattern, rule.source, rule.target, DependencyType.valueOf(rule.value.toUpperCase()), rule.exclude);
         }
@@ -87,7 +93,7 @@ public class RuleFilters {
         return false; // we haven't added this rule yet
     }
 
-    public boolean dependencyFilter(IPattern pattern, String sourceEntityId, String targetEntityId, DependencyType dependencyType, boolean exclude) {
+    public boolean dependencyFilter(PatternComponent pattern, String sourceEntityId, String targetEntityId, DependencyType dependencyType, boolean exclude) {
         // if any is empty, job is already done
         if(patternHasEmptyEntity(pattern))
             return false;
@@ -120,7 +126,7 @@ public class RuleFilters {
         return  !filteredList.isEmpty();
     }
 
-    public boolean cardinalityFilter(IPattern pattern, String subjectBucketId) {
+    public boolean cardinalityFilter(PatternComponent pattern, String subjectBucketId) {
         int bucketSize = 0;
         for(PatternEntity entity: pattern.getEntities()) {
             if(entity.id.equals(subjectBucketId))
@@ -130,7 +136,7 @@ public class RuleFilters {
     }
 
     /* assumes work is only on a unit of the pattern */
-    public boolean astAnalyzeFilter(IPattern pattern, String sourceId, String targetId, ASTAnalysisType astAnalysisType, boolean exclude) {
+    public boolean astAnalyzeFilter(PatternComponent pattern, String sourceId, String targetId, ASTAnalysisType astAnalysisType, boolean exclude) {
         if(patternHasEmptyEntity(pattern))
             return false;
 
@@ -151,13 +157,18 @@ public class RuleFilters {
         return true;
     }
 
-    private boolean patternHasEmptyEntity(IPattern pattern) {
+    private boolean patternHasEmptyEntity(PatternComponent pattern) {
         return pattern.isVoid(); // todo: refactor
     }
 
-    public void checkSource(IPattern pattern, PatternRule rule) {
+    public void checkSource(PatternComponent pattern, PatternRule rule) {
         if(rule.ruleType.equals(RuleType.AST_Analyze)) {
             astAnalyzeFilter(pattern, rule.source, rule.target, ASTAnalysisType.valueOf(rule.value), rule.exclude);
         }
+    }
+
+    @Override
+    public void run() {
+
     }
 }

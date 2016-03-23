@@ -1,6 +1,6 @@
 package DPD;
 
-import DPD.DSMMapper.IPattern;
+import DPD.DSMMapper.PatternComponent;
 import DPD.PatternParser.*;
 import org.junit.After;
 import org.junit.Assert;
@@ -88,7 +88,7 @@ public class PatternsParserTest { // just confirms we can load patterns from xml
 
     @Test
     public void TestParseConfig() {
-        IPattern actualObserverPattern = patternsParser.parse(patternsParser.getRunnableConfigs().get(0));
+        PatternComponent actualObserverPattern = patternsParser.parse(patternsParser.getRunnableConfigs().get(0));
         Assert.assertEquals(observer1Name, actualObserverPattern.getName());
         Assert.assertEquals(observer1EntityCount, actualObserverPattern.getEntities().size());
         Assert.assertEquals(observer1RuleCount, actualObserverPattern.getRules().size());
@@ -96,7 +96,7 @@ public class PatternsParserTest { // just confirms we can load patterns from xml
 
     @Test
     public void TestLoadPatternById() {
-        IPattern actualObserverPattern = patternsParser.loadPatternById(observer1Id);
+        PatternComponent actualObserverPattern = patternsParser.loadPatternById(observer1Id);
         Assert.assertEquals(observer1Name, actualObserverPattern.getName());
         Assert.assertEquals(observer1EntityCount, actualObserverPattern.getEntities().size());
         Assert.assertEquals(observer1RuleCount, actualObserverPattern.getRules().size());

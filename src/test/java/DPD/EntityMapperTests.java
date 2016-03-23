@@ -1,7 +1,6 @@
 package DPD;
 
-import DPD.DSMMapper.EntityMapper;
-import DPD.DSMMapper.IPattern;
+import DPD.DSMMapper.PatternComponent;
 import DPD.DSMMapper.PatternEntity;
 import DPD.DependencyBrowser.IBrowser;
 import DPD.Enums.ClassType;
@@ -18,9 +17,8 @@ import java.util.List;
  */
 public class EntityMapperTests {
 
-    private EntityMapper mapper;
     private IBrowser browser;
-    private IPattern observerPattern;
+    private PatternComponent observerPattern;
     private final String configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
     private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\observer-sample.dsm";
 
@@ -42,14 +40,13 @@ public class EntityMapperTests {
     @After
     public void tearDown() {
         browser = null;
-        mapper = null;
         observerPattern = null;
     }
 
     @Test
     public void getPatternEntitiesTest() {
         //todo: re-write this test to compare pattern with observerPattern, observerPattern shouldn't be modified
-        mapper.mapPatternEntities(observerPattern);
+
         Assert.assertEquals(3, observerPattern.getEntities().size());
         PatternEntity observerEntity = observerPattern.getEntities().get(0);
         Assert.assertEquals(1, observerEntity.compliantClasses.size());
@@ -67,8 +64,6 @@ public class EntityMapperTests {
 
     @Test
     public void resolvePatternEntitiesTest() {
-
-        mapper.mapPatternEntities(observerPattern);
         Assert.assertEquals(3, observerPattern.getEntities().size());
         PatternEntity observerEntity = observerPattern.getEntities().get(0);
         Assert.assertEquals(ClassType.Interface, observerEntity.type);

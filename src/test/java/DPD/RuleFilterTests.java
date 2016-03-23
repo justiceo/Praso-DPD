@@ -16,10 +16,9 @@ import java.util.List;
  */
 public class RuleFilterTests {
 
-    private RuleFilters ruleFilters;
-    private EntityMapper mapper;
+    private PatternDetector patternDetector;
     private IBrowser browser;
-    private IPattern observerPattern;
+    private PatternComponent observerPattern;
     private final String configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
     private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\observer-sample.dsm";
 
@@ -45,9 +44,8 @@ public class RuleFilterTests {
     @After
     public void teardown() {
         browser = null;
-        mapper = null;
         observerPattern = null;
-        ruleFilters = null;
+        patternDetector = null;
     }
 
     @Test
@@ -57,7 +55,7 @@ public class RuleFilterTests {
         // foreach rule, parse in the source, target and exclusion to ruleFilters.
 
         for(PatternRule rule: observerPattern.getRules()) {
-            ruleFilters.filter(observerPattern, rule);
+            patternDetector.filter(observerPattern, rule);
         }
         //observerPattern.displayMembers(new ConsoleLogger());
 
@@ -72,20 +70,20 @@ public class RuleFilterTests {
     @Test
     public void TestFilter() {
         for(PatternRule rule: observerPattern.getRules()) {
-            ruleFilters.filter(observerPattern, rule);
+            patternDetector.filter(observerPattern, rule);
         }
         //observerPattern.displayMembers(new ConsoleLogger());
 
         System.out.println("\n\n=== Resolving ===\n\n");
         for(PatternResolver resolver: observerPattern.getResolvers()) {
-            List<IPattern> resolved = ruleFilters.resolve(observerPattern, resolver);
+            List<PatternComponent> resolved = patternDetector.resolve(observerPattern, resolver);
             //resolved.forEach(p -> p.displayMembers(new ConsoleLogger()));
         }
     }
 
-    private IPattern filter(IPattern pattern) {
+    private PatternComponent filter(PatternComponent pattern) {
         for(PatternRule rule: pattern.getRules()) {
-            ruleFilters.filter(pattern, rule);
+            patternDetector.filter(pattern, rule);
         }
         return pattern;
     }

@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Justice on 1/28/2016.
  */
 @XmlRootElement(name="pattern")
-public class CommonPattern implements IPattern {
+public class SimplePattern implements PatternComponent {
 
     @XmlAttribute String name;
     @XmlElement(name = "entity")

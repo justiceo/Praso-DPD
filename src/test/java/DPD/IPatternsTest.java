@@ -1,7 +1,7 @@
 package DPD;
 
 import DPD.Enums.ClassType;
-import DPD.DSMMapper.IPattern;
+import DPD.DSMMapper.PatternComponent;
 import DPD.DSMMapper.PatternEntity;
 import DPD.DSMMapper.PatternRule;
 import DPD.Enums.RuleType;
@@ -23,7 +23,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class IPatternsTest { // tests that loaded patterns contain the right information
 
-    private IPattern observerPattern;
+    private PatternComponent observerPattern;
     private final String configFilePath = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
 
     @Before

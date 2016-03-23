@@ -1,5 +1,5 @@
 package DPD.PatternParser;
-import DPD.DSMMapper.IPattern;
+import DPD.DSMMapper.PatternComponent;
 
 import java.io.File;
 import java.util.LinkedList;
@@ -30,13 +30,13 @@ public class CommonPatternsParser implements IPatternsParser {
     }
 
     @Override
-    public IPattern parse(PatternConfig observerConfig) {
-        IPattern pattern = FileIO.loadPattern(new File(observerConfig.configFile));
+    public PatternComponent parse(PatternConfig observerConfig) {
+        PatternComponent pattern = FileIO.loadPattern(new File(observerConfig.configFile));
         return pattern;
     }
 
     @Override
-    public IPattern loadPatternById(String patternId) {
+    public PatternComponent loadPatternById(String patternId) {
         for(PatternConfig p: patternConfigs) {
             if(p.id.equals(patternId)) {
                 return parse(p);

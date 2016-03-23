@@ -1,6 +1,6 @@
 package DPD.PatternParser;
 
-import DPD.DSMMapper.IPattern;
+import DPD.DSMMapper.PatternComponent;
 
 import java.io.File;
 import java.util.List;
@@ -17,7 +17,7 @@ public interface IPatternsParser {
 
     List<PatternConfig> getRunnableConfigs();
 
-    IPattern parse(PatternConfig observerConfig);
+    PatternComponent parse(PatternConfig observerConfig);
 
-    IPattern loadPatternById(String patternId);
+    PatternComponent loadPatternById(String patternId);
 }

@@ -67,7 +67,6 @@ public class IDMBrowser implements IBrowser{
         return jClasses.get(classId).classPath;
     }
 
-
     private List<Integer> getClassesOfType(ClassType classType) {
 
         switch (classType) {

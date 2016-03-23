@@ -2,7 +2,6 @@ package DPD.DSMMapper;
 
 import DPD.DependencyBrowser.IBrowser;
 import DPD.ILogger;
-import sun.nio.cs.ext.IBM037;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -13,7 +12,7 @@ import java.util.List;
  * Created by Justice on 1/27/2016.
  */
 @XmlRootElement(name="Pattern")
-public interface IPattern extends Serializable {
+public interface PatternComponent extends Serializable {
 
     @XmlElement(name="name")
     String getName();
@@ -32,4 +31,5 @@ public interface IPattern extends Serializable {
     public PatternEntity getEntityById(String id);
 
     boolean isVoid();
+
 }
