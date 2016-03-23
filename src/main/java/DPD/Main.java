@@ -11,6 +11,7 @@ import DPD.SourceParser.ASTAnalyzer;
 import DPD.SourceParser.JParser;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -28,13 +29,13 @@ public class Main {
     private final String testDsmFile = "files\\dsm\\redisson.dsm";
     private ILogger logger;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Main dpd = new Main();
         dpd.testIdm();
         dpd.analyze();
     }
 
-    public void testIdm() {
+    public void testIdm() throws FileNotFoundException {
         DSMPreprocessor preprocessor = new DSMPreprocessor();
         if(preprocessor.load(testDsmFile)) try {
             preprocessor.buildJClasses();
@@ -42,9 +43,9 @@ public class Main {
             System.out.println("unable to load " + testDsmFile);
         }
 
-        List<JClass> jClasses = preprocessor.getjClassList();
+        List<JClass> jClasses = preprocessor.getClassList();
 
-        browser = new IDMBrowser(new ConsoleLogger(), preprocessor.getjClassList(), preprocessor.getDependencyLine());
+        browser = new IDMBrowser(new ConsoleLogger(), preprocessor.getClassList(), preprocessor.getDependencyLine());
         //browser = new DSMBrowser(new ConsoleLogger(), testDsmFile);
     }
 

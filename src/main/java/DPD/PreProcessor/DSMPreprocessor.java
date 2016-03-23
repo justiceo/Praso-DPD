@@ -1,15 +1,15 @@
 package DPD.PreProcessor;
 
+import DPD.DSMDependencyRep;
 import DPD.DependencyBrowser.Flag;
 import DPD.DependencyBrowser.JClass;
 
-import java.io.*;
+import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Created by Justice on 3/17/2016.
@@ -24,7 +24,7 @@ public class DSMPreprocessor {
 
     private long startTime;
 
-    public boolean load(String dsmFilePath) {
+    public boolean load(String dsmFilePath) throws FileNotFoundException {
         if(!Files.exists(Paths.get(dsmFilePath))) {
             System.out.println("dsm file does not exist");
             return false;
@@ -33,25 +33,11 @@ public class DSMPreprocessor {
         startTime = System.currentTimeMillis();
 
         currFilePath = dsmFilePath;
-        File dsmFile = new File(dsmFilePath);
-        Scanner input = null;
-        try {
-            input = new Scanner(dsmFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        if(input.hasNext()) {
-            dependencyLine = input.nextLine();
-
-            matrixSize = Integer.parseInt(input.nextLine());
-            matrixLines = new String[matrixSize];
-            filePaths = new String[matrixSize];
-
-            for (int i = 0; i < matrixSize; i++) matrixLines[i] = input.nextLine();
-            for (int i = 0; i < matrixSize; i++) filePaths[i] = input.nextLine();
-
-            input.close();
-        }
+        DSMDependencyRep dsmDependencyRep = new DSMDependencyRep(dsmFilePath);
+        this.matrixLines = dsmDependencyRep.getMatrixLines();
+        this.filePaths = dsmDependencyRep.getFilePaths();
+        this.matrixSize = matrixLines.length;
+        this.dependencyLine = dsmDependencyRep.getDependencyLine();
 
         return true;
     }
@@ -63,7 +49,7 @@ public class DSMPreprocessor {
         for(int i = 0; i < matrixSize; i++) {
             JClass jClass = new JClass();
             jClass.classId = i;
-            jClass.classPath = fixClassPath(filePaths[i]);
+            jClass.classPath = filePaths[i];
             jClass.dependencyLine = matrixLines[i];
             jClass.flags = new LinkedList<>();
             jClassList.add(jClass);
@@ -95,17 +81,10 @@ public class DSMPreprocessor {
         System.out.println("all filters have finished (" + (System.currentTimeMillis() - startTime) + "ms)" );
     }
 
-    public List<JClass> getjClassList() {
+    public List<JClass> getClassList() {
         return jClassList;
     }
     public String getDependencyLine() {
         return dependencyLine;
     }
-
-    public String fixClassPath(String damagedPath) {
-        int l = damagedPath.lastIndexOf("_");
-        String ext = damagedPath.substring(l).replace("_", ".");
-        return damagedPath.substring(0,l).replace(".", "\\") + ext;
-    }
-
 }
