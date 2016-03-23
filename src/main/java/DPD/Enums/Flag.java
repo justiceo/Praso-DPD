@@ -1,4 +1,4 @@
-package DPD.DependencyBrowser;
+package DPD.Enums;
 
 /**
  * Created by Justice on 3/17/2016.

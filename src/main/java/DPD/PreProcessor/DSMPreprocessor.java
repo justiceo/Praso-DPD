@@ -1,7 +1,7 @@
 package DPD.PreProcessor;
 
 import DPD.DSMDependencyRep;
-import DPD.DependencyBrowser.Flag;
+import DPD.Enums.Flag;
 import DPD.JClass;
 
 import java.io.FileNotFoundException;
