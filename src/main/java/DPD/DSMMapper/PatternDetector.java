@@ -23,14 +23,17 @@ public class PatternDetector implements Runnable {
     private IBrowser browser;
     private ASTAnalyzer sourceParser;
     private ILogger logger;
+    private PatternComponent patternC;
+    public List<PatternComponent> resolvedPatterns = new ArrayList<>();
 
-    public PatternDetector(IBrowser browser, ILogger logger) {
+    public PatternDetector(IBrowser browser, PatternComponent pattern, ILogger logger) {
         this.browser = browser;
         this.logger = logger;
+        this.patternC = pattern;
     }
 
-    public void mapPatternEntities(PatternComponent pattern) {
-        for(PatternEntity pEntity: pattern.getEntities()) {
+    public void mapPatternEntities() {
+        for(PatternEntity pEntity: patternC.getEntities()) {
             pEntity.compliantClasses = browser.getClassesOfType(pEntity.type, pEntity.hasDependency);
         }
     }
@@ -169,6 +172,34 @@ public class PatternDetector implements Runnable {
 
     @Override
     public void run() {
+        // map entities
+        mapPatternEntities();
 
+        // apply filters
+        for(PatternRule rule: patternC.getRules()) {
+            filter(patternC, rule);
+        }
+
+        // resolve patterns
+        for(PatternResolver resolver: patternC.getResolvers()) {
+            resolvedPatterns.addAll(resolve(patternC, resolver));
+        }
+        System.out.println("\ntotal patterns added: " + resolvedPatterns.size());
+
+        // run ast
+        /*for(PatternComponent pattern: resolvedPatterns) {
+            for (PatternRule rule : pattern.getRules()) {
+                checkSource(pattern, rule);
+            }
+        }*/
+
+        // remove empty pattern
+        Iterator<PatternComponent> pIterator = resolvedPatterns.iterator();
+        while(pIterator.hasNext()){
+            PatternComponent pattern = pIterator.next();
+            if(pattern.isVoid()) {
+                pIterator.remove();
+            }
+        }
     }
 }
