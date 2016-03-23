@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by Justice on 1/27/2016.
  */
-@XmlRootElement(name="entity")
+@XmlRootElement(name = "entity")
 public class PatternEntity implements Serializable {
     @XmlAttribute
     public String id;

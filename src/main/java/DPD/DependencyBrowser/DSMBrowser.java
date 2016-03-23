@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Justice on 1/27/2016.
  */
-public class DSMBrowser implements IBrowser{
+public class DSMBrowser implements IBrowser {
 
     private int matrixSize;
     private String[][] matrix;
@@ -36,13 +36,13 @@ public class DSMBrowser implements IBrowser{
         matrixSize = Integer.parseInt(in.nextLine());
 
         matrix = new String[matrixSize][matrixSize];
-        for(int i=0; i<matrixSize; i++) {           /* read the matrix */
+        for (int i = 0; i < matrixSize; i++) {           /* read the matrix */
             String matrixRow = in.nextLine();
             matrix[i] = matrixRow.split(" ");
         }
 
         files = new ArrayList<>();
-        while(in.hasNext()) {                       /* read the java files */
+        while (in.hasNext()) {                       /* read the java files */
             files.add(in.nextLine());
         }
 
@@ -59,6 +59,7 @@ public class DSMBrowser implements IBrowser{
      * Given a class type and a dependency line
      * Returns all classes with these type that meets ALL the dependencies specified
      * Even for relative types, the dependencies would still be processed - so don't include them because you double the work
+     *
      * @param classType
      * @param dependencyLine
      * @return
@@ -66,16 +67,16 @@ public class DSMBrowser implements IBrowser{
     @Override
     public List<Integer> getClassesOfType(ClassType classType, String dependencyLine) {
         List<Integer> desiredClasses = getClassesOfType(classType);
-        if(dependencyLine == null) return desiredClasses;
+        if (dependencyLine == null) return desiredClasses;
 
 
         List<DependencyType> dependencyTypes = Arrays.asList(dependencyLine.split(","))
-                                                    .stream().map(s -> DependencyType.valueOf(s.toUpperCase()))
-                                                    .collect(Collectors.toList());
+                .stream().map(s -> DependencyType.valueOf(s.toUpperCase()))
+                .collect(Collectors.toList());
 
-        for(Iterator<Integer> iterator = desiredClasses.iterator(); iterator.hasNext();) {
+        for (Iterator<Integer> iterator = desiredClasses.iterator(); iterator.hasNext(); ) {
             List<DependencyType> classDependencies = getDependenciesOfClass(iterator.next());
-            if(!containsDependencies(classDependencies, dependencyTypes)) {
+            if (!containsDependencies(classDependencies, dependencyTypes)) {
                 iterator.remove();
             }
         }
@@ -98,7 +99,7 @@ public class DSMBrowser implements IBrowser{
         String fullClassName = getJClassFromName(classId).classPath;
         int start = fullClassName.lastIndexOf(".");
         int end = fullClassName.lastIndexOf("_");
-        return fullClassName.substring(start+1, end);
+        return fullClassName.substring(start + 1, end);
     }
 
     @Override
@@ -134,7 +135,7 @@ public class DSMBrowser implements IBrowser{
                         .map(j -> j.classId).collect(Collectors.toList());
             default: // it's an absolute type!
                 return jClasses.stream()
-                        .filter( j -> j.classType.equals(classType))
+                        .filter(j -> j.classType.equals(classType))
                         .map(j -> j.classId).collect(Collectors.toList());
         }
     }
@@ -152,8 +153,8 @@ public class DSMBrowser implements IBrowser{
         String depLine = jClass.dependencyLine;
         String[] atomicDeps = depLine.split(" ");
         List<Integer> result = new LinkedList<>();
-        for(int i = 0; i< atomicDeps.length; i++) {
-            if(getAtomicDependency(atomicDeps[i]).contains(dependencyType)) {
+        for (int i = 0; i < atomicDeps.length; i++) {
+            if (getAtomicDependency(atomicDeps[i]).contains(dependencyType)) {
                 result.add(i);
             }
         }
@@ -164,7 +165,7 @@ public class DSMBrowser implements IBrowser{
         dependencyString = dependencyString.replace("[", "").replace("]", "");
         String[] depStrings = dependencyString.split(",");
         dependencyTypes = new ArrayList<>();
-        for(int i=0; i< depStrings.length; i++) {
+        for (int i = 0; i < depStrings.length; i++) {
             DependencyType dependencyType = DependencyType.valueOf(depStrings[i].toUpperCase());
             dependencyTypes.add(dependencyType);
         }
@@ -172,7 +173,7 @@ public class DSMBrowser implements IBrowser{
 
     private void buildJClasses() {
         jClasses = new ArrayList<>();
-        for(int i=0; i<files.size(); i++) {
+        for (int i = 0; i < files.size(); i++) {
             JClass jClass = new JClass();
             jClass.classPath = files.get(i);
             jClass.classId = i;
@@ -188,18 +189,18 @@ public class DSMBrowser implements IBrowser{
         String depLine = String.join(" ", getMatrixCol(jClass.classId));
         List<DependencyType> classDeps = getLineDependency(depLine);
 
-        if(classDeps.contains(DependencyType.IMPLEMENT))
+        if (classDeps.contains(DependencyType.IMPLEMENT))
             return ClassType.Interface;
-        else if(classDeps.contains(DependencyType.EXTEND))
+        else if (classDeps.contains(DependencyType.EXTEND))
             return ClassType.Abstract;
-        else if(classDeps.contains(DependencyType.SPECIALIZE))
+        else if (classDeps.contains(DependencyType.SPECIALIZE))
             return ClassType.Abstraction;
         else return ClassType.Class;
     }
 
     private JClass getJClassFromName(int classId) {
-        for(JClass jClass: jClasses) {
-            if(jClass.classId == classId)
+        for (JClass jClass : jClasses) {
+            if (jClass.classId == classId)
                 return jClass;
         }
         return null;
@@ -208,8 +209,8 @@ public class DSMBrowser implements IBrowser{
     private List<DependencyType> getAtomicDependency(String atomicDependency) {
         List<DependencyType> availableDeps = new ArrayList<>();
         String[] depString = atomicDependency.split("");
-        for(int i=0; i< depString.length; i++){
-            if(1 == Integer.parseInt(depString[i])) {
+        for (int i = 0; i < depString.length; i++) {
+            if (1 == Integer.parseInt(depString[i])) {
                 availableDeps.add(dependencyTypes.get(i));
             }
         }
@@ -220,8 +221,8 @@ public class DSMBrowser implements IBrowser{
     private List<DependencyType> getLineDependency(String lineOfDependencies) {
         String[] depsArray = lineOfDependencies.split(" ");
         List<DependencyType> dependencyTypes = new ArrayList<>();
-        for(String s: depsArray) {
-            if(s.equals("0")) continue;
+        for (String s : depsArray) {
+            if (s.equals("0")) continue;
             dependencyTypes.addAll(getAtomicDependency(s));
         }
         return dependencyTypes;
@@ -235,7 +236,7 @@ public class DSMBrowser implements IBrowser{
         JClass jClass = getJClassFromName(classId);
         String[] depsArray = jClass.matrixRow;
         List<DependencyType> dependencyTypes = new ArrayList<>();
-        for(String s: depsArray) {
+        for (String s : depsArray) {
             dependencyTypes.addAll(getAtomicDependency(s));
         }
         return dependencyTypes;
@@ -243,7 +244,7 @@ public class DSMBrowser implements IBrowser{
 
     private String[] getMatrixCol(int col) {
         String[] resultColumn = new String[matrixSize];
-        for(int row = 0; row < matrixSize; row++) {
+        for (int row = 0; row < matrixSize; row++) {
             resultColumn[row] = matrix[row][col];
         }
         return resultColumn;
@@ -256,13 +257,14 @@ public class DSMBrowser implements IBrowser{
 
     /**
      * Determines if the list of avaialable dependencies contains the required dependencies
+     *
      * @param availableDependencies
      * @param requiredDependencies
      * @return
      */
     private boolean containsDependencies(List<DependencyType> availableDependencies, List<DependencyType> requiredDependencies) {
         boolean isContained;
-        for(DependencyType req: requiredDependencies){
+        for (DependencyType req : requiredDependencies) {
             switch (req) {
                 case SPECIALIZE:
                     isContained = availableDependencies.contains(DependencyType.EXTEND)
@@ -271,7 +273,7 @@ public class DSMBrowser implements IBrowser{
                 default:
                     isContained = availableDependencies.contains(req);
             }
-            if(!isContained) return isContained;
+            if (!isContained) return isContained;
         }
         return true;
     }

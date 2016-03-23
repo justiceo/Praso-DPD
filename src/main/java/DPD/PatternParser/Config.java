@@ -9,6 +9,6 @@ import java.util.List;
  */
 @XmlRootElement
 public class Config {
-    @XmlElement(name="pattern")
+    @XmlElement(name = "pattern")
     public List<PatternConfig> patterns; // initialized from xml
 }

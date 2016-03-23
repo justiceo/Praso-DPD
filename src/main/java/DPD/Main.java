@@ -29,11 +29,10 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         DSMPreprocessor preprocessor = new DSMPreprocessor();
         try {
-            if(preprocessor.load(testDsmFile)) {
+            if (preprocessor.load(testDsmFile)) {
                 preprocessor.buildJClasses();
             }
-        }
-        catch (FileNotFoundException | InterruptedException e1) {
+        } catch (FileNotFoundException | InterruptedException e1) {
             System.out.println("error loading " + testDsmFile + ": " + e1.toString());
             System.exit(0);
         }
@@ -50,16 +49,14 @@ public class Main {
 
         List<PatternComponent> patternComponentList = new LinkedList<>();
         List<PatternConfig> configs = patternsParser.getRunnableConfigs();
-        for(PatternConfig config: configs) {
-            if(config.include) {
-                PatternComponent pc = patternsParser.loadPatternById(config.id);
-                patternComponentList.add(pc);
-            }
-        }
+        configs.stream().filter(config -> config.include).forEach(config -> {
+            PatternComponent pc = patternsParser.loadPatternById(config.id);
+            patternComponentList.add(pc);
+        });
 
         List<PatternComponent> resolvedPatterns = Collections.synchronizedList(new ArrayList<>());
         List<Thread> patternDetectorThreads = new LinkedList<>();
-        for(PatternComponent pattern: patternComponentList) {
+        for (PatternComponent pattern : patternComponentList) {
             PatternDetector patternDetector = new PatternDetector(browser, pattern, logger);
             patternDetector.addSourceParser(sourceParser);
             patternDetector.addResolvedPatternList(resolvedPatterns);
@@ -68,12 +65,12 @@ public class Main {
             patternDetectorThreads.add(detectorT);
         }
 
-        for(Thread t: patternDetectorThreads) {
+        for (Thread t : patternDetectorThreads) {
             t.join();
         }
 
         // display patterns
-        for(PatternComponent pattern: resolvedPatterns) {
+        for (PatternComponent pattern : resolvedPatterns) {
             pattern.displayMembers(logger, browser);
         }
     }

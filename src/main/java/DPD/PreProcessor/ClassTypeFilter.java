@@ -1,7 +1,7 @@
 package DPD.PreProcessor;
 
-import DPD.JClass;
 import DPD.Enums.ClassType;
+import DPD.JClass;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;
@@ -22,20 +22,20 @@ public class ClassTypeFilter extends Filter {
 
 
     @Override
-    public void run()  {
+    public void run() {
         System.out.println("starting class type filter...");
         long startTime = System.currentTimeMillis();
 
         synchronized (jClasses) {
             int counter = 0;
             Iterator<JClass> iterator = jClasses.iterator();
-            while (counter < matrixSize ) {
+            while (counter < matrixSize) {
                 JClass jClass = null;
                 counter++;
                 try {
-                        jClass = iterator.next();
-                        jClass.classType = getClassType(jClass.classPath);
-                }catch (NoSuchElementException | ParseException | IOException | ClassCastException | NullPointerException e) {
+                    jClass = iterator.next();
+                    jClass.classType = getClassType(jClass.classPath);
+                } catch (NoSuchElementException | ParseException | IOException | ClassCastException | NullPointerException e) {
                     // todo: log which exceptions are thrown most, so we can optimize those segments
                     System.out.println("class type filter err - counter (" + counter + "): " + e.toString());
                     continue;
@@ -47,25 +47,21 @@ public class ClassTypeFilter extends Filter {
     }
 
     private ClassType getClassType(String filePath) throws IOException, ParseException {
-        if(!Files.exists(Paths.get(filePath))) return ClassType.Unknown;
+        if (!Files.exists(Paths.get(filePath))) return ClassType.Unknown;
 
         CompilationUnit cu = JavaParser.parse(new File(filePath));
         TypeDeclaration typeDec = cu.getTypes().get(0);
         ClassOrInterfaceDeclaration cd = (ClassOrInterfaceDeclaration) typeDec; // most likely the case
 
-        if(cd.getModifiers() == 1025) {
+        if (cd.getModifiers() == 1025) {
             return ClassType.Abstract;
-        }
-        else if(cd.isInterface()) {
+        } else if (cd.isInterface()) {
             return ClassType.Interface;
-        }
-        else if(cd.getModifiers() == 0) { // protected class
+        } else if (cd.getModifiers() == 0) { // protected class
             return ClassType.Class;
-        }
-        else if(cd.getModifiers() == 1) {
+        } else if (cd.getModifiers() == 1) {
             return ClassType.Class;
-        }
-        else return ClassType.Unknown;
+        } else return ClassType.Unknown;
     }
 
 }

@@ -49,8 +49,8 @@ public class LoopsFilter extends Filter {
                     continue;
                 }
 
-                if(usesObservable != null) {
-                    if(jClass.flags == null) jClass.flags = new ArrayList<>();
+                if (usesObservable != null) {
+                    if (jClass.flags == null) jClass.flags = new ArrayList<>();
                     jClass.flags.add(usesObservable);
                 }
                 counter++;
@@ -61,7 +61,7 @@ public class LoopsFilter extends Filter {
 
 
     private void filterLoop(JClass jClass) throws IOException, ParseException {
-        if(!Files.exists(Paths.get(jClass.classPath))) return;
+        if (!Files.exists(Paths.get(jClass.classPath))) return;
         CompilationUnit cu = JavaParser.parse(new File(jClass.classPath));
         List<TypeDeclaration> types = cu.getTypes();
 
@@ -83,7 +83,7 @@ public class LoopsFilter extends Filter {
                 .map(t -> t.getMembers())
                 .forEach(bodyDeclarationList -> bodyDeclarationList.stream()
                         .filter(bodyDeclaration -> bodyDeclaration instanceof MethodDeclaration)
-                        .map(bodyD -> (MethodDeclaration)bodyD)
+                        .map(bodyD -> (MethodDeclaration) bodyD)
                         .map(method -> getStatementsFromMethod(method))
                         .filter(stmts -> stmts != null)
                         .forEach(statement -> statement.stream()
@@ -91,7 +91,7 @@ public class LoopsFilter extends Filter {
     }
 
     private List<Statement> getStatementsFromMethod(MethodDeclaration method) {
-        if(method.getBody() == null || method.getBody().getStmts() == null) return null;
+        if (method.getBody() == null || method.getBody().getStmts() == null) return null;
         List<Statement> statementList = method.getBody().getStmts();
         List<Statement> forLoopStatements = new LinkedList<>();
         forLoopStatements.addAll(statementList.stream()
@@ -104,9 +104,9 @@ public class LoopsFilter extends Filter {
     }
 
     private void processLoopStatement(Statement statement, JClass jClass) {
-        if(statement instanceof ForeachStmt)
+        if (statement instanceof ForeachStmt)
             processForEach((ForeachStmt) statement, jClass);
-        else if(statement instanceof  ForStmt)
+        else if (statement instanceof ForStmt)
             processForLoop((ForStmt) statement, jClass);
     }
 
@@ -115,7 +115,7 @@ public class LoopsFilter extends Filter {
     }
 
     private void processForEach(ForeachStmt statement, JClass jClass) {
-        if(statement.getVariable().getType().toString().equals(loopVariable)) {
+        if (statement.getVariable().getType().toString().equals(loopVariable)) {
             jClass.flags.add(flag);
         }
     }

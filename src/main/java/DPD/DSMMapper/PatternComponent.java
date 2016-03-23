@@ -11,19 +11,19 @@ import java.util.List;
 /**
  * Created by Justice on 1/27/2016.
  */
-@XmlRootElement(name="Pattern")
+@XmlRootElement(name = "Pattern")
 public interface PatternComponent extends Serializable {
 
-    @XmlElement(name="name")
+    @XmlElement(name = "name")
     String getName();
 
-    @XmlElement(name="entities")
+    @XmlElement(name = "entities")
     List<PatternEntity> getEntities();
 
-    @XmlElement(name="rules")
+    @XmlElement(name = "rules")
     List<PatternRule> getRules();
 
-    @XmlElement(name="resolver")
+    @XmlElement(name = "resolver")
     List<PatternResolver> getResolvers();
 
     public void displayMembers(ILogger logger, IBrowser browser);

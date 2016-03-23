@@ -8,7 +8,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -35,7 +34,7 @@ public class DSMDependencyRep implements DependencyRep {
         int matrixSize = Integer.parseInt(in.nextLine());
 
         matrixLines = new String[matrixSize];
-        for(int i=0; i<matrixSize; i++) {           /* read the matrix */
+        for (int i = 0; i < matrixSize; i++) {           /* read the matrix */
             matrixLines[i] = in.nextLine();
         }
 
@@ -65,7 +64,7 @@ public class DSMDependencyRep implements DependencyRep {
     }
 
     public void saveAs(String fileName, String dependencyLine, String[] filePaths, String[] matrixLines) throws IOException {
-        if(filePaths == null || matrixLines == null || dependencyLine == null) {
+        if (filePaths == null || matrixLines == null || dependencyLine == null) {
             System.out.println("the information necessary to create a dsm is incomplete");
             return;
         }
@@ -76,10 +75,10 @@ public class DSMDependencyRep implements DependencyRep {
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(fileName)));
         writer.write(dependencyLine + "\n");
         writer.write(matrixSize + "\n");
-        for(int i = 0; i < matrixSize; i++) {
+        for (int i = 0; i < matrixSize; i++) {
             writer.write(matrixLines[i] + "\n");
         }
-        if(true) { // todo: put flag for damaged files
+        if (true) { // todo: put flag for damaged files
             for (int i = 0; i < matrixSize; i++) {
                 writer.write(filePaths[i] + "\n");
             }
@@ -95,10 +94,9 @@ public class DSMDependencyRep implements DependencyRep {
         }
 
         int matrixSize = filePaths.length;
-        for(int i = 0; i < filePaths.length; i++) {
+        for (int i = 0; i < filePaths.length; i++) {
             filePaths[i] = getRelativePath(filePaths[i]);
         }
-
 
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(fileName)));
@@ -117,7 +115,7 @@ public class DSMDependencyRep implements DependencyRep {
 
     private void setAbsDir() throws IOException, ParseException {
         String filePath = filePaths[0];
-        if(!Files.exists(Paths.get(filePath)))
+        if (!Files.exists(Paths.get(filePath)))
             throw new IOException("This operation can only be performed on the host system - for accuracy sake.");
 
         CompilationUnit cu = JavaParser.parse(new File(filePath));
@@ -146,15 +144,15 @@ public class DSMDependencyRep implements DependencyRep {
     public String fixFilePath(String damagedPath) {
         try {
             int l = damagedPath.lastIndexOf("_");
-            if(l == -1) return damagedPath; // it's good.
+            if (l == -1) return damagedPath; // it's good.
             int count = damagedPath.split("_").length;
-            if(!damagedPath.split("_")[count-1].equals("java")) {
+            if (!damagedPath.split("_")[count - 1].equals("java")) {
                 System.out.println("cannot fix path: " + damagedPath);
                 return damagedPath;
             }
             String ext = damagedPath.substring(l).replace("_", ".");
             return damagedPath.substring(0, l).replace(".", "\\") + ext;
-        }catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("err: " + damagedPath);
         }
         return null;

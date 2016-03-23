@@ -1,7 +1,7 @@
 package DPD.PatternParser;
 
-import DPD.DSMMapper.SimplePattern;
 import DPD.DSMMapper.PatternComponent;
+import DPD.DSMMapper.SimplePattern;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -15,7 +15,7 @@ import java.io.File;
 public final class FileIO {
 
     public static Config loadConfig(File configFile) {
-        if(!configFile.exists()) System.out.print("config file does not exist");
+        if (!configFile.exists()) System.out.print("config file does not exist");
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Config.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();

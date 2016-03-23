@@ -18,6 +18,7 @@ public class ExpandMatrixFilter extends Filter {
         nothing = nothing.substring(0, numOfDependencyType);
         assert nothing.length() == numOfDependencyType;
     }
+
     @Override
     public void run() {
         System.out.println("starting expand matrix lines filter...");
@@ -31,7 +32,7 @@ public class ExpandMatrixFilter extends Filter {
                 try {
                     JClass jClass = iterator.next();
                     jClass.dependencyLine = expandLine(jClass.dependencyLine);
-                }catch (NoSuchElementException e) {
+                } catch (NoSuchElementException e) {
                     System.out.println("expand matrix filter err - counter (" + counter + "): " + e.toString());
                 }
             }

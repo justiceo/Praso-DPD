@@ -1,7 +1,7 @@
 package DPD;
 
-import DPD.Enums.Flag;
 import DPD.Enums.ClassType;
+import DPD.Enums.Flag;
 
 import java.util.List;
 

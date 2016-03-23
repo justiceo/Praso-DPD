@@ -13,15 +13,16 @@ import java.util.List;
 /**
  * Created by Justice on 1/28/2016.
  */
-@XmlRootElement(name="pattern")
+@XmlRootElement(name = "pattern")
 public class SimplePattern implements PatternComponent {
 
-    @XmlAttribute String name;
+    @XmlAttribute
+    String name;
     @XmlElement(name = "entity")
     List<PatternEntity> entities;
-    @XmlElement (name = "rule")
+    @XmlElement(name = "rule")
     List<PatternRule> rules;
-    @XmlElement (name = "resolver")
+    @XmlElement(name = "resolver")
     List<PatternResolver> resolvers;
 
 
@@ -48,13 +49,13 @@ public class SimplePattern implements PatternComponent {
     @Override
     public void displayMembers(ILogger logger, IBrowser browser) {
         logger.log("\n======= begin display pattern ==========\n");
-        logger.log("Pattern: " + name );
+        logger.log("Pattern: " + name);
 
-        for(PatternEntity entity: entities) {
+        for (PatternEntity entity : entities) {
             logger.log("\n" + entity.name + " is satisfied by: ");
             List<Integer> sorted = new ArrayList<>(entity.compliantClasses);
             Collections.sort(sorted);
-            for(int classId: sorted) {
+            for (int classId : sorted) {
                 logger.log("\t" + browser.getClassPath(classId));
             }
         }
@@ -70,8 +71,8 @@ public class SimplePattern implements PatternComponent {
 
     @Override
     public boolean isVoid() {
-        for(PatternEntity entity: entities)
-            if(entity.compliantClasses.size() == 0) {
+        for (PatternEntity entity : entities)
+            if (entity.compliantClasses.size() == 0) {
                 return true;
             }
         return false;

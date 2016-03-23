@@ -22,17 +22,16 @@ import java.util.stream.Collectors;
 
 /**
  * Created by Justice on 1/27/2016.
- *
+ * <p>
  * Passes a java file and provides valuable information about its inner working.
  * - including, method names, return values, fields and their types
- *
+ * <p>
  * Sample use case, I know that classA.java uses classB.java,
  * I want to determine if this is a typed use, is the instance of classB is in a list or just a var
  * And if any method in classA returns classB
- *
+ * <p>
  * I can get all fields in classA and check if any of them is of type classB
  * I can get all methods in classA and check if it returns classB, or has it as parameter
- *
  */
 public class JParser implements ASTAnalyzer {
 
@@ -56,7 +55,7 @@ public class JParser implements ASTAnalyzer {
     private boolean testLoop(String sourceClass, String targetClass) {
         CompilationUnit sourceCU = this.init(sourceClass.replace(".", "\\").replace("_", "."));
         CompilationUnit targetCU = this.init(targetClass.replace(".", "\\").replace("_", "."));
-        String targetClassName = targetClass.substring(targetClass.lastIndexOf(".")+1, targetClass.lastIndexOf("_"));
+        String targetClassName = targetClass.substring(targetClass.lastIndexOf(".") + 1, targetClass.lastIndexOf("_"));
 
         // get all for loops
         MethodVisitor mv = new MethodVisitor();
@@ -64,10 +63,10 @@ public class JParser implements ASTAnalyzer {
         List<ForeachStmt> forLoops = mv.forLoops;
 
         // check for ones that have targetClass
-        for(ForeachStmt statement: forLoops) {
+        for (ForeachStmt statement : forLoops) {
             Type varType = statement.getVariable().getType();
             System.out.println("\n ");
-            if(varType.toString().equals(targetClassName)) {
+            if (varType.toString().equals(targetClassName)) {
                 System.out.println("matching foreach statement in " + sourceClass + ": \n " + statement.toString());
                 return true;
             }
@@ -82,7 +81,7 @@ public class JParser implements ASTAnalyzer {
     private CompilationUnit init(String sourceClass) {
         // creates an input stream for the file to be parsed
 
-        if(!Files.exists(Paths.get(sourceClass))) {
+        if (!Files.exists(Paths.get(sourceClass))) {
             System.out.println("file: " + sourceClass + "  - doesn't exist ");
             return null;
         }
@@ -122,25 +121,25 @@ public class JParser implements ASTAnalyzer {
         return null;
     }
 
+    private String fixClassPath(String damagedPath) {
+        return damagedPath.replace(".", "\\").replace("_", ".");
+    }
+
     private static class MethodVisitor extends VoidVisitorAdapter {
 
         public List<ForeachStmt> forLoops = new LinkedList<>();
 
         @Override
         public void visit(MethodDeclaration n, Object arg) {
-            if(n.getBody() == null) return;
+            if (n.getBody() == null) return;
             List<Statement> statementList = n.getBody().getStmts();
-            if(statementList != null) {
+            if (statementList != null) {
                 forLoops.addAll(statementList.stream()
                         .filter(stmt -> stmt.getClass().equals(ForeachStmt.class))
                         .map(stmt -> (ForeachStmt) stmt)
                         .collect(Collectors.toList()));
             }
         }
-    }
-
-    private String fixClassPath(String damagedPath) {
-        return damagedPath.replace(".", "\\").replace("_", ".");
     }
 }
 

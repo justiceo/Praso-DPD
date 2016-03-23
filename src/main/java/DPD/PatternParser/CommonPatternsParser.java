@@ -1,4 +1,5 @@
 package DPD.PatternParser;
+
 import DPD.DSMMapper.PatternComponent;
 
 import java.io.File;
@@ -37,8 +38,8 @@ public class CommonPatternsParser implements IPatternsParser {
 
     @Override
     public PatternComponent loadPatternById(String patternId) {
-        for(PatternConfig p: patternConfigs) {
-            if(p.id.equals(patternId)) {
+        for (PatternConfig p : patternConfigs) {
+            if (p.id.equals(patternId)) {
                 return parse(p);
             }
         }

@@ -16,6 +16,7 @@ public interface IBrowser {
      * Absolute class types are Class, Abstract, Interface and relative are Abstraction, Specialization and Any.
      * Specialization is a combo of Any and DependencyType.Extend, DependencyType.Implement
      * Abstraction is a combo of Any and hasDependencyType(Extend), hasDependencyType(Implement).
+     *
      * @param classType, withDependencies
      * @return
      */

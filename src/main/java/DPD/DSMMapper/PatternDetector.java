@@ -20,11 +20,11 @@ import java.util.List;
  */
 public class PatternDetector implements Runnable {
 
+    public List<PatternComponent> resolvedPatterns = new ArrayList<>();
     private IBrowser browser;
     private ASTAnalyzer sourceParser;
     private ILogger logger;
     private PatternComponent patternC;
-    public List<PatternComponent> resolvedPatterns = new ArrayList<>();
 
     public PatternDetector(IBrowser browser, PatternComponent pattern, ILogger logger) {
         this.browser = browser;
@@ -33,7 +33,7 @@ public class PatternDetector implements Runnable {
     }
 
     public void mapPatternEntities() {
-        for(PatternEntity pEntity: patternC.getEntities()) {
+        for (PatternEntity pEntity : patternC.getEntities()) {
             pEntity.compliantClasses = browser.getClassesOfType(pEntity.type, pEntity.hasDependency);
         }
     }
@@ -49,7 +49,7 @@ public class PatternDetector implements Runnable {
         PatternEntity entityToResolve = pattern.getEntities().stream().filter(e -> e.id.equals(resolver.source)).findFirst().get();
 
         // create new patterns from each item in the entity
-        for(int classId: entityToResolve.compliantClasses) {
+        for (int classId : entityToResolve.compliantClasses) {
             SimplePattern newPattern = SerializationUtils.deserialize(SerializationUtils.serialize(pattern));
             newPattern.name = pattern.getName() + " - " + browser.getClassPath(classId);
 
@@ -62,17 +62,17 @@ public class PatternDetector implements Runnable {
         }
 
         // apply the rules to each individual pattern
-        for(PatternComponent pattern1: resolvedPatterns) {
-            for(PatternRule rule: pattern1.getRules()) {
+        for (PatternComponent pattern1 : resolvedPatterns) {
+            for (PatternRule rule : pattern1.getRules()) {
                 filter(pattern1, rule);
             }
         }
 
         // remove patterns that are empty
         List<PatternComponent> incompletePatterns = new LinkedList<>();
-        for(PatternComponent p: resolvedPatterns) {
-            for(PatternEntity entity: p.getEntities()) {
-                if(entity.compliantClasses.isEmpty()) {
+        for (PatternComponent p : resolvedPatterns) {
+            for (PatternEntity entity : p.getEntities()) {
+                if (entity.compliantClasses.isEmpty()) {
                     incompletePatterns.add(p);
                 }
             }
@@ -82,14 +82,13 @@ public class PatternDetector implements Runnable {
     }
 
     public boolean filter(PatternComponent pattern, PatternRule rule) {
-        if(rule.ruleType.equals(RuleType.Dependency)) {
+        if (rule.ruleType.equals(RuleType.Dependency)) {
             return dependencyFilter(pattern, rule.source, rule.target, DependencyType.valueOf(rule.value.toUpperCase()), rule.exclude);
-        }
-        else if(rule.ruleType.equals(RuleType.Cardinality)) {
+        } else if (rule.ruleType.equals(RuleType.Cardinality)) {
             CardinalityType cardinality = CardinalityType.valueOf(rule.value.toUpperCase());
-            if(cardinality.equals(CardinalityType.PLURAL))
+            if (cardinality.equals(CardinalityType.PLURAL))
                 return cardinalityFilter(pattern, rule.source);
-            else if(cardinality.equals(CardinalityType.SINGULAR))
+            else if (cardinality.equals(CardinalityType.SINGULAR))
                 return false; // dependencyFilter is singular.
         }
 
@@ -98,7 +97,7 @@ public class PatternDetector implements Runnable {
 
     public boolean dependencyFilter(PatternComponent pattern, String sourceEntityId, String targetEntityId, DependencyType dependencyType, boolean exclude) {
         // if any is empty, job is already done
-        if(patternHasEmptyEntity(pattern))
+        if (patternHasEmptyEntity(pattern))
             return false;
 
         // get the entity buckets to dependencyFilter
@@ -108,10 +107,10 @@ public class PatternDetector implements Runnable {
         // perform the dependencyFilter
         // for each concrete observer, check if it has implements/extends dependency on entity in e1
         List<Integer> filteredList = new ArrayList<>();
-        for(Integer srcClass: sourceBucket) {
+        for (Integer srcClass : sourceBucket) {
             List<Integer> auxDependencies = browser.getDomDependencies(srcClass, dependencyType);
-            for(Integer auxClass: auxDependencies) {
-                if(targetBucket.contains(auxClass)) {
+            for (Integer auxClass : auxDependencies) {
+                if (targetBucket.contains(auxClass)) {
                     filteredList.add(srcClass);
                     break;
                 }
@@ -119,27 +118,27 @@ public class PatternDetector implements Runnable {
             // browser.does(sourceClass).have(dependencyType).on(targetClass).
         }
 
-        if(exclude) {
+        if (exclude) {
             sourceBucket.removeAll(filteredList);
             filteredList = sourceBucket;
         }
 
         pattern.getEntityById(sourceEntityId).compliantClasses = filteredList;
-        return  !filteredList.isEmpty();
+        return !filteredList.isEmpty();
     }
 
     public boolean cardinalityFilter(PatternComponent pattern, String subjectBucketId) {
         int bucketSize = 0;
-        for(PatternEntity entity: pattern.getEntities()) {
-            if(entity.id.equals(subjectBucketId))
+        for (PatternEntity entity : pattern.getEntities()) {
+            if (entity.id.equals(subjectBucketId))
                 bucketSize = entity.compliantClasses.size();
         }
-        return  bucketSize > 1;
+        return bucketSize > 1;
     }
 
     /* assumes work is only on a unit of the pattern */
     public boolean astAnalyzeFilter(PatternComponent pattern, String sourceId, String targetId, ASTAnalysisType astAnalysisType, boolean exclude) {
-        if(patternHasEmptyEntity(pattern))
+        if (patternHasEmptyEntity(pattern))
             return false;
 
         List<Integer> sourceBucket = pattern.getEntityById(sourceId).compliantClasses;
@@ -149,7 +148,7 @@ public class PatternDetector implements Runnable {
 
         PatternEntity bucket = pattern.getEntityById(sourceId);
         Iterator<Integer> sourceClassIterator = bucket.compliantClasses.iterator();
-        while(sourceClassIterator.hasNext()) {
+        while (sourceClassIterator.hasNext()) {
             int sourceClassId = sourceClassIterator.next();
             if (!sourceParser.examine(browser.getClassPath(sourceClassId), astAnalysisType, browser.getClassPath(targetClassId))) {
                 sourceClassIterator.remove();
@@ -164,7 +163,7 @@ public class PatternDetector implements Runnable {
     }
 
     public void checkSource(PatternComponent pattern, PatternRule rule) {
-        if(rule.ruleType.equals(RuleType.AST_Analyze)) {
+        if (rule.ruleType.equals(RuleType.AST_Analyze)) {
             astAnalyzeFilter(pattern, rule.source, rule.target, ASTAnalysisType.valueOf(rule.value), rule.exclude);
         }
     }
@@ -175,12 +174,12 @@ public class PatternDetector implements Runnable {
         mapPatternEntities();
 
         // apply filters
-        for(PatternRule rule: patternC.getRules()) {
+        for (PatternRule rule : patternC.getRules()) {
             filter(patternC, rule);
         }
 
         // resolve patterns
-        for(PatternResolver resolver: patternC.getResolvers()) {
+        for (PatternResolver resolver : patternC.getResolvers()) {
             resolvedPatterns.addAll(resolve(patternC, resolver));
         }
         System.out.println("\ntotal patterns added: " + resolvedPatterns.size());
@@ -194,9 +193,9 @@ public class PatternDetector implements Runnable {
 
         // remove empty pattern
         Iterator<PatternComponent> pIterator = resolvedPatterns.iterator();
-        while(pIterator.hasNext()){
+        while (pIterator.hasNext()) {
             PatternComponent pattern = pIterator.next();
-            if(pattern.isVoid()) {
+            if (pattern.isVoid()) {
                 pIterator.remove();
             }
         }

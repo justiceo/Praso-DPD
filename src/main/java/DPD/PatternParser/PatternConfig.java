@@ -3,7 +3,6 @@ package DPD.PatternParser;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by Justice on 1/27/2016.
@@ -20,8 +19,8 @@ public class PatternConfig {
     public boolean include;
 
     public static boolean compareList(List<PatternConfig> listA, List<PatternConfig> listB) {
-        for(PatternConfig config: listA) {
-            if(!listB.contains(config))
+        for (PatternConfig config : listA) {
+            if (!listB.contains(config))
                 return false;
         }
         return true;

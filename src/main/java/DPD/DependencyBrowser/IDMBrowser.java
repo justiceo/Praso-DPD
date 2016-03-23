@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Justice on 1/27/2016.
  */
-public class IDMBrowser implements IBrowser{
+public class IDMBrowser implements IBrowser {
 
     private final int matrixSize;
     private final List<DependencyType> dependencyTypes;
@@ -33,6 +33,7 @@ public class IDMBrowser implements IBrowser{
      * Given a class type and a dependency line
      * Returns all classes with these type that meets ALL the dependencies specified
      * Even for relative types, the dependencies would still be processed - so don't include them because you double the work
+     *
      * @param classType
      * @param withDependencies
      * @return
@@ -95,7 +96,7 @@ public class IDMBrowser implements IBrowser{
                         .map(j -> j.classId).collect(Collectors.toList());
             default: // the other ones we don't really care about (for now)
                 return jClasses.stream()
-                        .filter( j -> j.classType.equals(classType))
+                        .filter(j -> j.classType.equals(classType))
                         .map(j -> j.classId).collect(Collectors.toList());
         }
     }
@@ -103,16 +104,16 @@ public class IDMBrowser implements IBrowser{
     private List<Integer> getAuxDep(int classId, DependencyType dependencyType) {
         String depColumn = getDepColumn(classId, dependencyType);
         List<Integer> desiredDependencies = new ArrayList<>();
-        for(int i = 0; i < depColumn.length(); i++) {
-            if(i == '1')
+        for (int i = 0; i < depColumn.length(); i++) {
+            if (i == '1')
                 desiredDependencies.add(i);
         }
         return desiredDependencies;
     }
 
     private JClass getClassFromId(int classId) {
-        for(JClass jClass: jClasses) {
-            if(jClass.classId == classId)
+        for (JClass jClass : jClasses) {
+            if (jClass.classId == classId)
                 return jClass;
         }
         return null;
@@ -122,7 +123,7 @@ public class IDMBrowser implements IBrowser{
         int depId = dependencyTypes.indexOf(dependencyType);
         int absoluteAddress = classId * dependencyTypesSize + depId;
         StringBuilder sb = new StringBuilder();
-        for(JClass jClass: jClasses) {
+        for (JClass jClass : jClasses) {
             sb.append(jClass.dependencyLine.charAt(absoluteAddress));
         }
         return sb.toString();
@@ -130,6 +131,7 @@ public class IDMBrowser implements IBrowser{
 
     /**
      * check if the given class has the given dependency on any other class
+     *
      * @param classId
      * @param dependencyType
      * @return
@@ -137,7 +139,7 @@ public class IDMBrowser implements IBrowser{
     private boolean hasDominantDependency(int classId, DependencyType dependencyType) {
         String depLine = getClassFromId(classId).dependencyLine;
         int depId = dependencyTypes.indexOf(dependencyType);
-        while(depId <= dependencyTypesSize * matrixSize) {
+        while (depId <= dependencyTypesSize * matrixSize) {
             if (depLine.charAt(depId) == '1') {
                 return true;
             }
@@ -148,6 +150,7 @@ public class IDMBrowser implements IBrowser{
 
     /**
      * Converts the first line in a dsm to a list of dependency types
+     *
      * @param dependencyLine
      * @return
      */
@@ -155,7 +158,7 @@ public class IDMBrowser implements IBrowser{
         dependencyLine = dependencyLine.replace("[", "").replace("]", "");
         String[] depStrings = dependencyLine.split(",");
         List<DependencyType> dependencyTypes = new ArrayList<>(depStrings.length);
-        for(int i=0; i< depStrings.length; i++) {
+        for (int i = 0; i < depStrings.length; i++) {
             DependencyType dependencyType = DependencyType.valueOf(depStrings[i].toUpperCase());
             dependencyTypes.add(dependencyType);
         }

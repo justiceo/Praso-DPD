@@ -8,7 +8,10 @@ import java.io.IOException;
 public interface DependencyRep {
 
     String getDependencyLine();
+
     String[] getMatrixLines();
+
     String[] getFilePaths();
+
     void saveAs(String fileName, String dependencyLine, String[] filePaths, String[] matrixLines) throws IOException;
 }

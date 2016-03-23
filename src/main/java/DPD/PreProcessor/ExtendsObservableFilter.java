@@ -61,13 +61,13 @@ public class ExtendsObservableFilter extends Filter {
     }
 
     private Flag filterExtends(String classPath, String filterStr, Flag flag) throws IOException, ParseException {
-        if(classPath == null || !Files.exists(Paths.get(classPath))) return null;
+        if (classPath == null || !Files.exists(Paths.get(classPath))) return null;
         CompilationUnit cu = JavaParser.parse(new File(classPath));
         List<TypeDeclaration> typeDecs = cu.getTypes();
-        for(TypeDeclaration t: typeDecs) {
+        for (TypeDeclaration t : typeDecs) {
             try {
                 ClassOrInterfaceDeclaration cd = (ClassOrInterfaceDeclaration) t;
-                if(cd.getExtends() != null) {
+                if (cd.getExtends() != null) {
                     return cd.getExtends().toString().contains(filterStr) ? flag : null;
                 }
             } catch (ClassCastException c) {

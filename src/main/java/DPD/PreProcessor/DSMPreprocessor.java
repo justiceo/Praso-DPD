@@ -25,7 +25,7 @@ public class DSMPreprocessor {
     private long startTime;
 
     public boolean load(String dsmFilePath) throws FileNotFoundException {
-        if(!Files.exists(Paths.get(dsmFilePath))) {
+        if (!Files.exists(Paths.get(dsmFilePath))) {
             System.out.println("dsm file does not exist");
             return false;
         }
@@ -46,7 +46,7 @@ public class DSMPreprocessor {
         long startTime = System.currentTimeMillis();
         jClassList = Collections.synchronizedList(new LinkedList<>());
 
-        for(int i = 0; i < matrixSize; i++) {
+        for (int i = 0; i < matrixSize; i++) {
             JClass jClass = new JClass();
             jClass.classId = i;
             jClass.classPath = filePaths[i];
@@ -78,12 +78,13 @@ public class DSMPreprocessor {
         loopsFilter.join();
         expandMatrixFilter.join();
 
-        System.out.println("all filters have finished (" + (System.currentTimeMillis() - startTime) + "ms)" );
+        System.out.println("all filters have finished (" + (System.currentTimeMillis() - startTime) + "ms)");
     }
 
     public List<JClass> getClassList() {
         return jClassList;
     }
+
     public String getDependencyLine() {
         return dependencyLine;
     }
