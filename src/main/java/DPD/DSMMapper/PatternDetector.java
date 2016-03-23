@@ -120,7 +120,6 @@ public class PatternDetector implements Runnable {
         }
 
         if(exclude) {
-            System.out.println("exclude flag is on");
             sourceBucket.removeAll(filteredList);
             filteredList = sourceBucket;
         }
@@ -201,5 +200,9 @@ public class PatternDetector implements Runnable {
                 pIterator.remove();
             }
         }
+    }
+
+    public void addResolvedPatternList(List<PatternComponent> resolvedPatterns) {
+        this.resolvedPatterns = resolvedPatterns;
     }
 }

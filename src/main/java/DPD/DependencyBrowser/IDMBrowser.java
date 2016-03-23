@@ -166,8 +166,8 @@ public class IDMBrowser implements IBrowser{
         int depId = dependencyTypes.indexOf(dependencyType);
         List<Integer> indices = new ArrayList<>();
 
-        while(depId < depLine.length()) {
-            if(depLine.charAt(depId) == '1') {
+        while (depId < depLine.length() && depId != -1) {
+            if (depLine.charAt(depId) == '1') {
                 int index = depId / dependencyTypesSize;
                 indices.add(index);
             }
