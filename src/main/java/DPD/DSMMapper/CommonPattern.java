@@ -6,7 +6,6 @@ import DPD.ILogger;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -56,7 +55,7 @@ public class CommonPattern implements IPattern {
             List<Integer> sorted = new ArrayList<>(entity.compliantClasses);
             Collections.sort(sorted);
             for(int classId: sorted) {
-                logger.log("\t" + browser.getNiceName(classId));
+                logger.log("\t" + browser.getClassPath(classId));
             }
         }
 

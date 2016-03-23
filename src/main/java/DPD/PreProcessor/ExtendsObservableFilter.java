@@ -1,7 +1,7 @@
 package DPD.PreProcessor;
 
 import DPD.DependencyBrowser.Flag;
-import DPD.DependencyBrowser.JClass;
+import DPD.JClass;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;

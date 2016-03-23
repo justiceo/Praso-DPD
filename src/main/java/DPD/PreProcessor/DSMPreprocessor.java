@@ -2,7 +2,7 @@ package DPD.PreProcessor;
 
 import DPD.DSMDependencyRep;
 import DPD.DependencyBrowser.Flag;
-import DPD.DependencyBrowser.JClass;
+import DPD.JClass;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Files;

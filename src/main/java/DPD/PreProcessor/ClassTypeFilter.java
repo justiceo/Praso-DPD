@@ -1,6 +1,6 @@
 package DPD.PreProcessor;
 
-import DPD.DependencyBrowser.JClass;
+import DPD.JClass;
 import DPD.Enums.ClassType;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseException;

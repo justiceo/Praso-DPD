@@ -3,6 +3,7 @@ package DPD.DependencyBrowser;
 import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
 import DPD.ILogger;
+import DPD.JClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,14 +63,8 @@ public class IDMBrowser implements IBrowser{
     }
 
     @Override
-    public String getNiceName(int classId) {
-        String fullClassName = getClassPath(classId);
-        return fullClassName;
-    }
-
-    @Override
     public String getClassPath(int classId) {
-        return jClasses.stream().filter(j -> j.classId == classId).findFirst().get().classPath;
+        return jClasses.get(classId).classPath;
     }
 
 
@@ -150,17 +145,6 @@ public class IDMBrowser implements IBrowser{
             depId += dependencyTypesSize;
         }
         return false;
-    }
-
-    /**
-     * checks if other classes has the specified dependency type on this class
-     * @param classId
-     * @param dependencyType
-     * @return
-     */
-    private boolean hasAuxiliaryDependency(int classId, DependencyType dependencyType) {
-        String depCol = getDepColumn(classId, dependencyType);
-        return depCol.contains("1");
     }
 
     /**

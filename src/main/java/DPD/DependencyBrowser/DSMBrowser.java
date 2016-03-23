@@ -3,6 +3,7 @@ package DPD.DependencyBrowser;
 import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
 import DPD.ILogger;
+import DPD.JClass;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -93,9 +94,8 @@ public class DSMBrowser implements IBrowser{
         }
     }
 
-    @Override
     public String getNiceName(int classId) {
-        String fullClassName = getClassPath(classId);
+        String fullClassName = getJClassFromName(classId).classPath;
         int start = fullClassName.lastIndexOf(".");
         int end = fullClassName.lastIndexOf("_");
         return fullClassName.substring(start+1, end);

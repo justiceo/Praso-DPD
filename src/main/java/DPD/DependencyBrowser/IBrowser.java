@@ -23,8 +23,6 @@ public interface IBrowser {
 
     List<Integer> getAuxDependencies(int classId, DependencyType dependencyType);
 
-    String getNiceName(int classId);
-
     String getClassPath(int classId);
 
     List<Integer> getDomDependencies(int classId, DependencyType dependencyType);

@@ -42,7 +42,7 @@ public class RuleFilters {
         // create new patterns from each item in the entity
         for(int classId: entityToResolve.compliantClasses) {
             CommonPattern newPattern = SerializationUtils.deserialize(SerializationUtils.serialize(pattern));
-            newPattern.name = pattern.getName() + " - " + browser.getNiceName(classId);
+            newPattern.name = pattern.getName() + " - " + browser.getClassPath(classId);
 
             // reset it's entity to its self alone
             newPattern.entities.stream().filter(pE -> pE.id.equals(entityToResolve.id)).forEach(pE -> {

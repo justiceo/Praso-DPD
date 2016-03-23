@@ -3,7 +3,6 @@ package DPD;
 import DPD.DSMMapper.*;
 import DPD.DependencyBrowser.IBrowser;
 import DPD.DependencyBrowser.IDMBrowser;
-import DPD.DependencyBrowser.JClass;
 import DPD.PatternParser.CommonPatternsParser;
 import DPD.PatternParser.IPatternsParser;
 import DPD.PreProcessor.DSMPreprocessor;

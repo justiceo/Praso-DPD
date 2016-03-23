@@ -1,6 +1,6 @@
 package DPD.PreProcessor;
 
-import DPD.DependencyBrowser.JClass;
+import DPD.JClass;
 
 import java.util.List;
 
