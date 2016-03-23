@@ -3,7 +3,6 @@ package DPD.DependencyBrowser;
 import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -11,10 +10,6 @@ import java.util.List;
  * Exposees methods for manipulating a dsm
  */
 public interface IBrowser {
-
-    void init(String dsmFileName) throws FileNotFoundException;
-
-    List<DependencyType> getDependencyTypes();
 
     /**
      * Given an absolute or relative* class type, it would return list of class names that satisfy this classType
@@ -26,13 +21,13 @@ public interface IBrowser {
      */
     List<Integer> getClassesOfType(ClassType classType, String withDependencies);
 
-    List<Integer> getAssociatedDependency(int classId, DependencyType dependencyType);
-
-    boolean isAssociatedWithDependency(int classId, DependencyType dependencyType);
+    List<Integer> getAuxDependencies(int classId, DependencyType dependencyType);
 
     String getNiceName(int classId);
 
     String getClassPath(int classId);
+
+    List<Integer> getDomDependencies(int classId, DependencyType dependencyType);
 }
 
 

@@ -24,8 +24,7 @@ public class DSMBrowserTest {
 
     @Before
     public void setup() throws FileNotFoundException {
-        browser = new DSMBrowser(new ConsoleLogger());
-        browser.init(testDsmFile);
+        browser = new DSMBrowser(new ConsoleLogger(), testDsmFile);
     }
 
     @After
@@ -40,7 +39,7 @@ public class DSMBrowserTest {
         expectedDependencyTypes.add(DependencyType.IMPLEMENT);
         expectedDependencyTypes.add(DependencyType.USE);
 
-        List<DependencyType> actualDependencyTypes = browser.getDependencyTypes();
+        List<DependencyType> actualDependencyTypes = new ArrayList<>();
         Assert.assertEquals(expectedDependencyTypes, actualDependencyTypes);
     }
 
@@ -155,7 +154,7 @@ public class DSMBrowserTest {
     public void TestGetAssociatedDependencies() {
         String sourceClass = "D:.Code.IdeaProjects.DesignPatterns.src.observer.ConcreteObserverA_java";
         String expectedResult = "D:.Code.IdeaProjects.DesignPatterns.src.observer.IObserver_java";
-        /*List<String> actualResult = browser.getAssociatedDependency(sourceClass, DependencyType.IMPLEMENT);
+        /*List<String> actualResult = browser.getAuxDependencies(sourceClass, DependencyType.IMPLEMENT);
         assertEquals(1, actualResult.size());
         assertTrue(actualResult.contains(expectedResult));
         */
@@ -171,8 +170,8 @@ public class DSMBrowserTest {
     @Test
     public void TestIsAssociatedWithDependencyType() {
         String testClass = "D:.Code.IdeaProjects.DesignPatterns.src.observer.IObserver_java";
-        /*assertTrue(browser.isAssociatedWithDependency(testClass, DependencyType.TYPED));
-        assertTrue(browser.isAssociatedWithDependency(testClass, DependencyType.USE));
-        assertTrue(browser.isAssociatedWithDependency(testClass, DependencyType.IMPLEMENT));*/
+        /*assertTrue(browser.hasAuxiliaryDependency(testClass, DependencyType.TYPED));
+        assertTrue(browser.hasAuxiliaryDependency(testClass, DependencyType.USE));
+        assertTrue(browser.hasAuxiliaryDependency(testClass, DependencyType.IMPLEMENT));*/
     }
 }

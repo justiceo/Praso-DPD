@@ -60,27 +60,6 @@ public class DSMPreprocessor {
         long startTime = System.currentTimeMillis();
         jClassList = Collections.synchronizedList(new LinkedList<>());
 
-        // create and start the threads
-        ClassTypeFilter classTypeFilter = new ClassTypeFilter();
-        classTypeFilter.init(jClassList, matrixSize);
-        Thread classTypeFThread = new Thread(classTypeFilter);
-        classTypeFThread.start();
-
-        ExtendsObservableFilter extendsObservableFilter = new ExtendsObservableFilter("Observable", Flag.ObservableFlag);
-        extendsObservableFilter.init(jClassList, matrixSize);
-        Thread extObservableFThread = new Thread(extendsObservableFilter);
-        extObservableFThread.start();
-
-        LoopsFilter loopsFilter = new LoopsFilter("IObserver", Flag.ObservableFlag);
-        loopsFilter.init(jClassList, matrixSize);
-        Thread loopsFThread = new Thread(loopsFilter);
-        loopsFThread.start();
-
-        ExpandMatrixFilter expandMatrixFilter = new ExpandMatrixFilter(dependencyLine);
-        expandMatrixFilter.init(jClassList, matrixSize);
-        Thread expMatrixThread = new Thread(expandMatrixFilter);
-        expMatrixThread.start();
-
         for(int i = 0; i < matrixSize; i++) {
             JClass jClass = new JClass();
             jClass.classId = i;
@@ -90,11 +69,29 @@ public class DSMPreprocessor {
             jClassList.add(jClass);
         }
 
+        // create and start the threads
+        ExpandMatrixFilter expandMatrixFilter = new ExpandMatrixFilter(dependencyLine);
+        expandMatrixFilter.init(jClassList, matrixSize);
+        expandMatrixFilter.start();
+
+        ClassTypeFilter classTypeFilter = new ClassTypeFilter();
+        classTypeFilter.init(jClassList, matrixSize);
+        classTypeFilter.start();
+
+        ExtendsObservableFilter extendsObservableFilter = new ExtendsObservableFilter("Observable", Flag.ObservableFlag);
+        extendsObservableFilter.init(jClassList, matrixSize);
+        extendsObservableFilter.start();
+
+        LoopsFilter loopsFilter = new LoopsFilter("IObserver", Flag.ObservableFlag);
+        loopsFilter.init(jClassList, matrixSize);
+        loopsFilter.start();
+
+
         // join all the threads
-        classTypeFThread.join();
-        extObservableFThread.join();
-        loopsFThread.join();
-        expMatrixThread.join();
+        classTypeFilter.join();
+        extendsObservableFilter.join();
+        loopsFilter.join();
+        expandMatrixFilter.join();
 
         System.out.println("all filters have finished (" + (System.currentTimeMillis() - startTime) + "ms)" );
     }

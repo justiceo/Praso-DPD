@@ -4,7 +4,8 @@ import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
 import DPD.ILogger;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,15 +22,11 @@ public class DSMBrowser implements IBrowser{
     private List<JClass> jClasses;
     private ILogger logger;
 
-    public DSMBrowser(ILogger logger) {
+    public DSMBrowser(ILogger logger, String dsmFile) {
         this.logger = logger;
-    }
-
-    @Override
-    public void init(String dsmFileName) {
         Scanner in = null;
         try {
-            in = new Scanner(new File(dsmFileName));          /* load dsm file */
+            in = new Scanner(new File(dsmFile));          /* load dsm file */
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -48,20 +45,13 @@ public class DSMBrowser implements IBrowser{
             files.add(in.nextLine());
         }
 
-        /*todo: move rest of initializations here */
-        buildJClasses();                            /* build jClasses for faster search operations */
+        buildJClasses();
     }
 
-    @Override
-    public boolean isAssociatedWithDependency(int classId, DependencyType dependencyType) {
-        String depLine = String.join(" ", getMatrixCol(classId));
-        List<DependencyType> classDeps = getLineDependency(depLine);
-        return classDeps.contains(dependencyType);
-    }
-
-    @Override
-    public List<DependencyType> getDependencyTypes() {
-        return dependencyTypes;
+    public boolean hasAuxiliaryDependency(int classId, DependencyType dependencyType) {
+        String depCol = String.join(" ", getMatrixCol(classId));
+        List<DependencyType> colDeps = getLineDependency(depCol);
+        return colDeps.contains(dependencyType);
     }
 
     /**
@@ -92,7 +82,7 @@ public class DSMBrowser implements IBrowser{
     }
 
     @Override
-    public List<Integer> getAssociatedDependency(int classId, DependencyType dependencyType) {
+    public List<Integer> getAuxDependencies(int classId, DependencyType dependencyType) {
         switch (dependencyType) {
             case SPECIALIZE:
                 List x = getAssociatedDependencyNative(classId, DependencyType.EXTEND);
@@ -116,8 +106,17 @@ public class DSMBrowser implements IBrowser{
         return jClasses.stream().filter(j -> j.classId == classId).findFirst().get().classPath;
     }
 
-
-
+    @Override
+    public List<Integer> getDomDependencies(int classId, DependencyType dependencyType) {
+        switch (dependencyType) {
+            case SPECIALIZE:
+                List x = getAssociatedDependencyNative(classId, DependencyType.EXTEND);
+                x.addAll(getAssociatedDependencyNative(classId, DependencyType.IMPLEMENT));
+                return x;
+            default:
+                return getAssociatedDependencyNative(classId, dependencyType);
+        }
+    }
 
     private List<Integer> getClassesOfType(ClassType classType) {
 
@@ -131,7 +130,7 @@ public class DSMBrowser implements IBrowser{
                         .map(j -> j.classId).collect(Collectors.toList());
             case Abstraction:
                 return jClasses.stream()
-                        .filter(j -> isAssociatedWithDependency(j.classId, DependencyType.IMPLEMENT) || isAssociatedWithDependency(j.classId, DependencyType.EXTEND))
+                        .filter(j -> hasAuxiliaryDependency(j.classId, DependencyType.IMPLEMENT) || hasAuxiliaryDependency(j.classId, DependencyType.EXTEND))
                         .map(j -> j.classId).collect(Collectors.toList());
             default: // it's an absolute type!
                 return jClasses.stream()
@@ -140,15 +139,16 @@ public class DSMBrowser implements IBrowser{
         }
     }
 
+    /* get the classes with classId has specified auxiliary dependency with */
     private List<Integer> getAssociatedDependencyNative(int classId, DependencyType dependencyType) {
         JClass jClass = getJClassFromName(classId);
-        List<Integer> depLocations = getIndexOfDependency(jClass, dependencyType);
-        List<Integer> desiredDependencies = new ArrayList<>();
-        jClasses.stream().filter(j -> depLocations.contains(j.classId)).forEach(j -> desiredDependencies.add(j.classId));
-        return desiredDependencies;
+        List<Integer> domDependencyIndices = getDomDependencyIndices(jClass, dependencyType);
+        List<Integer> desiredClasses = new ArrayList<>();
+        jClasses.stream().filter(j -> domDependencyIndices.contains(j.classId)).forEach(j -> desiredClasses.add(j.classId));
+        return desiredClasses;
     }
 
-    private List<Integer> getIndexOfDependency(JClass jClass, DependencyType dependencyType) {
+    private List<Integer> getDomDependencyIndices(JClass jClass, DependencyType dependencyType) {
         String depLine = jClass.dependencyLine;
         String[] atomicDeps = depLine.split(" ");
         List<Integer> result = new LinkedList<>();

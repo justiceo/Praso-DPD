@@ -1,8 +1,9 @@
 package DPD;
 
 import DPD.DSMMapper.*;
-import DPD.DependencyBrowser.DSMBrowser;
 import DPD.DependencyBrowser.IBrowser;
+import DPD.DependencyBrowser.IDMBrowser;
+import DPD.DependencyBrowser.JClass;
 import DPD.PatternParser.CommonPatternsParser;
 import DPD.PatternParser.IPatternsParser;
 import DPD.PreProcessor.DSMPreprocessor;
@@ -10,7 +11,6 @@ import DPD.SourceParser.ASTAnalyzer;
 import DPD.SourceParser.JParser;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +25,7 @@ public class Main {
     private IBrowser browser;
     private IPattern pattern;
     private final String configFile = "config.xml";
-    private final String testDsmFile = "files\\dsm\\simpleObserverPattern.dsm";
+    private final String testDsmFile = "files\\dsm\\redisson.dsm";
     private ILogger logger;
 
     public static void main(String[] args) {
@@ -41,6 +41,11 @@ public class Main {
         } catch (InterruptedException e) {
             System.out.println("unable to load " + testDsmFile);
         }
+
+        List<JClass> jClasses = preprocessor.getjClassList();
+
+        browser = new IDMBrowser(new ConsoleLogger(), preprocessor.getjClassList(), preprocessor.getDependencyLine());
+        //browser = new DSMBrowser(new ConsoleLogger(), testDsmFile);
     }
 
     public void analyze() {;
@@ -53,13 +58,7 @@ public class Main {
         pattern = patternsParser.loadPatternById("observer1");
 
 
-        browser = new DSMBrowser(logger);
-        try {
-            browser.init(testDsmFile);
-        } catch (FileNotFoundException e) {
-            System.out.println("error loading dsm file");
-            System.exit(0);
-        }
+        //browser = new DSMBrowser(logger);
 
         ASTAnalyzer sourceParser = new JParser(logger);
 
@@ -82,11 +81,12 @@ public class Main {
         }
 
         // run ast
+        /*
         for(IPattern pattern: resolved) {
             for (PatternRule rule : pattern.getRules()) {
                 ruleFilters.checkSource(pattern, rule);
             }
-        }
+        }*/
 
         // remove empty pattern
         Iterator<IPattern> pIterator = resolved.iterator();

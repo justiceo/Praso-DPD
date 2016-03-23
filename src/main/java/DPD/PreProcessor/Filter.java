@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Justice on 3/17/2016.
  */
-public abstract class Filter implements Runnable {
+public abstract class Filter extends Thread {
     protected List<JClass> jClasses;
     protected int matrixSize;
 

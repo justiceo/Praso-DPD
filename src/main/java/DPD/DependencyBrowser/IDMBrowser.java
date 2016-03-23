@@ -2,11 +2,10 @@ package DPD.DependencyBrowser;
 
 import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
-import DPD.IDMDependencyRep;
 import DPD.ILogger;
 
-import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -15,47 +14,18 @@ import java.util.stream.Collectors;
  */
 public class IDMBrowser implements IBrowser{
 
-    private int matrixSize;
-    private List<String> matrix;
-    private List<String> files;
-    private List<DependencyType> dependencyTypes;
-    private List<JClass> jClasses;
-    private ILogger logger;
-    private String dependencyLine;
+    private final int matrixSize;
+    private final List<DependencyType> dependencyTypes;
+    private final List<JClass> jClasses;
+    private final ILogger logger;
+    private final int dependencyTypesSize;
 
-    public IDMBrowser(ILogger logger) {
-        this.logger = logger;
-    }
     public IDMBrowser(ILogger logger, List<JClass> jClasses, String dependencyLine) {
         this.logger = logger;
         this.jClasses = jClasses;
-        this.dependencyLine = dependencyLine;
-
-    }
-
-
-    public void init(String idmFileName) throws FileNotFoundException {
-        IDMDependencyRep idm = new IDMDependencyRep(idmFileName);
-        this.matrix = Arrays.asList(idm.getMatrixLines());
-        this.files = Arrays.asList(idm.getFilePaths());
-        this.dependencyLine = idm.getDependencyLine();
-
-        /*todo: move rest of initializations here */
-        buildJClasses();
-        /* build jClasses for faster search operations */
-
-    }
-
-    @Override
-    public boolean isAssociatedWithDependency(int classId, DependencyType dependencyType) {
-        String depLine = String.join(" ", getMatrixCol(classId));
-        List<DependencyType> classDeps = getLineDependency(depLine);
-        return classDeps.contains(dependencyType);
-    }
-
-    @Override
-    public List<DependencyType> getDependencyTypes() {
-        return dependencyTypes;
+        this.matrixSize = jClasses.size();
+        this.dependencyTypes = getDependencyTypes(dependencyLine);
+        dependencyTypesSize = dependencyTypes.size();
     }
 
     /**
@@ -63,46 +33,38 @@ public class IDMBrowser implements IBrowser{
      * Returns all classes with these type that meets ALL the dependencies specified
      * Even for relative types, the dependencies would still be processed - so don't include them because you double the work
      * @param classType
-     * @param dependencyLine
+     * @param withDependencies
      * @return
      */
     @Override
-    public List<Integer> getClassesOfType(ClassType classType, String dependencyLine) {
-        List<Integer> desiredClasses = getClassesOfType(classType);
-        if(dependencyLine == null) return desiredClasses;
-
-
-        List<DependencyType> dependencyTypes = Arrays.asList(dependencyLine.split(","))
-                                                    .stream().map(s -> DependencyType.valueOf(s.toUpperCase()))
-                                                    .collect(Collectors.toList());
-
-        for(Iterator<Integer> iterator = desiredClasses.iterator(); iterator.hasNext();) {
-            List<DependencyType> classDependencies = getDependenciesOfClass(iterator.next());
-            if(!containsDependencies(classDependencies, dependencyTypes)) {
-                iterator.remove();
-            }
-        }
-        return desiredClasses;
+    public List<Integer> getClassesOfType(ClassType classType, String withDependencies) {
+        return getClassesOfType(classType);
+        // implement withDependencies later, cause we may not need it again
+        // withDependencies allows us to add small filterings on the entity
     }
 
     @Override
-    public List<Integer> getAssociatedDependency(int classId, DependencyType dependencyType) {
+    public List<Integer> getAuxDependencies(int classId, DependencyType dependencyType) {
         switch (dependencyType) {
             case SPECIALIZE:
-                List x = getAssociatedDependencyNative(classId, DependencyType.EXTEND);
-                x.addAll(getAssociatedDependencyNative(classId, DependencyType.IMPLEMENT));
+                List x = getAuxDep(classId, DependencyType.EXTEND);
+                x.addAll(getAuxDep(classId, DependencyType.IMPLEMENT));
                 return x;
             default:
-                return getAssociatedDependencyNative(classId, dependencyType);
+                return getAuxDep(classId, dependencyType);
         }
+    }
+
+    @Override
+    public List<Integer> getDomDependencies(int classId, DependencyType dependencyType) {
+        String depLine = getClassFromId(classId).dependencyLine;
+        return getIndicesOfDomDependenciesAsClassIds(depLine, dependencyType);
     }
 
     @Override
     public String getNiceName(int classId) {
         String fullClassName = getClassPath(classId);
-        int start = fullClassName.lastIndexOf(".");
-        int end = fullClassName.lastIndexOf("_");
-        return fullClassName.substring(start+1, end);
+        return fullClassName;
     }
 
     @Override
@@ -111,86 +73,50 @@ public class IDMBrowser implements IBrowser{
     }
 
 
-
-
     private List<Integer> getClassesOfType(ClassType classType) {
 
         switch (classType) {
+            case Class:
+                return jClasses.stream()
+                        .filter(c -> c.classType == ClassType.Class)
+                        .map(c -> c.classId).collect(Collectors.toList());
+            case Interface:
+                return jClasses.stream()
+                        .filter(c -> c.classType == ClassType.Interface)
+                        .map(c -> c.classId).collect(Collectors.toList());
+            case Abstract:
+                return jClasses.stream()
+                        .filter(c -> c.classType == ClassType.Interface)
+                        .map(c -> c.classId).collect(Collectors.toList());
             case Any:
                 return jClasses.stream()
                         .map(j -> j.classId).collect(Collectors.toList());
-            case Specialization:
-                return jClasses.stream()
-                        .filter(j -> hasDependency(j.classId, DependencyType.IMPLEMENT) || hasDependency(j.classId, DependencyType.EXTEND))
-                        .map(j -> j.classId).collect(Collectors.toList());
             case Abstraction:
                 return jClasses.stream()
-                        .filter(j -> isAssociatedWithDependency(j.classId, DependencyType.IMPLEMENT) || isAssociatedWithDependency(j.classId, DependencyType.EXTEND))
+                        .filter(c -> c.classType == ClassType.Interface || c.classType == ClassType.Abstract)
                         .map(j -> j.classId).collect(Collectors.toList());
-            default: // it's an absolute type!
+            case Specialization:
+                return jClasses.stream()
+                        .filter(j -> hasDominantDependency(j.classId, DependencyType.IMPLEMENT) || hasDominantDependency(j.classId, DependencyType.EXTEND))
+                        .map(j -> j.classId).collect(Collectors.toList());
+            default: // the other ones we don't really care about (for now)
                 return jClasses.stream()
                         .filter( j -> j.classType.equals(classType))
                         .map(j -> j.classId).collect(Collectors.toList());
         }
     }
 
-    private List<Integer> getAssociatedDependencyNative(int classId, DependencyType dependencyType) {
-        JClass jClass = getJClassFromName(classId);
-        List<Integer> depLocations = getIndexOfDependency(jClass, dependencyType);
+    private List<Integer> getAuxDep(int classId, DependencyType dependencyType) {
+        String depColumn = getDepColumn(classId, dependencyType);
         List<Integer> desiredDependencies = new ArrayList<>();
-        jClasses.stream().filter(j -> depLocations.contains(j.classId)).forEach(j -> desiredDependencies.add(j.classId));
+        for(int i = 0; i < depColumn.length(); i++) {
+            if(i == '1')
+                desiredDependencies.add(i);
+        }
         return desiredDependencies;
     }
 
-    private List<Integer> getIndexOfDependency(JClass jClass, DependencyType dependencyType) {
-        String depLine = jClass.dependencyLine;
-        String[] atomicDeps = depLine.split(" ");
-        List<Integer> result = new LinkedList<>();
-        for(int i = 0; i< atomicDeps.length; i++) {
-            if(getAtomicDependency(atomicDeps[i]).contains(dependencyType)) {
-                result.add(i);
-            }
-        }
-        return result;
-    }
-
-    private void buildDependencyTypesList(String dependencyString) {
-        dependencyString = dependencyString.replace("[", "").replace("]", "");
-        String[] depStrings = dependencyString.split(",");
-        dependencyTypes = new ArrayList<>();
-        for(int i=0; i< depStrings.length; i++) {
-            DependencyType dependencyType = DependencyType.valueOf(depStrings[i].toUpperCase());
-            dependencyTypes.add(dependencyType);
-        }
-    }
-
-    private void buildJClasses() {
-        jClasses = new ArrayList<>();
-        for(int i=0; i<files.size(); i++) {
-            JClass jClass = new JClass();
-            jClass.classPath = files.get(i);
-            jClass.classId = i;
-            jClass.dependencyLine = matrix.get(i);
-            jClass.classType = determineClassType(jClass);
-            jClasses.add(jClass);
-        }
-    }
-
-    private ClassType determineClassType(JClass jClass) {
-
-        String depLine = String.join(" ", getMatrixCol(jClass.classId));
-        List<DependencyType> classDeps = getLineDependency(depLine);
-
-        if(classDeps.contains(DependencyType.IMPLEMENT))
-            return ClassType.Interface;
-        else if(classDeps.contains(DependencyType.EXTEND))
-            return ClassType.Abstract;
-        else if(classDeps.contains(DependencyType.SPECIALIZE))
-            return ClassType.Abstraction;
-        else return ClassType.Class;
-    }
-
-    private JClass getJClassFromName(int classId) {
+    private JClass getClassFromId(int classId) {
         for(JClass jClass: jClasses) {
             if(jClass.classId == classId)
                 return jClass;
@@ -198,78 +124,72 @@ public class IDMBrowser implements IBrowser{
         return null;
     }
 
-    private List<DependencyType> getAtomicDependency(String atomicDependency) {
-        List<DependencyType> availableDeps = new ArrayList<>();
-        String[] depString = atomicDependency.split("");
-        for(int i=0; i< depString.length; i++){
-            if(1 == Integer.parseInt(depString[i])) {
-                availableDeps.add(dependencyTypes.get(i));
-            }
+    private String getDepColumn(int classId, DependencyType dependencyType) {
+        int depId = dependencyTypes.indexOf(dependencyType);
+        int absoluteAddress = classId * dependencyTypesSize + depId;
+        StringBuilder sb = new StringBuilder();
+        for(JClass jClass: jClasses) {
+            sb.append(jClass.dependencyLine.charAt(absoluteAddress));
         }
-        return availableDeps;
-    }
-
-    //todo: now jclass doesn't need the full array anymore
-    private List<DependencyType> getLineDependency(String lineOfDependencies) {
-        String[] depsArray = lineOfDependencies.split(" ");
-        List<DependencyType> dependencyTypes = new ArrayList<>();
-        for(String s: depsArray) {
-            if(s.equals("0")) continue;
-            dependencyTypes.addAll(getAtomicDependency(s));
-        }
-        return dependencyTypes;
-    }
-
-    private List<DependencyType> getDependenciesOfClass(String className) {
-        return getDependenciesOfClass(getClassIdFromPath(className));
-    }
-
-    private List<DependencyType> getDependenciesOfClass(int classId) {
-        JClass jClass = getJClassFromName(classId);
-        String[] depsArray = jClass.matrixRow;
-        List<DependencyType> dependencyTypes = new ArrayList<>();
-        for(String s: depsArray) {
-            dependencyTypes.addAll(getAtomicDependency(s));
-        }
-        return dependencyTypes;
-    }
-
-    private String[] getMatrixCol(int col) {
-        String[] resultColumn = new String[matrixSize];
-        for(int row = 0; row < matrixSize; row++) {
-            //resultColumn[row] = matrix[row][col];
-        }
-        return resultColumn;
-    }
-
-    private boolean hasDependency(int classId, DependencyType dependencyType) {
-        List<DependencyType> deps = getDependenciesOfClass(classId);
-        return deps.contains(dependencyType);
+        return sb.toString();
     }
 
     /**
-     * Determines if the list of avaialable dependencies contains the required dependencies
-     * @param availableDependencies
-     * @param requiredDependencies
+     * check if the given class has the given dependency on any other class
+     * @param classId
+     * @param dependencyType
      * @return
      */
-    private boolean containsDependencies(List<DependencyType> availableDependencies, List<DependencyType> requiredDependencies) {
-        boolean isContained;
-        for(DependencyType req: requiredDependencies){
-            switch (req) {
-                case SPECIALIZE:
-                    isContained = availableDependencies.contains(DependencyType.EXTEND)
-                            || availableDependencies.contains(DependencyType.IMPLEMENT);
-                    break;
-                default:
-                    isContained = availableDependencies.contains(req);
+    private boolean hasDominantDependency(int classId, DependencyType dependencyType) {
+        String depLine = getClassFromId(classId).dependencyLine;
+        int depId = dependencyTypes.indexOf(dependencyType);
+        while(depId <= dependencyTypesSize * matrixSize) {
+            if (depLine.charAt(depId) == '1') {
+                return true;
             }
-            if(!isContained) return isContained;
+            depId += dependencyTypesSize;
         }
-        return true;
+        return false;
     }
 
-    private int getClassIdFromPath(String path) {
-        return jClasses.stream().filter(j -> j.classPath.equals(path)).findFirst().get().classId;
+    /**
+     * checks if other classes has the specified dependency type on this class
+     * @param classId
+     * @param dependencyType
+     * @return
+     */
+    private boolean hasAuxiliaryDependency(int classId, DependencyType dependencyType) {
+        String depCol = getDepColumn(classId, dependencyType);
+        return depCol.contains("1");
+    }
+
+    /**
+     * Converts the first line in a dsm to a list of dependency types
+     * @param dependencyLine
+     * @return
+     */
+    private List<DependencyType> getDependencyTypes(String dependencyLine) {
+        dependencyLine = dependencyLine.replace("[", "").replace("]", "");
+        String[] depStrings = dependencyLine.split(",");
+        List<DependencyType> dependencyTypes = new ArrayList<>(depStrings.length);
+        for(int i=0; i< depStrings.length; i++) {
+            DependencyType dependencyType = DependencyType.valueOf(depStrings[i].toUpperCase());
+            dependencyTypes.add(dependencyType);
+        }
+        return dependencyTypes;
+    }
+
+    private List<Integer> getIndicesOfDomDependenciesAsClassIds(String depLine, DependencyType dependencyType) {
+        int depId = dependencyTypes.indexOf(dependencyType);
+        List<Integer> indices = new ArrayList<>();
+
+        while(depId < depLine.length()) {
+            if(depLine.charAt(depId) == '1') {
+                int index = depId / dependencyTypesSize;
+                indices.add(index);
+            }
+            depId += dependencyTypesSize;
+        }
+        return indices;
     }
 }

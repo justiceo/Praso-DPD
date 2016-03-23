@@ -18,8 +18,6 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static java.lang.Thread.sleep;
-
 /**
  * Created by Justice on 3/17/2016.
  */
@@ -35,16 +33,9 @@ public class LoopsFilter extends Filter {
     @Override
     public void run() {
         System.out.println("starting loops filter...");
-
         long startTime = System.currentTimeMillis();
-        while(jClasses.size() == 0) {
-            try { sleep(70); }
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
 
-        int counter = 1;
+        int counter = 0;
         synchronized (jClasses) {
             Iterator<JClass> iterator = jClasses.iterator();
             while (counter < matrixSize) {
@@ -54,6 +45,7 @@ public class LoopsFilter extends Filter {
                     jClass = iterator.next();
                     filterLoop(jClass);
                 } catch (NoSuchElementException | ParseException | IOException e) {
+                    System.out.println("loop filter err - counter (" + counter + "):  " + e.toString());
                     continue;
                 }
 

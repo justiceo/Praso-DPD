@@ -30,6 +30,7 @@ An implementation of the hierarchical pattern definition for automatic pattern d
 - Implement A -> B; B -> C :- A -> C for layered abstraction.
 - move all Logging to java native logging.
 - Add Claims to pattern component. So filters, resolvers and ast-analyzers can add information about why they chose or didn't choose something
+- Move dependencies on commons-lang3 to java 8
 
 ### Version 3 Goals
 

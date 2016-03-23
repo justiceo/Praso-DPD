@@ -13,10 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Iterator;
-import java.util.List;
 import java.util.NoSuchElementException;
-
-import static java.lang.Thread.sleep;
 
 /**
  * Created by Justice on 3/17/2016.
@@ -28,26 +25,21 @@ public class ClassTypeFilter extends Filter {
     public void run()  {
         System.out.println("starting class type filter...");
         long startTime = System.currentTimeMillis();
-        while(jClasses.size() == 0) {
-            try { sleep(50); }
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
 
-        int counter = 1;
-        Iterator<JClass> iterator = jClasses.iterator();
-        while (counter < matrixSize) {
-            JClass jClass = null;
-            counter++;
-            try {
-                synchronized (jClasses) {
-                    jClass = iterator.next();
-                    jClass.classType = getClassType(jClass.classPath);
+        synchronized (jClasses) {
+            int counter = 0;
+            Iterator<JClass> iterator = jClasses.iterator();
+            while (counter < matrixSize ) {
+                JClass jClass = null;
+                counter++;
+                try {
+                        jClass = iterator.next();
+                        jClass.classType = getClassType(jClass.classPath);
+                }catch (NoSuchElementException | ParseException | IOException | ClassCastException | NullPointerException e) {
+                    // todo: log which exceptions are thrown most, so we can optimize those segments
+                    System.out.println("class type filter err - counter (" + counter + "): " + e.toString());
+                    continue;
                 }
-            }catch (NoSuchElementException | ParseException | IOException | ClassCastException | NullPointerException e) {
-                // todo: log which exceptions are thrown most, so we can optimize those segments
-                continue;
             }
         }
         System.out.println("exiting class type filter (" + (System.currentTimeMillis() - startTime) + "ms)");
@@ -58,25 +50,22 @@ public class ClassTypeFilter extends Filter {
         if(!Files.exists(Paths.get(filePath))) return ClassType.Unknown;
 
         CompilationUnit cu = JavaParser.parse(new File(filePath));
-        List<TypeDeclaration> typeDecs = cu.getTypes();
-        for(TypeDeclaration t: typeDecs) {
-            ClassOrInterfaceDeclaration cd = (ClassOrInterfaceDeclaration) t;
+        TypeDeclaration typeDec = cu.getTypes().get(0);
+        ClassOrInterfaceDeclaration cd = (ClassOrInterfaceDeclaration) typeDec; // most likely the case
 
-            if(cd.getModifiers() == 1025) {
-                return ClassType.Abstract;
-            }
-            else if(cd.isInterface()) {
-                return ClassType.Interface;
-            }
-            else if(cd.getModifiers() == 0) { // protected class
-                return ClassType.Class;
-            }
-            else if(cd.getModifiers() == 1) {
-                return ClassType.Class;
-            }
-            else return ClassType.Unknown;
+        if(cd.getModifiers() == 1025) {
+            return ClassType.Abstract;
         }
-        return ClassType.Unknown;
+        else if(cd.isInterface()) {
+            return ClassType.Interface;
+        }
+        else if(cd.getModifiers() == 0) { // protected class
+            return ClassType.Class;
+        }
+        else if(cd.getModifiers() == 1) {
+            return ClassType.Class;
+        }
+        else return ClassType.Unknown;
     }
 
 }

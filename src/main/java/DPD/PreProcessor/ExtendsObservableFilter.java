@@ -17,8 +17,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static java.lang.Thread.sleep;
-
 /**
  * Created by Justice on 3/17/2016.
  */
@@ -35,25 +33,20 @@ public class ExtendsObservableFilter extends Filter {
     public void run() {
         System.out.println("starting ext. observable filter...");
         long startTime = System.currentTimeMillis();
-        while(jClasses.size() == 0) {
-            try { sleep(10); }
-            catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
 
-        int counter = 1;
-        Iterator<JClass> iterator = jClasses.iterator();
-        while (counter < matrixSize) {
-            JClass jClass = null;
-            Flag usesObservable = null;
-            counter++;
+        synchronized (jClasses) {
+            int counter = 0;
+            Iterator<JClass> iterator = jClasses.iterator();
+            while (counter < matrixSize) {
+                JClass jClass = null;
+                Flag usesObservable = null;
+                counter++;
 
-            synchronized (jClasses) {
                 try {
                     jClass = iterator.next();
                     usesObservable = filterExtends(jClass.classPath, filterStr, flag);
                 } catch (NoSuchElementException | ParseException | IOException | NullPointerException e) {
+                    System.out.println("ext obs err - counter (" + counter + "):  " + e.toString());
                     continue;
                 }
 

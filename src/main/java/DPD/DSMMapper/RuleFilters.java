@@ -93,15 +93,16 @@ public class RuleFilters {
             return false;
 
         // get the entity buckets to dependencyFilter
-        List<Integer> targetBucket = pattern.getEntityById(targetEntityId).compliantClasses;
-        List<Integer> sourceBucket = pattern.getEntityById(sourceEntityId).compliantClasses;
+        List<Integer> targetBucket = pattern.getEntityById(targetEntityId).compliantClasses; // IObserver
+        List<Integer> sourceBucket = pattern.getEntityById(sourceEntityId).compliantClasses; // Concrete observer
 
         // perform the dependencyFilter
+        // for each concrete observer, check if it has implements/extends dependency on entity in e1
         List<Integer> filteredList = new ArrayList<>();
         for(Integer srcClass: sourceBucket) {
-            List<Integer> associatedDeps = browser.getAssociatedDependency(srcClass, dependencyType);
-            for(Integer assocClass: associatedDeps) {
-                if(targetBucket.contains(assocClass)) {
+            List<Integer> auxDependencies = browser.getDomDependencies(srcClass, dependencyType);
+            for(Integer auxClass: auxDependencies) {
+                if(targetBucket.contains(auxClass)) {
                     filteredList.add(srcClass);
                     break;
                 }
