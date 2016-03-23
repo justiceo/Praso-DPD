@@ -15,9 +15,9 @@ import java.util.Scanner;
  * Created by Justice on 3/17/2016.
  */
 public class DSMPreprocessor {
-    String[] matrixLines;
-    String[] filePaths;
-    String dependencyLine;
+    private String[] matrixLines;
+    private String[] filePaths;
+    private String dependencyLine;
     private String currFilePath;
     private int matrixSize;
     private List<JClass> jClassList;
@@ -69,21 +69,20 @@ public class DSMPreprocessor {
             jClassList.add(jClass);
         }
 
+        Filter.init(jClassList, matrixSize);
+
+
         // create and start the threads
         ExpandMatrixFilter expandMatrixFilter = new ExpandMatrixFilter(dependencyLine);
-        expandMatrixFilter.init(jClassList, matrixSize);
         expandMatrixFilter.start();
 
         ClassTypeFilter classTypeFilter = new ClassTypeFilter();
-        classTypeFilter.init(jClassList, matrixSize);
         classTypeFilter.start();
 
         ExtendsObservableFilter extendsObservableFilter = new ExtendsObservableFilter("Observable", Flag.ObservableFlag);
-        extendsObservableFilter.init(jClassList, matrixSize);
         extendsObservableFilter.start();
 
         LoopsFilter loopsFilter = new LoopsFilter("IObserver", Flag.ObservableFlag);
-        loopsFilter.init(jClassList, matrixSize);
         loopsFilter.start();
 
 

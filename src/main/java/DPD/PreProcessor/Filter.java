@@ -8,12 +8,12 @@ import java.util.List;
  * Created by Justice on 3/17/2016.
  */
 public abstract class Filter extends Thread {
-    protected List<JClass> jClasses;
-    protected int matrixSize;
+    protected static List<JClass> jClasses;
+    protected static int matrixSize;
 
 
-    public void init(List<JClass> jClasses, int size) {
-        this.jClasses = jClasses;
-        this.matrixSize = size;
+    public static void init(List<JClass> jClass, int size) {
+        jClasses = jClass;
+        matrixSize = size;
     }
 }
