@@ -32,6 +32,8 @@ public class ExpandMatrixFilter extends Filter {
                 try {
                     JClass jClass = iterator.next();
                     jClass.dependencyLine = expandLine(jClass.dependencyLine);
+                    jClass.type = getType(jClass.filePath);
+                    jClass.fileName = getFileName(jClass.filePath);
                 } catch (NoSuchElementException e) {
                     System.out.println("expand matrix filter err - counter (" + counter + "): " + e.toString());
                 }
@@ -50,4 +52,11 @@ public class ExpandMatrixFilter extends Filter {
         return String.join("", deps);
     }
 
+    private String getType(String filePath) {
+        return filePath.substring(filePath.lastIndexOf("\\")+1, filePath.lastIndexOf("."));
+    }
+
+    private String getFileName(String filePath) {
+        return filePath.substring(filePath.lastIndexOf("\\")+1);
+    }
 }

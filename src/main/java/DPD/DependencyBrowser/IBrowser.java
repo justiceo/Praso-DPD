@@ -25,6 +25,8 @@ public interface IBrowser {
     String getClassPath(int classId);
 
     List<Integer> getDomDependencies(int classId, DependencyType dependencyType);
+
+    String getType(int targetClassId);
 }
 
 

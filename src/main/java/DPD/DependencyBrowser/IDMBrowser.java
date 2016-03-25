@@ -60,8 +60,13 @@ public class IDMBrowser implements IBrowser {
     }
 
     @Override
+    public String getType(int targetClassId) {
+        return getClassFromId(targetClassId).type;
+    }
+
+    @Override
     public String getClassPath(int classId) {
-        return jClasses.get(classId).classPath;
+        return jClasses.get(classId).filePath;
     }
 
     private List<Integer> getClassesOfType(ClassType classType) {

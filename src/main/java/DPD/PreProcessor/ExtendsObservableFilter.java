@@ -44,7 +44,7 @@ public class ExtendsObservableFilter extends Filter {
 
                 try {
                     jClass = iterator.next();
-                    usesObservable = filterExtends(jClass.classPath, filterStr, flag);
+                    usesObservable = filterExtends(jClass.filePath, filterStr, flag);
                 } catch (NoSuchElementException | ParseException | IOException | NullPointerException e) {
                     System.out.println("ext obs err - counter (" + counter + "):  " + e.toString());
                     continue;

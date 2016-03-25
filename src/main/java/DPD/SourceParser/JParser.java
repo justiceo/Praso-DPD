@@ -42,20 +42,19 @@ public class JParser implements ASTAnalyzer {
     }
 
     @Override
-    public boolean examine(String sourceClass, ASTAnalysisType astAnalysisType, String targetClass) {
+    public boolean examine(String sourceClass, ASTAnalysisType astAnalysisType, String targetType) {
         switch (astAnalysisType) {
             case Aggregates:
-                return testAggregation(sourceClass, targetClass);
+                return testAggregation(sourceClass, targetType);
             case Loops:
-                return testLoop(sourceClass, targetClass);
+                return testLoop(sourceClass, targetType);
         }
         return false;
     }
 
-    private boolean testLoop(String sourceClass, String targetClass) {
-        CompilationUnit sourceCU = this.init(sourceClass.replace(".", "\\").replace("_", "."));
-        CompilationUnit targetCU = this.init(targetClass.replace(".", "\\").replace("_", "."));
-        String targetClassName = targetClass.substring(targetClass.lastIndexOf(".") + 1, targetClass.lastIndexOf("_"));
+    private boolean testLoop(String sourceClass, String targetType) {
+        CompilationUnit sourceCU = this.init(sourceClass);
+        String targetClassName = targetType; //.substring(targetType.lastIndexOf("\\") + 1);
 
         // get all for loops
         MethodVisitor mv = new MethodVisitor();
@@ -119,10 +118,6 @@ public class JParser implements ASTAnalyzer {
             }
         }
         return null;
-    }
-
-    private String fixClassPath(String damagedPath) {
-        return damagedPath.replace(".", "\\").replace("_", ".");
     }
 
     private static class MethodVisitor extends VoidVisitorAdapter {

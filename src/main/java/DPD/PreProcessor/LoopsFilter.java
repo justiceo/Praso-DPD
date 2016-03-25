@@ -45,7 +45,7 @@ public class LoopsFilter extends Filter {
                     jClass = iterator.next();
                     filterLoop(jClass);
                 } catch (NoSuchElementException | ParseException | IOException e) {
-                    System.out.println("loop filter err - counter (" + counter + "); file (" + jClass.classPath + "):\n\t" + e.toString());
+                    System.out.println("loop filter err - counter (" + counter + "); file (" + jClass.filePath + "):\n\t" + e.toString());
                     continue;
                 }
 
@@ -61,8 +61,8 @@ public class LoopsFilter extends Filter {
 
 
     private void filterLoop(JClass jClass) throws IOException, ParseException {
-        if (!Files.exists(Paths.get(jClass.classPath))) return;
-        CompilationUnit cu = JavaParser.parse(new File(jClass.classPath));
+        if (!Files.exists(Paths.get(jClass.filePath))) return;
+        CompilationUnit cu = JavaParser.parse(new File(jClass.filePath));
         List<TypeDeclaration> types = cu.getTypes();
 
         /*

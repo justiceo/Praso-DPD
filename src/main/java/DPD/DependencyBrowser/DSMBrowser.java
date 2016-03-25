@@ -84,7 +84,7 @@ public class DSMBrowser implements IBrowser {
     }
 
     public String getNiceName(int classId) {
-        String fullClassName = getJClassFromName(classId).classPath;
+        String fullClassName = getJClassFromName(classId).filePath;
         int start = fullClassName.lastIndexOf(".");
         int end = fullClassName.lastIndexOf("_");
         return fullClassName.substring(start + 1, end);
@@ -92,7 +92,7 @@ public class DSMBrowser implements IBrowser {
 
     @Override
     public String getClassPath(int classId) {
-        return jClasses.stream().filter(j -> j.classId == classId).findFirst().get().classPath;
+        return jClasses.stream().filter(j -> j.classId == classId).findFirst().get().filePath;
     }
 
     @Override
@@ -105,6 +105,12 @@ public class DSMBrowser implements IBrowser {
             default:
                 return getAssociatedDependencyNative(classId, dependencyType);
         }
+    }
+
+    @Override
+    public String getType(int targetClassId) {
+
+        return null;
     }
 
     private List<Integer> getClassesOfType(ClassType classType) {
@@ -163,7 +169,7 @@ public class DSMBrowser implements IBrowser {
         jClasses = new ArrayList<>();
         for (int i = 0; i < files.size(); i++) {
             JClass jClass = new JClass();
-            jClass.classPath = files.get(i);
+            jClass.filePath = files.get(i);
             jClass.classId = i;
             jClass.matrixRow = matrix[i];
             jClass.dependencyLine = String.join(" ", matrix[i]);
@@ -267,6 +273,6 @@ public class DSMBrowser implements IBrowser {
     }
 
     private int getClassIdFromPath(String path) {
-        return jClasses.stream().filter(j -> j.classPath.equals(path)).findFirst().get().classId;
+        return jClasses.stream().filter(j -> j.filePath.equals(path)).findFirst().get().classId;
     }
 }

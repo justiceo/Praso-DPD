@@ -139,21 +139,31 @@ public class PatternDetector implements Runnable {
         if (patternHasEmptyEntity(pattern))
             return false;
 
-        List<Integer> sourceBucket = pattern.getEntityById(sourceId).compliantClasses;
-        //String sourceClass = pattern.getEntityById(sourceId).compliantClasses.get(0);
         int targetClassId = pattern.getEntityById(targetId).compliantClasses.get(0);
         sourceParser = new JParser(new ConsoleLogger());
 
-        PatternEntity bucket = pattern.getEntityById(sourceId);
-        Iterator<Integer> sourceClassIterator = bucket.compliantClasses.iterator();
+        Iterator<Integer> sourceClassIterator = pattern.getEntityById(sourceId).compliantClasses.iterator();
         while (sourceClassIterator.hasNext()) {
             int sourceClassId = sourceClassIterator.next();
-            if (!sourceParser.examine(browser.getClassPath(sourceClassId), astAnalysisType, browser.getClassPath(targetClassId))) {
+            if (!sourceParser.examine(browser.getClassPath(sourceClassId), astAnalysisType, browser.getType(targetClassId))) {
                 sourceClassIterator.remove();
             }
         }
 
         return true;
+    }
+
+    public List<Integer> astAnalyzeFilter(List<Integer> sourceBucket, int targetClassId, ASTAnalysisType astAnalysisType, boolean exclude) {
+        List<Integer> positive = new LinkedList<>();
+        for(int sourceClassId: sourceBucket) {
+            if (sourceParser.examine(browser.getClassPath(sourceClassId), astAnalysisType, browser.getType(targetClassId))) {
+                positive.add(sourceClassId);
+            }
+        }
+
+        // todo: add exclude
+
+        return positive;
     }
 
     private boolean patternHasEmptyEntity(PatternComponent pattern) {
@@ -163,6 +173,12 @@ public class PatternDetector implements Runnable {
     public void checkSource(PatternComponent pattern, PatternRule rule) {
         if (rule.ruleType.equals(RuleType.AST_Analyze)) {
             astAnalyzeFilter(pattern, rule.source, rule.target, ASTAnalysisType.valueOf(rule.value), rule.exclude);
+            /*
+            PatternEntity sourceEntity = pattern.getEntityById(rule.source);
+            int firstClassInTarget =  pattern.getEntityById(rule.target).compliantClasses.get(0); // todo: apply to all classes in subject
+            List<Integer> pos = astAnalyzeFilter(sourceEntity.compliantClasses, firstClassInTarget, ASTAnalysisType.valueOf(rule.value), rule.exclude);
+            sourceEntity.compliantClasses = pos;
+            */
         }
     }
 
@@ -183,11 +199,11 @@ public class PatternDetector implements Runnable {
         System.out.println("\ntotal patterns added: " + resolvedPatterns.size());
 
         // run ast
-        /*for(PatternComponent pattern: resolvedPatterns) {
+        for(PatternComponent pattern: resolvedPatterns) {
             for (PatternRule rule : pattern.getRules()) {
                 checkSource(pattern, rule);
             }
-        }*/
+        }
 
         // remove empty pattern
         Iterator<PatternComponent> pIterator = resolvedPatterns.iterator();

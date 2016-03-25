@@ -49,7 +49,7 @@ public class DSMPreprocessor {
         for (int i = 0; i < matrixSize; i++) {
             JClass jClass = new JClass();
             jClass.classId = i;
-            jClass.classPath = filePaths[i];
+            jClass.filePath = filePaths[i];
             jClass.dependencyLine = matrixLines[i];
             jClass.flags = new LinkedList<>();
             jClassList.add(jClass);
