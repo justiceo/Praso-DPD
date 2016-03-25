@@ -1,5 +1,6 @@
 package DPD.DSMMapper;
 
+import DPD.Claim;
 import DPD.DependencyBrowser.IBrowser;
 import DPD.ILogger;
 
@@ -48,7 +49,7 @@ public class SimplePattern implements PatternComponent {
 
     @Override
     public void displayMembers(ILogger logger, IBrowser browser) {
-        logger.log("\n======= begin display pattern ==========\n");
+        logger.log("\n======= begin display pattern ==========");
         logger.log("Pattern: " + name);
 
         for (PatternEntity entity : entities) {
@@ -57,7 +58,12 @@ public class SimplePattern implements PatternComponent {
             Collections.sort(sorted);
             for (int classId : sorted) {
                 logger.log("\t" + browser.getClassPath(classId));
+                List<Claim> claims = browser.getClaims(classId);
+                if(claims != null)
+                for(Claim c: claims)
+                    System.out.println("*** " +c.key + ": " + c.value + " ***");
             }
+
         }
 
         //logger.log("\n======= end display pattern ==========\n");

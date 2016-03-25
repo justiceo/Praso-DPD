@@ -1,5 +1,6 @@
 package DPD.DependencyBrowser;
 
+import DPD.Claim;
 import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
 import DPD.ILogger;
@@ -39,14 +40,12 @@ public class IDMBrowser implements IBrowser {
      * @param withDependencies
      * @return
      */
-    @Override
     public List<Integer> getClassesOfType(ClassType classType, String withDependencies) {
         return getClassesOfType(classType);
         // implement withDependencies later, cause we may not need it again
         // withDependencies allows us to add small filterings on the entity
     }
 
-    @Override
     public List<Integer> getDomDependencies(int classId, DependencyType dependencyType) {
         String depLine = getClassFromId(classId).dependencyLine;
         switch (dependencyType) {
@@ -59,12 +58,21 @@ public class IDMBrowser implements IBrowser {
         }
     }
 
-    @Override
     public String getType(int targetClassId) {
         return getClassFromId(targetClassId).type;
     }
 
-    @Override
+    public void addClaim(int classId, String key, String value) {
+        JClass jClass = jClasses.get(classId);
+        Claim claim = new Claim(key, value);
+        if(jClass.claims == null) jClass.claims = new LinkedList<>();
+        jClass.claims.add(claim);
+    }
+
+    public List<Claim> getClaims(int classId) {
+        return jClasses.get(classId).claims;
+    }
+
     public String getClassPath(int classId) {
         return jClasses.get(classId).filePath;
     }

@@ -17,4 +17,5 @@ public class JClass {
     public String[] matrixRow;
     public String dependencyLine;
     public List<Flag> flags;
+    public List<Claim> claims;
 }

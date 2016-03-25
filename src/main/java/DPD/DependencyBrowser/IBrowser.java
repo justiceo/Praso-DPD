@@ -1,5 +1,6 @@
 package DPD.DependencyBrowser;
 
+import DPD.Claim;
 import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
 
@@ -27,6 +28,10 @@ public interface IBrowser {
     List<Integer> getDomDependencies(int classId, DependencyType dependencyType);
 
     String getType(int targetClassId);
+
+    void addClaim(int classId, String key, String value);
+
+    List<Claim> getClaims(int classId);
 }
 
 

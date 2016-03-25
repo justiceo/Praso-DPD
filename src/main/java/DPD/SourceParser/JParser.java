@@ -42,17 +42,17 @@ public class JParser implements ASTAnalyzer {
     }
 
     @Override
-    public boolean examine(String sourceClass, ASTAnalysisType astAnalysisType, String targetType) {
+    public String examine(String sourceClass, ASTAnalysisType astAnalysisType, String targetType) {
         switch (astAnalysisType) {
             case Aggregates:
                 return testAggregation(sourceClass, targetType);
             case Loops:
                 return testLoop(sourceClass, targetType);
         }
-        return false;
+        return null;
     }
 
-    private boolean testLoop(String sourceClass, String targetType) {
+    private String testLoop(String sourceClass, String targetType) {
         CompilationUnit sourceCU = this.init(sourceClass);
         String targetClassName = targetType; //.substring(targetType.lastIndexOf("\\") + 1);
 
@@ -64,17 +64,15 @@ public class JParser implements ASTAnalyzer {
         // check for ones that have targetClass
         for (ForeachStmt statement : forLoops) {
             Type varType = statement.getVariable().getType();
-            System.out.println("\n ");
             if (varType.toString().equals(targetClassName)) {
-                System.out.println("matching foreach statement in " + sourceClass + ": \n " + statement.toString());
-                return true;
+                return statement.toString();
             }
         }
-        return false;
+        return null;
     }
 
-    private boolean testAggregation(String sourceClass, String targetClass) {
-        return true;
+    private String testAggregation(String sourceClass, String targetClass) {
+        return null;
     }
 
     private CompilationUnit init(String sourceClass) {

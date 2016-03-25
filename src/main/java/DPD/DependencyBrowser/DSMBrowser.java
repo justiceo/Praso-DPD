@@ -1,5 +1,6 @@
 package DPD.DependencyBrowser;
 
+import DPD.Claim;
 import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
 import DPD.ILogger;
@@ -110,6 +111,14 @@ public class DSMBrowser implements IBrowser {
     @Override
     public String getType(int targetClassId) {
 
+        return null;
+    }
+
+    public void addClaim(int classId, String key, String value) {
+
+    }
+
+    public List<Claim> getClaims(int classId) {
         return null;
     }
 

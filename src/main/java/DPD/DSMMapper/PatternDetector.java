@@ -145,8 +145,9 @@ public class PatternDetector implements Runnable {
         Iterator<Integer> sourceClassIterator = pattern.getEntityById(sourceId).compliantClasses.iterator();
         while (sourceClassIterator.hasNext()) {
             int sourceClassId = sourceClassIterator.next();
-            if (!sourceParser.examine(browser.getClassPath(sourceClassId), astAnalysisType, browser.getType(targetClassId))) {
-                sourceClassIterator.remove();
+            String claim = sourceParser.examine(browser.getClassPath(sourceClassId), astAnalysisType, browser.getType(targetClassId));
+            if (claim != null) {
+                browser.addClaim(sourceClassId, "ForLoop", claim );
             }
         }
 
@@ -156,7 +157,7 @@ public class PatternDetector implements Runnable {
     public List<Integer> astAnalyzeFilter(List<Integer> sourceBucket, int targetClassId, ASTAnalysisType astAnalysisType, boolean exclude) {
         List<Integer> positive = new LinkedList<>();
         for(int sourceClassId: sourceBucket) {
-            if (sourceParser.examine(browser.getClassPath(sourceClassId), astAnalysisType, browser.getType(targetClassId))) {
+            if (sourceParser.examine(browser.getClassPath(sourceClassId), astAnalysisType, browser.getType(targetClassId)) != null) {
                 positive.add(sourceClassId);
             }
         }
@@ -205,14 +206,14 @@ public class PatternDetector implements Runnable {
             }
         }
 
-        // remove empty pattern
+        /* remove empty pattern
         Iterator<PatternComponent> pIterator = resolvedPatterns.iterator();
         while (pIterator.hasNext()) {
             PatternComponent pattern = pIterator.next();
             if (pattern.isVoid()) {
                 pIterator.remove();
             }
-        }
+        }*/
     }
 
     public void addResolvedPatternList(List<PatternComponent> resolvedPatterns) {
