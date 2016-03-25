@@ -5,8 +5,8 @@ An implementation of the hierarchical pattern definition for automatic pattern d
 ### Installing in Eclipse
 
 - Download and extract the project to working directory
-- Navigate to File -> New -> New Project
-- Select Maven -> Maven Project
+- Navigate to File -> Import
+- Select Maven -> Existing Maven Project
 - Select the directory of the DPD project (should display the pom.xml file)
 - And then finish
 
@@ -15,7 +15,7 @@ An implementation of the hierarchical pattern definition for automatic pattern d
 
 - After extracting the project
 - Simply open as an intellij project.
-
+- Enable Auto Import dependencies
 
 ### Todo
 

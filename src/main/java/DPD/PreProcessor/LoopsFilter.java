@@ -45,7 +45,7 @@ public class LoopsFilter extends Filter {
                     jClass = iterator.next();
                     filterLoop(jClass);
                 } catch (NoSuchElementException | ParseException | IOException e) {
-                    System.out.println("loop filter err - counter (" + counter + "):  " + e.toString());
+                    System.out.println("loop filter err - counter (" + counter + "); file (" + jClass.classPath + "):\n\t" + e.toString());
                     continue;
                 }
 

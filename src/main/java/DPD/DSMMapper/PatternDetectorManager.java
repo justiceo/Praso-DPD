@@ -1,0 +1,52 @@
+package DPD.DSMMapper;
+
+import DPD.DependencyBrowser.IBrowser;
+import DPD.ILogger;
+import DPD.SourceParser.ASTAnalyzer;
+
+import java.util.LinkedList;
+import java.util.List;
+
+/**
+ * Created by Justice on 3/25/2016.
+ */
+public class PatternDetectorManager {
+    private List<PatternComponent> patterns;
+    private IBrowser browser;
+    private List<Thread> patternThreads;
+    private List<PatternDetector> detectors;
+    private ASTAnalyzer sourceParser;
+
+    public PatternDetectorManager(List<PatternComponent> patternComponentList, IBrowser browser, ASTAnalyzer sourceParser) {
+        this.patterns = patternComponentList;
+        this.browser = browser;
+        this.sourceParser = sourceParser;
+        patternThreads = new LinkedList<>();
+        detectors = new LinkedList<>();
+    }
+
+    public void startPDs() {
+        for (PatternComponent pattern : patterns) {
+            PatternDetector patternDetector = new PatternDetector(browser, pattern);
+            detectors.add(patternDetector);
+            patternDetector.addSourceParser(sourceParser);
+            Thread detectorT = new Thread(patternDetector);
+            detectorT.setName(pattern.getName() + " thread");
+            detectorT.start();
+            patternThreads.add(detectorT);
+        }
+
+    }
+
+    public List<PatternComponent> getResults() throws InterruptedException {
+        for(Thread t: patternThreads) {
+            t.join();
+        }
+
+        List<PatternComponent> results = new LinkedList<>();
+        for(PatternDetector detector: detectors) {
+            results.addAll(detector.resolvedPatterns);
+        }
+        return results;
+    }
+}

@@ -1,11 +1,11 @@
 package DPD.DSMMapper;
 
+import DPD.ConsoleLogger;
 import DPD.DependencyBrowser.IBrowser;
 import DPD.Enums.ASTAnalysisType;
 import DPD.Enums.CardinalityType;
 import DPD.Enums.DependencyType;
 import DPD.Enums.RuleType;
-import DPD.ILogger;
 import DPD.SourceParser.ASTAnalyzer;
 import DPD.SourceParser.JParser;
 import org.apache.commons.lang3.SerializationUtils;
@@ -20,15 +20,13 @@ import java.util.List;
  */
 public class PatternDetector implements Runnable {
 
-    public List<PatternComponent> resolvedPatterns = new ArrayList<>();
+    protected List<PatternComponent> resolvedPatterns = new ArrayList<>();
     private IBrowser browser;
     private ASTAnalyzer sourceParser;
-    private ILogger logger;
     private PatternComponent patternC;
 
-    public PatternDetector(IBrowser browser, PatternComponent pattern, ILogger logger) {
+    public PatternDetector(IBrowser browser, PatternComponent pattern) {
         this.browser = browser;
-        this.logger = logger;
         this.patternC = pattern;
     }
 
@@ -144,7 +142,7 @@ public class PatternDetector implements Runnable {
         List<Integer> sourceBucket = pattern.getEntityById(sourceId).compliantClasses;
         //String sourceClass = pattern.getEntityById(sourceId).compliantClasses.get(0);
         int targetClassId = pattern.getEntityById(targetId).compliantClasses.get(0);
-        sourceParser = new JParser(logger);
+        sourceParser = new JParser(new ConsoleLogger());
 
         PatternEntity bucket = pattern.getEntityById(sourceId);
         Iterator<Integer> sourceClassIterator = bucket.compliantClasses.iterator();

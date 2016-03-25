@@ -1,7 +1,7 @@
 package DPD;
 
 import DPD.DSMMapper.PatternComponent;
-import DPD.DSMMapper.PatternDetector;
+import DPD.DSMMapper.PatternDetectorManager;
 import DPD.DependencyBrowser.IBrowser;
 import DPD.DependencyBrowser.IDMBrowser;
 import DPD.PatternParser.CommonPatternsParser;
@@ -13,8 +13,6 @@ import DPD.SourceParser.JParser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,7 +22,7 @@ import java.util.List;
 public class Main {
 
     private static final String configFile = "config.xml";
-    private static final String testDsmFile = "files\\dsm\\redisson.dsm";
+    private static final String testDsmFile = "files\\dsm\\jhotdraw.dsm";
 
     public static void main(String[] args) throws InterruptedException {
         DSMPreprocessor preprocessor = new DSMPreprocessor();
@@ -47,29 +45,16 @@ public class Main {
 
         ASTAnalyzer sourceParser = new JParser(logger);
 
-        List<PatternComponent> patternComponentList = new LinkedList<>();
+        List<PatternComponent> patternComponentList = new LinkedList<>(); // variations are loaded as separate patterns
         List<PatternConfig> configs = patternsParser.getRunnableConfigs();
         configs.stream().filter(config -> config.include).forEach(config -> {
             PatternComponent pc = patternsParser.loadPatternById(config.id);
             patternComponentList.add(pc);
         });
 
-        List<PatternComponent> resolvedPatterns = Collections.synchronizedList(new ArrayList<>());
-        List<Thread> patternDetectorThreads = new LinkedList<>();
-        for (PatternComponent pattern : patternComponentList) {
-            PatternDetector patternDetector = new PatternDetector(browser, pattern, logger);
-            patternDetector.addSourceParser(sourceParser);
-            patternDetector.addResolvedPatternList(resolvedPatterns);
-            Thread detectorT = new Thread(patternDetector);
-            detectorT.setName(pattern.getName() + " thread");
-            detectorT.start();
-            patternDetectorThreads.add(detectorT);
-        }
-
-        for (Thread t : patternDetectorThreads) {
-            t.join();
-            System.out.println("joined " + t.getName());
-        }
+        PatternDetectorManager pdManager = new PatternDetectorManager(patternComponentList, browser, sourceParser);
+        pdManager.startPDs();
+        List<PatternComponent> resolvedPatterns = pdManager.getResults();
 
         // display patterns
         for (PatternComponent pattern : resolvedPatterns) {
