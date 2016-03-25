@@ -115,7 +115,7 @@ public class JParser implements ASTAnalyzer {
                 Class.forName(tentative);
                 return tentative;
             } catch (ClassNotFoundException e) {
-                continue;
+                System.out.println("Jparser err (1015): " + e.toString());
             }
         }
         return null;

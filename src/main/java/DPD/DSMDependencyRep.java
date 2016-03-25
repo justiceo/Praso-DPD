@@ -8,6 +8,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -21,7 +22,7 @@ public class DSMDependencyRep implements DependencyRep {
     private String[] matrixLines;
     private String fileName;
     private String absDir;
-    private ArrayList locations;
+    private List<String> locations;
 
     public DSMDependencyRep() {
     }
@@ -78,11 +79,10 @@ public class DSMDependencyRep implements DependencyRep {
         for (int i = 0; i < matrixSize; i++) {
             writer.write(matrixLines[i] + "\n");
         }
-        if (true) { // todo: put flag for damaged files
-            for (int i = 0; i < matrixSize; i++) {
-                writer.write(filePaths[i] + "\n");
-            }
+        for (String filePath : filePaths) {
+            writer.write(filePath + "\n");
         }
+
         writer.flush();
         writer.close();
     }
@@ -105,8 +105,8 @@ public class DSMDependencyRep implements DependencyRep {
         for (int i = 0; i < matrixSize; i++) {
             writer.write(matrixLines[i] + "\n");
         }
-        for (int i = 0; i < matrixSize; i++) {
-            writer.write(filePaths[i] + "\n");
+        for (String filePath : filePaths) {
+            writer.write(filePath + "\n");
         }
         writer.write(locations.toString() + "\n");
         writer.flush();

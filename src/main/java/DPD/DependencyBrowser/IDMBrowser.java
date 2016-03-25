@@ -6,6 +6,7 @@ import DPD.ILogger;
 import DPD.JClass;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,21 +47,16 @@ public class IDMBrowser implements IBrowser {
     }
 
     @Override
-    public List<Integer> getAuxDependencies(int classId, DependencyType dependencyType) {
-        switch (dependencyType) {
-            case SPECIALIZE:
-                List x = getAuxDep(classId, DependencyType.EXTEND);
-                x.addAll(getAuxDep(classId, DependencyType.IMPLEMENT));
-                return x;
-            default:
-                return getAuxDep(classId, dependencyType);
-        }
-    }
-
-    @Override
     public List<Integer> getDomDependencies(int classId, DependencyType dependencyType) {
         String depLine = getClassFromId(classId).dependencyLine;
-        return getIndicesOfDomDependenciesAsClassIds(depLine, dependencyType);
+        switch (dependencyType) {
+            case SPECIALIZE:
+                List<Integer> x = getIndicesOfDomDependenciesAsClassIds(depLine, DependencyType.EXTEND);
+                x.addAll(getIndicesOfDomDependenciesAsClassIds(depLine, DependencyType.IMPLEMENT));
+                return x;
+            default:
+                return getIndicesOfDomDependenciesAsClassIds(depLine, dependencyType);
+        }
     }
 
     @Override
@@ -69,35 +65,38 @@ public class IDMBrowser implements IBrowser {
     }
 
     private List<Integer> getClassesOfType(ClassType classType) {
-
-        switch (classType) {
-            case Class:
-                return jClasses.stream()
-                        .filter(c -> c.classType == ClassType.Class)
-                        .map(c -> c.classId).collect(Collectors.toList());
-            case Interface:
-                return jClasses.stream()
-                        .filter(c -> c.classType == ClassType.Interface)
-                        .map(c -> c.classId).collect(Collectors.toList());
-            case Abstract:
-                return jClasses.stream()
-                        .filter(c -> c.classType == ClassType.Interface)
-                        .map(c -> c.classId).collect(Collectors.toList());
-            case Any:
-                return jClasses.stream()
-                        .map(j -> j.classId).collect(Collectors.toList());
-            case Abstraction:
-                return jClasses.stream()
-                        .filter(c -> c.classType == ClassType.Interface || c.classType == ClassType.Abstract)
-                        .map(j -> j.classId).collect(Collectors.toList());
-            case Specialization:
-                return jClasses.stream()
-                        .filter(j -> hasDominantDependency(j.classId, DependencyType.IMPLEMENT) || hasDominantDependency(j.classId, DependencyType.EXTEND))
-                        .map(j -> j.classId).collect(Collectors.toList());
-            default: // the other ones we don't really care about (for now)
-                return jClasses.stream()
-                        .filter(j -> j.classType.equals(classType))
-                        .map(j -> j.classId).collect(Collectors.toList());
+        try { //todo: remove this try
+            switch (classType) {
+                case Class:
+                    return jClasses.stream()
+                            .filter(c -> c.classType == ClassType.Class)
+                            .map(c -> c.classId).collect(Collectors.toList());
+                case Interface:
+                    return jClasses.stream()
+                            .filter(c -> c.classType == ClassType.Interface)
+                            .map(c -> c.classId).collect(Collectors.toList());
+                case Abstract:
+                    return jClasses.stream()
+                            .filter(c -> c.classType == ClassType.Interface)
+                            .map(c -> c.classId).collect(Collectors.toList());
+                case Any:
+                    return jClasses.stream()
+                            .map(j -> j.classId).collect(Collectors.toList());
+                case Abstraction:
+                    return jClasses.stream()
+                            .filter(c -> c.classType == ClassType.Interface || c.classType == ClassType.Abstract)
+                            .map(j -> j.classId).collect(Collectors.toList());
+                case Specialization:
+                    return jClasses.stream()
+                            .filter(j -> hasDominantDependency(j.classId, DependencyType.IMPLEMENT) || hasDominantDependency(j.classId, DependencyType.EXTEND))
+                            .map(j -> j.classId).collect(Collectors.toList());
+                default: // the other ones we don't really care about (for now)
+                    return jClasses.stream()
+                            .filter(j -> j.classType.equals(classType))
+                            .map(j -> j.classId).collect(Collectors.toList());
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            return new LinkedList<>();
         }
     }
 

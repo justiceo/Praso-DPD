@@ -19,8 +19,7 @@ public final class FileIO {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(Config.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            Config config = (Config) jaxbUnmarshaller.unmarshal(configFile);
-            return config;
+            return (Config) jaxbUnmarshaller.unmarshal(configFile);
 
         } catch (JAXBException e) {
             e.printStackTrace();
@@ -45,8 +44,7 @@ public final class FileIO {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(SimplePattern.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            PatternComponent pattern = (SimplePattern) jaxbUnmarshaller.unmarshal(patternFile);
-            return pattern;
+            return (SimplePattern) jaxbUnmarshaller.unmarshal(patternFile);
 
         } catch (JAXBException e) {
             e.printStackTrace();

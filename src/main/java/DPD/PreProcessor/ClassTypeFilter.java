@@ -38,7 +38,6 @@ public class ClassTypeFilter extends Filter {
                 } catch (NoSuchElementException | ParseException | IOException | ClassCastException | NullPointerException e) {
                     // todo: log which exceptions are thrown most, so we can optimize those segments
                     System.out.println("class type filter err - counter (" + counter + "): " + e.toString());
-                    continue;
                 }
             }
         }

@@ -24,7 +24,7 @@ import java.util.List;
 public class Main {
 
     private static final String configFile = "config.xml";
-    private static final String testDsmFile = "files\\dsm\\simpleObserverPattern.dsm";
+    private static final String testDsmFile = "files\\dsm\\redisson.dsm";
 
     public static void main(String[] args) throws InterruptedException {
         DSMPreprocessor preprocessor = new DSMPreprocessor();
@@ -61,12 +61,14 @@ public class Main {
             patternDetector.addSourceParser(sourceParser);
             patternDetector.addResolvedPatternList(resolvedPatterns);
             Thread detectorT = new Thread(patternDetector);
+            detectorT.setName(pattern.getName() + " thread");
             detectorT.start();
             patternDetectorThreads.add(detectorT);
         }
 
         for (Thread t : patternDetectorThreads) {
             t.join();
+            System.out.println("joined " + t.getName());
         }
 
         // display patterns

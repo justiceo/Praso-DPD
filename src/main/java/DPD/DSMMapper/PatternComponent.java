@@ -26,9 +26,9 @@ public interface PatternComponent extends Serializable {
     @XmlElement(name = "resolver")
     List<PatternResolver> getResolvers();
 
-    public void displayMembers(ILogger logger, IBrowser browser);
+    void displayMembers(ILogger logger, IBrowser browser);
 
-    public PatternEntity getEntityById(String id);
+    PatternEntity getEntityById(String id);
 
     boolean isVoid();
 

@@ -83,18 +83,6 @@ public class DSMBrowser implements IBrowser {
         return desiredClasses;
     }
 
-    @Override
-    public List<Integer> getAuxDependencies(int classId, DependencyType dependencyType) {
-        switch (dependencyType) {
-            case SPECIALIZE:
-                List x = getAssociatedDependencyNative(classId, DependencyType.EXTEND);
-                x.addAll(getAssociatedDependencyNative(classId, DependencyType.IMPLEMENT));
-                return x;
-            default:
-                return getAssociatedDependencyNative(classId, dependencyType);
-        }
-    }
-
     public String getNiceName(int classId) {
         String fullClassName = getJClassFromName(classId).classPath;
         int start = fullClassName.lastIndexOf(".");
@@ -111,7 +99,7 @@ public class DSMBrowser implements IBrowser {
     public List<Integer> getDomDependencies(int classId, DependencyType dependencyType) {
         switch (dependencyType) {
             case SPECIALIZE:
-                List x = getAssociatedDependencyNative(classId, DependencyType.EXTEND);
+                List<Integer> x = getAssociatedDependencyNative(classId, DependencyType.EXTEND);
                 x.addAll(getAssociatedDependencyNative(classId, DependencyType.IMPLEMENT));
                 return x;
             default:
@@ -165,8 +153,8 @@ public class DSMBrowser implements IBrowser {
         dependencyString = dependencyString.replace("[", "").replace("]", "");
         String[] depStrings = dependencyString.split(",");
         dependencyTypes = new ArrayList<>();
-        for (int i = 0; i < depStrings.length; i++) {
-            DependencyType dependencyType = DependencyType.valueOf(depStrings[i].toUpperCase());
+        for (String depString : depStrings) {
+            DependencyType dependencyType = DependencyType.valueOf(depString.toUpperCase());
             dependencyTypes.add(dependencyType);
         }
     }

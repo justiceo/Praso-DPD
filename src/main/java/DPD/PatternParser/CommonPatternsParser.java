@@ -32,8 +32,7 @@ public class CommonPatternsParser implements IPatternsParser {
 
     @Override
     public PatternComponent parse(PatternConfig observerConfig) {
-        PatternComponent pattern = FileIO.loadPattern(new File(observerConfig.configFile));
-        return pattern;
+        return FileIO.loadPattern(new File(observerConfig.configFile));
     }
 
     @Override

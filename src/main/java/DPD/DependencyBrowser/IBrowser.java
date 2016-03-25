@@ -22,8 +22,6 @@ public interface IBrowser {
      */
     List<Integer> getClassesOfType(ClassType classType, String withDependencies);
 
-    List<Integer> getAuxDependencies(int classId, DependencyType dependencyType);
-
     String getClassPath(int classId);
 
     List<Integer> getDomDependencies(int classId, DependencyType dependencyType);

@@ -71,7 +71,7 @@ public class ExtendsObservableFilter extends Filter {
                     return cd.getExtends().toString().contains(filterStr) ? flag : null;
                 }
             } catch (ClassCastException c) {
-                continue;
+                System.out.println("ext. obs err: 1014" + c.toString());
             }
         }
         return null;
