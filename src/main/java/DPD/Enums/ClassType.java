@@ -10,5 +10,6 @@ public enum ClassType {
     Abstraction,
     Any,
     Specialization,
+    Absolute,
     Unknown
 }

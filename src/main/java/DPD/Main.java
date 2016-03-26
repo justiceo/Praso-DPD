@@ -22,7 +22,7 @@ import java.util.List;
 public class Main {
 
     private static final String configFile = "config.xml";
-    private static final String testDsmFile = "files\\dsm\\jhotdraw.dsm";
+    private static final String testDsmFile = "files\\dsm\\simpleObserverPattern.dsm";
 
     public static void main(String[] args) throws InterruptedException {
         DSMPreprocessor preprocessor = new DSMPreprocessor();
@@ -51,6 +51,7 @@ public class Main {
             PatternComponent pc = patternsParser.loadPatternById(config.id);
             patternComponentList.add(pc);
         });
+        System.out.println("number of patterns loaded: " + patternComponentList.size());
 
         PatternDetectorManager pdManager = new PatternDetectorManager(patternComponentList, browser, sourceParser);
         pdManager.startPDs();

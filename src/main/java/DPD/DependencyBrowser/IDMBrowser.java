@@ -38,10 +38,12 @@ public class IDMBrowser implements IBrowser {
      *
      * @param classType
      * @param withDependencies
+     * @param value
      * @return
      */
-    public List<Integer> getClassesOfType(ClassType classType, String withDependencies) {
-        return getClassesOfType(classType);
+    public List<Integer> getClassesOfType(ClassType classType, String withDependencies, String value) {
+
+        return getClassesOfType(classType, value);
         // implement withDependencies later, cause we may not need it again
         // withDependencies allows us to add small filterings on the entity
     }
@@ -77,7 +79,7 @@ public class IDMBrowser implements IBrowser {
         return jClasses.get(classId).filePath;
     }
 
-    private List<Integer> getClassesOfType(ClassType classType) {
+    private List<Integer> getClassesOfType(ClassType classType, String absoluteValue) {
         try { //todo: remove this try
             switch (classType) {
                 case Class:
@@ -88,6 +90,10 @@ public class IDMBrowser implements IBrowser {
                     return jClasses.stream()
                             .filter(c -> c.classType == ClassType.Interface)
                             .map(c -> c.classId).collect(Collectors.toList());
+                case Absolute:
+                    List<Integer> x = new ArrayList<>();
+                    x.add(99999); // absoluteValue
+                    return x;
                 case Abstract:
                     return jClasses.stream()
                             .filter(c -> c.classType == ClassType.Interface)

@@ -2,10 +2,7 @@ package DPD.DSMMapper;
 
 import DPD.ConsoleLogger;
 import DPD.DependencyBrowser.IBrowser;
-import DPD.Enums.ASTAnalysisType;
-import DPD.Enums.CardinalityType;
-import DPD.Enums.DependencyType;
-import DPD.Enums.RuleType;
+import DPD.Enums.*;
 import DPD.SourceParser.ASTAnalyzer;
 import DPD.SourceParser.JParser;
 import org.apache.commons.lang3.SerializationUtils;
@@ -32,7 +29,7 @@ public class PatternDetector implements Runnable {
 
     public void mapPatternEntities() {
         for (PatternEntity pEntity : patternC.getEntities()) {
-            pEntity.compliantClasses = browser.getClassesOfType(pEntity.type, pEntity.hasDependency);
+                pEntity.compliantClasses = browser.getClassesOfType(pEntity.type, pEntity.hasDependency, pEntity.value);
         }
     }
 
@@ -200,6 +197,7 @@ public class PatternDetector implements Runnable {
         System.out.println("\ntotal patterns added: " + resolvedPatterns.size());
 
         // run ast
+        /*
         for(PatternComponent pattern: resolvedPatterns) {
             for (PatternRule rule : pattern.getRules()) {
                 checkSource(pattern, rule);

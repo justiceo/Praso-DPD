@@ -63,10 +63,11 @@ public class DSMBrowser implements IBrowser {
      *
      * @param classType
      * @param dependencyLine
+     * @param value
      * @return
      */
     @Override
-    public List<Integer> getClassesOfType(ClassType classType, String dependencyLine) {
+    public List<Integer> getClassesOfType(ClassType classType, String dependencyLine, String value) {
         List<Integer> desiredClasses = getClassesOfType(classType);
         if (dependencyLine == null) return desiredClasses;
 

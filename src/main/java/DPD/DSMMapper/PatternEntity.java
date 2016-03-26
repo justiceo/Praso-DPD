@@ -21,10 +21,12 @@ public class PatternEntity implements Serializable {
     public ClassType type;
     @XmlAttribute
     public String hasDependency;
-    @XmlElement
-    public List<Integer> compliantClasses;
+    @XmlAttribute
+    public String value;
 
+    public List<Integer> compliantClasses;
     public List<String> claims;
+
 
     public boolean equals(Object other) {
         PatternEntity otherP = (PatternEntity) other;

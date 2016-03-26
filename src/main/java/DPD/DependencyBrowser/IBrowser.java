@@ -19,9 +19,10 @@ public interface IBrowser {
      * Abstraction is a combo of Any and hasDependencyType(Extend), hasDependencyType(Implement).
      *
      * @param classType, withDependencies
+     * @param value
      * @return
      */
-    List<Integer> getClassesOfType(ClassType classType, String withDependencies);
+    List<Integer> getClassesOfType(ClassType classType, String withDependencies, String value);
 
     String getClassPath(int classId);
 
