@@ -197,7 +197,7 @@ public class PatternDetector implements Runnable {
         System.out.println("\ntotal patterns added: " + resolvedPatterns.size());
 
         // run ast
-        /*
+
         for(PatternComponent pattern: resolvedPatterns) {
             for (PatternRule rule : pattern.getRules()) {
                 checkSource(pattern, rule);

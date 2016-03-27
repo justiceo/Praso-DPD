@@ -32,7 +32,7 @@ public class ExpandMatrixFilter extends Filter {
                 try {
                     JClass jClass = iterator.next();
                     jClass.dependencyLine = expandLine(jClass.dependencyLine);
-                    jClass.type = getType(jClass.filePath);
+                    jClass.typeId = getType(jClass.filePath);
                     jClass.fileName = getFileName(jClass.filePath);
                 } catch (NoSuchElementException e) {
                     System.out.println("expand matrix filter err - counter (" + counter + "): " + e.toString());

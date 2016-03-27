@@ -61,7 +61,7 @@ public class IDMBrowser implements IBrowser {
     }
 
     public String getType(int targetClassId) {
-        return getClassFromId(targetClassId).type;
+        return getClassFromId(targetClassId).typeId;
     }
 
     public void addClaim(int classId, String key, String value) {

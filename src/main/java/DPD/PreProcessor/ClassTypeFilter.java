@@ -5,6 +5,7 @@ import DPD.JClass;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.PackageDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.TypeDeclaration;
 
@@ -34,7 +35,14 @@ public class ClassTypeFilter extends Filter {
                 counter++;
                 try {
                     jClass = iterator.next();
-                    jClass.classType = getClassType(jClass.filePath);
+                    if (!Files.exists(Paths.get(jClass.filePath))) {
+                        jClass.classType = ClassType.Unknown;
+                    }
+
+                    CompilationUnit cu = JavaParser.parse(new File(jClass.filePath));
+                    jClass.classType = getClassType(cu);
+                    jClass.typeId = getClassId(cu, jClass.filePath);
+
                 } catch (NoSuchElementException | ParseException | IOException | ClassCastException | NullPointerException e) {
                     // todo: log which exceptions are thrown most, so we can optimize those segments
                     System.out.println("class type filter err - counter (" + counter + "): " + e.toString());
@@ -45,10 +53,15 @@ public class ClassTypeFilter extends Filter {
 
     }
 
-    private ClassType getClassType(String filePath) throws IOException, ParseException {
-        if (!Files.exists(Paths.get(filePath))) return ClassType.Unknown;
+    private String getClassId(CompilationUnit cu, String filePath) {
+        PackageDeclaration pd = cu.getPackage();
+        String x = pd.toString().replace("package ", "");
+        x = x.substring(0, x.indexOf(";")) + ".";
 
-        CompilationUnit cu = JavaParser.parse(new File(filePath));
+        return x + filePath.substring(filePath.lastIndexOf("\\")+1, filePath.lastIndexOf("."));
+    }
+
+    private ClassType getClassType(CompilationUnit cu) {
         TypeDeclaration typeDec = cu.getTypes().get(0);
         ClassOrInterfaceDeclaration cd = (ClassOrInterfaceDeclaration) typeDec; // most likely the case
 
@@ -61,6 +74,6 @@ public class ClassTypeFilter extends Filter {
         } else if (cd.getModifiers() == 1) {
             return ClassType.Class;
         } else return ClassType.Unknown;
-    }
 
+    }
 }

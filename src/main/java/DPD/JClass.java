@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class JClass {
     public int classId;
-    public String type;
+    public String typeId;
     public String fileName;
     public String filePath;
     public ClassType classType;
