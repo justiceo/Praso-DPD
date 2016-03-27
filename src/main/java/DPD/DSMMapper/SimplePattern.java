@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -54,10 +53,10 @@ public class SimplePattern implements PatternComponent {
 
         for (PatternEntity entity : entities) {
             logger.log("\n" + entity.name + " is satisfied by: ");
-            List<Integer> sorted = new ArrayList<>(entity.compliantClasses);
-            Collections.sort(sorted);
-            for (int classId : sorted) {
-                logger.log("\t" + browser.getClassPath(classId));
+            List<String> sorted = new ArrayList<>(entity.compliantClasses);
+            //Collections.sort(sorted);
+            for (String classId : sorted) {
+                logger.log("\t" + classId);
                 List<Claim> claims = browser.getClaims(classId);
                 if(claims != null)
                 for(Claim c: claims)

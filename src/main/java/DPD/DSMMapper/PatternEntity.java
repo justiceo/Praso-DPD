@@ -3,7 +3,6 @@ package DPD.DSMMapper;
 import DPD.Enums.ClassType;
 
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.List;
@@ -24,7 +23,7 @@ public class PatternEntity implements Serializable {
     @XmlAttribute
     public String value;
 
-    public List<Integer> compliantClasses;
+    public List<String> compliantClasses;
     public List<String> claims;
 
 

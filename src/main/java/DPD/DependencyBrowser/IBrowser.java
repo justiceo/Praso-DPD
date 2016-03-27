@@ -22,17 +22,17 @@ public interface IBrowser {
      * @param value
      * @return
      */
-    List<Integer> getClassesOfType(ClassType classType, String withDependencies, String value);
+    List<String> getClassesOfType(ClassType classType, String withDependencies, String value);
 
-    String getClassPath(int classId);
+    String getClassPath(String classId);
 
-    List<Integer> getDomDependencies(int classId, DependencyType dependencyType);
+    List<String> getDomDependencies(String classId, DependencyType dependencyType);
 
-    String getType(int targetClassId);
+    String getType(String targetClassId);
 
-    void addClaim(int classId, String key, String value);
+    void addClaim(String classId, String key, String value);
 
-    List<Claim> getClaims(int classId);
+    List<Claim> getClaims(String classId);
 }
 
 

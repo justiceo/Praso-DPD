@@ -54,7 +54,8 @@ public class JParser implements ASTAnalyzer {
 
     private String testLoop(String sourceClass, String targetType) {
         CompilationUnit sourceCU = this.init(sourceClass);
-        String targetClassName = targetType; //.substring(targetType.lastIndexOf("\\") + 1);
+
+        String targetClassName = targetType.contains(".") ? targetType.substring(targetType.lastIndexOf(".") + 1) : targetType;
 
         // get all for loops
         MethodVisitor mv = new MethodVisitor();

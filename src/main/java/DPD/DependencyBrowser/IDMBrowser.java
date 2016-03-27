@@ -41,18 +41,18 @@ public class IDMBrowser implements IBrowser {
      * @param value
      * @return
      */
-    public List<Integer> getClassesOfType(ClassType classType, String withDependencies, String value) {
+    public List<String> getClassesOfType(ClassType classType, String withDependencies, String value) {
 
         return getClassesOfType(classType, value);
         // implement withDependencies later, cause we may not need it again
         // withDependencies allows us to add small filterings on the entity
     }
 
-    public List<Integer> getDomDependencies(int classId, DependencyType dependencyType) {
-        String depLine = getClassFromId(classId).dependencyLine;
+    public List<String> getDomDependencies(String classId, DependencyType dependencyType) {
+        String depLine = jClasses.stream().filter(c -> c.typeId.equals(classId)).findFirst().get().dependencyLine;
         switch (dependencyType) {
             case SPECIALIZE:
-                List<Integer> x = getIndicesOfDomDependenciesAsClassIds(depLine, DependencyType.EXTEND);
+                List<String> x = getIndicesOfDomDependenciesAsClassIds(depLine, DependencyType.EXTEND);
                 x.addAll(getIndicesOfDomDependenciesAsClassIds(depLine, DependencyType.IMPLEMENT));
                 return x;
             default:
@@ -60,59 +60,59 @@ public class IDMBrowser implements IBrowser {
         }
     }
 
-    public String getType(int targetClassId) {
-        return getClassFromId(targetClassId).typeId;
+    public String getType(String typeIdentifier) {
+        return jClasses.stream().filter(c -> c.typeId.equals(typeIdentifier)).findFirst().get().typeId;
     }
 
-    public void addClaim(int classId, String key, String value) {
-        JClass jClass = jClasses.get(classId);
+    public List<Claim> getClaims(String typeIdentifier) {
+        return jClasses.stream().filter(c -> c.typeId.equals(typeIdentifier)).findFirst().get().claims;
+    }
+
+    public String getClassPath(String typeIdentifier) {
+        return jClasses.stream().filter(c -> c.typeId.equals(typeIdentifier)).findFirst().get().filePath;
+    }
+
+    public void addClaim(String classId, String key, String value) {
+        JClass jClass = jClasses.stream().filter(c -> c.typeId.equals(classId)).findFirst().get();
         Claim claim = new Claim(key, value);
         if(jClass.claims == null) jClass.claims = new LinkedList<>();
         jClass.claims.add(claim);
     }
 
-    public List<Claim> getClaims(int classId) {
-        return jClasses.get(classId).claims;
-    }
-
-    public String getClassPath(int classId) {
-        return jClasses.get(classId).filePath;
-    }
-
-    private List<Integer> getClassesOfType(ClassType classType, String absoluteValue) {
+    private List<String> getClassesOfType(ClassType classType, String absoluteValue) {
         try { //todo: remove this try
             switch (classType) {
                 case Class:
                     return jClasses.stream()
                             .filter(c -> c.classType == ClassType.Class)
-                            .map(c -> c.classId).collect(Collectors.toList());
+                            .map(c -> c.typeId).collect(Collectors.toList());
                 case Interface:
                     return jClasses.stream()
                             .filter(c -> c.classType == ClassType.Interface)
-                            .map(c -> c.classId).collect(Collectors.toList());
+                            .map(c -> c.typeId).collect(Collectors.toList());
                 case Absolute:
-                    List<Integer> x = new ArrayList<>();
-                    x.add(99999); // absoluteValue
+                    List<String> x = new ArrayList<>();
+                    x.add(absoluteValue); // absoluteValue
                     return x;
                 case Abstract:
                     return jClasses.stream()
                             .filter(c -> c.classType == ClassType.Interface)
-                            .map(c -> c.classId).collect(Collectors.toList());
+                            .map(c -> c.typeId).collect(Collectors.toList());
                 case Any:
                     return jClasses.stream()
-                            .map(j -> j.classId).collect(Collectors.toList());
+                            .map(j -> j.typeId).collect(Collectors.toList());
                 case Abstraction:
                     return jClasses.stream()
                             .filter(c -> c.classType == ClassType.Interface || c.classType == ClassType.Abstract)
-                            .map(j -> j.classId).collect(Collectors.toList());
+                            .map(j -> j.typeId).collect(Collectors.toList());
                 case Specialization:
                     return jClasses.stream()
                             .filter(j -> hasDominantDependency(j.classId, DependencyType.IMPLEMENT) || hasDominantDependency(j.classId, DependencyType.EXTEND))
-                            .map(j -> j.classId).collect(Collectors.toList());
+                            .map(j -> j.typeId).collect(Collectors.toList());
                 default: // the other ones we don't really care about (for now)
                     return jClasses.stream()
                             .filter(j -> j.classType.equals(classType))
-                            .map(j -> j.classId).collect(Collectors.toList());
+                            .map(j -> j.typeId).collect(Collectors.toList());
             }
         } catch (StringIndexOutOfBoundsException e) {
             return new LinkedList<>();
@@ -183,14 +183,14 @@ public class IDMBrowser implements IBrowser {
         return dependencyTypes;
     }
 
-    private List<Integer> getIndicesOfDomDependenciesAsClassIds(String depLine, DependencyType dependencyType) {
+    private List<String> getIndicesOfDomDependenciesAsClassIds(String depLine, DependencyType dependencyType) {
         int depId = dependencyTypes.indexOf(dependencyType);
-        List<Integer> indices = new ArrayList<>();
+        List<String> indices = new ArrayList<>();
 
         while (depId < depLine.length() && depId != -1) {
             if (depLine.charAt(depId) == '1') {
                 int index = depId / dependencyTypesSize;
-                indices.add(index);
+                indices.add(jClasses.get(index).typeId);
             }
             depId += dependencyTypesSize;
         }

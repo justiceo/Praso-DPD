@@ -1,14 +1,14 @@
 package DPD.DSMMapper;
 
-import DPD.ConsoleLogger;
 import DPD.DependencyBrowser.IBrowser;
-import DPD.Enums.*;
+import DPD.Enums.ASTAnalysisType;
+import DPD.Enums.CardinalityType;
+import DPD.Enums.DependencyType;
+import DPD.Enums.RuleType;
 import DPD.SourceParser.ASTAnalyzer;
-import DPD.SourceParser.JParser;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,9 +44,9 @@ public class PatternDetector implements Runnable {
         PatternEntity entityToResolve = pattern.getEntities().stream().filter(e -> e.id.equals(resolver.source)).findFirst().get();
 
         // create new patterns from each item in the entity
-        for (int classId : entityToResolve.compliantClasses) {
+        for (String classId : entityToResolve.compliantClasses) {
             SimplePattern newPattern = SerializationUtils.deserialize(SerializationUtils.serialize(pattern));
-            newPattern.name = pattern.getName() + " - " + browser.getClassPath(classId);
+            newPattern.name = pattern.getName() + " - " + browser.getType(classId);
 
             // reset it's entity to its self alone
             newPattern.entities.stream().filter(pE -> pE.id.equals(entityToResolve.id)).forEach(pE -> {
@@ -92,20 +92,20 @@ public class PatternDetector implements Runnable {
 
     public boolean dependencyFilter(PatternComponent pattern, String sourceEntityId, String targetEntityId, DependencyType dependencyType, boolean exclude) {
         // if any is empty, job is already done
-        if (patternHasEmptyEntity(pattern))
+        if (pattern.isVoid())
             return false;
 
         // get the entity buckets to dependencyFilter
-        List<Integer> targetBucket = pattern.getEntityById(targetEntityId).compliantClasses; // IObserver
-        List<Integer> sourceBucket = pattern.getEntityById(sourceEntityId).compliantClasses; // Concrete observer
+        List<String> targetBucket = pattern.getEntityById(targetEntityId).compliantClasses; // IObserver
+        List<String> sourceBucket = pattern.getEntityById(sourceEntityId).compliantClasses; // Concrete observer
 
         // perform the dependencyFilter
         // for each concrete observer, check if it has implements/extends dependency on entity in e1
-        List<Integer> filteredList = new ArrayList<>();
-        for (Integer srcClass : sourceBucket) {
-            List<Integer> auxDependencies = browser.getDomDependencies(srcClass, dependencyType);
-            for (Integer auxClass : auxDependencies) {
-                if (targetBucket.contains(auxClass)) {
+        List<String> filteredList = new ArrayList<>();
+        for (String srcClass : sourceBucket) {
+            List<String> domDependencies = browser.getDomDependencies(srcClass, dependencyType);
+            for (String dClass : domDependencies) {
+                if (targetBucket.contains(dClass)) {
                     filteredList.add(srcClass);
                     break;
                 }
@@ -131,9 +131,9 @@ public class PatternDetector implements Runnable {
         return bucketSize > 1;
     }
 
-    /* assumes work is only on a unit of the pattern */
+    /* assumes work is only on a unit of the pattern
     public boolean astAnalyzeFilter(PatternComponent pattern, String sourceId, String targetId, ASTAnalysisType astAnalysisType, boolean exclude) {
-        if (patternHasEmptyEntity(pattern))
+        if (pattern.isVoid())
             return false;
 
         int targetClassId = pattern.getEntityById(targetId).compliantClasses.get(0);
@@ -150,33 +150,30 @@ public class PatternDetector implements Runnable {
 
         return true;
     }
+    */
 
-    public List<Integer> astAnalyzeFilter(List<Integer> sourceBucket, int targetClassId, ASTAnalysisType astAnalysisType, boolean exclude) {
-        List<Integer> positive = new LinkedList<>();
-        for(int sourceClassId: sourceBucket) {
-            if (sourceParser.examine(browser.getClassPath(sourceClassId), astAnalysisType, browser.getType(targetClassId)) != null) {
+    public List<String> astAnalyzeFilter(List<String> sourceBucket, String targetType, ASTAnalysisType astAnalysisType, boolean exclude) {
+        List<String> positive = new LinkedList<>();
+        for(String sourceClassId: sourceBucket) {
+            String claim = sourceParser.examine(browser.getClassPath(sourceClassId), astAnalysisType, browser.getType(targetType));
+            if (claim != null) {
                 positive.add(sourceClassId);
+                browser.addClaim(sourceClassId, "ForLoop", claim);
             }
         }
 
         // todo: add exclude
 
-        return positive;
-    }
-
-    private boolean patternHasEmptyEntity(PatternComponent pattern) {
-        return pattern.isVoid(); // todo: refactor
+        return positive.isEmpty()? sourceBucket : positive;
     }
 
     public void checkSource(PatternComponent pattern, PatternRule rule) {
         if (rule.ruleType.equals(RuleType.AST_Analyze)) {
-            astAnalyzeFilter(pattern, rule.source, rule.target, ASTAnalysisType.valueOf(rule.value), rule.exclude);
-            /*
             PatternEntity sourceEntity = pattern.getEntityById(rule.source);
-            int firstClassInTarget =  pattern.getEntityById(rule.target).compliantClasses.get(0); // todo: apply to all classes in subject
-            List<Integer> pos = astAnalyzeFilter(sourceEntity.compliantClasses, firstClassInTarget, ASTAnalysisType.valueOf(rule.value), rule.exclude);
+            String firstClassInTarget =  pattern.getEntityById(rule.target).compliantClasses.get(0); // todo: apply to all classes in subject
+            List<String> pos = astAnalyzeFilter(sourceEntity.compliantClasses, firstClassInTarget, ASTAnalysisType.valueOf(rule.value), rule.exclude);
             sourceEntity.compliantClasses = pos;
-            */
+
         }
     }
 

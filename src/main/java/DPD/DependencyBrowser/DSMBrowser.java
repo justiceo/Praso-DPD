@@ -67,8 +67,8 @@ public class DSMBrowser implements IBrowser {
      * @return
      */
     @Override
-    public List<Integer> getClassesOfType(ClassType classType, String dependencyLine, String value) {
-        List<Integer> desiredClasses = getClassesOfType(classType);
+    public List<String> getClassesOfType(ClassType classType, String dependencyLine, String value) {
+        List<String> desiredClasses = getClassesOfType(classType);
         if (dependencyLine == null) return desiredClasses;
 
 
@@ -76,7 +76,7 @@ public class DSMBrowser implements IBrowser {
                 .stream().map(s -> DependencyType.valueOf(s.toUpperCase()))
                 .collect(Collectors.toList());
 
-        for (Iterator<Integer> iterator = desiredClasses.iterator(); iterator.hasNext(); ) {
+        for (Iterator<String> iterator = desiredClasses.iterator(); iterator.hasNext(); ) {
             List<DependencyType> classDependencies = getDependenciesOfClass(iterator.next());
             if (!containsDependencies(classDependencies, dependencyTypes)) {
                 iterator.remove();
@@ -93,15 +93,15 @@ public class DSMBrowser implements IBrowser {
     }
 
     @Override
-    public String getClassPath(int classId) {
-        return jClasses.stream().filter(j -> j.classId == classId).findFirst().get().filePath;
+    public String getClassPath(String classId) {
+        return jClasses.stream().filter(j -> j.typeId.equals(classId)).findFirst().get().filePath;
     }
 
     @Override
-    public List<Integer> getDomDependencies(int classId, DependencyType dependencyType) {
+    public List<String> getDomDependencies(String classId, DependencyType dependencyType) {
         switch (dependencyType) {
             case SPECIALIZE:
-                List<Integer> x = getAssociatedDependencyNative(classId, DependencyType.EXTEND);
+                List<String> x = getAssociatedDependencyNative(classId, DependencyType.EXTEND);
                 x.addAll(getAssociatedDependencyNative(classId, DependencyType.IMPLEMENT));
                 return x;
             default:
@@ -110,47 +110,48 @@ public class DSMBrowser implements IBrowser {
     }
 
     @Override
-    public String getType(int targetClassId) {
+    public String getType(String targetClassId) {
 
         return null;
     }
 
-    public void addClaim(int classId, String key, String value) {
+    public void addClaim(String classId, String key, String value) {
 
     }
 
-    public List<Claim> getClaims(int classId) {
+    public List<Claim> getClaims(String classId) {
         return null;
     }
 
-    private List<Integer> getClassesOfType(ClassType classType) {
+    private List<String> getClassesOfType(ClassType classType) {
 
         switch (classType) {
             case Any:
                 return jClasses.stream()
-                        .map(j -> j.classId).collect(Collectors.toList());
+                        .map(j -> j.typeId).collect(Collectors.toList());
             case Specialization:
                 return jClasses.stream()
                         .filter(j -> hasDependency(j.classId, DependencyType.IMPLEMENT) || hasDependency(j.classId, DependencyType.EXTEND))
-                        .map(j -> j.classId).collect(Collectors.toList());
+                        .map(j -> j.typeId).collect(Collectors.toList());
             case Abstraction:
                 return jClasses.stream()
                         .filter(j -> hasAuxiliaryDependency(j.classId, DependencyType.IMPLEMENT) || hasAuxiliaryDependency(j.classId, DependencyType.EXTEND))
-                        .map(j -> j.classId).collect(Collectors.toList());
+                        .map(j -> j.typeId).collect(Collectors.toList());
             default: // it's an absolute type!
                 return jClasses.stream()
                         .filter(j -> j.classType.equals(classType))
-                        .map(j -> j.classId).collect(Collectors.toList());
+                        .map(j -> j.typeId).collect(Collectors.toList());
         }
     }
 
     /* get the classes with classId has specified auxiliary dependency with */
-    private List<Integer> getAssociatedDependencyNative(int classId, DependencyType dependencyType) {
-        JClass jClass = getJClassFromName(classId);
+    private List<String> getAssociatedDependencyNative(String classId, DependencyType dependencyType) {
+        JClass jClass = jClasses.stream().filter(c -> c.typeId.equals(classId)).findFirst().get();
         List<Integer> domDependencyIndices = getDomDependencyIndices(jClass, dependencyType);
         List<Integer> desiredClasses = new ArrayList<>();
         jClasses.stream().filter(j -> domDependencyIndices.contains(j.classId)).forEach(j -> desiredClasses.add(j.classId));
-        return desiredClasses;
+        //return desiredClasses;
+        return null; // todo: danger
     }
 
     private List<Integer> getDomDependencyIndices(JClass jClass, DependencyType dependencyType) {
