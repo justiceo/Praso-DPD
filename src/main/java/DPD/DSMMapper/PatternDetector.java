@@ -152,7 +152,7 @@ public class PatternDetector implements Runnable {
     }
     */
 
-    public List<String> astAnalyzeFilter(List<String> sourceBucket, String targetType, ASTAnalysisType astAnalysisType, boolean exclude) {
+    public List<String> astAnalyzeFilter(List<String> sourceBucket, String targetType, ASTAnalysisType astAnalysisType) {
         List<String> positive = new LinkedList<>();
         for(String sourceClassId: sourceBucket) {
             String claim = sourceParser.examine(browser.getClassPath(sourceClassId), astAnalysisType, browser.getType(targetType));
@@ -161,17 +161,17 @@ public class PatternDetector implements Runnable {
                 browser.addClaim(sourceClassId, "ForLoop", claim);
             }
         }
-
-        // todo: add exclude
-
         return positive.isEmpty()? sourceBucket : positive;
     }
 
     public void checkSource(PatternComponent pattern, PatternRule rule) {
         if (rule.ruleType.equals(RuleType.AST_Analyze)) {
             PatternEntity sourceEntity = pattern.getEntityById(rule.source);
-            String firstClassInTarget =  pattern.getEntityById(rule.target).compliantClasses.get(0); // todo: apply to all classes in subject
-            List<String> pos = astAnalyzeFilter(sourceEntity.compliantClasses, firstClassInTarget, ASTAnalysisType.valueOf(rule.value), rule.exclude);
+
+            // target should be a hedge entity, and should contain one class after separation
+            assert pattern.getEntityById(rule.target).compliantClasses.size() == 1;
+            String firstClassInTarget =  pattern.getEntityById(rule.target).compliantClasses.get(0);
+            List<String> pos = astAnalyzeFilter(sourceEntity.compliantClasses, firstClassInTarget, ASTAnalysisType.valueOf(rule.value));
             sourceEntity.compliantClasses = pos;
 
         }

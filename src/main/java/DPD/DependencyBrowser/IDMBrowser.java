@@ -80,42 +80,38 @@ public class IDMBrowser implements IBrowser {
     }
 
     private List<String> getClassesOfType(ClassType classType, String absoluteValue) {
-        try { //todo: remove this try
-            switch (classType) {
-                case Class:
-                    return jClasses.stream()
-                            .filter(c -> c.classType == ClassType.Class)
-                            .map(c -> c.typeId).collect(Collectors.toList());
-                case Interface:
-                    return jClasses.stream()
-                            .filter(c -> c.classType == ClassType.Interface)
-                            .map(c -> c.typeId).collect(Collectors.toList());
-                case Absolute:
-                    List<String> x = new ArrayList<>();
-                    x.add(absoluteValue); // absoluteValue
-                    return x;
-                case Abstract:
-                    return jClasses.stream()
-                            .filter(c -> c.classType == ClassType.Interface)
-                            .map(c -> c.typeId).collect(Collectors.toList());
-                case Any:
-                    return jClasses.stream()
-                            .map(j -> j.typeId).collect(Collectors.toList());
-                case Abstraction:
-                    return jClasses.stream()
-                            .filter(c -> c.classType == ClassType.Interface || c.classType == ClassType.Abstract)
-                            .map(j -> j.typeId).collect(Collectors.toList());
-                case Specialization:
-                    return jClasses.stream()
-                            .filter(j -> hasDominantDependency(j.classId, DependencyType.IMPLEMENT) || hasDominantDependency(j.classId, DependencyType.EXTEND))
-                            .map(j -> j.typeId).collect(Collectors.toList());
-                default: // the other ones we don't really care about (for now)
-                    return jClasses.stream()
-                            .filter(j -> j.classType.equals(classType))
-                            .map(j -> j.typeId).collect(Collectors.toList());
-            }
-        } catch (StringIndexOutOfBoundsException e) {
-            return new LinkedList<>();
+        switch (classType) {
+            case Class:
+                return jClasses.stream()
+                        .filter(c -> c.classType == ClassType.Class)
+                        .map(c -> c.typeId).collect(Collectors.toList());
+            case Interface:
+                return jClasses.stream()
+                        .filter(c -> c.classType == ClassType.Interface)
+                        .map(c -> c.typeId).collect(Collectors.toList());
+            case Absolute:
+                List<String> x = new ArrayList<>();
+                x.add(absoluteValue);
+                return x;
+            case Abstract:
+                return jClasses.stream()
+                        .filter(c -> c.classType == ClassType.Interface)
+                        .map(c -> c.typeId).collect(Collectors.toList());
+            case Any:
+                return jClasses.stream()
+                        .map(j -> j.typeId).collect(Collectors.toList());
+            case Abstraction:
+                return jClasses.stream()
+                        .filter(c -> c.classType == ClassType.Interface || c.classType == ClassType.Abstract)
+                        .map(j -> j.typeId).collect(Collectors.toList());
+            case Specialization:
+                return jClasses.stream()
+                        .filter(j -> hasDominantDependency(j.classId, DependencyType.IMPLEMENT) || hasDominantDependency(j.classId, DependencyType.EXTEND))
+                        .map(j -> j.typeId).collect(Collectors.toList());
+            default: // the other ones we don't really care about (for now)
+                return jClasses.stream()
+                        .filter(j -> j.classType.equals(classType))
+                        .map(j -> j.typeId).collect(Collectors.toList());
         }
     }
 

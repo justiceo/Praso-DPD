@@ -1,7 +1,7 @@
 package DPD;
 
-import DPD.DependencyBrowser.DSMBrowser;
 import DPD.DependencyBrowser.IBrowser;
+import DPD.DependencyBrowser.IDMBrowser;
 import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
 import org.junit.After;
@@ -24,7 +24,7 @@ public class DSMBrowserTest {
 
     @Before
     public void setup() throws FileNotFoundException {
-        browser = new DSMBrowser(new ConsoleLogger(), testDsmFile);
+        browser = new IDMBrowser(new ConsoleLogger(), new ArrayList<>(), "");
     }
 
     @After
