@@ -44,9 +44,9 @@ public class JParser implements ASTAnalyzer {
     @Override
     public String examine(String sourceClass, ASTAnalysisType astAnalysisType, String targetType) {
         switch (astAnalysisType) {
-            case Aggregates:
+            case HasCollectionOf:
                 return testAggregation(sourceClass, targetType);
-            case Loops:
+            case IteratesOver:
                 return testLoop(sourceClass, targetType);
         }
         return null;

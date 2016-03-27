@@ -10,11 +10,10 @@ import com.github.javaparser.ast.body.TypeDeclaration;
 import com.github.javaparser.ast.stmt.ForStmt;
 import com.github.javaparser.ast.stmt.ForeachStmt;
 import com.github.javaparser.ast.stmt.Statement;
+import com.github.javaparser.ast.stmt.WhileStmt;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -43,7 +42,8 @@ public class LoopsFilter extends Filter {
                 Flag usesObservable = null;
                 try {
                     jClass = iterator.next();
-                    filterLoop(jClass);
+                    CompilationUnit cu = JavaParser.parse(new File(jClass.filePath));
+                    filterLoop(jClass, cu);
                 } catch (NoSuchElementException | ParseException | IOException e) {
                     System.out.println("loop filter err - counter (" + counter + "); file (" + jClass.filePath + "):\n\t" + e.toString());
                     continue;
@@ -60,9 +60,7 @@ public class LoopsFilter extends Filter {
     }
 
 
-    private void filterLoop(JClass jClass) throws IOException, ParseException {
-        if (!Files.exists(Paths.get(jClass.filePath))) return;
-        CompilationUnit cu = JavaParser.parse(new File(jClass.filePath));
+    private void filterLoop(JClass jClass, CompilationUnit cu) throws IOException, ParseException {
         List<TypeDeclaration> types = cu.getTypes();
 
         /*
@@ -90,6 +88,21 @@ public class LoopsFilter extends Filter {
                                 .forEach(sc -> processLoopStatement(sc, jClass))));
     }
 
+    private void processLoopStatement(Statement statement, JClass jClass) {
+        if (statement instanceof ForeachStmt)
+            processForEach((ForeachStmt) statement, jClass);
+        else if (statement instanceof ForStmt)
+            processForLoop((ForStmt) statement, jClass);
+        else if (statement instanceof WhileStmt)
+            processWhileLoop((WhileStmt) statement, jClass);
+    }
+
+    private void processForEach(ForeachStmt statement, JClass jClass) {
+        if (statement.getVariable().getType().toString().equals(loopVariable)) {
+            jClass.flags.add(flag);
+        }
+    }
+
     private List<Statement> getStatementsFromMethod(MethodDeclaration method) {
         if (method.getBody() == null || method.getBody().getStmts() == null) return null;
         List<Statement> statementList = method.getBody().getStmts();
@@ -103,20 +116,11 @@ public class LoopsFilter extends Filter {
         return forLoopStatements;
     }
 
-    private void processLoopStatement(Statement statement, JClass jClass) {
-        if (statement instanceof ForeachStmt)
-            processForEach((ForeachStmt) statement, jClass);
-        else if (statement instanceof ForStmt)
-            processForLoop((ForStmt) statement, jClass);
-    }
-
     private void processForLoop(ForStmt statement, JClass jClass) {
         // todo: un-implemented
     }
 
-    private void processForEach(ForeachStmt statement, JClass jClass) {
-        if (statement.getVariable().getType().toString().equals(loopVariable)) {
-            jClass.flags.add(flag);
-        }
+    private void processWhileLoop(WhileStmt statement, JClass jClass) {
+        // todo: add while loop
     }
 }

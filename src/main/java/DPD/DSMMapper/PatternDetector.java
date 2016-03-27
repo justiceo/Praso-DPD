@@ -7,6 +7,7 @@ import DPD.SourceParser.ASTAnalyzer;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -186,14 +187,14 @@ public class PatternDetector implements Runnable {
                 }
         }
 
-        /* remove empty pattern
+        // remove empty pattern
         Iterator<PatternComponent> pIterator = resolvedPatterns.iterator();
         while (pIterator.hasNext()) {
             PatternComponent pattern = pIterator.next();
             if (pattern.isVoid()) {
                 pIterator.remove();
             }
-        }*/
+        }
     }
 
     public void addResolvedPatternList(List<PatternComponent> resolvedPatterns) {

@@ -15,5 +15,6 @@ public enum DependencyType {
     CREATE,
     SPECIALIZE,
     CAST,
-    THROW
+    THROW,
+    MODIFY
 }

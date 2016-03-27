@@ -1,16 +1,14 @@
 <pattern name="Observer Pattern">
-	<entity id="e1" name="Observer" type="Interface" />
-	<entity id="e2" name="Concrete Observer" type="Class"  />
+	<entity id="e1" name="Observer" type="Abstraction" />
+	<entity id="e2" name="Concrete Observer" type="Specialization"  />
 	<entity id="e3" name="Subject" type="Class" />
 
 	<rule source="e2" value="Implement" target="e1" />
 	<rule source="e3" value="Typed" target="e1" />
 	<rule source="e3" value="Use" target="e1" />
-	<rule exclude="true" source="e3" value="Typed" target="e2" />
-	<rule exclude="true" source="e3" value="Use" target="e2" />
 
-	<code-snippet source="e3" value="Loops" target="e1" />
-	<code-snippet source="e3" value="Aggregates" target="e1" />
+	<code-snippet source="e3" value="HasCollectionOf" target="e1" />
+	<code-snippet source="e3" value="IteratesOver" target="e1" />
 
 	<resolver resolver-type="SEPARATE" source="e1" />
 </pattern>

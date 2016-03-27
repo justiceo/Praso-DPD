@@ -131,10 +131,12 @@ public class DSMDependencyRep implements DependencyRep {
     private void setAbsDirFromPath() {
         String filePath = filePaths[0];
         int cutoff = filePath.indexOf("src");
-        absDir = filePath.substring(0, cutoff);
-        locations = new ArrayList();
-        locations.add(absDir);
-        System.out.println("package: " + absDir);
+        if(cutoff != -1) {
+            absDir = filePath.substring(0, cutoff);
+            locations = new ArrayList();
+            locations.add(absDir);
+            System.out.println("package: " + absDir);
+        }
     }
 
     public String getRelativePath(String absolutePath) {

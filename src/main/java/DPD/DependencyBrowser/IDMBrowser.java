@@ -153,7 +153,7 @@ public class IDMBrowser implements IBrowser {
     private boolean hasDominantDependency(int classId, DependencyType dependencyType) {
         String depLine = getClassFromId(classId).dependencyLine;
         int depId = dependencyTypes.indexOf(dependencyType);
-        while (depId <= dependencyTypesSize * matrixSize) {
+        while (0 <= depId && depId <= dependencyTypesSize * matrixSize) {
             if (depLine.charAt(depId) == '1') {
                 return true;
             }

@@ -61,6 +61,7 @@ public class ClassTypeFilter extends Filter {
     }
 
     private ClassType getClassType(CompilationUnit cu) {
+        if(cu.getTypes().size() < 1 ) return ClassType.Unknown;
         TypeDeclaration typeDec = cu.getTypes().get(0);
         ClassOrInterfaceDeclaration cd = (ClassOrInterfaceDeclaration) typeDec; // most likely the case
 
