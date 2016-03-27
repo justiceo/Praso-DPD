@@ -24,6 +24,8 @@ public class SimplePattern implements PatternComponent {
     List<PatternRule> rules;
     @XmlElement(name = "resolver")
     List<PatternResolver> resolvers;
+    @XmlElement(name = "code-snippet")
+    List<PatternCodeSnippet> codeSnippets;
 
 
     @Override
@@ -44,6 +46,11 @@ public class SimplePattern implements PatternComponent {
     @Override
     public List<PatternResolver> getResolvers() {
         return resolvers;
+    }
+
+    @Override
+    public List<PatternCodeSnippet> getCodeSnippets() {
+        return codeSnippets;
     }
 
     @Override

@@ -2,9 +2,7 @@ package DPD.DSMMapper;
 
 import DPD.DependencyBrowser.IBrowser;
 import DPD.Enums.ASTAnalysisType;
-import DPD.Enums.CardinalityType;
 import DPD.Enums.DependencyType;
-import DPD.Enums.RuleType;
 import DPD.SourceParser.ASTAnalyzer;
 import org.apache.commons.lang3.SerializationUtils;
 
@@ -77,17 +75,7 @@ public class PatternDetector implements Runnable {
     }
 
     public boolean filter(PatternComponent pattern, PatternRule rule) {
-        if (rule.ruleType.equals(RuleType.Dependency)) {
             return dependencyFilter(pattern, rule.source, rule.target, DependencyType.valueOf(rule.value.toUpperCase()), rule.exclude);
-        } else if (rule.ruleType.equals(RuleType.Cardinality)) {
-            CardinalityType cardinality = CardinalityType.valueOf(rule.value.toUpperCase());
-            if (cardinality.equals(CardinalityType.PLURAL))
-                return cardinalityFilter(pattern, rule.source);
-            else if (cardinality.equals(CardinalityType.SINGULAR))
-                return false; // dependencyFilter is singular.
-        }
-
-        return false; // we haven't added this rule yet
     }
 
     public boolean dependencyFilter(PatternComponent pattern, String sourceEntityId, String targetEntityId, DependencyType dependencyType, boolean exclude) {
@@ -164,8 +152,7 @@ public class PatternDetector implements Runnable {
         return positive.isEmpty()? sourceBucket : positive;
     }
 
-    public void checkSource(PatternComponent pattern, PatternRule rule) {
-        if (rule.ruleType.equals(RuleType.AST_Analyze)) {
+    public void checkSource(PatternComponent pattern, PatternCodeSnippet rule) {
             PatternEntity sourceEntity = pattern.getEntityById(rule.source);
 
             // target should be a hedge entity, and should contain one class after separation
@@ -173,8 +160,6 @@ public class PatternDetector implements Runnable {
             String firstClassInTarget =  pattern.getEntityById(rule.target).compliantClasses.get(0);
             List<String> pos = astAnalyzeFilter(sourceEntity.compliantClasses, firstClassInTarget, ASTAnalysisType.valueOf(rule.value));
             sourceEntity.compliantClasses = pos;
-
-        }
     }
 
     @Override
@@ -194,11 +179,11 @@ public class PatternDetector implements Runnable {
         System.out.println("\ntotal patterns added: " + resolvedPatterns.size());
 
         // run ast
-
         for(PatternComponent pattern: resolvedPatterns) {
-            for (PatternRule rule : pattern.getRules()) {
-                checkSource(pattern, rule);
-            }
+            if(pattern.getCodeSnippets() != null)
+                for (PatternCodeSnippet snippet : pattern.getCodeSnippets()) {
+                    checkSource(pattern, snippet);
+                }
         }
 
         /* remove empty pattern

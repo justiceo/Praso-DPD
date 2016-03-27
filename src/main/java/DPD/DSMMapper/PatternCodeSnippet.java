@@ -5,10 +5,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
- * Created by Justice on 1/26/2016.
+ * Created by Justice on 3/27/2016.
  */
-@XmlRootElement(name = "rule")
-public class PatternRule implements Serializable {
+@XmlRootElement(name = "code-snippet")
+public class PatternCodeSnippet implements Serializable {
     @XmlAttribute
     public String source;
     @XmlAttribute

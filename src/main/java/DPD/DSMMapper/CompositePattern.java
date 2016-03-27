@@ -26,6 +26,10 @@ public class CompositePattern implements PatternComponent {
         return null;
     }
 
+    public List<PatternCodeSnippet> getCodeSnippets() {
+        return null;
+    }
+
     public void displayMembers(ILogger logger, IBrowser browser) {
 
     }

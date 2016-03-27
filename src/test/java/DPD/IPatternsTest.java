@@ -1,10 +1,9 @@
 package DPD;
 
-import DPD.Enums.ClassType;
 import DPD.DSMMapper.PatternComponent;
 import DPD.DSMMapper.PatternEntity;
 import DPD.DSMMapper.PatternRule;
-import DPD.Enums.RuleType;
+import DPD.Enums.ClassType;
 import DPD.PatternParser.CommonPatternsParser;
 import DPD.PatternParser.IPatternsParser;
 import junit.framework.Assert;
@@ -14,9 +13,6 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Justice on 1/27/2016.
@@ -54,7 +50,6 @@ public class IPatternsTest { // tests that loaded patterns contain the right inf
         List<PatternRule> actualRules = observerPattern.getRules();
         //assertEquals(7, actualRules.size());
         PatternRule firstRule = new PatternRule();
-        firstRule.ruleType = RuleType.Dependency;
         firstRule.source = "e2";
         firstRule.value = "Implement";
         firstRule.target = "e1";
