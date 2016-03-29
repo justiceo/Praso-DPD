@@ -109,7 +109,8 @@ public class LoopsFilter extends Filter {
         List<Statement> forLoopStatements = new LinkedList<>();
         forLoopStatements.addAll(statementList.stream()
                 .filter(stmt -> stmt.getClass().equals(ForeachStmt.class)
-                        || stmt.getClass().equals(ForStmt.class))
+                        || stmt.getClass().equals(ForStmt.class)
+                        || stmt.getClass().equals(WhileStmt.class))
                 .map(stmt -> stmt)
                 .collect(Collectors.toList()));
 
@@ -117,10 +118,10 @@ public class LoopsFilter extends Filter {
     }
 
     private void processForLoop(ForStmt statement, JClass jClass) {
-        // todo: un-implemented
+        System.out.println("#comparable: " + statement.getCompare());
     }
 
     private void processWhileLoop(WhileStmt statement, JClass jClass) {
-        // todo: add while loop
+        System.out.println("#whileLoop: " + statement.getCondition().toString());
     }
 }

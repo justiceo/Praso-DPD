@@ -3,7 +3,7 @@ package DPD.DSMMapper;
 import DPD.DependencyBrowser.IBrowser;
 import DPD.Enums.ASTAnalysisType;
 import DPD.Enums.DependencyType;
-import DPD.SourceParser.ASTAnalyzer;
+import DPD.SourceParser.JParser;
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class PatternDetector implements Runnable {
 
     protected List<PatternComponent> resolvedPatterns = new ArrayList<>();
     private IBrowser browser;
-    private ASTAnalyzer sourceParser;
+    private JParser sourceParser;
     private PatternComponent patternC;
 
     public PatternDetector(IBrowser browser, PatternComponent pattern) {
@@ -32,7 +32,7 @@ public class PatternDetector implements Runnable {
         }
     }
 
-    public void addSourceParser(ASTAnalyzer sourceParser) {
+    public void addSourceParser(JParser sourceParser) {
         this.sourceParser = sourceParser;
     }
 

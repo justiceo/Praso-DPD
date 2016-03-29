@@ -1,8 +1,7 @@
 package DPD.DSMMapper;
 
 import DPD.DependencyBrowser.IBrowser;
-import DPD.ILogger;
-import DPD.SourceParser.ASTAnalyzer;
+import DPD.SourceParser.JParser;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,9 +14,9 @@ public class PatternDetectorManager {
     private IBrowser browser;
     private List<Thread> patternThreads;
     private List<PatternDetector> detectors;
-    private ASTAnalyzer sourceParser;
+    private JParser sourceParser;
 
-    public PatternDetectorManager(List<PatternComponent> patternComponentList, IBrowser browser, ASTAnalyzer sourceParser) {
+    public PatternDetectorManager(List<PatternComponent> patternComponentList, IBrowser browser, JParser sourceParser) {
         this.patterns = patternComponentList;
         this.browser = browser;
         this.sourceParser = sourceParser;

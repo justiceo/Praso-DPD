@@ -8,7 +8,6 @@ import DPD.PatternParser.CommonPatternsParser;
 import DPD.PatternParser.IPatternsParser;
 import DPD.PatternParser.PatternConfig;
 import DPD.PreProcessor.DSMPreprocessor;
-import DPD.SourceParser.ASTAnalyzer;
 import DPD.SourceParser.JParser;
 
 import java.io.File;
@@ -43,7 +42,7 @@ public class Main {
         IPatternsParser patternsParser = new CommonPatternsParser();
         patternsParser.init(new File(configFile));
 
-        ASTAnalyzer sourceParser = new JParser(logger);
+        JParser sourceParser = new JParser(logger);
 
         List<PatternComponent> patternComponentList = new LinkedList<>(); // variations are loaded as separate patterns
         List<PatternConfig> configs = patternsParser.getRunnableConfigs();

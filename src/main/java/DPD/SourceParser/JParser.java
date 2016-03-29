@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
  * I can get all fields in classA and check if any of them is of type classB
  * I can get all methods in classA and check if it returns classB, or has it as parameter
  */
-public class JParser implements ASTAnalyzer {
+public class JParser {
 
     ILogger logger;
 
@@ -41,7 +41,6 @@ public class JParser implements ASTAnalyzer {
         this.logger = logger;
     }
 
-    @Override
     public String examine(String sourceClass, ASTAnalysisType astAnalysisType, String targetType) {
         switch (astAnalysisType) {
             case HasCollectionOf:
