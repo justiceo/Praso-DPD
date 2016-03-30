@@ -33,6 +33,8 @@ public interface IBrowser {
     void addClaim(String classId, String key, String value);
 
     List<Claim> getClaims(String classId);
+
+    int getId(String classId);
 }
 
 

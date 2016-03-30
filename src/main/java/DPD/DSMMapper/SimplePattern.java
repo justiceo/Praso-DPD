@@ -63,7 +63,7 @@ public class SimplePattern implements PatternComponent {
             List<String> sorted = new ArrayList<>(entity.compliantClasses);
             //Collections.sort(sorted);
             for (String classId : sorted) {
-                logger.log("\t" + classId);
+                logger.log("\t" + classId + " (id:" + browser.getId(classId) + ")");
                 List<Claim> claims = browser.getClaims(classId);
                 if(claims != null)
                 for(Claim c: claims)

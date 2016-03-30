@@ -60,12 +60,21 @@ public class IDMBrowser implements IBrowser {
         }
     }
 
+    // todo: invalid, remove
     public String getType(String typeIdentifier) {
-        return jClasses.stream().filter(c -> c.typeId.equals(typeIdentifier)).findFirst().get().typeId;
+        return getJClassFromTypeId(typeIdentifier).typeId;
     }
 
     public List<Claim> getClaims(String typeIdentifier) {
-        return jClasses.stream().filter(c -> c.typeId.equals(typeIdentifier)).findFirst().get().claims;
+        return getJClassFromTypeId(typeIdentifier).claims;
+    }
+
+    public int getId(String typeIdentifier) {
+        return getJClassFromTypeId(typeIdentifier).classId;
+    }
+
+    public JClass getJClassFromTypeId(String typeIdentifier) {
+        return jClasses.stream().filter(c -> c.typeId.equals(typeIdentifier)).findFirst().get();
     }
 
     public String getClassPath(String typeIdentifier) {
