@@ -58,7 +58,9 @@ public class PatternDetector implements Runnable {
         // apply the rules to each individual pattern
         for (PatternComponent pattern1 : resolvedPatterns) {
             for (PatternRule rule : pattern1.getRules()) {
-                filter(pattern1, rule);
+                List<String> result = filter(pattern1, rule);
+                System.out.println("rule: " + rule.value + "\t\tresult: " + result.toString());
+                pattern1.getEntityById(rule.source).compliantClasses = result;
             }
         }
 
@@ -75,71 +77,35 @@ public class PatternDetector implements Runnable {
         return resolvedPatterns;
     }
 
-    public boolean filter(PatternComponent pattern, PatternRule rule) {
-            return dependencyFilter(pattern, rule.source, rule.target, DependencyType.valueOf(rule.value.toUpperCase()), rule.exclude);
+    public List<String> filter(PatternComponent pattern, PatternRule rule) {
+        List<String> sourceBucket = pattern.getEntityById(rule.source).compliantClasses;
+        List<String> targetBucket = pattern.getEntityById(rule.target).compliantClasses;
+
+        List<String> filteredList = singleDependencyFilter(sourceBucket, targetBucket, DependencyType.valueOf(rule.value.toUpperCase()));
+
+        if(rule.exclude) {
+            filteredList.forEach(sourceBucket::remove);
+            return sourceBucket;
+        }
+        else
+            return filteredList;
+
     }
 
-    public boolean dependencyFilter(PatternComponent pattern, String sourceEntityId, String targetEntityId, DependencyType dependencyType, boolean exclude) {
-        // if any is empty, job is already done
-        if (pattern.isVoid())
-            return false;
-
-        // get the entity buckets to dependencyFilter
-        List<String> targetBucket = pattern.getEntityById(targetEntityId).compliantClasses; // IObserver
-        List<String> sourceBucket = pattern.getEntityById(sourceEntityId).compliantClasses; // Concrete observer
-
-        // perform the dependencyFilter
-        // for each concrete observer, check if it has implements/extends dependency on entity in e1
-        List<String> filteredList = new ArrayList<>();
+    public List<String> singleDependencyFilter(List<String> sourceBucket, List<String> targetBucket, DependencyType dependencyType) {
+        // bug: 
+        List<String> result = new ArrayList<>();
         for (String srcClass : sourceBucket) {
             List<String> domDependencies = browser.getDomDependencies(srcClass, dependencyType);
             for (String dClass : domDependencies) {
                 if (targetBucket.contains(dClass)) {
-                    filteredList.add(srcClass);
+                    result.add(srcClass);
                     break;
                 }
             }
-            // browser.does(sourceClass).have(dependencyType).on(targetClass).
         }
-
-        if (exclude) {
-            sourceBucket.removeAll(filteredList);
-            filteredList = sourceBucket;
-        }
-
-        pattern.getEntityById(sourceEntityId).compliantClasses = filteredList;
-        return !filteredList.isEmpty();
+        return result;
     }
-
-    public boolean cardinalityFilter(PatternComponent pattern, String subjectBucketId) {
-        int bucketSize = 0;
-        for (PatternEntity entity : pattern.getEntities()) {
-            if (entity.id.equals(subjectBucketId))
-                bucketSize = entity.compliantClasses.size();
-        }
-        return bucketSize > 1;
-    }
-
-    /* assumes work is only on a unit of the pattern
-    public boolean astAnalyzeFilter(PatternComponent pattern, String sourceId, String targetId, ASTAnalysisType astAnalysisType, boolean exclude) {
-        if (pattern.isVoid())
-            return false;
-
-        int targetClassId = pattern.getEntityById(targetId).compliantClasses.get(0);
-        sourceParser = new JParser(new ConsoleLogger());
-
-        Iterator<Integer> sourceClassIterator = pattern.getEntityById(sourceId).compliantClasses.iterator();
-        while (sourceClassIterator.hasNext()) {
-            int sourceClassId = sourceClassIterator.next();
-            String claim = sourceParser.examine(browser.getClassPath(sourceClassId), astAnalysisType, browser.getType(targetClassId));
-            if (claim != null) {
-                browser.addClaim(sourceClassId, "ForLoop", claim );
-            }
-        }
-
-        return true;
-    }
-    */
 
     public List<String> astAnalyzeFilter(List<String> sourceBucket, String targetType, ASTAnalysisType astAnalysisType) {
         List<String> positive = new LinkedList<>();
@@ -170,7 +136,8 @@ public class PatternDetector implements Runnable {
 
         // apply filters
         for (PatternRule rule : patternC.getRules()) {
-            filter(patternC, rule);
+            List<String> resultl = filter(patternC, rule);
+            patternC.getEntityById(rule.source).compliantClasses = resultl;
         }
 
         // resolve patterns
@@ -195,9 +162,5 @@ public class PatternDetector implements Runnable {
                 pIterator.remove();
             }
         }
-    }
-
-    public void addResolvedPatternList(List<PatternComponent> resolvedPatterns) {
-        this.resolvedPatterns = resolvedPatterns;
     }
 }
