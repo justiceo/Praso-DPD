@@ -134,11 +134,22 @@ public class PatternDetector implements Runnable {
         // map entities
         mapPatternEntities();
 
-        // apply filters
+        // old apply filters
         for (PatternRule rule : patternC.getRules()) {
             List<String> resultl = filter(patternC, rule);
             patternC.getEntityById(rule.source).compliantClasses = resultl;
         }
+
+        // new apply filters: apply all the rules for a particular entity
+        /*for(PatternEntity entity: patternC.getEntities()) {
+            List<PatternRule> entityRules = patternC.getRules().stream().filter(r -> r.source.equals(entity.name)).collect(Collectors.toList());
+            List<String> result = new ArrayList<>();
+            if(entityRules != null) {
+                for(PatternRule rule: entityRules) {
+                    result = filter(patternC, rule);
+                }
+            }
+        }*/
 
         // resolve patterns
         for (PatternResolver resolver : patternC.getResolvers()) {
