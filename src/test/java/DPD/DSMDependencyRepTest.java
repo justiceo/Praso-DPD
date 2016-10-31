@@ -28,22 +28,7 @@ public class DSMDependencyRepTest {
     }
 
     @Test
-    @Description("Returns the path of the java file from the src folder")
-    public void getRelativePathTest() throws FileNotFoundException {
-        String firstFile = dsmModel.getFilePaths()[0];
-
-        // confirm the initial file name is a fully qualified path
-        String expected = "D:\\Code\\IdeaProjects\\maze\\src\\edu\\drexel\\cs\\maze\\MazeFactory.java";
-        Assert.assertEquals(expected, firstFile);
-
-        // check if relative path starts from src
-        expected = "src\\edu\\drexel\\cs\\maze\\MazeFactory.java";
-        firstFile = dsmModel.getRelativePath(firstFile);
-        Assert.assertEquals(expected, firstFile);
-    }
-
-    @Test
-    @Description("Returns the filepaths in the dsm")
+    @Description("Returns the file paths in the dsm")
     public void getFilePaths() {
         String[] filePath = dsmModel.getFilePaths();
         int expectedCount = 5;
@@ -57,4 +42,18 @@ public class DSMDependencyRepTest {
         // confirm the last item contains ConcreteObserverA
         Assert.assertTrue("The first file should contain Concrete observer B", filePath[0].contains("ConcreteObserverB"));
     }
-}
+
+    @Test
+    @Description("Returns the path of the java file from the src folder")
+    public void getRelativePathTest() throws FileNotFoundException {
+        String firstFile = dsmModel.getFilePaths()[0];
+
+        // confirm the initial file name is a fully qualified path
+        String expected = "D:\\Code\\IdeaProjects\\maze\\src\\edu\\drexel\\cs\\maze\\MazeFactory.java";
+        Assert.assertEquals("Original file should match", expected, firstFile);
+
+        // check if relative path starts from src
+        expected = "src\\edu\\drexel\\cs\\maze\\MazeFactory.java";
+        firstFile = dsmModel.getRelativePath(firstFile);
+        Assert.assertEquals("Relative path did not start from src", expected, firstFile);
+    }
