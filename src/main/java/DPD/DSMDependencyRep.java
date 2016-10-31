@@ -123,6 +123,11 @@ public class DSMDependencyRep implements DependencyRep {
         writer.close();
     }
 
+    /**
+     * Returns all the junk before the source (src) folder
+     * @param filePath
+     * @return
+     */
     private String getAbsDirFromPath(String filePath) {
         // we'll use "src" for now as root of dev source code
         int cutoff = filePath.indexOf("src");
@@ -132,6 +137,11 @@ public class DSMDependencyRep implements DependencyRep {
         return null;
     }
 
+    /**
+     * Returns the path of the file starting from the source (src) directory
+     * @param absolutePath
+     * @return
+     */
     public String getRelativePath(String absolutePath) {
         return absolutePath.replace(absDir, "");
     }
