@@ -1,6 +1,7 @@
 package DPD;
 
 import com.sun.org.glassfish.gmbal.Description;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -17,7 +18,7 @@ public class DSMDependencyRepTest {
 
     @Before
     public void setup() throws FileNotFoundException {
-        dsmFile = "files\\dsm\\Maze.dsm";
+        dsmFile = "files\\dsm\\simpleObserverPattern.dsm";
         dsmModel = new DSMDependencyRep(dsmFile);
     }
 
@@ -39,5 +40,21 @@ public class DSMDependencyRepTest {
         expected = "src\\edu\\drexel\\cs\\maze\\MazeFactory.java";
         firstFile = dsmModel.getRelativePath(firstFile);
         Assert.assertEquals(expected, firstFile);
+    }
+
+    @Test
+    @Description("Returns the filepaths in the dsm")
+    public void getFilePaths() {
+        String[] filePath = dsmModel.getFilePaths();
+        int expectedCount = 5;
+
+        // confirm the count matches that in file
+        Assert.assertEquals("File count should be 5", expectedCount, filePath.length);
+
+        // confirm it's not an array of empty strings
+        Assert.assertFalse("File paths cannot be empty", StringUtils.isAnyEmpty(filePath));
+
+        // confirm the last item contains ConcreteObserverA
+        Assert.assertTrue("The first file should contain Concrete observer B", filePath[0].contains("ConcreteObserverB"));
     }
 }
