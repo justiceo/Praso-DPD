@@ -1,28 +1,42 @@
 package DPD;
 
-import com.github.javaparser.JavaParser;
-import com.github.javaparser.ParseException;
-import com.github.javaparser.ast.CompilationUnit;
-
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
  * Created by Justice on 3/20/2016.
+ * Represents the model of a DSM file
  */
 public class DSMDependencyRep implements DependencyRep {
 
     private boolean isDamaged = true;
+    /**
+     * Contains a list of the different kinds of dependencies that exist in this matrix
+     * E.g. Use, Call, Inherit
+     */
     private String dependencyLine;
+
+    /**
+     * Contains a list of the full paths to the java classes represented in the matrix
+     * E.g. D:.Code.IdeaProjects.maze.src.edu.drexel.cs.maze.MazeFactory_java
+     */
     private String[] filePaths;
+
+    /**
+     * Contains the matrix of the dependencies between the classes
+     * E.g. 0 0 0 0 0 0 01100100 0
+     */
     private String[] matrixLines;
+
+    /**
+     * The fully qualified filename of the dsm file in question
+     */
     private String fileName;
+
+    /**
+     * The root path of the source code, all the junk before before '/src'
+     */
     private String absDir;
-    private List<String> locations;
 
     public DSMDependencyRep() {
     }
@@ -44,12 +58,8 @@ public class DSMDependencyRep implements DependencyRep {
             filePaths[i] = fixFilePath(in.nextLine());
         }
 
-        // test
-        //
-
-
-        setAbsDirFromPath();
-
+        // Set the source directory
+        absDir = getAbsDirFromPath(filePaths[0]);
     }
 
     public String getDependencyLine() {
@@ -108,55 +118,46 @@ public class DSMDependencyRep implements DependencyRep {
         for (String filePath : filePaths) {
             writer.write(filePath + "\n");
         }
-        writer.write(locations.toString() + "\n");
+        writer.write(absDir + "\n");
         writer.flush();
         writer.close();
     }
 
-    private void setAbsDir() throws IOException, ParseException {
-        String filePath = filePaths[0];
-        if (!Files.exists(Paths.get(filePath)))
-            throw new IOException("This operation can only be performed on the host system - for accuracy sake.");
-
-        CompilationUnit cu = JavaParser.parse(new File(filePath));
-        String packageName = cu.getPackage().toString().replace("package ", "");
-        packageName = packageName.substring(0, packageName.lastIndexOf(";"));
-        String fileName = packageName + "." + cu.getTypes().get(0).getName() + "_java";
-        fileName = fixFilePath(fileName);
-        absDir = filePath.replace(fileName, "");
-        locations = new ArrayList<>();
-        locations.add(absDir);
-    }
-
-    private void setAbsDirFromPath() {
-        String filePath = filePaths[0];
+    private String getAbsDirFromPath(String filePath) {
+        // we'll use "src" for now as root of dev source code
         int cutoff = filePath.indexOf("src");
         if(cutoff != -1) {
-            absDir = filePath.substring(0, cutoff);
-            locations = new ArrayList();
-            locations.add(absDir);
-            System.out.println("package: " + absDir);
+            return filePath.substring(0, cutoff);
         }
+        return null;
     }
 
     public String getRelativePath(String absolutePath) {
         return absolutePath.replace(absDir, "");
     }
 
+    /**
+     * Converts D:.Code.IdeaProjects.maze.src.edu.drexel.cs.maze.MazeFactory_java
+     * to D:/Code/IdeaProjects/maze/src/edu/drexel/cs/maze/MazeFactory.java
+     * @param damagedPath
+     * @return
+     */
     public String fixFilePath(String damagedPath) {
         try {
+            // first confirm its broken
             int l = damagedPath.lastIndexOf("_");
             if (l == -1) return damagedPath; // it's good.
-            int count = damagedPath.split("_").length;
-            if (!damagedPath.split("_")[count - 1].equals("java")) {
+
+            String ext = damagedPath.substring(l);
+            if (!ext.equals("_java")) {
                 System.out.println("cannot fix path: " + damagedPath);
                 return damagedPath;
             }
-            String ext = damagedPath.substring(l).replace("_", ".");
-            return damagedPath.substring(0, l).replace(".", "\\") + ext;
+            return damagedPath.substring(0, l).replace(".", "\\") + ext.replace("_", ".");
+
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("err: " + damagedPath);
+            System.out.println("error converting " + damagedPath);
+            return damagedPath;
         }
-        return null;
     }
 }
