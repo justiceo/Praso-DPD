@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <config>
 	<pattern id="observer1" name="Observer Pattern" config-file="files\rules\observer-pattern-simple.xml" include="true" />
-	<pattern id="observer2" name="Observer Pattern Abstract" config-file="files\rules\observer-pattern.xml" include="false" />
-	<pattern id="composite1" name="Composite Pattern" config-file="files\rules\composite-pattern.xml" include="true" />
+	<pattern id="observer2" name="Observer Pattern Abstract" config-file="files\rules\observer-pattern-abs.xml" include="false" />
+	<pattern id="composite1" name="Composite Pattern" config-file="files\rules\composite-pattern.xml" include="false" />
 	<pattern id="visitor1" name="Composite Pattern" config-file="files\visitor-pattern.xml" />
 	<pattern id="strategy1" name="Strategy Pattern" config-file="files\strategy-pattern.xml" include="false" />
 	<pattern id="template1" name="Template Method Pattern" config-file="files\rules\template-method-pattern.xml" include="false" />

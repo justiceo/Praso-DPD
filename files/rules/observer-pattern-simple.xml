@@ -6,6 +6,8 @@
 	<rule source="e2" value="Implement" target="e1" />
 	<rule source="e3" value="Typed" target="e1" />
 	<rule source="e3" value="Use" target="e1" />
+	<rule source="e3" value="Call" target="e1" />
+	<rule exclude="true" source="e2" value="Typed" target="e1" />
 
 	<code-snippet source="e3" value="HasCollectionOf" target="e1" />
 	<code-snippet source="e3" value="IteratesOver" target="e1" />

@@ -21,7 +21,7 @@ import java.util.List;
 public class Main {
 
     private static final String configFile = "config.xml";
-    private static final String testDsmFile = "files\\dsm\\simpleObserverPattern.dsm";
+    private static final String testDsmFile = "files\\dsm\\Maze.dsm";
 
     public static void main(String[] args) throws InterruptedException {
         DSMPreprocessor preprocessor = new DSMPreprocessor();
