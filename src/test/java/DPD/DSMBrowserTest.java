@@ -4,6 +4,7 @@ import DPD.DependencyBrowser.IBrowser;
 import DPD.DependencyBrowser.IDMBrowser;
 import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
+import DPD.PreProcessor.DSMPreprocessor;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,11 +21,17 @@ import java.util.List;
 public class DSMBrowserTest {
 
     private IBrowser browser;
-    private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\observer-sample.dsm";
+    private final String testDsmFile = "files\\simpleObserverPattern.dsm";
 
     @Before
-    public void setup() throws FileNotFoundException {
-        browser = new IDMBrowser(new ConsoleLogger(), new ArrayList<>(), "");
+    public void setup() throws FileNotFoundException, InterruptedException {
+
+        DSMPreprocessor preprocessor = new DSMPreprocessor();
+        if (!preprocessor.load(testDsmFile))
+            throw new FileNotFoundException();
+
+        preprocessor.buildJClasses();
+        browser = new IDMBrowser(new ConsoleLogger(), preprocessor.getClassList(), preprocessor.getDependencyLine());
     }
 
     @After

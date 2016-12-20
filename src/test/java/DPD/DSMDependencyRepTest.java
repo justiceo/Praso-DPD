@@ -29,7 +29,7 @@ public class DSMDependencyRepTest {
 
     @Test
     @Description("Returns the file paths in the dsm")
-    public void getFilePaths() {
+    public void getFilePathsTest() {
         String[] filePath = dsmModel.getFilePaths();
         int expectedCount = 5;
 
@@ -45,7 +45,7 @@ public class DSMDependencyRepTest {
 
     @Test
     @Description("Returns the path of the java file from the src folder")
-    public void getRelativePathTest() throws FileNotFoundException {
+    public void getRelativePathTest() {
         String firstFile = dsmModel.getFilePaths()[0];
 
         // confirm the initial file name is a fully qualified path
@@ -57,3 +57,38 @@ public class DSMDependencyRepTest {
         firstFile = dsmModel.getRelativePath(firstFile);
         Assert.assertEquals("Relative path did not start from src", expected, firstFile);
     }
+
+    @Test
+    @Description("Returns the matrix lines in the dsm")
+    public void getMatrixTest() {
+        String[] matrixLines = dsmModel.getMatrixLines();
+        int expectedCount = 5;
+
+        // confirm the count matches that in file
+        Assert.assertEquals("The matrix count should be 5", expectedCount, matrixLines.length);
+
+        // confirm it's not an array of empty strings
+        Assert.assertFalse("Matrix lines cannot be empty", StringUtils.isAnyEmpty(matrixLines));
+
+        // confirm the last item contains ConcreteObserverA
+        Assert.assertTrue("The first line should contain the dependency", matrixLines[0].contains("001"));
+    }
+
+    @Test
+    @Description("Converts file path from dotted notation to escaped file")
+    public void fixFilePathTest() {
+        String originalFirstFile = "D:.Code.IdeaProjects.DesignPatterns.src.CommonPatterns.observer.ConcreteObserverB_java";
+        String firstFile = dsmModel.getFilePaths()[0];
+
+        // confirm the initial file name is a fully qualified path
+        String expected = "D:\\Code\\IdeaProjects\\maze\\src\\edu\\drexel\\cs\\maze\\MazeFactory.java";
+        Assert.assertEquals("Original file should match", expected, firstFile);
+
+        // check if relative path starts from src
+        expected = "src\\edu\\drexel\\cs\\maze\\MazeFactory.java";
+        firstFile = dsmModel.getRelativePath(firstFile);
+        Assert.assertEquals("Relative path did not start from src", expected, firstFile);
+    }
+
+
+}
