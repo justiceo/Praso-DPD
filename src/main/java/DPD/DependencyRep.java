@@ -7,7 +7,7 @@ import java.io.IOException;
  */
 public interface DependencyRep {
 
-    String getDependencyLine();
+    String getExhibitedDependencyLine();
 
     String[] getMatrixLines();
 

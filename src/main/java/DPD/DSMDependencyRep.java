@@ -14,7 +14,7 @@ public class DSMDependencyRep implements DependencyRep {
      * Contains a list of the different kinds of dependencies that exist in this matrix
      * E.g. Use, Call, Inherit
      */
-    private String dependencyLine;
+    private String exhibitedDependencyLine;
 
     /**
      * Contains a list of the full paths to the java classes represented in the matrix
@@ -45,7 +45,7 @@ public class DSMDependencyRep implements DependencyRep {
 
         this.fileName = fileName;
         Scanner in = new Scanner(new File(fileName));          /* load dsm file */
-        dependencyLine = in.nextLine();
+        exhibitedDependencyLine = in.nextLine();
         int matrixSize = Integer.parseInt(in.nextLine());
 
         matrixLines = new String[matrixSize];
@@ -62,8 +62,8 @@ public class DSMDependencyRep implements DependencyRep {
         absDir = getAbsDirFromPath(filePaths[0]);
     }
 
-    public String getDependencyLine() {
-        return dependencyLine;
+    public String getExhibitedDependencyLine() {
+        return exhibitedDependencyLine;
     }
 
     public String[] getMatrixLines() {
@@ -98,7 +98,7 @@ public class DSMDependencyRep implements DependencyRep {
     }
 
     public void saveWithRelativePaths() throws IOException {
-        if (filePaths == null || matrixLines == null || dependencyLine == null) {
+        if (filePaths == null || matrixLines == null || exhibitedDependencyLine == null) {
             System.out.println("the information necessary to create a dsm is incomplete");
             return;
         }
@@ -110,7 +110,7 @@ public class DSMDependencyRep implements DependencyRep {
 
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(new File(fileName)));
-        writer.write(dependencyLine + "\n");
+        writer.write(exhibitedDependencyLine + "\n");
         writer.write(matrixSize + "\n");
         for (int i = 0; i < matrixSize; i++) {
             writer.write(matrixLines[i] + "\n");

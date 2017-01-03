@@ -30,7 +30,7 @@ public class IDMDependencyRep implements DependencyRep {
         in.close();
     }
 
-    public String getDependencyLine() {
+    public String getExhibitedDependencyLine() {
         return dependencyLine;
     }
 

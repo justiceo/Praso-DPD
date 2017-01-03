@@ -39,15 +39,13 @@ public class LoadDSM {
         this.matrixLines = dsmDependencyRep.getMatrixLines();
         this.filePaths = dsmDependencyRep.getFilePaths();
         this.matrixSize = matrixLines.length;
-        this.dependencyLine = dsmDependencyRep.getDependencyLine();
+        this.dependencyLine = dsmDependencyRep.getExhibitedDependencyLine();
 
         return true;
     }
 
     public void buildJClasses() throws InterruptedException {
-        long startTime = System.currentTimeMillis();
         jClassList = Collections.synchronizedList(new LinkedList<>());
-
         for (int i = 0; i < matrixSize; i++) {
             JClass jClass = new JClass();
             jClass.classId = i;
@@ -56,7 +54,21 @@ public class LoadDSM {
             jClass.flags = new LinkedList<>();
             jClassList.add(jClass);
         }
+    }
 
+    public List<JClass> getClassList() {
+        return jClassList;
+    }
+
+    public String getDependencyLine() {
+        return dependencyLine;
+    }
+
+    public void process() throws InterruptedException {
+        process(jClassList, matrixSize, dependencyLine);
+    }
+
+    public void process(List<JClass> jClassList, int matrixSize, String dependencyLine) throws InterruptedException {
         Filter.init(jClassList, matrixSize);
 
 
@@ -80,14 +92,6 @@ public class LoadDSM {
         loopsFilter.join();
         expandMatrixFilter.join();
 
-        System.out.println("all filters have finished (" + (System.currentTimeMillis() - startTime) + "ms)");
-    }
-
-    public List<JClass> getClassList() {
-        return jClassList;
-    }
-
-    public String getDependencyLine() {
-        return dependencyLine;
+        System.out.println("all filters have finished");
     }
 }

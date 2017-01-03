@@ -23,7 +23,7 @@ public class IDMDependencyRepTest {
         IDMDependencyRep idmRep = new IDMDependencyRep();
         String targetFile = testDsmFile + ".idm";
         //assertTrue(!Files.exists(Paths.get(targetFile)));
-        idmRep.saveAs(targetFile, dsmDependencyRep.getDependencyLine(), dsmDependencyRep.getFilePaths(), dsmDependencyRep.getMatrixLines());
+        idmRep.saveAs(targetFile, dsmDependencyRep.getExhibitedDependencyLine(), dsmDependencyRep.getFilePaths(), dsmDependencyRep.getMatrixLines());
         assertTrue(Files.exists(Paths.get(targetFile)));
 
         // todo: re-load and verify contents with those of dsm (works by inspection lol)

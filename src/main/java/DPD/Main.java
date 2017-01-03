@@ -21,21 +21,24 @@ import java.util.List;
 public class Main {
 
     private static final String configFile = "config.xml";
-    private static final String testDsmFile = "files\\dsm\\apache_cassandra.dsm";
+    private static final String testDsmFile = "files\\dsm\\Maze.dsm";
 
     public static void main(String[] args) throws InterruptedException {
         // load the dsm file and on the way processing the classes
-        LoadDSM preprocessor = new LoadDSM();
+        LoadDSM loadDSM = new LoadDSM();
         try {
-            if (preprocessor.load(testDsmFile)) {
-                preprocessor.buildJClasses();
+            if (loadDSM.load(testDsmFile)) {
+                loadDSM.buildJClasses();
             }
         } catch (FileNotFoundException | InterruptedException e1) {
             System.out.println("error loading " + testDsmFile + ": " + e1.toString());
             System.exit(0);
         }
 
-        DSMBrowser browser = new IDMBrowser(new ConsoleLogger(), preprocessor.getClassList(), preprocessor.getDependencyLine());
+        // hydrates the fields in each jClass
+        loadDSM.process();
+
+        DSMBrowser browser = new IDMBrowser(new ConsoleLogger(), loadDSM.getClassList(), loadDSM.getDependencyLine());
 
         ILogger logger = new ConsoleLogger();
         logger.setVerbose(false);
