@@ -29,4 +29,9 @@ public class JClass {
     public String dependencyLine;
     public List<Flag> flags;
     public List<Claim> claims;
+    public int[] dependencyMatrix;
+
+    public int[] getDependencyMatrix(String str) {
+        return null;
+    }
 }

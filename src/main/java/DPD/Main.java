@@ -2,12 +2,12 @@ package DPD;
 
 import DPD.DSMMapper.PatternComponent;
 import DPD.DSMMapper.PatternDetectorManager;
-import DPD.DependencyBrowser.IBrowser;
+import DPD.DependencyBrowser.DSMBrowser;
 import DPD.DependencyBrowser.IDMBrowser;
 import DPD.PatternParser.CommonPatternsParser;
-import DPD.PatternParser.IPatternsParser;
+import DPD.PatternParser.IDesignPatternRules;
 import DPD.PatternParser.PatternConfig;
-import DPD.PreProcessor.DSMPreprocessor;
+import DPD.PreProcessor.LoadDSM;
 import DPD.SourceParser.JParser;
 
 import java.io.File;
@@ -21,10 +21,11 @@ import java.util.List;
 public class Main {
 
     private static final String configFile = "config.xml";
-    private static final String testDsmFile = "files\\dsm\\Maze.dsm";
+    private static final String testDsmFile = "files\\dsm\\apache_cassandra.dsm";
 
     public static void main(String[] args) throws InterruptedException {
-        DSMPreprocessor preprocessor = new DSMPreprocessor();
+        // load the dsm file and on the way processing the classes
+        LoadDSM preprocessor = new LoadDSM();
         try {
             if (preprocessor.load(testDsmFile)) {
                 preprocessor.buildJClasses();
@@ -34,12 +35,12 @@ public class Main {
             System.exit(0);
         }
 
-        IBrowser browser = new IDMBrowser(new ConsoleLogger(), preprocessor.getClassList(), preprocessor.getDependencyLine());
+        DSMBrowser browser = new IDMBrowser(new ConsoleLogger(), preprocessor.getClassList(), preprocessor.getDependencyLine());
 
         ILogger logger = new ConsoleLogger();
         logger.setVerbose(false);
 
-        IPatternsParser patternsParser = new CommonPatternsParser();
+        IDesignPatternRules patternsParser = new CommonPatternsParser();
         patternsParser.init(new File(configFile));
 
         JParser sourceParser = new JParser(logger);

@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Justice on 1/27/2016.
  */
-public class IDMBrowser implements IBrowser {
+public class IDMBrowser implements DSMBrowser {
 
     private final int matrixSize;
     private final List<DependencyType> dependencyTypes;

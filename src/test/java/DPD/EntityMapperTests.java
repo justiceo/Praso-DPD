@@ -2,7 +2,7 @@ package DPD;
 
 import DPD.DSMMapper.PatternComponent;
 import DPD.DSMMapper.PatternEntity;
-import DPD.DependencyBrowser.IBrowser;
+import DPD.DependencyBrowser.DSMBrowser;
 import DPD.Enums.ClassType;
 import org.junit.After;
 import org.junit.Assert;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class EntityMapperTests {
 
-    private IBrowser browser;
+    private DSMBrowser browser;
     private PatternComponent observerPattern;
     private final String configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
     private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\observer-sample.dsm";

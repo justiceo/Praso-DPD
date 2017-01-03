@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class PatternsParserTest { // just confirms we can load patterns from xml into IPatternObjects
 
-    private IPatternsParser patternsParser;
+    private IDesignPatternRules patternsParser;
     private final String configFilePath = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
     private final int observer1RuleCount = 6;
     private final int observer1EntityCount = 3;

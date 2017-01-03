@@ -1,6 +1,6 @@
 package DPD.DSMMapper;
 
-import DPD.DependencyBrowser.IBrowser;
+import DPD.DependencyBrowser.DSMBrowser;
 import DPD.Enums.ASTAnalysisType;
 import DPD.Enums.DependencyType;
 import DPD.SourceParser.JParser;
@@ -17,11 +17,11 @@ import java.util.List;
 public class PatternDetector implements Runnable {
 
     protected List<PatternComponent> resolvedPatterns = new ArrayList<>();
-    private IBrowser browser;
+    private DSMBrowser browser;
     private JParser sourceParser;
     private PatternComponent patternC;
 
-    public PatternDetector(IBrowser browser, PatternComponent pattern) {
+    public PatternDetector(DSMBrowser browser, PatternComponent pattern) {
         this.browser = browser;
         this.patternC = pattern;
     }

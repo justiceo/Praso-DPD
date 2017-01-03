@@ -1,7 +1,7 @@
 package DPD.DSMMapper;
 
 import DPD.Claim;
-import DPD.DependencyBrowser.IBrowser;
+import DPD.DependencyBrowser.DSMBrowser;
 import DPD.ILogger;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -54,7 +54,7 @@ public class SimplePattern implements PatternComponent {
     }
 
     @Override
-    public void displayMembers(ILogger logger, IBrowser browser) {
+    public void displayMembers(ILogger logger, DSMBrowser browser) {
         logger.log("\n======= begin display pattern ==========");
         logger.log("Pattern: " + name);
 

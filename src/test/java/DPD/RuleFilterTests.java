@@ -1,9 +1,9 @@
 package DPD;
 
 import DPD.DSMMapper.*;
-import DPD.DependencyBrowser.IBrowser;
+import DPD.DependencyBrowser.DSMBrowser;
 import DPD.PatternParser.CommonPatternsParser;
-import DPD.PatternParser.IPatternsParser;
+import DPD.PatternParser.IDesignPatternRules;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,14 +17,14 @@ import java.util.List;
 public class RuleFilterTests {
 
     private PatternDetector patternDetector;
-    private IBrowser browser;
+    private DSMBrowser browser;
     private PatternComponent observerPattern;
     private final String configFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\config.xml";
     private final String testDsmFile = "D:\\Code\\IdeaProjects\\DesignPatterns\\files\\observer-sample.dsm";
 
     @Before
     public void setup() {
-        IPatternsParser patternsParser = new CommonPatternsParser();
+        IDesignPatternRules patternsParser = new CommonPatternsParser();
         patternsParser.init(new File(configFile));
         observerPattern = patternsParser.parse(patternsParser.getRunnableConfigs().get(0));
 

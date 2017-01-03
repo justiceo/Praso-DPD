@@ -1,6 +1,6 @@
 package DPD.DSMMapper;
 
-import DPD.DependencyBrowser.IBrowser;
+import DPD.DependencyBrowser.DSMBrowser;
 import DPD.ILogger;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -29,7 +29,7 @@ public interface PatternComponent extends Serializable {
     @XmlElement(name = "code-snippet")
     List<PatternCodeSnippet> getCodeSnippets();
 
-    void displayMembers(ILogger logger, IBrowser browser);
+    void displayMembers(ILogger logger, DSMBrowser browser);
 
     PatternEntity getEntityById(String id);
 

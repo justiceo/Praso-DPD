@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Justice on 1/26/2016.
  * Exposees methods for manipulating a dsm
  */
-public interface IBrowser {
+public interface DSMBrowser {
 
     /**
      * Given an absolute or relative* class type, it would return list of class names that satisfy this classType

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by Justice on 1/27/2016.
  */
-public interface IPatternsParser {
+public interface IDesignPatternRules {
 
 
     void init(File configFile);

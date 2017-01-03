@@ -1,6 +1,6 @@
 package DPD.DSMMapper;
 
-import DPD.DependencyBrowser.IBrowser;
+import DPD.DependencyBrowser.DSMBrowser;
 import DPD.SourceParser.JParser;
 
 import java.util.LinkedList;
@@ -11,12 +11,12 @@ import java.util.List;
  */
 public class PatternDetectorManager {
     private List<PatternComponent> patterns;
-    private IBrowser browser;
+    private DSMBrowser browser;
     private List<Thread> patternThreads;
     private List<PatternDetector> detectors;
     private JParser sourceParser;
 
-    public PatternDetectorManager(List<PatternComponent> patternComponentList, IBrowser browser, JParser sourceParser) {
+    public PatternDetectorManager(List<PatternComponent> patternComponentList, DSMBrowser browser, JParser sourceParser) {
         this.patterns = patternComponentList;
         this.browser = browser;
         this.sourceParser = sourceParser;

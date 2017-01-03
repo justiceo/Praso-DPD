@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Justice on 1/27/2016.
  */
-public class CommonPatternsParser implements IPatternsParser {
+public class CommonPatternsParser implements IDesignPatternRules {
     private List<PatternConfig> patternConfigs;
 
     @Override

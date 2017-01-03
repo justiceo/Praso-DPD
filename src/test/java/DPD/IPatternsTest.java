@@ -5,7 +5,7 @@ import DPD.DSMMapper.PatternEntity;
 import DPD.DSMMapper.PatternRule;
 import DPD.Enums.ClassType;
 import DPD.PatternParser.CommonPatternsParser;
-import DPD.PatternParser.IPatternsParser;
+import DPD.PatternParser.IDesignPatternRules;
 import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
@@ -24,7 +24,7 @@ public class IPatternsTest { // tests that loaded patterns contain the right inf
 
     @Before
     public void setup() {
-        IPatternsParser patternsParser = new CommonPatternsParser();
+        IDesignPatternRules patternsParser = new CommonPatternsParser();
         patternsParser.init(new File(configFilePath));
         observerPattern = patternsParser.parse(patternsParser.getRunnableConfigs().get(0));
     }

@@ -13,8 +13,10 @@ import java.util.List;
 
 /**
  * Created by Justice on 3/17/2016.
+ * Reads a DSM file and builds a jClass by matching the filename and dependency line of the class.
+ * Then it runs multiple threads that gather and hydrate other information about the classes
  */
-public class DSMPreprocessor {
+public class LoadDSM {
     private String[] matrixLines;
     private String[] filePaths;
     private String dependencyLine;
