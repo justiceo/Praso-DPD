@@ -1,7 +1,10 @@
 package DPD;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 /**
  * Created by Justice on 3/20/2016.
@@ -27,24 +30,36 @@ public class DSMDependencyRep implements DependencyRep {
      * E.g. 0 0 0 0 0 0 01100100 0
      */
     private String[] matrixLines;
+    private String[] matrixColumns;
 
     /**
      * The fully qualified filename of the dsm file in question
      */
-    private String fileName;
+    private String dsmFilePath;
 
     /**
      * The root path of the source code, all the junk before before '/src'
      */
     private String absDir;
+    private Logger log = Logger.getLogger(getClass().getName().toString());
 
     public DSMDependencyRep() {
     }
 
-    public DSMDependencyRep(String fileName) throws FileNotFoundException {
+    public DSMDependencyRep(String dsmFilePath) {
+        this.dsmFilePath = dsmFilePath;
+    }
 
-        this.fileName = fileName;
-        Scanner in = new Scanner(new File(fileName));          /* load dsm file */
+    public boolean tryLoad() {
+       /* tryLoad dsm file */
+        Scanner in = null;
+        try {
+            in = new Scanner(new File(dsmFilePath));
+        } catch (FileNotFoundException e) {
+            log.severe("Dsm file does not exist: " + dsmFilePath);
+            return false;
+        }
+
         exhibitedDependencyLine = in.nextLine();
         int matrixSize = Integer.parseInt(in.nextLine());
 
@@ -58,8 +73,12 @@ public class DSMDependencyRep implements DependencyRep {
             filePaths[i] = fixFilePath(in.nextLine());
         }
 
+        // close file input
+        in.close();
+
         // Set the source directory
         absDir = getAbsDirFromPath(filePaths[0]);
+        return true;
     }
 
     public String getExhibitedDependencyLine() {
@@ -109,7 +128,7 @@ public class DSMDependencyRep implements DependencyRep {
         }
 
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter(new File(fileName)));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(new File(dsmFilePath)));
         writer.write(exhibitedDependencyLine + "\n");
         writer.write(matrixSize + "\n");
         for (int i = 0; i < matrixSize; i++) {
@@ -169,5 +188,9 @@ public class DSMDependencyRep implements DependencyRep {
             System.out.println("error converting " + damagedPath);
             return damagedPath;
         }
+    }
+
+    public void buildMatrixRowColumns() {
+        List<HashMap<String, String>> rowsAdjacencyList;
     }
 }

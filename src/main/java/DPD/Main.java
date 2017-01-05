@@ -11,7 +11,6 @@ import DPD.PreProcessor.LoadDSM;
 import DPD.SourceParser.JParser;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,16 +20,16 @@ import java.util.List;
 public class Main {
 
     private static final String configFile = "config.xml";
-    private static final String testDsmFile = "files\\dsm\\Maze.dsm";
+    private static final String testDsmFile = "files\\dsm\\simpleObserverPattern.dsm";
 
     public static void main(String[] args) throws InterruptedException {
-        // load the dsm file and on the way processing the classes
+        // tryLoad the dsm file and on the way processing the classes
         LoadDSM loadDSM = new LoadDSM();
         try {
             if (loadDSM.load(testDsmFile)) {
                 loadDSM.buildJClasses();
             }
-        } catch (FileNotFoundException | InterruptedException e1) {
+        } catch (InterruptedException e1) {
             System.out.println("error loading " + testDsmFile + ": " + e1.toString());
             System.exit(0);
         }

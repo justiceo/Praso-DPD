@@ -4,12 +4,10 @@ import DPD.DSMDependencyRep;
 import DPD.Enums.Flag;
 import DPD.JClass;
 
-import java.io.FileNotFoundException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Justice on 3/17/2016.
@@ -26,16 +24,16 @@ public class LoadDSM {
 
     private long startTime;
 
-    public boolean load(String dsmFilePath) throws FileNotFoundException {
-        if (!Files.exists(Paths.get(dsmFilePath))) {
-            System.out.println("dsm file does not exist");
-            return false;
-        }
+    private Logger log = Logger.getLogger(getClass().getName().toString());
+
+    public boolean load(String dsmFilePath) {
+
 
         startTime = System.currentTimeMillis();
 
         currFilePath = dsmFilePath;
         DSMDependencyRep dsmDependencyRep = new DSMDependencyRep(dsmFilePath);
+        if(!dsmDependencyRep.tryLoad()) return false;
         this.matrixLines = dsmDependencyRep.getMatrixLines();
         this.filePaths = dsmDependencyRep.getFilePaths();
         this.matrixSize = matrixLines.length;
