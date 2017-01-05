@@ -12,6 +12,7 @@ import org.junit.Test;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Justice on 1/27/2016.
@@ -30,7 +31,7 @@ public class DSMBrowserTest {
             throw new FileNotFoundException();
 
         preprocessor.buildJClasses();
-        browser = new IDMBrowser(new ConsoleLogger(), preprocessor.getClassList(), preprocessor.getDependencyLine());
+        browser = new IDMBrowser(Logger.getGlobal(), preprocessor.getClassList(), preprocessor.getDependencyLine());
     }
 
     @After

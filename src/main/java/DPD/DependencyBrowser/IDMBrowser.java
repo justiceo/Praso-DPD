@@ -3,12 +3,12 @@ package DPD.DependencyBrowser;
 import DPD.Claim;
 import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
-import DPD.ILogger;
 import DPD.JClass;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 
@@ -20,10 +20,10 @@ public class IDMBrowser implements DSMBrowser {
     private final int matrixSize;
     private final List<DependencyType> dependencyTypes;
     private final List<JClass> jClasses;
-    private final ILogger logger;
+    private final Logger logger;
     private final int dependencyTypesSize;
 
-    public IDMBrowser(ILogger logger, List<JClass> jClasses, String dependencyLine) {
+    public IDMBrowser(Logger logger, List<JClass> jClasses, String dependencyLine) {
         this.logger = logger;
         this.jClasses = jClasses;
         this.matrixSize = jClasses.size();

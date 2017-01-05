@@ -1,9 +1,9 @@
 package DPD.DSMMapper;
 
 import DPD.DependencyBrowser.DSMBrowser;
-import DPD.ILogger;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Justice on 3/23/2016.
@@ -30,7 +30,7 @@ public class CompositePattern implements PatternComponent {
         return null;
     }
 
-    public void displayMembers(ILogger logger, DSMBrowser browser) {
+    public void displayMembers(Logger logger, DSMBrowser browser) {
 
     }
 

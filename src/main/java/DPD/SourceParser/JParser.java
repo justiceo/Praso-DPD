@@ -1,7 +1,6 @@
 package DPD.SourceParser;
 
 import DPD.Enums.ASTAnalysisType;
-import DPD.ILogger;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseException;
 import com.github.javaparser.ast.CompilationUnit;
@@ -18,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -35,9 +35,9 @@ import java.util.stream.Collectors;
  */
 public class JParser {
 
-    ILogger logger;
+    Logger logger;
 
-    public JParser(ILogger logger) {
+    public JParser(Logger logger) {
         this.logger = logger;
     }
 

@@ -13,6 +13,7 @@ import DPD.SourceParser.JParser;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Justice on 2/2/2016.
@@ -20,7 +21,7 @@ import java.util.List;
 public class Main {
 
     private static final String configFile = "config.xml";
-    private static final String testDsmFile = "files\\dsm\\simpleObserverPattern.dsm";
+    private static final String testDsmFile = "files\\dsm\\Maze.dsm";
 
     public static void main(String[] args) throws InterruptedException {
         // tryLoad the dsm file and on the way processing the classes
@@ -37,10 +38,8 @@ public class Main {
         // hydrates the fields in each jClass
         loadDSM.process();
 
-        DSMBrowser browser = new IDMBrowser(new ConsoleLogger(), loadDSM.getClassList(), loadDSM.getDependencyLine());
-
-        ILogger logger = new ConsoleLogger();
-        logger.setVerbose(false);
+        Logger logger = Logger.getGlobal();
+        DSMBrowser browser = new IDMBrowser(logger, loadDSM.getClassList(), loadDSM.getDependencyLine());
 
         IDesignPatternRules patternsParser = new CommonPatternsParser();
         patternsParser.init(new File(configFile));

@@ -2,13 +2,13 @@ package DPD.DSMMapper;
 
 import DPD.Claim;
 import DPD.DependencyBrowser.DSMBrowser;
-import DPD.ILogger;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by Justice on 1/28/2016.
@@ -54,16 +54,16 @@ public class SimplePattern implements PatternComponent {
     }
 
     @Override
-    public void displayMembers(ILogger logger, DSMBrowser browser) {
-        logger.log("\n======= begin display pattern ==========");
-        logger.log("Pattern: " + name);
+    public void displayMembers(Logger logger, DSMBrowser browser) {
+        logger.info("\n======= begin display pattern ==========");
+        logger.info("Pattern: " + name);
 
         for (PatternEntity entity : entities) {
-            logger.log("\n" + entity.name + " is satisfied by: ");
+            logger.info("\n" + entity.name + " is satisfied by: ");
             List<String> sorted = new ArrayList<>(entity.compliantClasses);
             //Collections.sort(sorted);
             for (String classId : sorted) {
-                logger.log("\t" + classId + " (id:" + browser.getId(classId) + ")");
+                logger.info("\t" + classId + " (id:" + browser.getId(classId) + ")");
                 List<Claim> claims = browser.getClaims(classId);
                 if(claims != null)
                 for(Claim c: claims)
