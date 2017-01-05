@@ -44,17 +44,17 @@ public class DSMDataStructureTest {
 
         // row 1
         int[] expected = new int[]{1};
-        int[] actual = ds.getHorizontalDep(0);
+        int[] actual = ds.getDependencies(0);
         Assert.assertArrayEquals(expected, actual);
 
         // row 2
         expected = new int[]{};
-        actual = ds.getHorizontalDep(1);
+        actual = ds.getDependencies(1);
         Assert.assertArrayEquals(expected, actual);
 
         // row 5
         expected = new int[]{1};
-        actual = ds.getHorizontalDep(4);
+        actual = ds.getDependencies(4);
         Assert.assertArrayEquals(expected, actual);
     }
 
@@ -64,17 +64,17 @@ public class DSMDataStructureTest {
 
         // col 1
         int[] expected = new int[]{2};
-        int[] actual = ds.getVerticalDep(0);
+        int[] actual = ds.getDependents(0);
         Assert.assertArrayEquals(expected, actual);
 
         // col 2
         expected = new int[]{0,4};
-        actual = ds.getVerticalDep(1);
+        actual = ds.getDependents(1);
         Assert.assertArrayEquals(expected, actual);
 
         // col 5
         expected = new int[]{};
-        actual = ds.getVerticalDep(4);
+        actual = ds.getDependents(4);
         Assert.assertArrayEquals(expected, actual);
 
     }
@@ -84,14 +84,14 @@ public class DSMDataStructureTest {
         DSMDataStructure ds = new DSMDataStructure(matrix, dependencyCount);
         List<Integer> expected = new ArrayList<>();
         expected.add(2);
-        List<Integer> actual = ds.getVerticalDepsWhere(0, 0);
+        List<Integer> actual = ds.getDependents(0, 0);
         Assert.assertEquals(expected, actual);
     }
     @Test
     public void getHorizonDepWhereTest() {
         DSMDataStructure ds = new DSMDataStructure(matrix, dependencyCount);
         List<Integer> expected = new ArrayList<>();
-        List<Integer> actual = ds.getHorizontalDepsWhere(0, 0);
+        List<Integer> actual = ds.getDependencies(0, 0);
         Assert.assertEquals(expected, actual);
     }
 }

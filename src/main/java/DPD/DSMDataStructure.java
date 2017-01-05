@@ -44,18 +44,18 @@ public class DSMDataStructure {
     }
 
     /**
-     * Returns an array of the classes that this classId depends on
+     * Returns an array of the classes that this indexOfClass depends on
      * Essentially returns the horizontal dependency
-     * @param classId
+     * @param indexOfClass
      * @return
      */
-    public int[] getHorizontalDep(int classId) {
-        return getListValues(allClassNodes.get(classId).row, false);
+    public int[] getDependencies(int indexOfClass) {
+        return getListValues(allClassNodes.get(indexOfClass).row, false);
     }
 
-    /** Same as getHorizontalDep, except for vertical axis */
-    public int[] getVerticalDep(int classId) {
-        return getListValues(allClassNodes.get(classId).column, true);
+    /** Same as getDependencies, except for vertical axis */
+    public int[] getDependents(int indexOfClass) {
+        return getListValues(allClassNodes.get(indexOfClass).column, true);
     }
 
     /**
@@ -64,23 +64,23 @@ public class DSMDataStructure {
      * @param indexOfDependency
      * @return
      */
-    public List<Integer> getHorizontalDepsWhere(int indexOfClass, int indexOfDependency) {
+    public List<Integer> getDependencies(int indexOfClass, int indexOfDependency) {
         return getListWhereValues(allClassNodes.get(indexOfClass).row, indexOfDependency, false);
     }
 
-    /** Same as getHorizontalDepsWhere except for vertical */
-    public List<Integer> getVerticalDepsWhere(int indexOfClass, int indexOfDependency) {
+    /** Same as getDependencies except for vertical */
+    public List<Integer> getDependents(int indexOfClass, int indexOfDependency) {
         return getListWhereValues(allClassNodes.get(indexOfClass).column, indexOfDependency, true);
     }
 
     /**
      * Determine if a particular dependency exists on this class' dependency line
-     * @param classId
+     * @param indexOfClass
      * @param indexOfDependency
      * @return
      */
-    public boolean hasOnHorizontalLine(int classId, int indexOfDependency) {
-        List<DataNode> deps = allClassNodes.get(classId).row;
+    public boolean hasDependency(int indexOfClass, int indexOfDependency) {
+        List<DataNode> deps = allClassNodes.get(indexOfClass).row;
         for(DataNode dep: deps) {
             if(dep.value.charAt(indexOfDependency) == '1')
                 return true;
@@ -88,9 +88,9 @@ public class DSMDataStructure {
         return false;
     }
 
-    /** Same as hasOnHorizontalLine, excerpt for vertical axis */
-    public boolean hasOnVerticalLine(int classId, int indexOfDependency) {
-        List<DataNode> deps = allClassNodes.get(classId).column;
+    /** Same as hasDependency, excerpt for vertical axis */
+    public boolean hasDependent(int indexOfClass, int indexOfDependency) {
+        List<DataNode> deps = allClassNodes.get(indexOfClass).column;
         for(DataNode dep: deps) {
             if(dep.value.charAt(indexOfDependency) == '1')
                 return true;
