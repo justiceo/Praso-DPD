@@ -12,12 +12,14 @@ public class DSMDataStructure {
     // Vertical = Dependents (files that need me)
     private List<ClassNode> allClassNodes = new ArrayList<>();
 
-    public DSMDataStructure(String[] matrix, int dependencyCount) {
+    public DSMDataStructure(String[] matrix, String[] filePaths, int dependencyCount) {
+        if(matrix.length != filePaths.length)
+            throw new IllegalArgumentException("matrix size must equal number of files");
         int matrixSize = matrix.length;
 
         // initialize all nodes
         for(int i = 0; i < matrixSize; i++) {
-            allClassNodes.add(new ClassNode());
+            allClassNodes.add(new ClassNode(filePaths[i]));
         }
 
         // start connecting the dots
@@ -37,10 +39,6 @@ public class DSMDataStructure {
                 allClassNodes.get(col).column.add(dn);
             }
         }
-    }
-
-    public DSMDataStructure(Collection<String> matrix, int dependencyCount) {
-        this((String[]) matrix.toArray(), dependencyCount);
     }
 
     /**
@@ -132,6 +130,11 @@ public class DSMDataStructure {
     private class ClassNode {
         List<DataNode> column = new ArrayList<>();
         List<DataNode> row = new ArrayList<>();
+        String filePath;
+
+        public ClassNode(String path) {
+            this.filePath = path;
+        }
     }
 
     private class DataNode {

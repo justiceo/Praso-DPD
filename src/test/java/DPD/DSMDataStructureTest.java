@@ -1,10 +1,10 @@
 package DPD;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,28 +20,20 @@ public class DSMDataStructureTest {
             "0 001 0 0 0"
     };
     int dependencyCount = 3;
+    DSMDataStructure ds;
 
-    @Test
-    public void constructorTest() {
-        DSMDataStructure ds = new DSMDataStructure(matrix, dependencyCount);
-    }
-
-    @Test
-    public void constructorListTest() {
-        List<String> ls = Arrays.asList(matrix);
-        DSMDataStructure ds = new DSMDataStructure(ls, dependencyCount);
+    @Before
+    public void setup() {
+        ds = new DSMDataStructure(matrix, matrix, dependencyCount);
     }
 
     @Test(expected = IllegalStateException.class)
     public void constructorBadDepCount() {
-        List<String> ls = Arrays.asList(matrix);
-        DSMDataStructure ds = new DSMDataStructure(ls, dependencyCount + 1);
+        DSMDataStructure ds = new DSMDataStructure(matrix, matrix, dependencyCount + 1);
     }
 
     @Test
     public void getHorizonDepTest() {
-        DSMDataStructure ds = new DSMDataStructure(matrix, dependencyCount);
-
         // row 1
         int[] expected = new int[]{1};
         int[] actual = ds.getDependencies(0);
@@ -60,7 +52,6 @@ public class DSMDataStructureTest {
 
     @Test
     public void getVerticalDepTest() {
-        DSMDataStructure ds = new DSMDataStructure(matrix, dependencyCount);
 
         // col 1
         int[] expected = new int[]{2};
@@ -81,7 +72,6 @@ public class DSMDataStructureTest {
 
     @Test
     public void getVerticalDepsWhereTest() {
-        DSMDataStructure ds = new DSMDataStructure(matrix, dependencyCount);
         List<Integer> expected = new ArrayList<>();
         expected.add(2);
         List<Integer> actual = ds.getDependents(0, 0);
@@ -89,7 +79,6 @@ public class DSMDataStructureTest {
     }
     @Test
     public void getHorizonDepWhereTest() {
-        DSMDataStructure ds = new DSMDataStructure(matrix, dependencyCount);
         List<Integer> expected = new ArrayList<>();
         List<Integer> actual = ds.getDependencies(0, 0);
         Assert.assertEquals(expected, actual);
