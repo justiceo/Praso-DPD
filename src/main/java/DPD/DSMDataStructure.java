@@ -145,6 +145,17 @@ public class DSMDataStructure {
         }
         return result;
     }
+    private List<Integer> getListWhereValuesEnum(List<DataNode> list, int dependencies, boolean isRow) {
+        List<Integer> result = new LinkedList<>();
+        for(int i = 0; i < list.size(); i++) {
+            DataNode n = list.get(i);
+            if( n.numValue == dependencies) {
+                int c = isRow ? n.row : n.col;
+                result.add(c);
+            }
+        }
+        return result;
+    }
 
     private class ClassNode {
         List<DataNode> column = new ArrayList<>();
@@ -160,11 +171,13 @@ public class DSMDataStructure {
         int row;
         int col;
         String value;
+        int numValue;
 
         public DataNode(String data, int row, int col) {
             this.value = data;
             this.row = row;
             this.col = col;
+            this.numValue = Integer.parseInt(this.value, 2);
         }
     }
 }
