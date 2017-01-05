@@ -11,11 +11,12 @@ public class DSMDataStructure {
     // Horizontal = Dependencies (files I need)
     // Vertical = Dependents (files that need me)
     private List<ClassNode> allClassNodes = new ArrayList<>();
+    private int matrixSize = 0;
 
     public DSMDataStructure(String[] matrix, String[] filePaths, int dependencyCount) {
         if(matrix.length != filePaths.length)
             throw new IllegalArgumentException("matrix size must equal number of files");
-        int matrixSize = matrix.length;
+        matrixSize = matrix.length;
 
         // initialize all nodes
         for(int i = 0; i < matrixSize; i++) {
@@ -69,6 +70,24 @@ public class DSMDataStructure {
     /** Same as getDependencies except for vertical */
     public List<Integer> getDependents(int indexOfClass, int indexOfDependency) {
         return getListWhereValues(allClassNodes.get(indexOfClass).column, indexOfDependency, true);
+    }
+
+    public List<Integer> getClassWithDependencies(int indexOfDependency) {
+        List<Integer> result = new ArrayList<>();
+        for(int i = 0; i < matrixSize; i++) {
+            List<Integer> x = getDependencies(i, indexOfDependency);
+            result.addAll(x);
+        }
+        return result;
+    }
+
+    public List<Integer> getClassesWithDepents(int indexOfDependency) {
+        List<Integer> result = new ArrayList<>();
+        for(int i = 0; i < matrixSize; i++) {
+            List<Integer> x = getDependents(i, indexOfDependency);
+            result.addAll(x);
+        }
+        return result;
     }
 
     /**
