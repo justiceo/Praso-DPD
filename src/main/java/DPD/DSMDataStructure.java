@@ -1,6 +1,9 @@
 package DPD;
 
+import DPD.Enums.DependencyType;
+
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * Created by Justice on 1/3/2017.
@@ -10,13 +13,18 @@ public class DSMDataStructure {
 
     // Horizontal = Dependencies (files I need)
     // Vertical = Dependents (files that need me)
-    private List<ClassNode> allClassNodes = new ArrayList<>();
-    private int matrixSize = 0;
+    protected List<ClassNode> allClassNodes = new ArrayList<>();
+    protected HashMap<DependencyType, Integer> dependencyTypes;
+    protected int matrixSize = 0;
 
-    public DSMDataStructure(String[] matrix, String[] filePaths, int dependencyCount) {
+    public DSMDataStructure(String[] matrix, String[] filePaths, DependencyType[] dependencies) {
         if(matrix.length != filePaths.length)
             throw new IllegalArgumentException("matrix size must equal number of files");
         matrixSize = matrix.length;
+        dependencyTypes = new HashMap<>();
+        for(int i = 0; i < dependencies.length; i++) {
+            dependencyTypes.put(dependencies[i], i);
+        }
 
         // initialize all nodes
         for(int i = 0; i < matrixSize; i++) {
@@ -31,8 +39,8 @@ public class DSMDataStructure {
                 throw new IndexOutOfBoundsException("Non-square matrix detected");
             for(int col = 0; col < matrixSize; col++) {
                 String data = cells[col];
-                if( !data.equals("0") && data.length() != dependencyCount)
-                    throw new IllegalStateException("Invalid data length. Number of exhibited dependencies: " + dependencyCount + ", data length: " + data.length());
+                if( !data.equals("0") && data.length() != dependencyTypes.size())
+                    throw new IllegalStateException("Invalid data length. Number of exhibited dependencies: " + dependencyTypes.size() + ", data length: " + data.length());
 
                 if( data.length() == 1) continue;
                 DataNode dn = new DataNode(cells[col], row, col);
@@ -60,31 +68,31 @@ public class DSMDataStructure {
     /**
      * Get all classes that has the specified type of dependency on this class index
      * @param indexOfClass
-     * @param indexOfDependency
+     * @param dependencies
      * @return
      */
-    public List<Integer> getDependencies(int indexOfClass, int indexOfDependency) {
-        return getListWhereValues(allClassNodes.get(indexOfClass).row, indexOfDependency, false);
+    public List<Integer> getDependencies(int indexOfClass, DependencyType... dependencies) {
+        return getListWhereValues(allClassNodes.get(indexOfClass).row, dependencies, false);
     }
 
     /** Same as getDependencies except for vertical */
-    public List<Integer> getDependents(int indexOfClass, int indexOfDependency) {
-        return getListWhereValues(allClassNodes.get(indexOfClass).column, indexOfDependency, true);
+    public List<Integer> getDependents(int indexOfClass, DependencyType... dependencies) {
+        return getListWhereValues(allClassNodes.get(indexOfClass).column, dependencies, true);
     }
 
-    public List<Integer> getClassWithDependencies(int indexOfDependency) {
+    public List<Integer> getClassesWithDependencies(DependencyType... dependencies) {
         List<Integer> result = new ArrayList<>();
         for(int i = 0; i < matrixSize; i++) {
-            List<Integer> x = getDependencies(i, indexOfDependency);
+            List<Integer> x = getDependencies(i, dependencies);
             result.addAll(x);
         }
         return result;
     }
 
-    public List<Integer> getClassesWithDepents(int indexOfDependency) {
+    public List<Integer> getClassesWithDepents(DependencyType... dependencies) {
         List<Integer> result = new ArrayList<>();
         for(int i = 0; i < matrixSize; i++) {
-            List<Integer> x = getDependents(i, indexOfDependency);
+            List<Integer> x = getDependents(i, dependencies);
             result.addAll(x);
         }
         return result;
@@ -131,11 +139,13 @@ public class DSMDataStructure {
     /**
      * Given an adjacency list, returns all the classes that has a specified dependency
      * @param list
-     * @param indexOfDependency
+     * @param dependencies
      * @return
      */
-    private List<Integer> getListWhereValues(List<DataNode> list, int indexOfDependency, boolean isRow) {
+    private List<Integer> getListWhereValues(List<DataNode> list, DependencyType[] dependencies, boolean isRow) {
         List<Integer> result = new LinkedList<>();
+        int indexOfDependency = dependencyTypes.get(dependencies[0]);
+        Logger.getGlobal().warning("only first dep is processed in DSMDataStructure.java:getListWhereValues()");
         for(int i = 0; i < list.size(); i++) {
             DataNode n = list.get(i);
             if( n.value.charAt(indexOfDependency) == '1') {

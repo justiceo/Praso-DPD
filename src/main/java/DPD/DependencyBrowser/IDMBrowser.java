@@ -4,6 +4,7 @@ import DPD.Claim;
 import DPD.Enums.ClassType;
 import DPD.Enums.DependencyType;
 import DPD.JClass;
+import DPD.Util;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -27,7 +28,7 @@ public class IDMBrowser implements DSMBrowser {
         this.logger = logger;
         this.jClasses = jClasses;
         this.matrixSize = jClasses.size();
-        this.dependencyTypes = getDependencyTypes(dependencyLine);
+        this.dependencyTypes = Util.getDependencyTypes(dependencyLine);
         dependencyTypesSize = dependencyTypes.size();
     }
 
@@ -171,22 +172,6 @@ public class IDMBrowser implements DSMBrowser {
         return false;
     }
 
-    /**
-     * Converts the first line in a dsm to a list of dependency types
-     *
-     * @param dependencyLine
-     * @return
-     */
-    private List<DependencyType> getDependencyTypes(String dependencyLine) {
-        dependencyLine = dependencyLine.replace("[", "").replace("]", "");
-        String[] depStrings = dependencyLine.split(",");
-        List<DependencyType> dependencyTypes = new ArrayList<>(depStrings.length);
-        for (int i = 0; i < depStrings.length; i++) {
-            DependencyType dependencyType = DependencyType.valueOf(depStrings[i].toUpperCase());
-            dependencyTypes.add(dependencyType);
-        }
-        return dependencyTypes;
-    }
 
     private List<String> getIndicesOfDomDependenciesAsClassIds(String depLine, DependencyType dependencyType) {
         int depId = dependencyTypes.indexOf(dependencyType);
