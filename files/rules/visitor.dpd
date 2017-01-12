@@ -1,0 +1,15 @@
+Entity visitorI: 'Visitor Interface'
+Entity concreteV: 'Concrete Visitor'
+Entity element: 'Abstract Element'
+Entity concreteE: 'Concrete Element'
+
+Bucket b: 'Visitor pattern'
+b <= concreteV specialize visitorI
+b <= concreteE specialize element
+b => concreteE [typed,call] visitorI
+b => concreteV [typed,call] concreteE
+b ++ element method_name 'accept'
+b ++ visitorI method_name 'visit'
+
+resolve( b )
+print( b )

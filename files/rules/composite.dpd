@@ -1,0 +1,12 @@
+Entity component: 'Component'
+Entity leaf: 'Leaf'
+Entity composite: 'Composite'
+
+Bucket b: 'Composite Pattern'
+b <= leaf specialize component
+b <= composite specialize component
+b => composite aggregates component
+b => leaf excludes component
+
+resolve( b )
+print( b )
