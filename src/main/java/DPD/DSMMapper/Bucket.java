@@ -19,4 +19,8 @@ public class Bucket extends HashMap<String, Entity> {
                 put(entityId, new Entity());
         }
     }
+
+    public int getPocket() {
+        return pocket;
+    }
 }

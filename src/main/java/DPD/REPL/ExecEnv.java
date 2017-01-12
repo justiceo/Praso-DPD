@@ -107,7 +107,18 @@ public class ExecEnv {
         System.out.println(bucketId);
         assertDeclared(bucketId, variableId);
 
-
+        Bucket b = bucketList.get(bucketId);
+        for(int pocket = 0; pocket < b.getPocket(); pocket++) {
+            boolean allHaveIt = true;
+            for(String entityId: b.keySet()) {
+                allHaveIt = b.get(entityId).hasPocket(pocket);
+            }
+            if(!allHaveIt) {
+                for(String entityId: b.keySet()) {
+                    b.get(entityId).removePocket(pocket);
+                }
+            }
+        }
     }
 
     /**
@@ -130,10 +141,16 @@ public class ExecEnv {
 
     private void setGroupId(Tuple t, Entity entity) {
         // t.Y is the pivot by default
-        for(CNode dn: t.Y) {
-            if(entity.hasClass(dn.classId)) {
-                int pocket = entity.getByClass(dn.classId);
+        for(CNode cn: t.Y) {
+            if(entity.hasClass(cn.classId)) {
+                int existingPocket = entity.getByClassId(cn.classId).pocket;
+                for(int i = 0; i < t.X.size(); i++){
+                    if(t.X.get(i).pocket == cn.pocket){
+                        t.X.get(i).pocket = existingPocket;
+                    }
+                }
             }
+            // otherwise, they keep their pockets.
         }
     }
 

@@ -32,7 +32,12 @@ public class Entity extends ArrayList<CNode> {
         return true;
     }
 
-    public int getByClass(int row) {
-        return 0;
+    public CNode getByClassId(int classId) {
+        // todo:
+        return null;
+    }
+
+    public void removePocket(int pocket) {
+
     }
 }
