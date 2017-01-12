@@ -1,5 +1,6 @@
 package DPD;
 
+import DPD.DSMMapper.CNode;
 import DPD.DSMMapper.DepNode;
 import DPD.Enums.DependencyType;
 
@@ -111,7 +112,7 @@ public class DSMDataStructure {
     public boolean hasDependency(int indexOfClass, DependencyType dependency) {
         return hasDependency(allClassNodes.indexOf(indexOfClass), dependency);
     }
-    public boolean hasDependency(ClassNode c, DependencyType dependency) {
+    public boolean hasDependency(ClassNode c, DependencyType dependency, List<CNode> main, List<CNode> alternate) {
         int indexOfDependency = dependencyTypes.get(dependency);
         List<DepNode> deps = c.row;
         for(DepNode dep: deps) {

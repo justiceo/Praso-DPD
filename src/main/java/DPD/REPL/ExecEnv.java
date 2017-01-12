@@ -1,7 +1,8 @@
 package DPD.REPL;
 
 import DPD.DSMMapper.Bucket;
-import DPD.DSMMapper.DepNode;
+import DPD.DSMMapper.CNode;
+import DPD.DSMMapper.Entity;
 import DPD.DSMQuery;
 import DPD.EasyDSMQuery;
 import DPD.Enums.DependencyType;
@@ -49,9 +50,10 @@ public class ExecEnv {
 
         Tuple t = new Tuple();
         easyDSMQuery.populate(dependency, t.X, t.Y);
-        setGroupId(t);
 
         Bucket b = bucketList.get(bucketId);
+        setGroupId(t, b.get(rightOperand));
+
         b.addIfNotExists(leftOperand, rightOperand);
         b.get(leftOperand).addAll(t.X);
         b.get(rightOperand).addAll(t.Y);
@@ -63,15 +65,12 @@ public class ExecEnv {
 
         Tuple t = new Tuple();
         easyDSMQuery.populate(dependency, t.X, t.Y);
-        setGroupId(t);
 
         Bucket b = bucketList.get(bucketId);
+        setGroupId(t, b.get(rightOperand));
+
         b.get(leftOperand).removeAll(t.X);
         b.get(rightOperand).removeAll(t.Y);
-    }
-
-    private void setGroupId(Tuple t) {
-
     }
 
     public void promoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
@@ -81,9 +80,10 @@ public class ExecEnv {
 
         Tuple t = new Tuple();
         easyDSMQuery.populate(dependency, t.X, t.Y);
-        setGroupId(t);
 
         Bucket b = bucketList.get(bucketId);
+        setGroupId(t, b.get(rightOperand));
+
         b.get(leftOperand).promoteAll(t.X);
         b.get(rightOperand).promoteAll(t.Y);
     }
@@ -94,9 +94,10 @@ public class ExecEnv {
 
         Tuple t = new Tuple();
         easyDSMQuery.populate(dependency, t.X, t.Y);
-        setGroupId(t);
 
         Bucket b = bucketList.get(bucketId);
+        setGroupId(t, b.get(rightOperand));
+
         b.get(leftOperand).demoteAll(t.X);
         b.get(rightOperand).demoteAll(t.Y);
 
@@ -127,6 +128,15 @@ public class ExecEnv {
         }
     }
 
+    private void setGroupId(Tuple t, Entity entity) {
+        // t.Y is the pivot by default
+        for(CNode dn: t.Y) {
+            if(entity.hasClass(dn.classId)) {
+                int pocket = entity.getByClass(dn.classId);
+            }
+        }
+    }
+
     public void assertDeclared(String... variableIds) throws Exception {
         for(String var: variableIds) {
             if( !declaredVariables.containsKey(var) )
@@ -143,7 +153,7 @@ public class ExecEnv {
     }
 
     class Tuple {
-        List<DepNode> X = new ArrayList<>();
-        List<DepNode> Y = new ArrayList<>();
+        List<CNode> X = new ArrayList<>();
+        List<CNode> Y = new ArrayList<>();
     }
 }
