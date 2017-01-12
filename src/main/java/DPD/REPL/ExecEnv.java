@@ -1,55 +1,133 @@
 package DPD.REPL;
 
-import DPD.DSMMapper.Entity;
-import DPD.DependencyBrowser.DSMBrowser;
+import DPD.DSMMapper.Bucket;
+import DPD.DSMMapper.DepNode;
+import DPD.DSMQuery;
+import DPD.EasyDSMQuery;
+import DPD.Enums.DependencyType;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Justice on 1/10/2017.
  */
 public class ExecEnv {
 
+    private HashMap<String, String> declaredVariables;
+    private HashMap<String, Bucket> bucketList;
+    private HashMap<String, String> fillFunctions;
+    private DSMQuery dsmBrowser;
+    EasyDSMQuery easyDSMQuery = null;
 
-
-    public ExecEnv(DSMBrowser dsmBrowser) {
-
+    public ExecEnv(DSMQuery dsmBrowser) {
+        declaredVariables = new HashMap<>();
+        bucketList = new HashMap<>();
+        this.dsmBrowser = dsmBrowser;
     }
 
-    public void createEntity(String entityId, String name) {
+    public void createEntity(String entityId, String name) throws Exception {
         System.out.println(entityId + " " + name);
-        Entity e = new Entity(name);
+        assertUndefined(entityId);
+        declaredVariables.put(entityId, name);
     }
 
-    public void createBucket(String bucketId, String name) {
+
+    public void createBucket(String bucketId, String name) throws Exception {
         System.out.println(bucketId + " " + name);
+        assertUndefined(bucketId);
+
+        declaredVariables.put(bucketId, name);
+        bucketList.put(bucketId, new Bucket());
+    }
+
+    public void fillBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
+        System.out.println(bucketId + " " + dependency);
+        assertDefined(bucketId, leftOperand, rightOperand);
+
+        Tuple t = new Tuple();
+        easyDSMQuery.populate(dependency, t.X, t.Y);
+        setGroupId(t);
+
+        Bucket b = bucketList.get(bucketId);
+        b.get(leftOperand).addAll(t.X);
+        b.get(rightOperand).addAll(t.Y);
+    }
+
+    public void filterBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
+        System.out.println(bucketId + " " + dependency);
+        assertDefined(bucketId, leftOperand, rightOperand);
+
+        Tuple t = new Tuple();
+        easyDSMQuery.populate(dependency, t.X, t.Y);
+        setGroupId(t);
+
+        Bucket b = bucketList.get(bucketId);
+        b.get(leftOperand).removeAll(t.X);
+        b.get(rightOperand).removeAll(t.Y);
+    }
+
+    private void setGroupId(Tuple t) {
 
     }
 
-    public void fillBucket(String bucketId, String command) {
-        System.out.println(bucketId + " " + command);
+    public void promoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
+        System.out.println(bucketId + " " + dependency);
+        System.out.println(bucketId + " " + dependency);
+        assertDefined(bucketId, leftOperand, rightOperand);
+
+        Tuple t = new Tuple();
+        easyDSMQuery.populate(dependency, t.X, t.Y);
+        setGroupId(t);
+
+        Bucket b = bucketList.get(bucketId);
+        b.get(leftOperand).promoteAll(t.X);
+        b.get(rightOperand).promoteAll(t.Y);
+    }
+
+    public void demoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
+        System.out.println(bucketId + " " + dependency);
+        assertDefined(bucketId, leftOperand, rightOperand);
+
+        Tuple t = new Tuple();
+        easyDSMQuery.populate(dependency, t.X, t.Y);
+        setGroupId(t);
+
+        Bucket b = bucketList.get(bucketId);
+        b.get(leftOperand).demoteAll(t.X);
+        b.get(rightOperand).demoteAll(t.Y);
 
     }
 
-    public void filterBucket(String bucketId, String command) {
-        System.out.println(bucketId + " " + command);
+    public void resolveBucket(String bucketId, String variableId) throws Exception {
+        System.out.println(bucketId);
+        assertDefined(bucketId, variableId);
 
-    }
-
-    public void promoteBucket(String bucketId, String command) {
-        System.out.println(bucketId + " " + command);
-
-    }
-
-    public void demoteBucket(String bucketId, String command) {
-        System.out.println(bucketId + " " + command);
-
-    }
-
-    public void resolveBucket(String bucketId, String command) {
-        System.out.println(bucketId + " " + command);
 
     }
 
     public void printObject(String objectId) {
         System.out.println(objectId);
+    }
+
+    public void assertDefined(String... variableIds) throws Exception {
+        for(String var: variableIds) {
+            if( !declaredVariables.containsKey(var) )
+                throw new Exception(var + "is an undeclared variable");
+        }
+    }
+
+
+    private void assertUndefined(String... variableIds) throws Exception {
+        for(String var: variableIds) {
+            if( declaredVariables.containsKey(var) )
+                throw new Exception(var + "is already defined");
+        }
+    }
+
+    class Tuple {
+        List<DepNode> X = new ArrayList<>();
+        List<DepNode> Y = new ArrayList<>();
     }
 }

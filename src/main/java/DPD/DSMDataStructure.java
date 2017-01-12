@@ -108,14 +108,20 @@ public class DSMDataStructure {
      * @param indexOfDependency
      * @return
      */
-    public boolean hasDependency(int indexOfClass, int indexOfDependency) {
-        List<DepNode> deps = allClassNodes.get(indexOfClass).row;
+    public boolean hasDependency(int indexOfClass, DependencyType dependency) {
+        return hasDependency(allClassNodes.indexOf(indexOfClass), dependency);
+    }
+    public boolean hasDependency(ClassNode c, DependencyType dependency) {
+        int indexOfDependency = dependencyTypes.get(dependency);
+        List<DepNode> deps = c.row;
         for(DepNode dep: deps) {
             if(dep.value.charAt(indexOfDependency) == '1')
                 return true;
         }
         return false;
     }
+
+
 
     /** Same as hasDependency, excerpt for vertical axis */
     public boolean hasDependent(int indexOfClass, int indexOfDependency) {
@@ -171,7 +177,7 @@ public class DSMDataStructure {
         return result;
     }
 
-    private class ClassNode {
+    class ClassNode {
         List<DepNode> column = new ArrayList<>();
         List<DepNode> row = new ArrayList<>();
         String filePath;

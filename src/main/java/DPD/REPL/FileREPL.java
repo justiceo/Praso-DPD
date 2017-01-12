@@ -1,6 +1,7 @@
 package DPD.REPL;
 
-import DPD.DependencyBrowser.DSMBrowser;
+import DPD.DSMQuery;
+import DPD.Enums.DependencyType;
 
 import java.io.IOException;
 import java.net.URI;
@@ -19,7 +20,7 @@ public class FileREPL {
     private ExecEnv exec;
     private final String delimiters = ":=><=++--() ";
 
-    public FileREPL(String fileName, DSMBrowser dsmBrowser) {
+    public FileREPL(String fileName, DSMQuery dsmBrowser) {
         try {
             URI uri = this.getClass().getResource(fileName).toURI();
             commandLines = Files.readAllLines(Paths.get(uri), Charset.defaultCharset());
@@ -30,18 +31,24 @@ public class FileREPL {
         exec = new ExecEnv(dsmBrowser);
     }
 
-    public FileREPL(List<String> commandLines, DSMBrowser dsmBrowser) {
+    public FileREPL(List<String> commandLines, DSMQuery dsmBrowser) {
         this.commandLines = commandLines;
         exec = new ExecEnv(dsmBrowser);
     }
 
     public void run() {
-        for(String line: commandLines) {
-            execute(line);
+        for (int i = 0; i < commandLines.size(); i++) {
+            try {
+                execute(commandLines.get(i));
+            } catch (Exception e) {
+                System.out.println("Error executing line" + i + ": " + commandLines.get(i));
+                e.printStackTrace();
+                break;
+            }
         }
     }
 
-    public void execute(String line) {
+    public void execute(String line) throws Exception {
         StatementType st = getStatementType(line);
         switch (st) {
             case EntityDeclaration:
@@ -94,8 +101,7 @@ public class FileREPL {
         Noop,
     }
 
-    private void evalEntityDeclaration(String line) {
-        //StringTokenizer st = new StringTokenizer(line, delimiters);
+    private void evalEntityDeclaration(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
         st.nextToken(); // eat the "Entity" keyword
         String entityId = st.nextToken();
@@ -108,33 +114,46 @@ public class FileREPL {
         st.nextToken(); // eat the "Bucket" keyword
         String bucketId = st.nextToken();
         String name = st.nextToken();
-        exec.createBucket(bucketId, name);
+        try {
+            exec.createBucket(bucketId, name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    private void evalFillStmt(String line) {
+    private void evalFillStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
-        String command = st.nextToken();
-        exec.fillBucket(bucketId, command);
+        String e1 = st.nextToken();
+        String condition = st.nextToken();
+        String e2 = st.nextToken();
+        // get the condition type and call appropriate method
+        exec.fillBucket(bucketId, DependencyType.AGGREGATE, e1, e2);
     }
-    private void evalFilterStmt(String line) {
+    private void evalFilterStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
-        String command = st.nextToken();
-        exec.filterBucket(bucketId, command);
+        String e1 = st.nextToken();
+        String condition = st.nextToken();
+        String e2 = st.nextToken();
+        exec.filterBucket(bucketId, DependencyType.AGGREGATE, e1, e2);
     }
-    private void evalPromoteStmt(String line) {
+    private void evalPromoteStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
-        String command = st.nextToken();
-        exec.promoteBucket(bucketId, command);
+        String e1 = st.nextToken();
+        String condition = st.nextToken();
+        String e2 = st.nextToken();
+        exec.promoteBucket(bucketId, DependencyType.AGGREGATE, e1, e2);
     }
-    private void evalDemoteStmt(String line) {
+    private void evalDemoteStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
-        String command = st.nextToken();
-        exec.demoteBucket(bucketId, command);
+        String e1 = st.nextToken();
+        String condition = st.nextToken();
+        String e2 = st.nextToken();
+        exec.demoteBucket(bucketId, DependencyType.AGGREGATE, e1, e2);
     }
-    private void evalResolveStmt(String line) {
+    private void evalResolveStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
         String command = st.nextToken();

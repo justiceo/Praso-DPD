@@ -1,6 +1,5 @@
 package DPD;
 
-import DPD.DependencyBrowser.DSMBrowser;
 import DPD.REPL.FileREPL;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +13,7 @@ import java.util.List;
 public class REPLTest {
 
     FileREPL repl;
-    DSMBrowser dsmBrowser;
+    DSMQuery dsmBrowser;
     List<String> commands;
 
     @Before
@@ -27,7 +26,7 @@ public class REPLTest {
     }
 
     @Test
-    public void executeTest() {
+    public void executeTest() throws Exception {
         repl.execute(commands.get(0));
         repl.execute(commands.get(1));
     }

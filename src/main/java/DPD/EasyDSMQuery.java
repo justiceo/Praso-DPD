@@ -1,5 +1,6 @@
 package DPD;
 
+import DPD.DSMMapper.DepNode;
 import DPD.Enums.DependencyType;
 
 import java.util.ArrayList;
@@ -14,6 +15,13 @@ public class EasyDSMQuery extends DSMDataStructure {
         super(matrix, filePaths, dependencyCount);
     }
 
+    public void populate(DependencyType dependency, List<DepNode> main, List<DepNode> alternate) {
+        this.allClassNodes.forEach(c -> hasDependency(c, dependency, main, alternate));
+    }
+
+    public boolean hasDependency(ClassNode c, DependencyType d, List<DepNode> main, List<DepNode> alt) {
+        return true;
+    }
     public List<Integer> get_abstraction_classes() {
         return classes_with_this_dependents(DependencyType.EXTEND, DependencyType.IMPLEMENT);
     }
