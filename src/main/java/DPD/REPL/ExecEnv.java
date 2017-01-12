@@ -1,5 +1,6 @@
 package DPD.REPL;
 
+import DPD.DSMMapper.Entity;
 import DPD.DependencyBrowser.DSMBrowser;
 
 /**
@@ -8,12 +9,14 @@ import DPD.DependencyBrowser.DSMBrowser;
 public class ExecEnv {
 
 
+
     public ExecEnv(DSMBrowser dsmBrowser) {
 
     }
 
     public void createEntity(String entityId, String name) {
         System.out.println(entityId + " " + name);
+        Entity e = new Entity(name);
     }
 
     public void createBucket(String bucketId, String name) {
