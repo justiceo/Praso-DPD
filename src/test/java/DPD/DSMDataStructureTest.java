@@ -1,5 +1,6 @@
 package DPD;
 
+import DPD.Enums.DependencyType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,15 +22,12 @@ public class DSMDataStructureTest {
     };
     int dependencyCount = 3;
     DSMDataStructure ds;
+    List<DependencyType> dependencyTypes;
 
     @Before
     public void setup() {
-        //ds = new DSMDataStructure(matrix, matrix, dependencyCount);
-    }
-
-    @Test(expected = IllegalStateException.class)
-    public void constructorBadDepCount() {
-        //DSMDataStructure ds = new DSMDataStructure(matrix, matrix, dependencyCount + 1);
+        dependencyTypes = Util.getDependencyTypes("[Typed,Use,Implement]");
+        ds = new DSMDataStructure(matrix, matrix, dependencyTypes);
     }
 
     @Test
@@ -74,13 +72,13 @@ public class DSMDataStructureTest {
     public void getVerticalDepsWhereTest() {
         List<Integer> expected = new ArrayList<>();
         expected.add(2);
-        //List<Integer> actual = ds.getDependents(0, 0);
-        //Assert.assertEquals(expected, actual);
+        List<Integer> actual = ds.getDependents(0, DependencyType.TYPED);
+        Assert.assertEquals(expected, actual);
     }
     @Test
     public void getHorizonDepWhereTest() {
         List<Integer> expected = new ArrayList<>();
-        //List<Integer> actual = ds.getDependencies(0, 0);
-        //Assert.assertEquals(expected, actual);
+        List<Integer> actual = ds.getDependencies(0, DependencyType.TYPED);
+        Assert.assertEquals(expected, actual);
     }
 }

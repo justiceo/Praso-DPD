@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class EasyDSMQuery extends DSMDataStructure {
 
-    public EasyDSMQuery(String[] matrix, String[] filePaths, DependencyType[] dependencyCount) {
+    public EasyDSMQuery(String[] matrix, String[] filePaths, List<DependencyType> dependencyCount) {
         super(matrix, filePaths, dependencyCount);
     }
 

@@ -21,13 +21,13 @@ public class DSMDataStructure {
     protected HashMap<DependencyType, Integer> dependencyTypes;
     protected int matrixSize = 0;
 
-    public DSMDataStructure(String[] matrix, String[] filePaths, DependencyType[] dependencies) {
+    public DSMDataStructure(String[] matrix, String[] filePaths, List<DependencyType> dependencies) {
         if(matrix.length != filePaths.length)
             throw new IllegalArgumentException("matrix size must equal number of files");
         matrixSize = matrix.length;
         dependencyTypes = new HashMap<>();
-        for(int i = 0; i < dependencies.length; i++) {
-            dependencyTypes.put(dependencies[i], i);
+        for(int i = 0; i < dependencies.size(); i++) {
+            dependencyTypes.put(dependencies.get(i), i);
         }
 
         // initialize all nodes
