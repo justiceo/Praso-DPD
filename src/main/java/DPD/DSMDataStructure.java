@@ -1,6 +1,6 @@
 package DPD;
 
-import DPD.DSMMapper.DataNode;
+import DPD.DSMMapper.DepNode;
 import DPD.Enums.DependencyType;
 
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class DSMDataStructure {
                     throw new IllegalStateException("Invalid data length. Number of exhibited dependencies: " + dependencyTypes.size() + ", data length: " + data.length());
 
                 if( data.length() == 1) continue;
-                DataNode dn = new DataNode(cells[col], row, col);
+                DepNode dn = new DepNode(cells[col], row, col);
                 allClassNodes.get(row).row.add(dn);
                 allClassNodes.get(col).column.add(dn);
             }
@@ -109,8 +109,8 @@ public class DSMDataStructure {
      * @return
      */
     public boolean hasDependency(int indexOfClass, int indexOfDependency) {
-        List<DataNode> deps = allClassNodes.get(indexOfClass).row;
-        for(DataNode dep: deps) {
+        List<DepNode> deps = allClassNodes.get(indexOfClass).row;
+        for(DepNode dep: deps) {
             if(dep.value.charAt(indexOfDependency) == '1')
                 return true;
         }
@@ -119,8 +119,8 @@ public class DSMDataStructure {
 
     /** Same as hasDependency, excerpt for vertical axis */
     public boolean hasDependent(int indexOfClass, int indexOfDependency) {
-        List<DataNode> deps = allClassNodes.get(indexOfClass).column;
-        for(DataNode dep: deps) {
+        List<DepNode> deps = allClassNodes.get(indexOfClass).column;
+        for(DepNode dep: deps) {
             if(dep.value.charAt(indexOfDependency) == '1')
                 return true;
         }
@@ -132,7 +132,7 @@ public class DSMDataStructure {
      * @param list
      * @return
      */
-    private int[] getListValues(List<DataNode> list, boolean isRow) {
+    private int[] getListValues(List<DepNode> list, boolean isRow) {
         int[] result = new int[list.size()];
         for(int i = 0; i < result.length; i++) {
             result[i] = isRow ? list.get(i).row : list.get(i).col;
@@ -146,12 +146,12 @@ public class DSMDataStructure {
      * @param dependencies
      * @return
      */
-    private List<Integer> getListWhereValues(List<DataNode> list, DependencyType[] dependencies, boolean isRow) {
+    private List<Integer> getListWhereValues(List<DepNode> list, DependencyType[] dependencies, boolean isRow) {
         List<Integer> result = new LinkedList<>();
         int indexOfDependency = dependencyTypes.get(dependencies[0]);
         Logger.getGlobal().warning("only first dep is processed in DSMDataStructure.java:getListWhereValues()");
         for(int i = 0; i < list.size(); i++) {
-            DataNode n = list.get(i);
+            DepNode n = list.get(i);
             if( n.value.charAt(indexOfDependency) == '1') {
                 int c = isRow ? n.row : n.col;
                 result.add(c);
@@ -159,10 +159,10 @@ public class DSMDataStructure {
         }
         return result;
     }
-    private List<Integer> getListWhereValuesEnum(List<DataNode> list, int dependencies, boolean isRow) {
+    private List<Integer> getListWhereValuesEnum(List<DepNode> list, int dependencies, boolean isRow) {
         List<Integer> result = new LinkedList<>();
         for(int i = 0; i < list.size(); i++) {
-            DataNode n = list.get(i);
+            DepNode n = list.get(i);
             if( n.numValue == dependencies) {
                 int c = isRow ? n.row : n.col;
                 result.add(c);
@@ -172,8 +172,8 @@ public class DSMDataStructure {
     }
 
     private class ClassNode {
-        List<DataNode> column = new ArrayList<>();
-        List<DataNode> row = new ArrayList<>();
+        List<DepNode> column = new ArrayList<>();
+        List<DepNode> row = new ArrayList<>();
         String filePath;
 
         public ClassNode(String path) {
