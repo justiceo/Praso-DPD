@@ -7,13 +7,8 @@ import java.util.List;
  * Created by Justice on 1/10/2017.
  */
 public class Entity extends ArrayList<DepNode> {
-    private String name;
 
     private int maxPromotion;
-
-    public Entity(String name) {
-        this.name = name;
-    }
 
     public void promoteAll(List<DepNode> x) {
         // todo: find the node in the list promote it

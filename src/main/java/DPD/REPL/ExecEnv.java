@@ -29,14 +29,14 @@ public class ExecEnv {
 
     public void createEntity(String entityId, String name) throws Exception {
         System.out.println(entityId + " " + name);
-        assertUndefined(entityId);
+        assertUndeclared(entityId);
         declaredVariables.put(entityId, name);
     }
 
 
     public void createBucket(String bucketId, String name) throws Exception {
         System.out.println(bucketId + " " + name);
-        assertUndefined(bucketId);
+        assertUndeclared(bucketId);
 
         declaredVariables.put(bucketId, name);
         bucketList.put(bucketId, new Bucket());
@@ -44,20 +44,22 @@ public class ExecEnv {
 
     public void fillBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
         System.out.println(bucketId + " " + dependency);
-        assertDefined(bucketId, leftOperand, rightOperand);
+        assertDeclared(bucketId);
+
 
         Tuple t = new Tuple();
         easyDSMQuery.populate(dependency, t.X, t.Y);
         setGroupId(t);
 
         Bucket b = bucketList.get(bucketId);
+        b.addIfNotExists(leftOperand, rightOperand);
         b.get(leftOperand).addAll(t.X);
         b.get(rightOperand).addAll(t.Y);
     }
 
     public void filterBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
         System.out.println(bucketId + " " + dependency);
-        assertDefined(bucketId, leftOperand, rightOperand);
+        assertDeclared(bucketId, leftOperand, rightOperand);
 
         Tuple t = new Tuple();
         easyDSMQuery.populate(dependency, t.X, t.Y);
@@ -75,7 +77,7 @@ public class ExecEnv {
     public void promoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
         System.out.println(bucketId + " " + dependency);
         System.out.println(bucketId + " " + dependency);
-        assertDefined(bucketId, leftOperand, rightOperand);
+        assertDeclared(bucketId, leftOperand, rightOperand);
 
         Tuple t = new Tuple();
         easyDSMQuery.populate(dependency, t.X, t.Y);
@@ -88,7 +90,7 @@ public class ExecEnv {
 
     public void demoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
         System.out.println(bucketId + " " + dependency);
-        assertDefined(bucketId, leftOperand, rightOperand);
+        assertDeclared(bucketId, leftOperand, rightOperand);
 
         Tuple t = new Tuple();
         easyDSMQuery.populate(dependency, t.X, t.Y);
@@ -102,7 +104,7 @@ public class ExecEnv {
 
     public void resolveBucket(String bucketId, String variableId) throws Exception {
         System.out.println(bucketId);
-        assertDefined(bucketId, variableId);
+        assertDeclared(bucketId, variableId);
 
 
     }
@@ -114,7 +116,7 @@ public class ExecEnv {
      * @throws Exception
      */
     public void printObject(String objectId) throws Exception {
-        assertDefined(objectId);
+        assertDeclared(objectId);
         if(bucketList.containsKey(objectId))
             System.out.println(bucketList.get(objectId));
         else if(objectId.contains(".")) {
@@ -125,7 +127,7 @@ public class ExecEnv {
         }
     }
 
-    public void assertDefined(String... variableIds) throws Exception {
+    public void assertDeclared(String... variableIds) throws Exception {
         for(String var: variableIds) {
             if( !declaredVariables.containsKey(var) )
                 throw new Exception(var + "is an undeclared variable");
@@ -133,7 +135,7 @@ public class ExecEnv {
     }
 
 
-    private void assertUndefined(String... variableIds) throws Exception {
+    private void assertUndeclared(String... variableIds) throws Exception {
         for(String var: variableIds) {
             if( declaredVariables.containsKey(var) )
                 throw new Exception(var + "is already defined");

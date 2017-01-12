@@ -12,4 +12,11 @@ public class Bucket extends HashMap<String, Entity> {
     public int nextPocket() {
         return ++pocket;
     }
+
+    public void addIfNotExists(String... entityIds) {
+        for(String entityId: entityIds) {
+            if(! keySet().contains(entityId))
+                put(entityId, new Entity());
+        }
+    }
 }
