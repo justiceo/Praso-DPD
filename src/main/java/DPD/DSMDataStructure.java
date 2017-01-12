@@ -1,8 +1,12 @@
 package DPD;
 
+import DPD.DSMMapper.DataNode;
 import DPD.Enums.DependencyType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -174,20 +178,6 @@ public class DSMDataStructure {
 
         public ClassNode(String path) {
             this.filePath = path;
-        }
-    }
-
-    private class DataNode {
-        int row;
-        int col;
-        String value;
-        int numValue;
-
-        public DataNode(String data, int row, int col) {
-            this.value = data;
-            this.row = row;
-            this.col = col;
-            this.numValue = Integer.parseInt(this.value, 2);
         }
     }
 }
