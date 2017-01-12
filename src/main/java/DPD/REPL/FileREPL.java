@@ -126,8 +126,10 @@ public class FileREPL {
         String e1 = st.nextToken();
         String condition = st.nextToken();
         String e2 = st.nextToken();
-        // get the condition type and call appropriate method
-        exec.fillBucket(bucketId, DependencyType.AGGREGATE, e1, e2);
+        if(isDependencyCondition(condition)) {
+            exec.fillBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
+        }
+        //exec.fillBucket(bucketId, DependencyType.AGGREGATE, e1, e2);
     }
     private void evalFilterStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
@@ -135,7 +137,8 @@ public class FileREPL {
         String e1 = st.nextToken();
         String condition = st.nextToken();
         String e2 = st.nextToken();
-        exec.filterBucket(bucketId, DependencyType.AGGREGATE, e1, e2);
+        if(isDependencyCondition(condition))
+            exec.filterBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
     }
     private void evalPromoteStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
@@ -143,7 +146,8 @@ public class FileREPL {
         String e1 = st.nextToken();
         String condition = st.nextToken();
         String e2 = st.nextToken();
-        exec.promoteBucket(bucketId, DependencyType.AGGREGATE, e1, e2);
+        if(isDependencyCondition(condition))
+            exec.promoteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
     }
     private void evalDemoteStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
@@ -151,18 +155,27 @@ public class FileREPL {
         String e1 = st.nextToken();
         String condition = st.nextToken();
         String e2 = st.nextToken();
-        exec.demoteBucket(bucketId, DependencyType.AGGREGATE, e1, e2);
+        if(isDependencyCondition(condition))
+            exec.demoteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
     }
     private void evalResolveStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
-        String command = st.nextToken();
-        exec.resolveBucket(bucketId, command);
+        exec.resolveBucket(bucketId, bucketId);
     }
     private void evalPrintStmt(String line) {
         Tokenizer st = new Tokenizer(line, delimiters);
         st.nextToken(); // eat print keyword
         String objectId = st.nextToken();
         exec.printObject(objectId);
+    }
+
+    private boolean isDependencyCondition(String enumStr) {
+        for (DependencyType d : DependencyType.values()) {
+            if (d.name().equals(enumStr)) { // todo: testto upper
+                return true;
+            }
+        }
+        return false;
     }
 }
