@@ -14,7 +14,8 @@ b => concreteD min_count 2
 resolve( b )
 print( b )
 
-/**
+###
+
 The last rule in decorator for min_count helps differentiate decorator from visitor
 
 Their Differences are in intent, not structure:

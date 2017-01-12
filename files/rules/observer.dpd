@@ -11,7 +11,8 @@ b ++ observerI method_name 'notify'
 resolve( b )
 print( b )
 
-/**
+###
+
 - how do we remove classes we threw into observerI and conObserver which have no association with subj?
     1. using a filter -
     2. using the resolve command - any group must be represented in all entities

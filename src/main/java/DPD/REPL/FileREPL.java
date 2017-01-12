@@ -37,11 +37,15 @@ public class FileREPL {
     }
 
     public void run() {
+        String line = "";
         for (int i = 0; i < commandLines.size(); i++) {
             try {
-                execute(commandLines.get(i));
+                line = commandLines.get(i);
+                if(line.startsWith("###"))  // "eof" character lol
+                    break;
+                execute(line);
             } catch (Exception e) {
-                System.out.println("Error executing line" + i + ": " + commandLines.get(i));
+                System.out.println("Error executing line" + i + ": " + line);
                 e.printStackTrace();
                 break;
             }
@@ -169,7 +173,7 @@ public class FileREPL {
         exec.resolveBucket(bucketId, bucketId);
     }
 
-    private void evalPrintStmt(String line) {
+    private void evalPrintStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
         st.nextToken(); // eat print keyword
         String objectId = st.nextToken();
