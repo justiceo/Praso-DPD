@@ -107,8 +107,22 @@ public class ExecEnv {
 
     }
 
-    public void printObject(String objectId) {
-        System.out.println(objectId);
+    /**
+     * Prints bucket and bucket entities if specified
+     * input types bucket or bucket.entity
+     * @param objectId
+     * @throws Exception
+     */
+    public void printObject(String objectId) throws Exception {
+        assertDefined(objectId);
+        if(bucketList.containsKey(objectId))
+            System.out.println(bucketList.get(objectId));
+        else if(objectId.contains(".")) {
+            String[] vars =  objectId.split(".");
+            String entity = vars.length > 1 ? vars[1] : "";
+            if( declaredVariables.containsKey(vars[0]) && declaredVariables.containsKey(entity))
+                System.out.println(bucketList.get(vars[0]).get(vars[1]));
+        }
     }
 
     public void assertDefined(String... variableIds) throws Exception {

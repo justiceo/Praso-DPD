@@ -120,6 +120,7 @@ public class FileREPL {
             e.printStackTrace();
         }
     }
+
     private void evalFillStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
@@ -131,6 +132,7 @@ public class FileREPL {
         }
         //exec.fillBucket(bucketId, DependencyType.AGGREGATE, e1, e2);
     }
+
     private void evalFilterStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
@@ -140,6 +142,7 @@ public class FileREPL {
         if(isDependencyCondition(condition))
             exec.filterBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
     }
+
     private void evalPromoteStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
@@ -149,6 +152,7 @@ public class FileREPL {
         if(isDependencyCondition(condition))
             exec.promoteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
     }
+
     private void evalDemoteStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
@@ -158,11 +162,13 @@ public class FileREPL {
         if(isDependencyCondition(condition))
             exec.demoteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
     }
+
     private void evalResolveStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
         exec.resolveBucket(bucketId, bucketId);
     }
+
     private void evalPrintStmt(String line) {
         Tokenizer st = new Tokenizer(line, delimiters);
         st.nextToken(); // eat print keyword

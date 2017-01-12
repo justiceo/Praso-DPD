@@ -7,4 +7,9 @@ import java.util.HashMap;
  */
 public class Bucket extends HashMap<String, Entity> {
 
+    private int pocket;
+
+    public int nextPocket() {
+        return ++pocket;
+    }
 }

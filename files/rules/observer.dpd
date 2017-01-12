@@ -8,7 +8,7 @@ b <= subj [typed,use,call] observerI
 b ++ subj [aggregate,has_notify_clause] observerI
 b ++ observerI method_name 'notify'
 
-resolve(b, observerI )
+resolve( b )
 print( b )
 
 /**

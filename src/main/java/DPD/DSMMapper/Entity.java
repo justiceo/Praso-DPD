@@ -16,17 +16,18 @@ public class Entity extends ArrayList<DepNode> {
     }
 
     public void promoteAll(List<DepNode> x) {
-        // find the node in the list promote it
+        // todo: find the node in the list promote it
         ++maxPromotion;
     }
 
     public void demoteAll(List<DepNode> x) {
-        // find the node in the list demote it
+        // todo: find the node in the list demote it
         --maxPromotion;
     }
 
     // returns true if one of the classes in this collection has this pocket id
     public boolean hasPocket(int pocketId) {
+        // todo;
         return true;
     }
 }
