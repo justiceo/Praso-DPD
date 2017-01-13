@@ -1,6 +1,6 @@
 # Praso - A Design Pattern Detection Tool
 
-Automatically detect software design patterns by contraint satisfaction as specified by User
+Automatically detect software design patterns by constraint satisfaction as specified by User
 
 
 ### Installing in Eclipse

@@ -15,8 +15,20 @@ public class EasyDSMQuery extends DSMDataStructure {
         super(matrix, filePaths, dependencyCount);
     }
 
-    public void populate(DependencyType dependency, List<CNode> main, List<CNode> alternate) {
-        this.allClassNodes.forEach(c -> hasDependency(c, dependency, main, alternate));
+    public void populate(DependencyType dependency, List<CNode> xList, List<CNode> yList) {
+        this.allClassNodes.forEach(c -> getPairsWithDependency(c, dependency, xList, yList));
+    }
+
+    public void getPairsWithDependency(ClassNode c, DependencyType dependency, List<CNode> xList, List<CNode> yList) {
+        // get classes with this dependent 'Y', then get their dependents;
+        switch (dependency){
+            case SPECIALIZE:
+                // do something for special case
+                break;
+            default:
+                // do for common dep types
+                break;
+        }
     }
 
     public List<Integer> get_abstraction_classes() {
@@ -29,7 +41,7 @@ public class EasyDSMQuery extends DSMDataStructure {
 
     public List<Integer> classes_with_this_dependents(DependencyType... dependencies) {
         List<Integer> result = new ArrayList<>();
-        List pre = getClassesWithDepents(dependencies);
+        List pre = getClassesWithDependents(dependencies);
         result.addAll(pre);
         return result;
     }

@@ -94,7 +94,7 @@ public class DSMDataStructure {
         return result;
     }
 
-    public List<Integer> getClassesWithDepents(DependencyType... dependencies) {
+    public List<Integer> getClassesWithDependents(DependencyType... dependencies) {
         List<Integer> result = new ArrayList<>();
         for(int i = 0; i < matrixSize; i++) {
             List<Integer> x = getDependents(i, dependencies);
@@ -112,7 +112,7 @@ public class DSMDataStructure {
     public boolean hasDependency(int indexOfClass, DependencyType dependency) {
         return hasDependency(allClassNodes.indexOf(indexOfClass), dependency);
     }
-    public boolean hasDependency(ClassNode c, DependencyType dependency, List<CNode> main, List<CNode> alternate) {
+    public boolean hasDependency(ClassNode c, DependencyType dependency) {
         int indexOfDependency = dependencyTypes.get(dependency);
         List<DepNode> deps = c.row;
         for(DepNode dep: deps) {
@@ -132,6 +132,16 @@ public class DSMDataStructure {
                 return true;
         }
         return false;
+    }
+
+    public List<DepNode> getDependents(int indexOfClass, int indexOfDependency) {
+        List<DepNode> deps = allClassNodes.get(indexOfClass).column;
+        List<DepNode> result = new ArrayList<>();
+        for(DepNode dep: deps) {
+            if(dep.value.charAt(indexOfDependency) == '1')
+                result.add(dep);
+        }
+        return result;
     }
 
     /**
