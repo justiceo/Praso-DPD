@@ -31,7 +31,7 @@ public class DSMDependencyRepTest {
     @Test
     @Description("Returns the file paths in the dsm")
     public void getFilePathsTest() {
-        String[] filePath = dsmModel.getFilePaths();
+        String[] filePath = dsmModel.filePaths;
         int expectedCount = 5;
 
         // confirm the count matches that in file
@@ -48,7 +48,7 @@ public class DSMDependencyRepTest {
     @Test
     @Description("Returns the matrix lines in the dsm")
     public void getMatrixTest() {
-        String[] matrixLines = dsmModel.getMatrixLines();
+        String[] matrixLines = dsmModel.matrixLines;
         int expectedCount = 5;
 
         // confirm the count matches that in file
