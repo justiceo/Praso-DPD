@@ -41,6 +41,13 @@ public class Entity extends ArrayList<CNode> {
         return null;
     }
 
+    public void removeByClassId(List<CNode> list) {
+        for(CNode c: list) {
+            CNode internal = getByClassId(c.classId);
+            remove(internal);
+        }
+    }
+
     // returns true if one of the classes in this collection has this pocket id
     public boolean hasPocket(int pocketId) {
         throw new NotImplementedException();

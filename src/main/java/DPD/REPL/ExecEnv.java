@@ -80,8 +80,8 @@ public class ExecEnv {
         Bucket b = bucketList.get(bucketId);
         setGroupId(t, b.get(rightOperand));
 
-        b.get(leftOperand).removeAll(t.X);
-        b.get(rightOperand).removeAll(t.Y);
+        b.get(leftOperand).removeByClassId(t.X);
+        b.get(rightOperand).removeByClassId(t.Y);
     }
 
     public void promoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {

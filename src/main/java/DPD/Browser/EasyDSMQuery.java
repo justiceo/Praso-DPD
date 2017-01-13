@@ -33,7 +33,7 @@ public class EasyDSMQuery extends DSMDataStructure {
         for(ClassNode c: allClassNodes) {
             List<DepNode> dependents = c.column;
             for(DepNode dep: dependents) {
-                if(dep.numValue == dependency) {
+                if((dep.numValue & dependency) == dependency) {
                     CNode ynode;
                     if( yList.hasClass(dep.col) )
                         ynode = yList.getByClassId(dep.col);

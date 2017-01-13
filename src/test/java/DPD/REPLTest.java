@@ -108,7 +108,7 @@ public class REPLTest {
         Assert.assertTrue(e1.isEmpty());
         Assert.assertTrue(e2.isEmpty());
 
-        repl.execute("b => e2 SPECIALIZE e1");
+        repl.execute("b <= e2 SPECIALIZE e1");
         Assert.assertTrue(e1.size() == 1);
         Assert.assertTrue(e2.size() == 2);
     }
