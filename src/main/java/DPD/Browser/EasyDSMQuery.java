@@ -1,7 +1,6 @@
 package DPD.Browser;
 
-import DPD.Model.CNode;
-import DPD.Model.DependencyType;
+import DPD.Model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,34 +14,59 @@ public class EasyDSMQuery extends DSMDataStructure {
         super(matrix, filePaths, dependencyCount);
     }
 
-    public void populate(DependencyType dependency, List<CNode> xList, List<CNode> yList) {
-        this.allClassNodes.forEach(c -> getPairsWithDependency(c, dependency, xList, yList));
-    }
-
-    public void getPairsWithDependency(ClassNode c, DependencyType dependency, List<CNode> xList, List<CNode> yList) {
-        // get classes with this dependent 'Y', then get their dependents;
+    public void populate(DependencyType dependency, Tuple t) {
         switch (dependency){
             case SPECIALIZE:
-                // do something for special case
+                getSpecializeDependencies(t.X, t.Y);
                 break;
             default:
-                // do for common dep types
+                getPairDependencies(dependency, t.X, t.Y);
                 break;
         }
     }
 
-    public List<Integer> get_abstraction_classes() {
-        return classes_with_this_dependents(DependencyType.EXTEND, DependencyType.IMPLEMENT);
+    public void getSpecializeDependencies(Entity xList, Entity yList) {
+        int implementIndex = dependencyTypes.containsKey(DependencyType.IMPLEMENT) ? dependencyTypes.get(DependencyType.IMPLEMENT) : 0;
+        int extendIndex = dependencyTypes.containsKey(DependencyType.EXTEND) ? dependencyTypes.get(DependencyType.EXTEND) : 0;
+        int dependency = implementIndex + extendIndex;
+
+        for(ClassNode c: allClassNodes) {
+            List<DepNode> dependents = c.column;
+            for(DepNode dep: dependents) {
+                if(dep.numValue == dependency) {
+                    CNode ynode;
+                    if( yList.hasClass(dep.col) )
+                        ynode = yList.getByClassId(dep.col);
+                    else {
+                        ynode = new CNode(dep.col, Bucket.nextPocket());
+                        yList.add(ynode);
+                    }
+                    CNode xnode = new CNode(dep.row, ynode.pocket);
+                    xList.add(xnode);
+                }
+            }
+        }
     }
 
-    public List<Integer> get_specializations_of(int indexOfClass) {
-        return getDependents(indexOfClass, DependencyType.EXTEND, DependencyType.IMPLEMENT);
-    }
-
-    public List<Integer> classes_with_this_dependents(DependencyType... dependencies) {
-        List<Integer> result = new ArrayList<>();
-        List pre = getClassesWithDependents(dependencies);
-        result.addAll(pre);
-        return result;
+    public void getPairDependencies(DependencyType dependency, Entity xList, Entity yList) {
+        if( !dependencyTypes.containsKey(dependency) )
+            return;
+        int indexOfDependency = dependencyTypes.get(dependency);
+        for(ClassNode c: allClassNodes) {
+            List<DepNode> dependents = c.column;
+            for(DepNode dep: dependents) {
+                if(dep.value.charAt(indexOfDependency) == '1') {
+                    CNode ynode;
+                    if( yList.hasClass(dep.col) )
+                        ynode = yList.getByClassId(dep.col);
+                    else {
+                        ynode = new CNode(dep.col, Bucket.nextPocket());
+                        yList.add(ynode);
+                    }
+                    CNode xnode = new CNode(dep.row, ynode.pocket);
+                    xList.add(xnode);
+                }
+            }
+        }
     }
 }

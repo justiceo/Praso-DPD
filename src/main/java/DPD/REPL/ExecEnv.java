@@ -42,7 +42,7 @@ public class ExecEnv {
     public void fillBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId);
         Tuple t = new Tuple();
-        dsmQuery.populate(dependency, t.X, t.Y);
+        dsmQuery.populate(dependency, t);
 
         Bucket b = bucketList.get(bucketId);
         b.addIfNotExists(leftOperand, rightOperand);
@@ -75,7 +75,7 @@ public class ExecEnv {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
         Tuple t = new Tuple();
-        dsmQuery.populate(dependency, t.X, t.Y);
+        dsmQuery.populate(dependency, t);
 
         Bucket b = bucketList.get(bucketId);
         setGroupId(t, b.get(rightOperand));
@@ -88,7 +88,7 @@ public class ExecEnv {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
         Tuple t = new Tuple();
-        dsmQuery.populate(dependency, t.X, t.Y);
+        dsmQuery.populate(dependency, t);
 
         Bucket b = bucketList.get(bucketId);
         setGroupId(t, b.get(rightOperand));
@@ -101,7 +101,7 @@ public class ExecEnv {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
         Tuple t = new Tuple();
-        dsmQuery.populate(dependency, t.X, t.Y);
+        dsmQuery.populate(dependency, t);
 
         Bucket b = bucketList.get(bucketId);
         setGroupId(t, b.get(rightOperand));
@@ -186,10 +186,5 @@ public class ExecEnv {
 
     private boolean isDefined(Bucket b, String... variableIds) {
         return b.keySet().containsAll(Arrays.asList(variableIds));
-    }
-
-    class Tuple {
-        List<CNode> X = new ArrayList<>();
-        List<CNode> Y = new ArrayList<>();
     }
 }
