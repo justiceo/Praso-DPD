@@ -9,7 +9,7 @@ b <= decorator specialize component
 b <= concreteD specialize decorator
 b => decorator aggregates component
 b => leaf excludes component
-b => concreteD min_count 2
+b => 2 min_pocket_size concreteD
 
 resolve( b )
 print( b )
