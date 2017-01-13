@@ -3,7 +3,6 @@ package DPD.REPL;
 import DPD.DSMMapper.Bucket;
 import DPD.DSMMapper.CNode;
 import DPD.DSMMapper.Entity;
-import DPD.DSMQuery;
 import DPD.EasyDSMQuery;
 import DPD.Enums.DependencyType;
 
@@ -19,13 +18,12 @@ public class ExecEnv {
     private HashMap<String, String> declaredVariables;
     private HashMap<String, Bucket> bucketList;
     private HashMap<String, String> fillFunctions;
-    private DSMQuery dsmBrowser;
-    EasyDSMQuery easyDSMQuery = null;
+    private EasyDSMQuery dsmQuery;
 
-    public ExecEnv(DSMQuery dsmBrowser) {
+    public ExecEnv(EasyDSMQuery dsmBrowser) {
         declaredVariables = new HashMap<>();
         bucketList = new HashMap<>();
-        this.dsmBrowser = dsmBrowser;
+        this.dsmQuery = dsmBrowser;
     }
 
     public void createEntity(String entityId, String name) throws Exception {
@@ -49,7 +47,7 @@ public class ExecEnv {
 
 
         Tuple t = new Tuple();
-        easyDSMQuery.populate(dependency, t.X, t.Y);
+        dsmQuery.populate(dependency, t.X, t.Y);
 
         Bucket b = bucketList.get(bucketId);
         setGroupId(t, b.get(rightOperand));
@@ -64,7 +62,7 @@ public class ExecEnv {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
         Tuple t = new Tuple();
-        easyDSMQuery.populate(dependency, t.X, t.Y);
+        dsmQuery.populate(dependency, t.X, t.Y);
 
         Bucket b = bucketList.get(bucketId);
         setGroupId(t, b.get(rightOperand));
@@ -79,7 +77,7 @@ public class ExecEnv {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
         Tuple t = new Tuple();
-        easyDSMQuery.populate(dependency, t.X, t.Y);
+        dsmQuery.populate(dependency, t.X, t.Y);
 
         Bucket b = bucketList.get(bucketId);
         setGroupId(t, b.get(rightOperand));
@@ -93,7 +91,7 @@ public class ExecEnv {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
         Tuple t = new Tuple();
-        easyDSMQuery.populate(dependency, t.X, t.Y);
+        dsmQuery.populate(dependency, t.X, t.Y);
 
         Bucket b = bucketList.get(bucketId);
         setGroupId(t, b.get(rightOperand));

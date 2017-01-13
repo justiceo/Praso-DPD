@@ -1,6 +1,6 @@
 package DPD.REPL;
 
-import DPD.DSMQuery;
+import DPD.EasyDSMQuery;
 import DPD.Enums.DependencyType;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class FileREPL {
     private ExecEnv exec;
     private final String delimiters = ":=><=++--() ";
 
-    public FileREPL(String fileName, DSMQuery dsmBrowser) {
+    public FileREPL(String fileName, EasyDSMQuery dsmBrowser) {
         try {
             URI uri = this.getClass().getResource(fileName).toURI();
             commandLines = Files.readAllLines(Paths.get(uri), Charset.defaultCharset());
@@ -31,7 +31,7 @@ public class FileREPL {
         exec = new ExecEnv(dsmBrowser);
     }
 
-    public FileREPL(List<String> commandLines, DSMQuery dsmBrowser) {
+    public FileREPL(List<String> commandLines, EasyDSMQuery dsmBrowser) {
         this.commandLines = commandLines;
         exec = new ExecEnv(dsmBrowser);
     }

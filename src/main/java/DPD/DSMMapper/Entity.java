@@ -21,12 +21,6 @@ public class Entity extends ArrayList<CNode> {
         --maxPromotion;
     }
 
-    // returns true if one of the classes in this collection has this pocket id
-    public boolean hasPocket(int pocketId) {
-        // todo;
-        return true;
-    }
-
     public boolean hasClass(int classId) {
         // todo;
         return true;
@@ -35,6 +29,12 @@ public class Entity extends ArrayList<CNode> {
     public CNode getByClassId(int classId) {
         // todo:
         return null;
+    }
+
+    // returns true if one of the classes in this collection has this pocket id
+    public boolean hasPocket(int pocketId) {
+        // todo;
+        return true;
     }
 
     public void removePocket(int pocket) {

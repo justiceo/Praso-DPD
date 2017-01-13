@@ -13,7 +13,7 @@ import java.util.List;
 public class REPLTest {
 
     FileREPL repl;
-    DSMQuery dsmBrowser;
+    EasyDSMQuery dsmBrowser;
     List<String> commands;
 
     @Before
