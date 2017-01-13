@@ -135,7 +135,6 @@ public class ExecEnv {
      * @throws Exception
      */
     public void printObject(String objectId) throws Exception {
-        assertDeclared(objectId);
         if(bucketList.containsKey(objectId))
             System.out.println(objectId + ":\n" +bucketList.get(objectId));
         else if(objectId.contains(".")) {

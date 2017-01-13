@@ -11,4 +11,9 @@ public class CNode {
         this.classId = classId;
         this.pocket = pocket;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(classId);
+    }
 }

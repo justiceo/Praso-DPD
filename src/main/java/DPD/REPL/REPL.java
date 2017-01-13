@@ -49,6 +49,10 @@ public class REPL {
                 break;
             case PrintStatement:
                 evalPrintStmt(line);
+                break;
+            case Noop:
+                System.out.println("Noop");
+                break;
         }
     }
 

@@ -2,6 +2,8 @@ package DPD.REPL;
 
 import DPD.Browser.EasyDSMQuery;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 /**
@@ -18,16 +20,24 @@ public class ConsoleREPL extends REPL {
 
     public void start() {
         Scanner in = new Scanner(System.in);
-        String line;
-        System.out.print(prompt);
-        while(!(line = in.nextLine()).equals(exit)) {
+        String line = "";
+        while( !line.equals(exit)) {
             try {
                 System.out.print(prompt);
+                line = in.nextLine();
                 execute(line);
             } catch (Exception e) {
                 System.out.println("Error executing: " + line);
                 e.printStackTrace();
             }
         }
+    }
+
+    public void redirectPrint() {
+        // see http://stackoverflow.com/questions/8708342/redirect-console-output-to-string-in-java
+        // on redirecting print stream for when things get bad
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        System.setOut(ps);
     }
 }
