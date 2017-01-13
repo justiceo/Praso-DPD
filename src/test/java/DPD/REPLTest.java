@@ -91,25 +91,64 @@ public class REPLTest {
      *
      */
     @Test
-    public void testFillStatement_Dependency() throws Exception {
+    public void testFillStatement_Dependency_IMPLEEMENT() throws Exception {
         ExecEnvAccess exec = new ExecEnvAccess(repl);
         repl.execute("Entity e1: 'Observer Interface'");
         repl.execute("Entity e2: 'Concrete Observer'");
         repl.execute("Bucket b: 'Simple Observer Pattern'");
-        repl.execute("b <= e2 IMPLEMENT e1");
 
+        repl.execute("Print b");
+        repl.execute("b <= e2 IMPLEMENT e1");
+        repl.execute("Print b");
         Entity e1 = exec.bucketList.get("b").get("e1");
         Entity e2 = exec.bucketList.get("b").get("e2");
 
         Assert.assertTrue(e1.size() == 1);
+        Assert.assertTrue(e1.hasClass(1));
         Assert.assertTrue(e2.size() == 2);
+        Assert.assertTrue(e2.hasClass(0) && e2.hasClass(4));
 
         repl.execute("b => e2 IMPLEMENT e1");
+        repl.execute("Print b");
+        Assert.assertTrue(e1.isEmpty());
+        Assert.assertTrue(e2.isEmpty());
+
+        repl.execute("b <= e2 IMPLEMENT e1");
+        Assert.assertTrue(e1.size() == 1);
+        Assert.assertTrue(e1.hasClass(1));
+        Assert.assertTrue(e2.size() == 2);
+        Assert.assertTrue(e2.hasClass(0) && e2.hasClass(4));
+        repl.execute("Print b");
+    }
+
+    @Test
+    public void testFillStatement_Dependency_Specialize() throws Exception {
+        ExecEnvAccess exec = new ExecEnvAccess(repl);
+        repl.execute("Entity e1: 'Observer Interface'");
+        repl.execute("Entity e2: 'Concrete Observer'");
+        repl.execute("Bucket b: 'Simple Observer Pattern'");
+
+        repl.execute("Print b");
+        repl.execute("b <= e2 SPECIALIZE e1");
+        repl.execute("Print b");
+        Entity e1 = exec.bucketList.get("b").get("e1");
+        Entity e2 = exec.bucketList.get("b").get("e2");
+
+        Assert.assertTrue(e1.size() == 1);
+        Assert.assertTrue(e1.hasClass(1));
+        Assert.assertTrue(e2.size() == 2);
+        Assert.assertTrue(e2.hasClass(0) && e2.hasClass(4));
+
+        repl.execute("b => e2 SPECIALIZE e1");
+        repl.execute("Print b");
         Assert.assertTrue(e1.isEmpty());
         Assert.assertTrue(e2.isEmpty());
 
         repl.execute("b <= e2 SPECIALIZE e1");
         Assert.assertTrue(e1.size() == 1);
+        Assert.assertTrue(e1.hasClass(1));
         Assert.assertTrue(e2.size() == 2);
+        Assert.assertTrue(e2.hasClass(0) && e2.hasClass(4));
+        repl.execute("Print b");
     }
 }
