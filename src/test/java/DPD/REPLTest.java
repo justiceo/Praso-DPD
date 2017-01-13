@@ -1,7 +1,7 @@
 package DPD;
 
 import DPD.Browser.EasyDSMQuery;
-import DPD.REPL.FileREPL;
+import DPD.REPL.REPL;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class REPLTest {
 
-    FileREPL repl;
+    REPL repl;
     EasyDSMQuery dsmBrowser;
     List<String> commands;
 
@@ -23,7 +23,7 @@ public class REPLTest {
         commands.add("Entity e1: 'Ada is a girl'");
         commands.add("Bucket b1: 'simple pattern bucket'");
         dsmBrowser = null;
-        repl = new FileREPL(commands, dsmBrowser);
+        repl = new REPL(commands, dsmBrowser);
     }
 
     @Test
