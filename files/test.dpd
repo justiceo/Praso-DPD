@@ -1,0 +1,20 @@
+Entity observerI: 'Observer Interface'
+Entity conObserver: 'Concrete Observer'
+Entity subj: 'Subject'
+
+Bucket b: 'Simple Observer Pattern'
+b <= conObserver specialize observerI
+b <= subj [typed,use,call] observerI
+b ++ subj [aggregate,has_notify_clause] observerI
+b ++ 'notify' method_name observerI
+b => 2 min_pocket_size conObserver
+
+resolve( b )
+print( b )
+
+###
+
+- how do we remove classes we threw into observerI and conObserver which have no association with subj?
+    1. using a filter -
+    2. using the resolve command - any group must be represented in all entities
+
