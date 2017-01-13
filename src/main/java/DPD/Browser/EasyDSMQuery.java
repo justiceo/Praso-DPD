@@ -2,7 +2,6 @@ package DPD.Browser;
 
 import DPD.Model.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,9 +25,7 @@ public class EasyDSMQuery extends DSMDataStructure {
     }
 
     public void getSpecializeDependencies(Entity xList, Entity yList) {
-        int implementIndex = dependencyTypes.containsKey(DependencyType.IMPLEMENT) ? dependencyTypes.get(DependencyType.IMPLEMENT) : 0;
-        int extendIndex = dependencyTypes.containsKey(DependencyType.EXTEND) ? dependencyTypes.get(DependencyType.EXTEND) : 0;
-        int dependency = implementIndex + extendIndex;
+        int dependency = getDepsAsOne(DependencyType.IMPLEMENT, DependencyType.EXTEND);
 
         for(ClassNode c: allClassNodes) {
             List<DepNode> dependents = c.column;

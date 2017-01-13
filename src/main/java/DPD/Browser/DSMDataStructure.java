@@ -186,6 +186,18 @@ public class DSMDataStructure {
         return result;
     }
 
+    int getDepsAsOne(DependencyType... deps) {
+        int[] nums = new int[dependencyTypes.size()];
+        for(DependencyType d: deps) {
+            if(dependencyTypes.containsKey(d))
+                nums[dependencyTypes.get(d)] = 1;
+        }
+        StringBuilder sb = new StringBuilder();
+        for(int i: nums)
+            sb.append(i);
+        return Integer.parseInt(sb.toString(), 2);
+    }
+
     class ClassNode {
         List<DepNode> column = new ArrayList<>();
         List<DepNode> row = new ArrayList<>();
