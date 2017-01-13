@@ -1,4 +1,4 @@
-package DPD.SourceParser;
+package DPD.Browser;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseException;

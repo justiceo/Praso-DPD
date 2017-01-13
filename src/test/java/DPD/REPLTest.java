@@ -1,5 +1,6 @@
 package DPD;
 
+import DPD.Browser.EasyDSMQuery;
 import DPD.REPL.FileREPL;
 import org.junit.Before;
 import org.junit.Test;

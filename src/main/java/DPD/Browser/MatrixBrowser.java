@@ -1,7 +1,4 @@
-package DPD.DependencyBrowser;
-
-import DPD.EasyDSMQuery;
-import DPD.SourceParser.FileBrowser;
+package DPD.Browser;
 
 import java.util.HashMap;
 import java.util.List;

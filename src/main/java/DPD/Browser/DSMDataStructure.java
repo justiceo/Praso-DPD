@@ -1,6 +1,5 @@
-package DPD;
+package DPD.Browser;
 
-import DPD.DSMMapper.CNode;
 import DPD.DSMMapper.DepNode;
 import DPD.Enums.DependencyType;
 

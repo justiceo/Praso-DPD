@@ -3,7 +3,7 @@ package DPD.REPL;
 import DPD.DSMMapper.Bucket;
 import DPD.DSMMapper.CNode;
 import DPD.DSMMapper.Entity;
-import DPD.EasyDSMQuery;
+import DPD.Browser.EasyDSMQuery;
 import DPD.Enums.DependencyType;
 
 import java.util.ArrayList;
