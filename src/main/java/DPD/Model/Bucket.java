@@ -7,9 +7,9 @@ import java.util.HashMap;
  */
 public class Bucket extends HashMap<String, Entity> {
 
-    private int pocket;
+    private static int pocket;
 
-    public int nextPocket() {
+    public static int nextPocket() {
         return ++pocket;
     }
 
@@ -20,7 +20,7 @@ public class Bucket extends HashMap<String, Entity> {
         }
     }
 
-    public int getPocket() {
+    public static int getPocket() {
         return pocket;
     }
 }
