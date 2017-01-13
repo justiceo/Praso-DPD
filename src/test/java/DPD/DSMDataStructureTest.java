@@ -1,7 +1,7 @@
 package DPD;
 
 import DPD.Browser.DSMDataStructure;
-import DPD.Enums.DependencyType;
+import DPD.Model.DependencyType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

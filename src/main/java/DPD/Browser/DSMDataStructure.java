@@ -1,7 +1,7 @@
 package DPD.Browser;
 
-import DPD.DSMMapper.DepNode;
-import DPD.Enums.DependencyType;
+import DPD.Model.DepNode;
+import DPD.Model.DependencyType;
 
 import java.util.ArrayList;
 import java.util.HashMap;

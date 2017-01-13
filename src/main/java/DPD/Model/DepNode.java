@@ -1,4 +1,4 @@
-package DPD.DSMMapper;
+package DPD.Model;
 
 /**
  * Created by Justice on 1/12/2017.

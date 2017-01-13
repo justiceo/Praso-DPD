@@ -1,4 +1,4 @@
-package DPD.DSMMapper;
+package DPD.Model;
 
 import java.util.HashMap;
 

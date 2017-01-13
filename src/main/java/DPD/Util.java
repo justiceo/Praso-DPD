@@ -1,6 +1,6 @@
 package DPD;
 
-import DPD.Enums.DependencyType;
+import DPD.Model.DependencyType;
 
 import java.util.ArrayList;
 import java.util.List;

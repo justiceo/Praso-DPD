@@ -1,4 +1,4 @@
-package DPD.Enums;
+package DPD.Model;
 
 /**
  * Created by Justice on 1/27/2016.

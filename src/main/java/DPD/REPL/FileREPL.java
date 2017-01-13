@@ -1,7 +1,7 @@
 package DPD.REPL;
 
 import DPD.Browser.EasyDSMQuery;
-import DPD.Enums.DependencyType;
+import DPD.Model.DependencyType;
 
 import java.io.IOException;
 import java.net.URI;

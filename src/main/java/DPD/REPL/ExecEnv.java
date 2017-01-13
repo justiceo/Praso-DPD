@@ -1,10 +1,10 @@
 package DPD.REPL;
 
-import DPD.DSMMapper.Bucket;
-import DPD.DSMMapper.CNode;
-import DPD.DSMMapper.Entity;
+import DPD.Model.Bucket;
+import DPD.Model.CNode;
+import DPD.Model.Entity;
 import DPD.Browser.EasyDSMQuery;
-import DPD.Enums.DependencyType;
+import DPD.Model.DependencyType;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,7 +1,7 @@
 package DPD.Browser;
 
-import DPD.DSMMapper.CNode;
-import DPD.Enums.DependencyType;
+import DPD.Model.CNode;
+import DPD.Model.DependencyType;
 
 import java.util.ArrayList;
 import java.util.List;
