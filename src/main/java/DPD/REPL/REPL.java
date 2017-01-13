@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by Justice on 1/10/2017.
  */
-public abstract class REPL {
+public class REPL {
 
     protected ExecEnv exec;
     protected final String delimiters = ":=><=++--() ";
