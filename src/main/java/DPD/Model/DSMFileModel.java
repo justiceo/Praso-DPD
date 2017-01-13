@@ -11,28 +11,13 @@ import java.util.logging.Logger;
  * Created by Justice on 3/20/2016.
  * Represents the model of a DSM file
  */
-public class DSMFileModel implements FileModel {
+public class DSMFileModel extends FileModel {
 
-    /**
-     * Contains a list of the different kinds of dependencies that exist in this matrix
-     * E.g. Use, Call, Inherit
-     */
-    private String exhibitedDependencyLine;
+    public DSMFileModel(String fileName) {
+        super(fileName);
+    }
 
-    /**
-     * Contains a list of the full paths to the java classes represented in the matrix
-     * E.g. D:.Code.IdeaProjects.maze.src.edu.drexel.cs.maze.MazeFactory_java
-     */
-    private String[] filePaths;
-
-    /**
-     * Contains the matrix of the dependencies between the classes
-     * E.g. 0 0 0 0 0 0 01100100 0
-     */
-    private String[] matrixLines;
-
-
-    public DSMFileModel(String dsmFilePath) {
+    public void loadFile(String dsmFilePath) {
 
         Scanner in = null;
         try {
@@ -57,17 +42,5 @@ public class DSMFileModel implements FileModel {
 
         // close file input
         in.close();
-    }
-
-    public String getExhibitedDependencyLine() {
-        return exhibitedDependencyLine;
-    }
-
-    public String[] getMatrixLines() {
-        return matrixLines;
-    }
-
-    public String[] getFilePaths() {
-        return filePaths;
     }
 }

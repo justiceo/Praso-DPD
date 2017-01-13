@@ -26,4 +26,52 @@ public class Util {
         }
         return dependencyTypes;
     }
+
+    /**
+     * Returns all the junk before the source (src) folder
+     * @param filePath
+     * @return
+     */
+    public static String getAbsDirFromPath(String filePath) {
+        // we'll use "src" for now as root of dev source code
+        int cutoff = filePath.indexOf("src");
+        if(cutoff != -1) {
+            return filePath.substring(0, cutoff);
+        }
+        return null;
+    }
+
+    /**
+     * Returns the path of the file starting from the source (src) directory
+     * @param absolutePath
+     * @return
+     */
+    public static String getRelativePath(String absolutePath) {
+        return absolutePath.replace(getAbsDirFromPath(absolutePath), "");
+    }
+
+    /**
+     * Converts D:.Code.IdeaProjects.maze.src.edu.drexel.cs.maze.MazeFactory_java
+     * to D:/Code/IdeaProjects/maze/src/edu/drexel/cs/maze/MazeFactory.java
+     * @param damagedPath
+     * @return
+     */
+    public static String fixFilePath(String damagedPath) {
+        try {
+            // first confirm its broken
+            int l = damagedPath.lastIndexOf("_");
+            if (l == -1) return damagedPath; // it's good.
+
+            String ext = damagedPath.substring(l);
+            if (!ext.equals("_java")) {
+                System.out.println("cannot fix path: " + damagedPath);
+                return damagedPath;
+            }
+            return damagedPath.substring(0, l).replace(".", "\\") + ext.replace("_", ".");
+
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("error converting " + damagedPath);
+            return damagedPath;
+        }
+    }
 }

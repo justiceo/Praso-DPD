@@ -1,5 +1,6 @@
 package DPD;
 
+import DPD.Model.DSMFileModel;
 import com.sun.org.glassfish.gmbal.Description;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
@@ -14,12 +15,12 @@ import java.io.FileNotFoundException;
  */
 public class DSMDependencyRepTest {
     private String dsmFile;
-    private DSMDependencyRep dsmModel;
+    private DSMFileModel dsmModel;
 
     @Before
     public void setup() throws FileNotFoundException {
         dsmFile = "files\\dsm\\simpleObserverPattern.dsm";
-        dsmModel = new DSMDependencyRep(dsmFile);
+        dsmModel = new DSMFileModel(dsmFile);
     }
 
     @After
