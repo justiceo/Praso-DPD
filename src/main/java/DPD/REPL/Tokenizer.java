@@ -35,6 +35,10 @@ public class Tokenizer {
                 sb.append(c);
             }
         }
+
+        // add any remaining token
+        if(sb.length() > 0)
+            tokens.add(sb.toString());
         this.tokens = new String[tokens.size()];
         this.tokens = tokens.toArray(this.tokens);
     }

@@ -27,14 +27,12 @@ public class ExecEnv {
     }
 
     public void createEntity(String entityId, String name) throws Exception {
-        System.out.println(entityId + " " + name);
         assertUndeclared(entityId);
         declaredVariables.put(entityId, name);
     }
 
 
     public void createBucket(String bucketId, String name) throws Exception {
-        System.out.println(bucketId + " " + name);
         assertUndeclared(bucketId);
 
         declaredVariables.put(bucketId, name);
@@ -42,10 +40,7 @@ public class ExecEnv {
     }
 
     public void fillBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
-        System.out.println(bucketId + " " + dependency);
         assertDeclared(bucketId);
-
-
         Tuple t = new Tuple();
         dsmQuery.populate(dependency, t.X, t.Y);
 
@@ -77,7 +72,6 @@ public class ExecEnv {
     }
 
     public void filterBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
-        System.out.println(bucketId + " " + dependency);
         assertDeclared(bucketId, leftOperand, rightOperand);
 
         Tuple t = new Tuple();
@@ -91,8 +85,6 @@ public class ExecEnv {
     }
 
     public void promoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
-        System.out.println(bucketId + " " + dependency);
-        System.out.println(bucketId + " " + dependency);
         assertDeclared(bucketId, leftOperand, rightOperand);
 
         Tuple t = new Tuple();
@@ -106,7 +98,6 @@ public class ExecEnv {
     }
 
     public void demoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
-        System.out.println(bucketId + " " + dependency);
         assertDeclared(bucketId, leftOperand, rightOperand);
 
         Tuple t = new Tuple();
@@ -121,7 +112,6 @@ public class ExecEnv {
     }
 
     public void resolveBucket(String bucketId, String variableId) throws Exception {
-        System.out.println(bucketId);
         assertDeclared(bucketId, variableId);
 
         Bucket b = bucketList.get(bucketId);
@@ -147,7 +137,7 @@ public class ExecEnv {
     public void printObject(String objectId) throws Exception {
         assertDeclared(objectId);
         if(bucketList.containsKey(objectId))
-            System.out.println(bucketList.get(objectId));
+            System.out.println(objectId + ":\n" +bucketList.get(objectId));
         else if(objectId.contains(".")) {
             String[] vars =  objectId.split(".");
             String entity = vars.length > 1 ? vars[1] : "";
@@ -174,7 +164,7 @@ public class ExecEnv {
     public void assertDeclared(String... variableIds) throws Exception {
         for(String var: variableIds) {
             if( !declaredVariables.containsKey(var) )
-                throw new Exception(var + "is an undeclared variable");
+                throw new Exception(var + " is an undeclared variable");
         }
     }
 
@@ -182,7 +172,7 @@ public class ExecEnv {
     private void assertUndeclared(String... variableIds) throws Exception {
         for(String var: variableIds) {
             if( declaredVariables.containsKey(var) )
-                throw new Exception(var + "is already defined");
+                throw new Exception(var + " is already defined");
         }
     }
 

@@ -16,7 +16,7 @@ public class OperatorFunctions {
 
     public OperatorFunctions() {
         // might need a dsm browser, file browser etc
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
     }
 
     public boolean isValidOperator(String operatorName) {
