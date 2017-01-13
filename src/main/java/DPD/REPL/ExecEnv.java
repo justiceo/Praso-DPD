@@ -1,12 +1,11 @@
 package DPD.REPL;
 
-import DPD.Model.Bucket;
-import DPD.Model.CNode;
-import DPD.Model.Entity;
+import DPD.Model.*;
 import DPD.Browser.EasyDSMQuery;
-import DPD.Model.DependencyType;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,13 +16,14 @@ public class ExecEnv {
 
     private HashMap<String, String> declaredVariables;
     private HashMap<String, Bucket> bucketList;
-    private HashMap<String, String> fillFunctions;
     private EasyDSMQuery dsmQuery;
+    private OperatorFunctions opFunc;
 
     public ExecEnv(EasyDSMQuery dsmBrowser) {
         declaredVariables = new HashMap<>();
         bucketList = new HashMap<>();
         this.dsmQuery = dsmBrowser;
+        opFunc = new OperatorFunctions();
     }
 
     public void createEntity(String entityId, String name) throws Exception {
@@ -50,10 +50,29 @@ public class ExecEnv {
         dsmQuery.populate(dependency, t.X, t.Y);
 
         Bucket b = bucketList.get(bucketId);
+        b.addIfNotExists(leftOperand, rightOperand);
+        setGroupId(t, b.get(rightOperand));
+        b.get(leftOperand).addAll(t.X);
+        b.get(rightOperand).addAll(t.Y);
+    }
+
+    public void fillBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
+        assertDeclared(bucketId);
+        if( !opFunc.isValidOperator(operator))
+            throw new NotImplementedException();
+
+        Tuple t = new Tuple();
+        Bucket b = bucketList.get(bucketId);
+        opFunc.call(operator, b, leftOperand, rightOperand, t.X, t.Y);
+
+        if(isDeclared(leftOperand))
+            b.addIfNotExists(leftOperand);
+        b.addIfNotExists(rightOperand);
+
         setGroupId(t, b.get(rightOperand));
 
-        b.addIfNotExists(leftOperand, rightOperand);
-        b.get(leftOperand).addAll(t.X);
+        if(isDefined(b, leftOperand))
+            b.get(leftOperand).addAll(t.X);
         b.get(rightOperand).addAll(t.Y);
     }
 
@@ -165,6 +184,18 @@ public class ExecEnv {
             if( declaredVariables.containsKey(var) )
                 throw new Exception(var + "is already defined");
         }
+    }
+
+    private boolean isDeclared(String... variableIds) {
+        for(String var: variableIds) {
+            if( !declaredVariables.containsKey(var) )
+                return false;
+        }
+        return true;
+    }
+
+    private boolean isDefined(Bucket b, String... variableIds) {
+        return b.keySet().containsAll(Arrays.asList(variableIds));
     }
 
     class Tuple {
