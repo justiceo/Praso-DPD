@@ -6,13 +6,9 @@ import java.util.Scanner;
 /**
  * Created by Justice on 3/20/2016.
  */
-public class IDMFileModel extends FileModel {
+public class IDMFileModel extends DSMModel {
 
-    public IDMFileModel(String fileName) {
-        super(fileName);
-    }
-
-    public void loadFile(String fileName) {
+    public IDMFileModel(String fileName){
         Scanner in = null;          /* load idm file */
         try {
             in = new Scanner(new File(fileName));

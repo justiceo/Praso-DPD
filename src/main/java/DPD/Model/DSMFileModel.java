@@ -11,14 +11,9 @@ import java.util.logging.Logger;
  * Created by Justice on 3/20/2016.
  * Represents the model of a DSM file
  */
-public class DSMFileModel extends FileModel {
+public class DSMFileModel extends DSMModel {
 
-    public DSMFileModel(String fileName) {
-        super(fileName);
-    }
-
-    public void loadFile(String dsmFilePath) {
-
+    public DSMFileModel(String dsmFilePath) {
         Scanner in = null;
         try {
             in = new Scanner(new File(dsmFilePath));

@@ -3,7 +3,7 @@ package DPD.Model;
 /**
  * Created by Justice on 3/20/2016.
  */
-public abstract class FileModel {
+public class DSMModel {
 
     /**
      * Contains a list of the different kinds of dependencies that exist in this matrix
@@ -22,23 +22,5 @@ public abstract class FileModel {
      * E.g. 0 0 0 0 0 0 01100100 0
      */
     public String[] matrixLines;
-
-    public FileModel(String fileName) {
-        loadFile(fileName);
-    }
-
-    public abstract void loadFile(String fileName);
-
-    public String getExhibitedDependencyLine() {
-        return exhibitedDependencyLine;
-    }
-
-    public String[] getMatrixLines() {
-        return matrixLines;
-    }
-
-    public String[] getFilePaths() {
-        return filePaths;
-    }
 
 }
