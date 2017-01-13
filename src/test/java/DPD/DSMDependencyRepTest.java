@@ -44,20 +44,6 @@ public class DSMDependencyRepTest {
         Assert.assertTrue("The first file should contain Concrete observer B", filePath[0].contains("ConcreteObserverB"));
     }
 
-    @Test
-    @Description("Returns the path of the java file from the src folder")
-    public void getRelativePathTest() {
-        String firstFile = dsmModel.getFilePaths()[0];
-
-        // confirm the initial file name is a fully qualified path
-        String expected = "D:\\Code\\IdeaProjects\\maze\\src\\edu\\drexel\\cs\\maze\\MazeFactory.java";
-        Assert.assertEquals("Original file should match", expected, firstFile);
-
-        // check if relative path starts from src
-        expected = "src\\edu\\drexel\\cs\\maze\\MazeFactory.java";
-        firstFile = dsmModel.getRelativePath(firstFile);
-        Assert.assertEquals("Relative path did not start from src", expected, firstFile);
-    }
 
     @Test
     @Description("Returns the matrix lines in the dsm")
@@ -73,22 +59,6 @@ public class DSMDependencyRepTest {
 
         // confirm the last item contains ConcreteObserverA
         Assert.assertTrue("The first line should contain the dependency", matrixLines[0].contains("001"));
-    }
-
-    @Test
-    @Description("Converts file path from dotted notation to escaped file")
-    public void fixFilePathTest() {
-        String originalFirstFile = "D:.Code.IdeaProjects.DesignPatterns.src.CommonPatterns.observer.ConcreteObserverB_java";
-        String firstFile = dsmModel.getFilePaths()[0];
-
-        // confirm the initial file name is a fully qualified path
-        String expected = "D:\\Code\\IdeaProjects\\maze\\src\\edu\\drexel\\cs\\maze\\MazeFactory.java";
-        Assert.assertEquals("Original file should match", expected, firstFile);
-
-        // check if relative path starts from src
-        expected = "src\\edu\\drexel\\cs\\maze\\MazeFactory.java";
-        firstFile = dsmModel.getRelativePath(firstFile);
-        Assert.assertEquals("Relative path did not start from src", expected, firstFile);
     }
 
 
