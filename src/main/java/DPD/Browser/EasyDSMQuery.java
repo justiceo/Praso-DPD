@@ -2,6 +2,7 @@ package DPD.Browser;
 
 import DPD.Model.*;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -16,43 +17,37 @@ public class EasyDSMQuery extends DSMDataStructure {
     public void populate(DependencyType dependency, Tuple t) {
         switch (dependency){
             case SPECIALIZE:
-                getSpecializeDependencies(t.X, t.Y);
+                populate(t, DependencyType.IMPLEMENT, DependencyType.EXTEND);
                 break;
             default:
-                getPairDependencies(dependency, t.X, t.Y);
+                populate(t, dependency);
                 break;
         }
     }
 
-    public void getSpecializeDependencies(Entity xList, Entity yList) {
-        int dependency = getDepsAsOne(DependencyType.IMPLEMENT, DependencyType.EXTEND);
+    public void populate(List<DependencyType> dependencies, Tuple t) {
+        Iterator<DependencyType> iter = dependencies.iterator();
+        while(iter.hasNext()) {
+            DependencyType d = iter.next();
+            if(d == DependencyType.SPECIALIZE) {
+                iter.remove();
+                dependencies.add(DependencyType.IMPLEMENT);
+                dependencies.add(DependencyType.EXTEND);
+            }
+        }
+        populate(t, (DependencyType[]) dependencies.toArray());
+    }
+
+
+    private void populate(Tuple t, DependencyType... dependencies) {
+        int dependency = getDepsAsOne(dependencies);
+        Entity xList = t.X;
+        Entity yList = t.Y;
 
         for(ClassNode c: allClassNodes) {
             List<DepNode> dependents = c.column;
             for(DepNode dep: dependents) {
                 if((dep.numValue & dependency) == dependency) {
-                    CNode ynode;
-                    if( yList.hasClass(dep.col) )
-                        ynode = yList.getByClassId(dep.col);
-                    else {
-                        ynode = new CNode(dep.col, Bucket.nextPocket());
-                        yList.add(ynode);
-                    }
-                    CNode xnode = new CNode(dep.row, ynode.pocket);
-                    xList.add(xnode);
-                }
-            }
-        }
-    }
-
-    public void getPairDependencies(DependencyType dependency, Entity xList, Entity yList) {
-        if( !dependencyTypes.containsKey(dependency) )
-            return;
-        int indexOfDependency = dependencyTypes.get(dependency);
-        for(ClassNode c: allClassNodes) {
-            List<DepNode> dependents = c.column;
-            for(DepNode dep: dependents) {
-                if(dep.value.charAt(indexOfDependency) == '1') {
                     CNode ynode;
                     if( yList.hasClass(dep.col) )
                         ynode = yList.getByClassId(dep.col);

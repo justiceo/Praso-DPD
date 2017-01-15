@@ -2,6 +2,7 @@ package DPD.REPL;
 
 import DPD.Browser.EasyDSMQuery;
 import DPD.Model.DependencyType;
+import DPD.Util;
 
 import java.io.IOException;
 import java.net.URI;
@@ -106,10 +107,13 @@ public class REPL {
         String e1 = st.nextToken();
         String condition = st.nextToken();
         String e2 = st.nextToken();
-        if(isDependencyCondition(condition)) {
+        if(condition.startsWith("[") && condition.endsWith("]")) {
+            List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
+            exec.fillBucket(bucketId, dependencyTypes, e1, e2);
+        }
+        if(Util.isDependencyCondition(condition)) {
             exec.fillBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
         }
-        //exec.fillBucket(bucketId, DependencyType.AGGREGATE, e1, e2);
     }
 
     private void evalFilterStmt(String line) throws Exception {
@@ -118,7 +122,7 @@ public class REPL {
         String e1 = st.nextToken();
         String condition = st.nextToken();
         String e2 = st.nextToken();
-        if(isDependencyCondition(condition))
+        if(Util.isDependencyCondition(condition))
             exec.filterBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
     }
 
@@ -128,7 +132,7 @@ public class REPL {
         String e1 = st.nextToken();
         String condition = st.nextToken();
         String e2 = st.nextToken();
-        if(isDependencyCondition(condition))
+        if(Util.isDependencyCondition(condition))
             exec.promoteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
     }
 
@@ -138,7 +142,7 @@ public class REPL {
         String e1 = st.nextToken();
         String condition = st.nextToken();
         String e2 = st.nextToken();
-        if(isDependencyCondition(condition))
+        if(Util.isDependencyCondition(condition))
             exec.demoteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
     }
 
@@ -153,14 +157,5 @@ public class REPL {
         st.nextToken(); // eat print keyword
         String objectId = st.nextToken();
         exec.printObject(objectId);
-    }
-
-    private boolean isDependencyCondition(String enumStr) {
-        for (DependencyType d : DependencyType.values()) {
-            if (d.name().equals(enumStr)) { // todo: testto upper
-                return true;
-            }
-        }
-        return false;
     }
 }

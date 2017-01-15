@@ -51,6 +51,20 @@ public class ExecEnv {
         b.get(rightOperand).addAll(t.Y);
     }
 
+
+
+    public void fillBucket(String bucketId, List<DependencyType> dependency, String leftOperand, String rightOperand) throws Exception {
+        assertDeclared(bucketId);
+        Tuple t = new Tuple();
+        dsmQuery.populate(dependency, t);
+
+        Bucket b = bucketList.get(bucketId);
+        b.addIfNotExists(leftOperand, rightOperand);
+        setGroupId(t, b.get(rightOperand));
+        b.get(leftOperand).addAll(t.X);
+        b.get(rightOperand).addAll(t.Y);
+    }
+
     public void fillBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId);
         if( !opFunc.isValidOperator(operator))
