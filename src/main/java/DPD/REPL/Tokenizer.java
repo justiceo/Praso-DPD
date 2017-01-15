@@ -43,23 +43,7 @@ public class Tokenizer {
         this.tokens = tokens.toArray(this.tokens);
     }
 
-    public String eat() {
-        return tokens[index++];
-    }
-
     public String nextToken() {
-        return eat();
-    }
-
-    public boolean hasMore() {
-        return index < tokens.length;
-    }
-
-    public String eatAll() {
-        StringBuilder sb = new StringBuilder();
-        while(hasMore()) {
-            sb.append(eat());
-        }
-        return sb.toString();
+        return tokens[index++];
     }
 }
