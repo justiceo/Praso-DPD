@@ -6,6 +6,7 @@ package DPD.Model;
 public class CNode {
     public int classId = -1;
     public int pocket = -1;
+    public int score = 0;
 
     public CNode(int classId, int pocket) {
         this.classId = classId;

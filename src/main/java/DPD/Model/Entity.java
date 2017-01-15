@@ -13,16 +13,22 @@ public class Entity extends ArrayList<CNode> {
 
     private int maxPromotion;
 
-    public void promoteAll(List<CNode> x) {
-        // todo: find the node in the list promote it
+    public void promoteAll(List<CNode> list) {
+        for(int i = 0; i < list.size(); i++){
+            if( hasClass( list.get(i).classId ) ) {
+                ++getByClassId( list.get(i).classId ).score;
+            }
+        }
         ++maxPromotion;
-        throw new NotImplementedException();
     }
 
-    public void demoteAll(List<CNode> x) {
-        // todo: find the node in the list demote it
+    public void demoteAll(List<CNode> list) {
+        for(int i = 0; i < list.size(); i++){
+            if( hasClass( list.get(i).classId ) ) {
+                --getByClassId( list.get(i).classId ).score;
+            }
+        }
         --maxPromotion;
-        throw new NotImplementedException();
     }
 
     public boolean hasClass(int classId) {
