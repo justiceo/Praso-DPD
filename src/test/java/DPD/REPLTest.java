@@ -8,6 +8,7 @@ import DPD.Model.Entity;
 import DPD.REPL.ExecEnv;
 import DPD.REPL.FileREPL;
 import DPD.REPL.OperatorFunctions;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import DPD.REPL.REPL;
 import org.junit.After;
 import org.junit.Assert;
@@ -170,10 +171,37 @@ public class REPLTest {
         Assert.assertTrue(e3.size() == 2);
         Assert.assertTrue(e3.hasClass(2) && e3.hasClass(3));
         repl.execute("Print b");
-        
+
         repl.execute("b => e3 [typed,use] e1");
         Assert.assertTrue(e1.isEmpty());
         Assert.assertTrue(e3.isEmpty());
+        repl.execute("Print b");
+    }
+
+    @Test
+    public void operatorFunctionTest() throws Exception {
+        ExecEnvAccess exec = new ExecEnvAccess(repl);
+        repl.execute("Entity e1: 'Observer Interface'");
+        repl.execute("Entity e2: 'Concrete Observer'");
+        repl.execute("Bucket b: 'Simple Observer Pattern'");
+
+        repl.execute("Print b");
+        repl.execute("b <= e2 SPECIALIZE e1");
+        repl.execute("b <= e1 SPECIALIZE e2");
+        Entity e1 = exec.bucketList.get("b").get("e1");
+        Entity e2 = exec.bucketList.get("b").get("e2");
+        repl.execute("Print b");
+
+        Assert.assertFalse(e1.isEmpty());
+        Assert.assertTrue(e1.size() == e2.size());
+
+        int currSize = e1.size();
+
+        //repl.execute("b <= 'notify' invalid_operator e1"); //should throw exception
+        repl.execute("b => e2 excludes e1");
+        Assert.assertFalse(e1.size() == e2.size());
+        Assert.assertTrue(e2.isEmpty());
+        Assert.assertTrue(e1.size() == currSize);
         repl.execute("Print b");
     }
 }

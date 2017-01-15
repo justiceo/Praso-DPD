@@ -111,8 +111,11 @@ public class REPL {
             List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
             exec.fillBucket(bucketId, dependencyTypes, e1, e2);
         }
-        if(Util.isDependencyCondition(condition)) {
+        else if(Util.isDependencyCondition(condition)) {
             exec.fillBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
+        }
+        else {
+            exec.fillBucket(bucketId, condition, e1, e2);
         }
     }
 
@@ -126,8 +129,11 @@ public class REPL {
             List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
             exec.filterBucket(bucketId, dependencyTypes, e1, e2);
         }
-        if(Util.isDependencyCondition(condition))
+        else if(Util.isDependencyCondition(condition))
             exec.filterBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
+        else {
+            exec.filterBucket(bucketId, condition, e1, e2);
+        }
     }
 
     private void evalPromoteStmt(String line) throws Exception {

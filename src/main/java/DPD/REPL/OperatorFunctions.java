@@ -2,9 +2,10 @@ package DPD.REPL;
 
 import DPD.Model.Bucket;
 import DPD.Model.CNode;
+import DPD.Model.Entity;
+import DPD.Model.Tuple;
+import jdk.internal.org.objectweb.asm.tree.ClassNode;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-import java.util.List;
 
 /**
  * Created by I853985 on 1/13/2017.
@@ -15,26 +16,26 @@ public class OperatorFunctions {
     private MethodName methodName;
 
     public OperatorFunctions() {
-        // might need a dsm browser, file browser etc
-        //throw new NotImplementedException();
+        methodName = new MethodName();
+        excludes = new Excludes();
     }
 
     public boolean isValidOperator(String operatorName) {
         for (Operator d : Operator.values()) {
-            if (d.name().equals(operatorName)) { // todo: testto upper
+            if (d.name().equals(operatorName.toUpperCase())) { // todo: testto upper
                 return true;
             }
         }
         return false;
     }
 
-    public void call(String operatorName, Bucket b, String leftOp, String rightOp, List<CNode> x, List<CNode> y) {
-        Operator op = Operator.valueOf(operatorName);
+    public void call(String operatorName, Bucket b, String leftOp, String rightOp, Tuple t) {
+        Operator op = Operator.valueOf(operatorName.toUpperCase());
         switch (op) {
-            case Excludes:
+            case EXCLUDES:
                 excludes.call(b, leftOp, rightOp);
                 break;
-            case Method_Name:
+            case METHOD_NAME:
                 methodName.call(b, leftOp, rightOp);
                 break;
             default:
@@ -44,13 +45,16 @@ public class OperatorFunctions {
     }
 
     private enum Operator {
-        Excludes,
-        Method_Name
+        EXCLUDES,
+        METHOD_NAME
     }
 
     class Excludes implements IOperatorFunction {
         public void call(Bucket b,  String leftOp, String rightOp) {
-            throw new NotImplementedException();
+            // assert declared leftOp, and rightOp
+            Entity left = b.get(leftOp);
+            Entity right = b.get(rightOp);
+            left.removeByClassId(right);
         }
     }
 

@@ -66,7 +66,7 @@ public class ExecEnv {
 
         Tuple t = new Tuple();
         Bucket b = bucketList.get(bucketId);
-        opFunc.call(operator, b, leftOperand, rightOperand, t.X, t.Y);
+        opFunc.call(operator, b, leftOperand, rightOperand, t);
 
         if(isDeclared(leftOperand))
             b.addIfNotExists(leftOperand);
@@ -96,6 +96,22 @@ public class ExecEnv {
         List<DependencyType> dt = new ArrayList<>();
         dt.add(dependency);
         filterBucket(bucketId, dt, leftOperand, rightOperand);
+    }
+
+    public void filterBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
+        assertDeclared(bucketId, leftOperand, rightOperand);
+        if( !opFunc.isValidOperator(operator))
+            throw new NotImplementedException();
+
+        Tuple t = new Tuple();
+        Bucket b = bucketList.get(bucketId);
+        opFunc.call(operator, b, leftOperand, rightOperand, t);
+
+        setGroupId(t, b.get(rightOperand));
+
+        if(isDefined(b, leftOperand))
+            b.get(leftOperand).removeByClassId(t.X);
+        b.get(rightOperand).removeByClassId(t.Y);
     }
 
     public void promoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
