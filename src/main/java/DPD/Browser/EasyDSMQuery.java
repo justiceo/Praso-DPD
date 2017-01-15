@@ -26,16 +26,13 @@ public class EasyDSMQuery extends DSMDataStructure {
     }
 
     public void populate(List<DependencyType> dependencies, Tuple t) {
-        Iterator<DependencyType> iter = dependencies.iterator();
-        while(iter.hasNext()) {
-            DependencyType d = iter.next();
-            if(d == DependencyType.SPECIALIZE) {
-                iter.remove();
-                dependencies.add(DependencyType.IMPLEMENT);
-                dependencies.add(DependencyType.EXTEND);
-            }
+        if(dependencies.contains(DependencyType.SPECIALIZE)) {
+            dependencies.remove(DependencyType.SPECIALIZE);
+            dependencies.add(DependencyType.EXTEND);
+            dependencies.add(DependencyType.IMPLEMENT);
         }
-        populate(t, (DependencyType[]) dependencies.toArray());
+        DependencyType[] dt = new DependencyType[dependencies.size()];
+        populate(t, dependencies.toArray(dt));
     }
 
 
