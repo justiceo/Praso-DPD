@@ -151,4 +151,30 @@ public class REPLTest {
         Assert.assertTrue(e2.hasClass(0) && e2.hasClass(4));
         repl.execute("Print b");
     }
+
+    @Test
+    public void testFillStatement_MultiDependency() throws Exception {
+        ExecEnvAccess exec = new ExecEnvAccess(repl);
+        repl.execute("Entity e1: 'Observer Interface'");
+        repl.execute("Entity e3: 'Subject'");
+        repl.execute("Bucket b: 'Simple Observer Pattern'");
+
+        repl.execute("Print b");
+        repl.execute("b <= e3 [typed,use] e1");
+
+        Entity e1 = exec.bucketList.get("b").get("e1");
+        Entity e3 = exec.bucketList.get("b").get("e3");
+
+        Assert.assertTrue(e1.size() == 1);
+        Assert.assertTrue(e1.hasClass(1));
+        Assert.assertTrue(e3.size() == 2);
+        Assert.assertTrue(e3.hasClass(2) && e3.hasClass(3));
+
+        repl.execute("Print b");
+        repl.execute("b => e3 [typed,use] e1");
+        repl.execute("Print b");
+        Assert.assertTrue(e1.isEmpty());
+        Assert.assertTrue(e3.isEmpty());
+        repl.execute("Print b");
+    }
 }

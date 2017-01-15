@@ -18,7 +18,7 @@ import java.util.List;
 public class REPL {
 
     protected ExecEnv exec;
-    protected final String delimiters = ":=><=++--()[] ";
+    protected final String delimiters = ":=><=++--() ";
 
     public REPL(EasyDSMQuery dsmBrowser) {
         exec = new ExecEnv(dsmBrowser);

@@ -21,16 +21,17 @@ public class Util {
         String[] depStrings = dependencyLine.split(",");
         List<DependencyType> dependencyTypes = new ArrayList<>(depStrings.length);
         for (int i = 0; i < depStrings.length; i++) {
-            // todo: check if it exists first
-            DependencyType dependencyType = DependencyType.valueOf(depStrings[i].toUpperCase());
-            dependencyTypes.add(dependencyType);
+            if( isDependencyCondition(depStrings[i])) {
+                DependencyType dependencyType = DependencyType.valueOf(depStrings[i].toUpperCase());
+                dependencyTypes.add(dependencyType);
+            }
         }
         return dependencyTypes;
     }
 
     public static boolean isDependencyCondition(String enumStr) {
         for (DependencyType d : DependencyType.values()) {
-            if (d.name().equals(enumStr)) { // todo: testto upper
+            if (d.name().equals(enumStr.toUpperCase())) { // todo: testto upper
                 return true;
             }
         }
