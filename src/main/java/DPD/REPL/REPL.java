@@ -122,6 +122,10 @@ public class REPL {
         String e1 = st.nextToken();
         String condition = st.nextToken();
         String e2 = st.nextToken();
+        if(condition.startsWith("[") && condition.endsWith("]")) {
+            List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
+            exec.filterBucket(bucketId, dependencyTypes, e1, e2);
+        }
         if(Util.isDependencyCondition(condition))
             exec.filterBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
     }

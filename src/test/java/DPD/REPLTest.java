@@ -169,10 +169,9 @@ public class REPLTest {
         Assert.assertTrue(e1.hasClass(1));
         Assert.assertTrue(e3.size() == 2);
         Assert.assertTrue(e3.hasClass(2) && e3.hasClass(3));
-
         repl.execute("Print b");
+        
         repl.execute("b => e3 [typed,use] e1");
-        repl.execute("Print b");
         Assert.assertTrue(e1.isEmpty());
         Assert.assertTrue(e3.isEmpty());
         repl.execute("Print b");

@@ -79,17 +79,23 @@ public class ExecEnv {
         b.get(rightOperand).addAll(t.Y);
     }
 
-    public void filterBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
+    public void filterBucket(String bucketId, List<DependencyType> dependencies, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
         Tuple t = new Tuple();
-        dsmQuery.populate(dependency, t);
+        dsmQuery.populate(dependencies, t);
 
         Bucket b = bucketList.get(bucketId);
         setGroupId(t, b.get(rightOperand));
 
         b.get(leftOperand).removeByClassId(t.X);
         b.get(rightOperand).removeByClassId(t.Y);
+    }
+
+    public void filterBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
+        List<DependencyType> dt = new ArrayList<>();
+        dt.add(dependency);
+        filterBucket(bucketId, dt, leftOperand, rightOperand);
     }
 
     public void promoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
