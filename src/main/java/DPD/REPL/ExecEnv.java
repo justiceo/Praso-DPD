@@ -100,7 +100,7 @@ public class ExecEnv {
     }
 
     public void filterBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
-        assertDeclared(bucketId, leftOperand, rightOperand);
+        assertDeclared(bucketId, rightOperand);
         OperatorObject op = opFunc.get(operator);
         if( op == null )
             throw new NotImplementedException();
