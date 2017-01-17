@@ -181,13 +181,13 @@ public class ExecEnv {
         System.out.println("Bucket " + bucketId);
         Bucket b = bucketList.get(bucketId);
         for(String eKey: b.keySet()){
-            System.out.println("\tEntity " + eKey);
-            System.out.print("\t\t");
+            System.out.print("\tEntity " + eKey + ": ");
             for(CNode c: b.get(eKey)) {
-                System.out.print(c + ", ");
+                System.out.print(dsmQuery.GetType(c.classId) + ", ");
             }
             System.out.println();
         }
+        System.out.println("\n---------------------------\n");
     }
 
     private void setGroupId(Tuple t, Entity entity) {

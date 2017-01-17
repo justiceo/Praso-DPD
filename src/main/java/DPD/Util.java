@@ -85,4 +85,8 @@ public class Util {
             return damagedPath;
         }
     }
+
+    public static String getType(String filePath) {
+        return filePath.substring(filePath.lastIndexOf("\\")+1, filePath.lastIndexOf("."));
+    }
 }

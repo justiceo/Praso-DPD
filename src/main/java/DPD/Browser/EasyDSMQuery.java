@@ -1,6 +1,7 @@
 package DPD.Browser;
 
 import DPD.Model.*;
+import DPD.Util;
 
 import java.util.Iterator;
 import java.util.List;
@@ -57,5 +58,9 @@ public class EasyDSMQuery extends DSMDataStructure {
                 }
             }
         }
+    }
+
+    public String GetType(int classId) {
+        return Util.getType( Util.fixFilePath(this.allClassNodes.get(classId).filePath) );
     }
 }
