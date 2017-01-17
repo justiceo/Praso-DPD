@@ -1,6 +1,7 @@
 package DPD.REPL;
 
 import DPD.Model.Bucket;
+import DPD.Model.CNode;
 import DPD.Model.Entity;
 import DPD.Model.Tuple;
 
@@ -24,7 +25,11 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         // assert declared leftOp, and rightOp
         Entity left = b.get(leftOp);
         Entity right = b.get(rightOp);
-        left.removeByClassId(right);
+
+        for(CNode c: left) {
+            if(right.hasClass(c.classId))
+                t.X.add(c);
+        }
     }
 
     private static void method_name_function(Bucket b, String leftOp, String rightOp, Tuple t) {

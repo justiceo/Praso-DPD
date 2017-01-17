@@ -70,7 +70,7 @@ public class ExecEnv {
         Bucket b = bucketList.get(bucketId);
         op.func.call(b, leftOperand, rightOperand, t);
 
-        if(isDeclared(leftOperand))
+        if( !op.isSingleOperator )
             b.addIfNotExists(leftOperand);
         b.addIfNotExists(rightOperand);
 
@@ -141,7 +141,6 @@ public class ExecEnv {
 
         b.get(leftOperand).demoteAll(t.X);
         b.get(rightOperand).demoteAll(t.Y);
-
     }
 
     public void resolveBucket(String bucketId, String variableId) throws Exception {
