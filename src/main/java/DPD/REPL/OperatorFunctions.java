@@ -34,11 +34,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         // assert declared leftOp, and rightOp
         Entity left = b.get(leftOp);
         Entity right = b.get(rightOp);
-
-        for(CNode c: left) {
-            if(right.hasClass(c.classId))
-                t.X.add(c);
-        }
+        left.removeByClassId(right);
     }
 
     private static void method_name_function(Bucket b, String leftOp, String rightOp, Tuple t) {
@@ -70,6 +66,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         }
 
         target.removeByClassId(t.X);
+        t.X.clear();
     }
 
 }

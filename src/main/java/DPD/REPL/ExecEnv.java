@@ -69,6 +69,8 @@ public class ExecEnv {
         Bucket b = bucketList.get(bucketId);
         op.func.call(b, leftOperand, rightOperand, t);
 
+        /// below lines would need refactoring as they may never be executed
+
         if( !op.isSingleOperator )
             b.addIfNotExists(leftOperand);
         b.addIfNotExists(rightOperand);
@@ -108,6 +110,8 @@ public class ExecEnv {
         Tuple t = new Tuple();
         Bucket b = bucketList.get(bucketId);
         op.func.call(b, leftOperand, rightOperand, t);
+
+        /// below lines would need refactoring as they may never be executed
 
         setGroupId(t, b.get(rightOperand));
 
