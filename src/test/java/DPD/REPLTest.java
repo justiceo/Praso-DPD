@@ -190,7 +190,7 @@ public class REPLTest {
         int currSize = e1.size();
 
         //repl.execute("b <= 'notify' invalid_operator e1"); //should throw exception
-        repl.execute("b => e2 xors e1");
+        repl.execute("b => e2 and e1");
         Assert.assertFalse(e1.size() == e2.size());
         Assert.assertTrue(e2.isEmpty());
         Assert.assertTrue(e1.size() == currSize);

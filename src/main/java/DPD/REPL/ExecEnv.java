@@ -167,12 +167,26 @@ public class ExecEnv {
      */
     public void printObject(String objectId) throws Exception {
         if(bucketList.containsKey(objectId))
-            System.out.println(objectId + ":\n" +bucketList.get(objectId));
+            printBucket(objectId); //System.out.println(objectId + ":\n" +bucketList.get(objectId));
         else if(objectId.contains(".")) {
             String[] vars =  objectId.split(".");
             String entity = vars.length > 1 ? vars[1] : "";
             if( declaredVariables.containsKey(vars[0]) && declaredVariables.containsKey(entity))
                 System.out.println(bucketList.get(vars[0]).get(vars[1]));
+        }
+    }
+
+    public void printBucket(String bucketId) {
+        if( !bucketList.containsKey(bucketId) ) return;
+        System.out.println("Bucket " + bucketId);
+        Bucket b = bucketList.get(bucketId);
+        for(String eKey: b.keySet()){
+            System.out.println("\tEntity " + eKey);
+            System.out.print("\t\t");
+            for(CNode c: b.get(eKey)) {
+                System.out.print(c + ", ");
+            }
+            System.out.println();
         }
     }
 
