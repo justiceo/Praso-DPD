@@ -1,7 +1,7 @@
 package DPD.REPL;
 
-import DPD.Model.*;
 import DPD.Browser.EasyDSMQuery;
+import DPD.Model.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
@@ -24,6 +24,7 @@ public class ExecEnv {
         bucketList = new HashMap<>();
         this.dsmQuery = dsmBrowser;
         opFunc = new OperatorFunctions();
+        opFunc.initDefaults();
     }
 
     public void createEntity(String entityId, String name) throws Exception {
@@ -61,12 +62,13 @@ public class ExecEnv {
 
     public void fillBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId);
-        if( !opFunc.isValidOperator(operator))
+        OperatorObject op = opFunc.get(operator);
+        if( op == null )
             throw new NotImplementedException();
 
         Tuple t = new Tuple();
         Bucket b = bucketList.get(bucketId);
-        opFunc.call(operator, b, leftOperand, rightOperand, t);
+        op.func.call(b, leftOperand, rightOperand, t);
 
         if(isDeclared(leftOperand))
             b.addIfNotExists(leftOperand);
@@ -100,12 +102,13 @@ public class ExecEnv {
 
     public void filterBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId, leftOperand, rightOperand);
-        if( !opFunc.isValidOperator(operator))
+        OperatorObject op = opFunc.get(operator);
+        if( op == null )
             throw new NotImplementedException();
 
         Tuple t = new Tuple();
         Bucket b = bucketList.get(bucketId);
-        opFunc.call(operator, b, leftOperand, rightOperand, t);
+        op.func.call(b, leftOperand, rightOperand, t);
 
         setGroupId(t, b.get(rightOperand));
 
