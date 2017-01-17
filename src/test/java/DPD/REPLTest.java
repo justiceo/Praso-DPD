@@ -196,4 +196,32 @@ public class REPLTest {
         Assert.assertTrue(e1.size() == currSize);
         repl.execute("Print b");
     }
+
+
+    @Test
+    public void operatorFunctionPocketSizeTest() throws Exception {
+        ExecEnvAccess exec = new ExecEnvAccess(repl);
+        repl.execute("Entity e1: 'Observer Interface'");
+        repl.execute("Entity e2: 'Concrete Observer'");
+        repl.execute("Bucket b: 'Simple Observer Pattern'");
+
+        repl.execute("Print b");
+        repl.execute("b <= e2 SPECIALIZE e1");
+        Entity e1 = exec.bucketList.get("b").get("e1");
+        Entity e2 = exec.bucketList.get("b").get("e2");
+
+        Assert.assertFalse(e1.isEmpty());
+        Assert.assertFalse(e2.isEmpty());
+
+        int currSize = e1.size();
+
+        repl.execute("b => 1 pocket_size e2");
+        Assert.assertTrue(e1.size() == 1);
+        Assert.assertTrue(e2.size() == 2);
+
+        repl.execute("b => 1 pocket_size e1");
+        Assert.assertTrue(e1.isEmpty());
+        Assert.assertTrue(e2.size() == 2);
+        repl.execute("Print b");
+    }
 }

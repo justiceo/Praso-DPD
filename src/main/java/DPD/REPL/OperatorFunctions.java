@@ -22,7 +22,15 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         return super.get(operator.toLowerCase());
     }
 
-    private static void xors_function(Bucket b, String leftOp, String rightOp, Tuple t) {
+    /**
+     * Returns all classes in the left entity that also exist in the right entity
+     * Hence, right entity tuple is always empty
+     * @param b
+     * @param leftOp
+     * @param rightOp
+     * @param t
+     */
+    private static void and_function(Bucket b, String leftOp, String rightOp, Tuple t) {
         // assert declared leftOp, and rightOp
         Entity left = b.get(leftOp);
         Entity right = b.get(rightOp);
@@ -35,6 +43,33 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
 
     private static void method_name_function(Bucket b, String leftOp, String rightOp, Tuple t) {
 
+    }
+
+    /**
+     * Returns all classes in the entity whose pocket size matches the leftOperand
+     * @param b
+     * @param leftOp
+     * @param rightOp
+     * @param t
+     */
+    private static void pocket_size_function(Bucket b, String leftOp, String rightOp, Tuple t) {
+        int count = Integer.parseInt(leftOp);
+        Entity target = b.get(rightOp);
+        if(target.size() < count) return;
+        HashMap<Integer, Integer> pocketCounter = new HashMap<>();
+        for(CNode c: target) {
+            int n = 0;
+            if(pocketCounter.keySet().contains(c.pocket))
+                n = pocketCounter.get(c.pocket);
+            pocketCounter.put(c.pocket, ++n);
+        }
+
+        for(CNode c: target) {
+            if(pocketCounter.get(c.pocket) == count)
+                t.X.add(c);
+        }
+
+        target.removeByClassId(t.X);
     }
 
 }
