@@ -15,8 +15,7 @@ public class Bucket extends HashMap<String, Entity> {
 
     public void addIfNotExists(String... entityIds) {
         for(String entityId: entityIds) {
-            if(! keySet().contains(entityId))
-                put(entityId, new Entity());
+            putIfAbsent(entityId, new Entity());
         }
     }
 

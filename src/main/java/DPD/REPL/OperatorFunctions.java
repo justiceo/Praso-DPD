@@ -12,9 +12,10 @@ import java.util.HashMap;
  */
 public class OperatorFunctions extends HashMap<String, OperatorObject> {
 
-    public void initDefaults() {
-        put("xors", new OperatorObject(true, (b, leftOp, rightOp, t) -> xors_function(b, leftOp, rightOp, t)));
+    public OperatorFunctions(){
+        put("and", new OperatorObject(true, (b, leftOp, rightOp, t) -> and_function(b, leftOp, rightOp, t)));
         put("method_name", new OperatorObject(false, OperatorFunctions::method_name_function));
+        put("pocket_size", new OperatorObject(true, OperatorFunctions::pocket_size_function));
     }
 
     public OperatorObject get(String operator) {

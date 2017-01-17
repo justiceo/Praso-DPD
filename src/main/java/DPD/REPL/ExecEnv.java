@@ -24,7 +24,6 @@ public class ExecEnv {
         bucketList = new HashMap<>();
         this.dsmQuery = dsmBrowser;
         opFunc = new OperatorFunctions();
-        opFunc.initDefaults();
     }
 
     public void createEntity(String entityId, String name) throws Exception {
