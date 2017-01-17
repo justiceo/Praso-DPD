@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class OperatorFunctions extends HashMap<String, OperatorObject> {
 
     public void initDefaults() {
-        put("excludes", new OperatorObject(true, (b, leftOp, rightOp, t) -> excludes_function(b, leftOp, rightOp, t)));
+        put("xors", new OperatorObject(true, (b, leftOp, rightOp, t) -> xors_function(b, leftOp, rightOp, t)));
         put("method_name", new OperatorObject(false, OperatorFunctions::method_name_function));
     }
 
@@ -21,7 +21,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         return super.get(operator.toLowerCase());
     }
 
-    private static void excludes_function(Bucket b, String leftOp, String rightOp, Tuple t) {
+    private static void xors_function(Bucket b, String leftOp, String rightOp, Tuple t) {
         // assert declared leftOp, and rightOp
         Entity left = b.get(leftOp);
         Entity right = b.get(rightOp);

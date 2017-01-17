@@ -1,23 +1,15 @@
 package DPD;
 
 import DPD.Browser.EasyDSMQuery;
-import DPD.Model.Bucket;
 import DPD.Model.DSMFileModel;
 import DPD.Model.DependencyType;
 import DPD.Model.Entity;
-import DPD.REPL.ExecEnv;
-import DPD.REPL.FileREPL;
-import DPD.REPL.OperatorFunctions;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import DPD.REPL.REPL;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -198,7 +190,7 @@ public class REPLTest {
         int currSize = e1.size();
 
         //repl.execute("b <= 'notify' invalid_operator e1"); //should throw exception
-        repl.execute("b => e2 excludes e1");
+        repl.execute("b => e2 xors e1");
         Assert.assertFalse(e1.size() == e2.size());
         Assert.assertTrue(e2.isEmpty());
         Assert.assertTrue(e1.size() == currSize);
