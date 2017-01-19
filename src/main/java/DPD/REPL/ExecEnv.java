@@ -56,7 +56,7 @@ public class ExecEnv {
         b.addIfNotExists(leftOperand, rightOperand);
         setGroupId(t, b.get(rightOperand));
         b.get(leftOperand).addAll(t.X);
-        b.get(rightOperand).addAll(t.Y);
+        b.get(rightOperand).addIfNotExists(t.Y);
     }
 
     public void fillBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
@@ -146,14 +146,14 @@ public class ExecEnv {
         b.get(rightOperand).demoteAll(t.Y);
     }
 
-    public void resolveBucket(String bucketId, String variableId) throws Exception {
-        assertDeclared(bucketId, variableId);
+    public void resolveBucket(String bucketId) throws Exception {
+        assertDeclared(bucketId);
 
         Bucket b = bucketList.get(bucketId);
         for(int pocket = 0; pocket < b.getPocket(); pocket++) {
             boolean allHaveIt = true;
             for(String entityId: b.keySet()) {
-                allHaveIt = b.get(entityId).hasPocket(pocket);
+                allHaveIt = allHaveIt && b.get(entityId).hasPocket(pocket);
             }
             if(!allHaveIt) {
                 for(String entityId: b.keySet()) {
@@ -204,6 +204,7 @@ public class ExecEnv {
                         t.X.get(i).pocket = existingPocket;
                     }
                 }
+                cn.pocket = existingPocket;
             }
             // otherwise, they keep their pockets.
         }

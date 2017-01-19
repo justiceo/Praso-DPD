@@ -1,8 +1,7 @@
 package DPD.Model;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -12,6 +11,13 @@ import java.util.List;
 public class Entity extends ArrayList<CNode> {
 
     private int maxPromotion;
+
+    public void addIfNotExists(List<CNode> list) {
+        for(CNode c: list) {
+            if( !contains(c))
+                add(c);
+        }
+    }
 
     public void promoteAll(List<CNode> list) {
         for(int i = 0; i < list.size(); i++){
@@ -56,10 +62,19 @@ public class Entity extends ArrayList<CNode> {
 
     // returns true if one of the classes in this collection has this pocket id
     public boolean hasPocket(int pocketId) {
-        throw new NotImplementedException();
+        for(CNode c: this) {
+            if(c.pocket == pocketId)
+                return true;
+        }
+        return false;
     }
 
     public void removePocket(int pocket) {
-        throw new NotImplementedException();
+        Iterator<CNode> iter = iterator();
+        while(iter.hasNext()) {
+            CNode c = iter.next();
+            if(c.pocket == pocket)
+                iter.remove();
+        }
     }
 }

@@ -4,12 +4,6 @@ import DPD.Browser.EasyDSMQuery;
 import DPD.Model.DependencyType;
 import DPD.Util;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -158,8 +152,9 @@ public class REPL {
 
     private void evalResolveStmt(String line) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
+        st.nextToken(); // eat Resolve keyword
         String bucketId = st.nextToken();
-        exec.resolveBucket(bucketId, bucketId);
+        exec.resolveBucket(bucketId);
     }
 
     private void evalPrintStmt(String line) throws Exception {

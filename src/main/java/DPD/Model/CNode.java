@@ -17,4 +17,10 @@ public class CNode {
     public String toString() {
         return String.valueOf(classId);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        CNode c = (CNode) other;
+        return classId == c.classId && pocket == c.pocket && score == c.score;
+    }
 }
