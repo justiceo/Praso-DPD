@@ -1,11 +1,9 @@
 package DPD.Browser;
 
-import com.github.javaparser.JavaParser;
+import DPD.Model.FileNode;
 import com.github.javaparser.ParseException;
-import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.PackageDeclaration;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -15,10 +13,11 @@ import java.util.HashMap;
 public class FileBrowser {
 
     private HashMap<String, FileNode> files;
-    public FileBrowser(String[] filePaths) throws IOException, ParseException {
+    public FileBrowser(String[] filePaths) {
         files = new HashMap<>();
+        int count = 0;
         for(String path: filePaths) {
-            files.put(path, new FileNode(path));
+            files.put(path, new FileNode(count++, path));
         }
     }
 
@@ -26,23 +25,20 @@ public class FileBrowser {
         return filePath.substring(filePath.lastIndexOf("\\")+1, filePath.lastIndexOf("."));
     }
 
-    private String getFullyQualifiedType(String filePath) {
+    private String getFullyQualifiedType(String filePath) throws IOException, ParseException {
         FileNode fn = files.get(filePath);
-        PackageDeclaration pd = fn.cu.getPackage();
+        PackageDeclaration pd = fn.getCu().getPackage();
         String x = pd.toString().replace("package ", "");
         x = x.substring(0, x.indexOf(";")) + ".";
 
         return x + filePath.substring(filePath.lastIndexOf("\\")+1, filePath.lastIndexOf("."));
     }
 
-    class FileNode {
-        int indexOfClass;
-        String filePath;
-        CompilationUnit cu;
-
-        public FileNode(String path) throws IOException, ParseException {
-            this.filePath = path;
-            cu = JavaParser.parse(new File(path));
+    public FileNode getByClassId(int classId) {
+        for(FileNode f: files.values()){
+            if(f.indexOfClass == classId)
+                return f;
         }
+        return null;
     }
 }

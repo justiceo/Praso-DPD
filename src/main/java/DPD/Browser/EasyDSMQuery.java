@@ -3,7 +3,6 @@ package DPD.Browser;
 import DPD.Model.*;
 import DPD.Util;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -11,8 +10,11 @@ import java.util.List;
  */
 public class EasyDSMQuery extends DSMDataStructure {
 
+    private FileBrowser fileBrowser;
+
     public EasyDSMQuery(String[] matrix, String[] filePaths, List<DependencyType> dependencyCount) {
         super(matrix, filePaths, dependencyCount);
+        fileBrowser = new FileBrowser(filePaths);
     }
 
     public void populate(DependencyType dependency, Tuple t) {
@@ -62,5 +64,9 @@ public class EasyDSMQuery extends DSMDataStructure {
 
     public String GetType(int classId) {
         return Util.getType( Util.fixFilePath(this.allClassNodes.get(classId).filePath) );
+    }
+
+    public FileNode getFileNode(int classId) {
+        return fileBrowser.getByClassId(classId);
     }
 }

@@ -55,7 +55,7 @@ public class ExecEnv {
         Bucket b = bucketList.get(bucketId);
         b.addIfNotExists(leftOperand, rightOperand);
         setGroupId(t, b.get(rightOperand));
-        b.get(leftOperand).addAll(t.X);
+        b.get(leftOperand).addIfNotExists(t.X);
         b.get(rightOperand).addIfNotExists(t.Y);
     }
 
@@ -78,8 +78,8 @@ public class ExecEnv {
         setGroupId(t, b.get(rightOperand));
 
         if(isDefined(b, leftOperand))
-            b.get(leftOperand).addAll(t.X);
-        b.get(rightOperand).addAll(t.Y);
+            b.get(leftOperand).addIfNotExists(t.X);
+        b.get(rightOperand).addIfNotExists(t.Y);
     }
 
     public void filterBucket(String bucketId, List<DependencyType> dependencies, String leftOperand, String rightOperand) throws Exception {
@@ -206,7 +206,6 @@ public class ExecEnv {
                 }
                 cn.pocket = existingPocket;
             }
-            // otherwise, they keep their pockets.
         }
     }
 
@@ -217,20 +216,11 @@ public class ExecEnv {
         }
     }
 
-
     private void assertUndeclared(String... variableIds) throws Exception {
         for(String var: variableIds) {
             if( declaredVariables.containsKey(var) )
                 throw new Exception(var + " is already defined");
         }
-    }
-
-    private boolean isDeclared(String... variableIds) {
-        for(String var: variableIds) {
-            if( !declaredVariables.containsKey(var) )
-                return false;
-        }
-        return true;
     }
 
     private boolean isDefined(Bucket b, String... variableIds) {

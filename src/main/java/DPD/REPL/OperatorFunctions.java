@@ -1,10 +1,8 @@
 package DPD.REPL;
 
 import DPD.Browser.EasyDSMQuery;
-import DPD.Model.Bucket;
-import DPD.Model.CNode;
-import DPD.Model.Entity;
-import DPD.Model.Tuple;
+import DPD.Model.*;
+import com.github.javaparser.ast.CompilationUnit;
 
 import java.util.HashMap;
 
@@ -16,7 +14,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
     private EasyDSMQuery dsmBrowser;
     public OperatorFunctions(){
         put("and", new OperatorObject(true, (b, leftOp, rightOp, t) -> and_function(b, leftOp, rightOp, t)));
-        put("method_name", new OperatorObject(false, (b, leftOp, rightOp, t) -> method_name_function(b, leftOp, rightOp, t)));
+        put("method_name", new OperatorObject(false, this::method_name_function));
         put("pocket_size", new OperatorObject(true, (b, leftOp, rightOp, t) -> pocket_size_function(b, leftOp, rightOp, t)));
     }
 
@@ -45,17 +43,17 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         }*/
     }
 
-    private void method_name_function(Bucket b, String leftOp, String rightOp, Tuple t) {
-        // get all entities in the rightop
+    private void method_name_function(Bucket b, String leftOp, String rightOp, Tuple t) throws Exception {
         String method = leftOp;
         Entity entity = b.get(rightOp);
 
         // for each class in entity, check if it has method
         for(CNode c: entity) {
-            // if it does, add it to the tuple
-            // get the FileNode of c,
-            // get it's CU
-            // traverse the CU for method declaration
+            FileNode fn = dsmBrowser.getFileNode(c.classId);
+            CompilationUnit cu = fn.getCu();
+            MethodNameVisitor mv = new MethodNameVisitor();
+            if(mv.hasMethodName(cu, method))
+                t.Y.add(c);
         }
     }
 
