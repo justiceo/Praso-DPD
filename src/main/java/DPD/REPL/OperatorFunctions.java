@@ -1,5 +1,6 @@
 package DPD.REPL;
 
+import DPD.Browser.EasyDSMQuery;
 import DPD.Model.Bucket;
 import DPD.Model.CNode;
 import DPD.Model.Entity;
@@ -12,10 +13,11 @@ import java.util.HashMap;
  */
 public class OperatorFunctions extends HashMap<String, OperatorObject> {
 
+    private EasyDSMQuery dsmBrowser;
     public OperatorFunctions(){
         put("and", new OperatorObject(true, (b, leftOp, rightOp, t) -> and_function(b, leftOp, rightOp, t)));
-        put("method_name", new OperatorObject(false, OperatorFunctions::method_name_function));
-        put("pocket_size", new OperatorObject(true, OperatorFunctions::pocket_size_function));
+        put("method_name", new OperatorObject(false, (b, leftOp, rightOp, t) -> method_name_function(b, leftOp, rightOp, t)));
+        put("pocket_size", new OperatorObject(true, (b, leftOp, rightOp, t) -> pocket_size_function(b, leftOp, rightOp, t)));
     }
 
     public OperatorObject get(String operator) {
@@ -30,15 +32,31 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
      * @param rightOp
      * @param t
      */
-    private static void and_function(Bucket b, String leftOp, String rightOp, Tuple t) {
+    private void and_function(Bucket b, String leftOp, String rightOp, Tuple t) {
         // assert declared leftOp, and rightOp
         Entity left = b.get(leftOp);
         Entity right = b.get(rightOp);
         left.removeByClassId(right);
+
+        // problem with the implementation above is that it cannot be used in fill, promote and demote.
+        /*for(CNode c: left) {
+            if(right.hasClass(c.classId))
+                t.X.add(c);
+        }*/
     }
 
-    private static void method_name_function(Bucket b, String leftOp, String rightOp, Tuple t) {
+    private void method_name_function(Bucket b, String leftOp, String rightOp, Tuple t) {
+        // get all entities in the rightop
+        String method = leftOp;
+        Entity entity = b.get(rightOp);
 
+        // for each class in entity, check if it has method
+        for(CNode c: entity) {
+            // if it does, add it to the tuple
+            // get the FileNode of c,
+            // get it's CU
+            // traverse the CU for method declaration
+        }
     }
 
     /**
@@ -48,7 +66,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
      * @param rightOp
      * @param t
      */
-    private static void pocket_size_function(Bucket b, String leftOp, String rightOp, Tuple t) {
+    private void pocket_size_function(Bucket b, String leftOp, String rightOp, Tuple t) {
         int count = Integer.parseInt(leftOp);
         Entity target = b.get(rightOp);
         if(target.size() < count) return;
@@ -67,6 +85,8 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
 
         target.removeByClassId(t.X);
         t.X.clear();
+
+        // again problem with above is that it cannot be used in fill, promote and demote
     }
 
 }
