@@ -150,7 +150,7 @@ public class Environment {
         assertDeclared(bucketId);
 
         Bucket b = bucketList.get(bucketId);
-        for(int pocket = 0; pocket < b.getPocket(); pocket++) {
+        for(int pocket = 0; pocket <= b.getPocket(); pocket++) {
             boolean allHaveIt = true;
             for(String entityId: b.keySet()) {
                 allHaveIt = allHaveIt && b.get(entityId).hasPocket(pocket);
@@ -187,7 +187,7 @@ public class Environment {
         for(String eKey: b.keySet()){
             System.out.print("\tEntity " + eKey + ": ");
             for(CNode c: b.get(eKey)) {
-                System.out.print(dsmQuery.GetType(c.classId) + ", ");
+                System.out.print(dsmQuery.GetType(c.classId) + "(" + c.pocket + ")" + ", ");
             }
             System.out.println();
         }
