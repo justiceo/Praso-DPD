@@ -17,6 +17,7 @@ public class EasyDSMQuery extends DSMDataStructure {
         fileBrowser = new FileBrowser(filePaths);
     }
 
+    // todo: delete, not really used
     public void populate(DependencyType dependency, Tuple t) {
         switch (dependency){
             case SPECIALIZE:
@@ -29,18 +30,30 @@ public class EasyDSMQuery extends DSMDataStructure {
     }
 
     public void populate(List<DependencyType> dependencies, Tuple t) {
-        if(dependencies.contains(DependencyType.SPECIALIZE)) {
+        if(dependencies.contains(DependencyType.SPECIALIZE)) { // then it definitely doesn't contain Extend or IMPLEMENT (assert this)
             dependencies.remove(DependencyType.SPECIALIZE);
+
+            // only extend
             dependencies.add(DependencyType.EXTEND);
+            DependencyType[] dt = new DependencyType[dependencies.size()];
+            populate(t, dependencies.toArray(dt));
+
+            // only implement
+            dependencies.remove(DependencyType.EXTEND);
             dependencies.add(DependencyType.IMPLEMENT);
+            dt = new DependencyType[dependencies.size()];
+            populate(t, dependencies.toArray(dt));
         }
-        DependencyType[] dt = new DependencyType[dependencies.size()];
-        populate(t, dependencies.toArray(dt));
+        else {
+            DependencyType[] dt = new DependencyType[dependencies.size()];
+            populate(t, dependencies.toArray(dt));
+        }
     }
 
 
     private void populate(Tuple t, DependencyType... dependencies) {
         int dependency = getDepsAsOne(dependencies);
+        if(dependency == 0) return; // cause this would accept all the empty cells
         Entity xList = t.X;
         Entity yList = t.Y;
 
