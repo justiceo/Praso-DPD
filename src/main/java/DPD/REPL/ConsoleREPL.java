@@ -9,13 +9,14 @@ import java.util.Scanner;
 /**
  * Created by I853985 on 1/13/2017.
  */
-public class ConsoleREPL extends Evaluator {
+public class ConsoleREPL {
 
     private final String prompt = "DPD$ ";
     private final String exit = "exit";
+    private Evaluator evaluator;
 
     public ConsoleREPL(EasyDSMQuery dsmBrowser) {
-        super(dsmBrowser);
+        evaluator = new Evaluator(dsmBrowser);
     }
 
     public void start() {
@@ -25,7 +26,7 @@ public class ConsoleREPL extends Evaluator {
             try {
                 System.out.print(prompt);
                 line = in.nextLine();
-                execute(line);
+                evaluator.execute(line);
             } catch (Exception e) {
                 System.out.println("Error executing: " + line);
                 e.printStackTrace();
