@@ -3,8 +3,6 @@ package DPD.REPL;
 import DPD.Browser.EasyDSMQuery;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -20,16 +18,10 @@ public class FileREPL implements Runnable {
 
     public FileREPL(String fileName, EasyDSMQuery dsmBrowser) {
         try {
-            URI uri = this.getClass().getResource(fileName).toURI();
-            commandLines = Files.readAllLines(Paths.get(uri), Charset.defaultCharset());
-        } catch (URISyntaxException | IOException e) {
+            commandLines = Files.readAllLines(Paths.get(fileName), Charset.defaultCharset());
+        } catch ( IOException e) {
             e.printStackTrace();
         }
-        evaluator = new Evaluator(dsmBrowser);
-    }
-
-    public FileREPL(List<String> commandLines, EasyDSMQuery dsmBrowser) {
-        this.commandLines = commandLines;
         evaluator = new Evaluator(dsmBrowser);
     }
 
