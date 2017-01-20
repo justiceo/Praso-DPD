@@ -259,7 +259,7 @@ public class Environment {
         System.out.println("\n---------------------------\n");
     }
 
-    public void printByPocket2(String bucketId) {
+    public void printByPocket(String bucketId) {
         if( !bucketList.containsKey(bucketId) ) return;
         System.out.println("Bucket " + bucketId);
         Bucket b = bucketList.get(bucketId);

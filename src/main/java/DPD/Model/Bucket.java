@@ -22,4 +22,20 @@ public class Bucket extends HashMap<String, Entity> {
     public static int getPocket() {
         return pocket;
     }
+
+    public boolean isPocketInAllEntities(int pocket) {
+        for(Entity e: values()) {
+            if( !e.hasPocket(pocket) )
+                return false;
+        }
+        return true;
+    }
+
+    public boolean isPocketInAnyEntity(int pocket) {
+        for(Entity e: values()) {
+            if(e.hasPocket(pocket))
+                return true;
+        }
+        return false;
+    }
 }
