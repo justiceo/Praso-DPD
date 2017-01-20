@@ -11,11 +11,13 @@ import java.util.HashMap;
  */
 public class OperatorFunctions extends HashMap<String, OperatorObject> {
 
-    private EasyDSMQuery dsmBrowser;
-    public OperatorFunctions(){
+    private EasyDSMQuery browser;
+    public OperatorFunctions(EasyDSMQuery dsmBrowser){
         put("and", new OperatorObject(true, (b, leftOp, rightOp, t) -> and_function(b, leftOp, rightOp, t)));
         put("method_name", new OperatorObject(false, this::method_name_function));
+        put("not_method_name", new OperatorObject(false, this::not_method_name_function));
         put("pocket_size", new OperatorObject(true, (b, leftOp, rightOp, t) -> pocket_size_function(b, leftOp, rightOp, t)));
+        this.browser = dsmBrowser;
     }
 
     public OperatorObject get(String operator) {
@@ -34,14 +36,14 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         // assert declared leftOp, and rightOp
         Entity left = b.get(leftOp);
         Entity right = b.get(rightOp);
-        left.removeByClassId(right);
 
-        // problem with the implementation above is that it cannot be used in fill, promote and demote.
-        /*for(CNode c: left) {
+        for(CNode c: left) {
             if(right.hasClass(c.classId))
                 t.X.add(c);
-        }*/
+        }
     }
+
+
 
     private void method_name_function(Bucket b, String leftOp, String rightOp, Tuple t) throws Exception {
         String method = leftOp;
@@ -49,12 +51,22 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
 
         // for each class in entity, check if it has method
         for(CNode c: entity) {
-            FileNode fn = dsmBrowser.getFileNode(c.classId);
+            FileNode fn = browser.getFileNode(c.classId);
             CompilationUnit cu = fn.getCu();
             MethodNameVisitor mv = new MethodNameVisitor();
             if(mv.hasMethodName(cu, method))
                 t.Y.add(c);
         }
+    }
+
+    private void not_method_name_function(Bucket b, String leftOp, String rightOp, Tuple t) throws Exception {
+        method_name_function(b, leftOp, rightOp, t);
+        Entity e = b.get(rightOp);
+
+        // we'll use t.X as temp
+        t.X.addAll(e);            // copy entity into t.X
+        t.X.removeAll(t.Y);     // remove all Y instances
+        t.Y = t.X;
     }
 
     /**
@@ -78,13 +90,8 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
 
         for(CNode c: target) {
             if(pocketCounter.get(c.pocket) == count)
-                t.X.add(c);
+                t.Y.add(c);
         }
-
-        target.removeByClassId(t.X);
-        t.X.clear();
-
-        // again problem with above is that it cannot be used in fill, promote and demote
     }
 
 }

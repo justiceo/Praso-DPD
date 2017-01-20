@@ -23,7 +23,7 @@ public class ExecEnv {
         declaredVariables = new HashMap<>();
         bucketList = new HashMap<>();
         this.dsmQuery = dsmBrowser;
-        opFunc = new OperatorFunctions();
+        opFunc = new OperatorFunctions(dsmBrowser);
     }
 
     public void createEntity(String entityId, String name) throws Exception {

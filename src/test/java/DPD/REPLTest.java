@@ -263,4 +263,29 @@ public class REPLTest {
         repl.execute("Print b");
         assertTrue(e1.isEmpty() && e2.isEmpty() && e3.isEmpty());
     }
+
+
+    @Test
+    public void testMethodName() throws Exception {
+        ExecEnvAccess exec = new ExecEnvAccess(repl);
+        repl.execute("Entity e1: 'Observer Interface'");
+        repl.execute("Entity e2: 'Concrete Observer'");
+        repl.execute("Entity e3: 'Subject'");
+        repl.execute("Bucket b: 'Simple Observer Pattern'");
+
+        repl.execute("Print b");
+        repl.execute("b <= e2 SPECIALIZE e1");
+        repl.execute("Print b");
+        repl.execute("b => 'notify' not_method_name e2");
+
+        Entity e1 = exec.bucketList.get("b").get("e1");
+        Entity e2 = exec.bucketList.get("b").get("e2");
+
+        assertTrue(e2.size() == 2 && e1.size() == 1);
+
+        repl.execute("b => 'notify' method_name e2");
+        assertTrue(e2.size() == 0 && e1.size() == 1);
+
+        repl.execute("Print b");
+    }
 }
