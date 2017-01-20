@@ -48,6 +48,9 @@ public class Evaluator {
             case PrintPocketStatement:
                 evalPrintPocketStmt(line);
                 break;
+            case OverwriteStatement:
+                evalOverwriteStmt(line);
+                break;
             case Noop:
                 break;
         }
@@ -60,6 +63,7 @@ public class Evaluator {
         if( line.contains("Print") ) return StatementType.PrintStatement;
         if( line.contains("<=") ) return StatementType.FillStatement;
         if( line.contains("=>") ) return StatementType.FilterStatement;
+        if( line.contains("=") ) return StatementType.OverwriteStatement;
         if( line.contains("++") ) return StatementType.PromoteStatement;
         if( line.contains("--") ) return StatementType.DemoteStatement;
         if( line.contains("Resolve") ) return StatementType.ResolveStatement;
@@ -77,6 +81,7 @@ public class Evaluator {
         ResolveStatement,
         Noop,
         PrintPocketStatement,
+        OverwriteStatement,
     }
 
     private void evalEntityDeclaration(String line) throws Exception {
@@ -131,6 +136,24 @@ public class Evaluator {
             exec.filterBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
         else {
             exec.filterBucket(bucketId, condition, e1, e2);
+        }
+    }
+
+    private void evalOverwriteStmt(String line) throws Exception {
+        Tokenizer st = new Tokenizer(line, delimiters);
+        String bucketId = st.nextToken();
+        String e1 = st.nextToken();
+        String condition = st.nextToken().toUpperCase();
+        String e2 = st.nextToken();
+        if(condition.startsWith("[") && condition.endsWith("]")) {
+            List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
+            exec.overwriteBucket(bucketId, dependencyTypes, e1, e2);
+        }
+        else if(Util.isDependencyCondition(condition)) {
+            exec.overwriteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
+        }
+        else {
+            exec.overwriteBucket(bucketId, condition, e1, e2);
         }
     }
 

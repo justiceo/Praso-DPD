@@ -82,6 +82,58 @@ public class Environment {
         b.get(rightOperand).addAll(t.Y);
     }
 
+
+    public void overwriteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
+        List<DependencyType> d = new ArrayList<>();
+        d.add(dependency);
+        overwriteBucket(bucketId, d, leftOperand, rightOperand);
+    }
+
+
+
+    public void overwriteBucket(String bucketId, List<DependencyType> dependency, String leftOperand, String rightOperand) throws Exception {
+        assertDeclared(bucketId);
+        Tuple t = new Tuple();
+        dsmQuery.populate(dependency, t);
+
+        Bucket b = bucketList.get(bucketId);
+        b.addIfNotExists(leftOperand, rightOperand);
+
+        Entity rightE = b.get(rightOperand);
+        Entity leftE = b.get(leftOperand);
+
+        setGroupId(t, rightE);
+
+        leftE = t.X;
+        rightE = t.Y;
+    }
+
+    public void overwriteBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
+        assertDeclared(bucketId);
+        OperatorObject op = opFunc.get(operator);
+        if( op == null )
+            throw new NotImplementedException();
+
+        Tuple t = new Tuple();
+        Bucket b = bucketList.get(bucketId);
+        op.func.call(b, leftOperand, rightOperand, t);
+
+        /// below lines would need refactoring as they may never be executed
+
+        if( !op.isSingleOperator )
+            b.addIfNotExists(leftOperand);
+        b.addIfNotExists(rightOperand);
+
+        Entity rightE = b.get(rightOperand);
+        Entity leftE = b.get(leftOperand);
+
+        setGroupId(t, rightE);
+
+        if(isDefined(b, leftOperand))
+            leftE = t.X;
+        rightE = t.Y;
+    }
+
     public void filterBucket(String bucketId, List<DependencyType> dependencies, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
