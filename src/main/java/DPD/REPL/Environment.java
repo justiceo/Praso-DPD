@@ -4,10 +4,7 @@ import DPD.Browser.EasyDSMQuery;
 import DPD.Model.*;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Justice on 1/10/2017.
@@ -306,18 +303,44 @@ public class Environment {
     public void printByPocket(String bucketId) {
         if( !bucketList.containsKey(bucketId) ) return;
         System.out.println("Bucket " + bucketId);
+
+        class PocketV {
+            int pocketId = -1;
+            int score = 0;
+            String str = "";
+
+            public PocketV(int p, int s, String print){
+                pocketId = p; score = s; str = print;
+            }
+        }
+
+        List<PocketV> pockets = new ArrayList<>();
+
         Bucket b = bucketList.get(bucketId);
         for(int i = 0; i <= b.getPocket(); i++) {
-            if( !b.isPocketInAllEntities(i) ) continue;
+            if( !b.isPocketInAnyEntity(i) ) continue;
+            String pocketStr = "";
+            int score = 0;
             for(String eKey: b.keySet()){
-                System.out.print("\tEntity " + eKey + ": ");
+                pocketStr += ("\tEntity " + eKey + ": ");
                 for(CNode c: b.get(eKey)) {
-                    if(c.pocket == i)
-                        System.out.print(dsmQuery.GetType(c.classId) + "(" + c.pocket + ")" + ", ");
+                    if(c.pocket == i) {
+                        pocketStr += (dsmQuery.GetType(c.classId) + "(" + c.pocket + ")" + ", ");
+                        score += c.score;
+                    }
                 }
-                System.out.println();
+                pocketStr += "\n";
             }
-            System.out.println();
+            PocketV pocketV = new PocketV(i, score, pocketStr);
+            pockets.add(pocketV);
+        }
+
+        pockets.sort(Comparator.comparing(p -> p.score));
+        Collections.reverse(pockets);
+
+        for(PocketV p: pockets) {
+            System.out.print(p.str);
+            System.out.print("\tscore: " + p.score + "\n\n");
         }
         System.out.println("\n---------------------------\n");
     }
