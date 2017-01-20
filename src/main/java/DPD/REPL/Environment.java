@@ -55,8 +55,8 @@ public class Environment {
         Bucket b = bucketList.get(bucketId);
         b.addIfNotExists(leftOperand, rightOperand);
         setGroupId(t, b.get(rightOperand));
-        b.get(leftOperand).addIfNotExists(t.X);
-        b.get(rightOperand).addIfNotExists(t.Y);
+        b.get(leftOperand).addAll(t.X);
+        b.get(rightOperand).addAll(t.Y);
     }
 
     public void fillBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
@@ -78,8 +78,8 @@ public class Environment {
         setGroupId(t, b.get(rightOperand));
 
         if(isDefined(b, leftOperand))
-            b.get(leftOperand).addIfNotExists(t.X);
-        b.get(rightOperand).addIfNotExists(t.Y);
+            b.get(leftOperand).addAll(t.X);
+        b.get(rightOperand).addAll(t.Y);
     }
 
     public void filterBucket(String bucketId, List<DependencyType> dependencies, String leftOperand, String rightOperand) throws Exception {

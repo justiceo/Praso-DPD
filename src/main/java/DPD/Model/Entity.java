@@ -1,6 +1,7 @@
 package DPD.Model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -12,11 +13,16 @@ public class Entity extends ArrayList<CNode> {
 
     private int maxPromotion;
 
-    public void addIfNotExists(List<CNode> list) {
-        for(CNode c: list) {
-            if( !contains(c))
-                add(c);
-        }
+    @Override
+    public boolean addAll(Collection<? extends CNode> list) {
+        list.forEach(c -> add(c));
+        return true;
+    }
+
+    @Override
+    public boolean add(CNode cNode) {
+        if(contains(cNode)) return true;
+        return super.add(cNode);
     }
 
     public void promoteAll(List<CNode> list) {
