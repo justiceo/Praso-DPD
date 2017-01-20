@@ -99,7 +99,7 @@ public class REPL {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
         String e1 = st.nextToken();
-        String condition = st.nextToken();
+        String condition = st.nextToken().toUpperCase();
         String e2 = st.nextToken();
         if(condition.startsWith("[") && condition.endsWith("]")) {
             List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
@@ -117,7 +117,7 @@ public class REPL {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
         String e1 = st.nextToken();
-        String condition = st.nextToken();
+        String condition = st.nextToken().toUpperCase();
         String e2 = st.nextToken();
         if(condition.startsWith("[") && condition.endsWith("]")) {
             List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
@@ -134,7 +134,7 @@ public class REPL {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
         String e1 = st.nextToken();
-        String condition = st.nextToken();
+        String condition = st.nextToken().toUpperCase();
         String e2 = st.nextToken();
         if(Util.isDependencyCondition(condition))
             exec.promoteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
@@ -144,7 +144,7 @@ public class REPL {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
         String e1 = st.nextToken();
-        String condition = st.nextToken();
+        String condition = st.nextToken().toUpperCase();
         String e2 = st.nextToken();
         if(Util.isDependencyCondition(condition))
             exec.demoteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
