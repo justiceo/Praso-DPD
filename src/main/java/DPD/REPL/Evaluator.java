@@ -45,6 +45,9 @@ public class Evaluator {
             case PrintStatement:
                 evalPrintStmt(line);
                 break;
+            case PrintPocketStatement:
+                evalPrintPocketStmt(line);
+                break;
             case Noop:
                 break;
         }
@@ -53,6 +56,7 @@ public class Evaluator {
     private StatementType getStatementType(String line) {
         if( line.contains("Entity") ) return StatementType.EntityDeclaration;
         if( line.contains("Bucket") ) return StatementType.BucketDeclaration;
+        if( line.contains("Pockets") ) return StatementType.PrintPocketStatement;
         if( line.contains("Print") ) return StatementType.PrintStatement;
         if( line.contains("<=") ) return StatementType.FillStatement;
         if( line.contains("=>") ) return StatementType.FilterStatement;
@@ -72,6 +76,7 @@ public class Evaluator {
         DemoteStatement,
         ResolveStatement,
         Noop,
+        PrintPocketStatement,
     }
 
     private void evalEntityDeclaration(String line) throws Exception {
@@ -161,5 +166,12 @@ public class Evaluator {
         st.nextToken(); // eat print keyword
         String objectId = st.nextToken();
         exec.printObject(objectId);
+    }
+
+    private void evalPrintPocketStmt(String line) throws Exception {
+        Tokenizer st = new Tokenizer(line, delimiters);
+        st.nextToken(); // eat print keyword
+        String objectId = st.nextToken();
+        exec.printByPocket(objectId);
     }
 }

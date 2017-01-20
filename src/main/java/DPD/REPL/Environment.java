@@ -194,6 +194,26 @@ public class Environment {
         System.out.println("\n---------------------------\n");
     }
 
+    public void printByPocket(String bucketId) {
+        if( !bucketList.containsKey(bucketId) ) return;
+        System.out.println("Bucket " + bucketId);
+        Bucket b = bucketList.get(bucketId);
+        Entity e = b.get(b.keySet().toArray()[0]);
+        for(int i = 0; i <= b.getPocket(); i++) {
+            if( !e.hasPocket(i) ) continue;
+            for(String eKey: b.keySet()){
+                System.out.print("\tEntity " + eKey + ": ");
+                for(CNode c: b.get(eKey)) {
+                    if(c.pocket == i)
+                        System.out.print(dsmQuery.GetType(c.classId) + "(" + c.pocket + ")" + ", ");
+                }
+                System.out.println();
+            }
+            System.out.println();
+        }
+        System.out.println("\n---------------------------\n");
+    }
+
     private void setGroupId(Tuple t, Entity entity) {
         // t.Y is the pivot by default
         for(CNode cn: t.Y) {
