@@ -17,16 +17,8 @@ public class EasyDSMQuery extends DSMDataStructure {
         fileBrowser = new FileBrowser(filePaths);
     }
 
-    // todo: delete, not really used
-    public void populate(DependencyType dependency, Tuple t) {
-        switch (dependency){
-            case SPECIALIZE:
-                populate(t, DependencyType.IMPLEMENT, DependencyType.EXTEND);
-                break;
-            default:
-                populate(t, dependency);
-                break;
-        }
+    public void populateFromBucket(List<DependencyType> dependencies, Tuple t, Bucket b, String leftOp, String rightOp) {
+
     }
 
     public void populate(List<DependencyType> dependencies, Tuple t) {

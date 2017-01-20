@@ -173,10 +173,17 @@ public class Environment {
     }
 
     public void promoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
+        List<DependencyType> dependencyTypes = new ArrayList<>();
+        dependencyTypes.add(dependency);
+        promoteBucket(bucketId, dependencyTypes, leftOperand, rightOperand);
+    }
+
+    public void promoteBucket(String bucketId, List<DependencyType> dependencies, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
         Tuple t = new Tuple();
-        dsmQuery.populate(dependency, t);
+
+        dsmQuery.populate(dependencies, t);
 
         Bucket b = bucketList.get(bucketId);
         setGroupId(t, b.get(rightOperand));
@@ -186,10 +193,16 @@ public class Environment {
     }
 
     public void demoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
+        List<DependencyType> dependencyTypes = new ArrayList<>();
+        dependencyTypes.add(dependency);
+        demoteBucket(bucketId, dependencyTypes, leftOperand, rightOperand);
+    }
+
+    public void demoteBucket(String bucketId, List<DependencyType> dependencies, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
         Tuple t = new Tuple();
-        dsmQuery.populate(dependency, t);
+        dsmQuery.populate(dependencies, t);
 
         Bucket b = bucketList.get(bucketId);
         setGroupId(t, b.get(rightOperand));
@@ -246,13 +259,12 @@ public class Environment {
         System.out.println("\n---------------------------\n");
     }
 
-    public void printByPocket(String bucketId) {
+    public void printByPocket2(String bucketId) {
         if( !bucketList.containsKey(bucketId) ) return;
         System.out.println("Bucket " + bucketId);
         Bucket b = bucketList.get(bucketId);
-        Entity e = b.get(b.keySet().toArray()[0]);
         for(int i = 0; i <= b.getPocket(); i++) {
-            if( !e.hasPocket(i) ) continue;
+            if( !b.isPocketInAllEntities(i) ) continue;
             for(String eKey: b.keySet()){
                 System.out.print("\tEntity " + eKey + ": ");
                 for(CNode c: b.get(eKey)) {
