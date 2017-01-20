@@ -17,6 +17,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         put("method_name", new OperatorObject(false, this::method_name_function));
         put("not_method_name", new OperatorObject(false, this::not_method_name_function));
         put("pocket_size", new OperatorObject(true, (b, leftOp, rightOp, t) -> pocket_size_function(b, leftOp, rightOp, t)));
+        put("min_pocket_size", new OperatorObject(true, (b, leftOp, rightOp, t) -> min_pocket_size_function(b, leftOp, rightOp, t)));
         this.browser = dsmBrowser;
     }
 
@@ -90,6 +91,31 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
 
         for(CNode c: target) {
             if(pocketCounter.get(c.pocket) == count)
+                t.Y.add(c);
+        }
+    }
+
+    /**
+     * Returns all nodes whose pocket size is higher than or equal to the value specified
+     * @param b
+     * @param leftOp
+     * @param rightOp
+     * @param t
+     */
+    private void min_pocket_size_function(Bucket b, String leftOp, String rightOp, Tuple t) {
+        int count = Integer.parseInt(leftOp);
+        Entity target = b.get(rightOp);
+        if(target.size() < count) return;
+        HashMap<Integer, Integer> pocketCounter = new HashMap<>();
+        for(CNode c: target) {
+            int n = 0;
+            if(pocketCounter.keySet().contains(c.pocket))
+                n = pocketCounter.get(c.pocket);
+            pocketCounter.put(c.pocket, ++n);
+        }
+
+        for(CNode c: target) {
+            if(pocketCounter.get(c.pocket) >= count)
                 t.Y.add(c);
         }
     }
