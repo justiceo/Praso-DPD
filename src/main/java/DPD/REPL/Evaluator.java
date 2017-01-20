@@ -163,8 +163,16 @@ public class Evaluator {
         String e1 = st.nextToken();
         String condition = st.nextToken().toUpperCase();
         String e2 = st.nextToken();
-        if(Util.isDependencyCondition(condition))
+
+        if(condition.startsWith("[") && condition.endsWith("]")) {
+            List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
+            exec.promoteBucket(bucketId, dependencyTypes, e1, e2);
+        }
+        else if(Util.isDependencyCondition(condition))
             exec.promoteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
+        else {
+            exec.promoteBucket(bucketId, condition, e1, e2);
+        }
     }
 
     private void evalDemoteStmt(String line) throws Exception {
@@ -175,6 +183,16 @@ public class Evaluator {
         String e2 = st.nextToken();
         if(Util.isDependencyCondition(condition))
             exec.demoteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
+
+        if(condition.startsWith("[") && condition.endsWith("]")) {
+            List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
+            exec.demoteBucket(bucketId, dependencyTypes, e1, e2);
+        }
+        else if(Util.isDependencyCondition(condition))
+            exec.demoteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
+        else {
+            exec.demoteBucket(bucketId, condition, e1, e2);
+        }
     }
 
     private void evalResolveStmt(String line) throws Exception {

@@ -26,19 +26,17 @@ public class Entity extends ArrayList<CNode> {
     }
 
     public void promoteAll(List<CNode> list) {
-        for(int i = 0; i < list.size(); i++){
-            if( hasClass( list.get(i).classId ) ) {
-                ++getByClassId( list.get(i).classId ).score;
-            }
+        for(CNode c: list) {
+            CNode in = getByClassId(c.classId);
+            in.score += 1;
         }
         ++maxPromotion;
     }
 
     public void demoteAll(List<CNode> list) {
-        for(int i = 0; i < list.size(); i++){
-            if( hasClass( list.get(i).classId ) ) {
-                --getByClassId( list.get(i).classId ).score;
-            }
+        for(CNode c: list) {
+            CNode in = getByClassId(c.classId);
+            in.score -= 1;
         }
         --maxPromotion;
     }

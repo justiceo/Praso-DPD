@@ -192,6 +192,27 @@ public class Environment {
         b.get(rightOperand).promoteAll(t.Y);
     }
 
+    public void promoteBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
+        assertDeclared(bucketId, rightOperand);
+        OperatorObject op = opFunc.get(operator);
+        if( op == null )
+            throw new NotImplementedException();
+
+        Tuple t = new Tuple();
+        Bucket b = bucketList.get(bucketId);
+        op.func.call(b, leftOperand, rightOperand, t);
+
+        /// below lines would need refactoring as they may never be executed
+
+        Entity rightE = b.get(rightOperand);
+        Entity leftE = b.get(leftOperand);
+        setGroupId(t, b.get(rightOperand));
+
+        if(isDefined(b, leftOperand))
+            leftE.promoteAll(t.X);
+        rightE.promoteAll(t.Y);
+    }
+
     public void demoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
         List<DependencyType> dependencyTypes = new ArrayList<>();
         dependencyTypes.add(dependency);
@@ -209,6 +230,29 @@ public class Environment {
 
         b.get(leftOperand).demoteAll(t.X);
         b.get(rightOperand).demoteAll(t.Y);
+    }
+
+
+
+    public void demoteBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
+        assertDeclared(bucketId, rightOperand);
+        OperatorObject op = opFunc.get(operator);
+        if( op == null )
+            throw new NotImplementedException();
+
+        Tuple t = new Tuple();
+        Bucket b = bucketList.get(bucketId);
+        op.func.call(b, leftOperand, rightOperand, t);
+
+        /// below lines would need refactoring as they may never be executed
+
+        Entity rightE = b.get(rightOperand);
+        Entity leftE = b.get(leftOperand);
+        setGroupId(t, b.get(rightOperand));
+
+        if(isDefined(b, leftOperand))
+            leftE.demoteAll(t.X);
+        rightE.demoteAll(t.Y);
     }
 
     public void resolveBucket(String bucketId) throws Exception {

@@ -1,6 +1,7 @@
 package DPD;
 
 import DPD.Browser.EasyDSMQuery;
+import DPD.Model.CNode;
 import DPD.Model.DSMFileModel;
 import DPD.Model.DependencyType;
 import DPD.Model.Entity;
@@ -286,6 +287,36 @@ public class REPLTest {
         repl.execute("b => 'notify' method_name e2");
         assertTrue(e2.size() == 0 && e1.size() == 1);
 
+        repl.execute("Print b");
+    }
+
+
+    @Test
+    public void testPromoteAndDemote() throws Exception {
+        ExecEnvAccess exec = new ExecEnvAccess(repl);
+        repl.execute("Entity e1: 'Observer Interface'");
+        repl.execute("Entity e2: 'Concrete Observer'");
+        repl.execute("Entity e3: 'Subject'");
+        repl.execute("Bucket b: 'Simple Observer Pattern'");
+
+        repl.execute("Print b");
+        repl.execute("b <= e2 SPECIALIZE e1");
+        repl.execute("Print b");
+        repl.execute("b ++ 2 pocket_size e2");
+
+        Entity e1 = exec.bucketList.get("b").get("e1");
+        Entity e2 = exec.bucketList.get("b").get("e2");
+
+        assertTrue(e2.size() == 2 && e1.size() == 1);
+
+        for(CNode c: e2) {
+            assertTrue(c.score == 1);
+        }
+
+        repl.execute("b -- 2 pocket_size e2");
+        for(CNode c: e2) {
+            assertTrue(c.score == 0);
+        }
         repl.execute("Print b");
     }
 }
