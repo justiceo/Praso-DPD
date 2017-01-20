@@ -14,10 +14,10 @@ import java.util.List;
  */
 public class Main {
 
-    private static final String testDsmFile = "files\\dsm\\Maze.dsm";
+    private static final String testDsmFile = "files\\dsm\\simpleObserverPattern.dsm";
 
     public static void main(String[] args) throws InterruptedException {
-        runParticularFile();
+        runAllFiles();
     }
 
     public static void runOnConsole() {
@@ -39,7 +39,7 @@ public class Main {
             System.out.println("Currently executing: " + f.getName());
             FileREPL reader = new FileREPL(f.getAbsolutePath(), dsmQuery);
             reader.run();
-            Thread.sleep(2000);
+            Thread.sleep(500);
         }
 
     }

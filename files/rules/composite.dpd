@@ -5,8 +5,7 @@ Entity composite: 'Composite'
 Bucket b: 'Composite Pattern'
 b <= leaf specialize component
 b <= composite specialize component
-b => composite aggregates component
-b => leaf excludes component
+b => leaf and component
 
-resolve( b )
-print( b )
+Resolve( b )
+Print( b )

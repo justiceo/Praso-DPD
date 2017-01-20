@@ -6,11 +6,11 @@ Bucket b: 'Simple Observer Pattern'
 b <= conObserver specialize observerI
 b <= subj [typed,use,call] observerI
 b ++ subj [aggregate,has_notify_clause] observerI
-b ++ 'notify' method_name observerI
-b => 2 min_pocket_size conObserver
+b => 'notify' not_method_name observerI
+b => 1 pocket_size conObserver
 
-resolve( b )
-print( b )
+Resolve( b )
+Print( b )
 
 ###
 

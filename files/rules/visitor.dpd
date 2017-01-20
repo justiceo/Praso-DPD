@@ -11,5 +11,5 @@ b => concreteV [typed,call] concreteE
 b ++ 'accept' method_name element
 b ++ 'visit' method_name visitorI
 
-resolve( b )
-print( b )
+Resolve( b )
+Print( b )

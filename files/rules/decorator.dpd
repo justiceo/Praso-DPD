@@ -7,12 +7,11 @@ Bucket b: 'Decorator Pattern'
 b <= leaf specialize component
 b <= decorator specialize component
 b <= concreteD specialize decorator
-b => decorator aggregates component
-b => leaf excludes component
-b => 2 min_pocket_size concreteD
+b => leaf and component
+b => 2 pocket_size concreteD
 
-resolve( b )
-print( b )
+Resolve( b )
+Print( b )
 
 ###
 

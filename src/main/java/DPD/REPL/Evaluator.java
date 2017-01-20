@@ -46,7 +46,6 @@ public class Evaluator {
                 evalPrintStmt(line);
                 break;
             case Noop:
-                System.out.println("Noop");
                 break;
         }
     }
