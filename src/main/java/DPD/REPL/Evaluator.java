@@ -9,13 +9,13 @@ import java.util.List;
 /**
  * Created by Justice on 1/10/2017.
  */
-public class REPL {
+public class Evaluator {
 
-    protected ExecEnv exec;
+    protected Environment exec;
     protected final String delimiters = ":=><=++--() ";
 
-    public REPL(EasyDSMQuery dsmBrowser) {
-        exec = new ExecEnv(dsmBrowser);
+    public Evaluator(EasyDSMQuery dsmBrowser) {
+        exec = new Environment(dsmBrowser);
     }
 
     public void execute(String line) throws Exception {

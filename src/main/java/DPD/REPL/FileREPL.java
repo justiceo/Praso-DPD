@@ -1,7 +1,6 @@
 package DPD.REPL;
 
 import DPD.Browser.EasyDSMQuery;
-import com.sun.org.apache.regexp.internal.RE;
 
 import java.io.IOException;
 import java.net.URI;
@@ -14,7 +13,7 @@ import java.util.List;
 /**
  * Created by I853985 on 1/13/2017.
  */
-public class FileREPL extends REPL implements Runnable {
+public class FileREPL extends Evaluator implements Runnable {
 
     protected List<String> commandLines;
 
@@ -31,7 +30,7 @@ public class FileREPL extends REPL implements Runnable {
     public FileREPL(List<String> commandLines, EasyDSMQuery dsmBrowser) {
         super(dsmBrowser);
         this.commandLines = commandLines;
-        exec = new ExecEnv(dsmBrowser);
+        exec = new Environment(dsmBrowser);
     }
 
     public void run() {

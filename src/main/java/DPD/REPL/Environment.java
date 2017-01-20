@@ -12,14 +12,14 @@ import java.util.List;
 /**
  * Created by Justice on 1/10/2017.
  */
-public class ExecEnv {
+public class Environment {
 
     private HashMap<String, String> declaredVariables;
     private HashMap<String, Bucket> bucketList;
     private EasyDSMQuery dsmQuery;
     private OperatorFunctions opFunc;
 
-    public ExecEnv(EasyDSMQuery dsmBrowser) {
+    public Environment(EasyDSMQuery dsmBrowser) {
         declaredVariables = new HashMap<>();
         bucketList = new HashMap<>();
         this.dsmQuery = dsmBrowser;

@@ -4,7 +4,7 @@ import DPD.Browser.EasyDSMQuery;
 import DPD.Model.DSMFileModel;
 import DPD.Model.DependencyType;
 import DPD.Model.Entity;
-import DPD.REPL.REPL;
+import DPD.REPL.Evaluator;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class REPLTest {
 
-    REPL repl;
+    Evaluator repl;
     EasyDSMQuery dsmBrowser;
     String testDsmFile = "files/test.dsm";
 
@@ -28,7 +28,7 @@ public class REPLTest {
         DSMFileModel dsm = new DSMFileModel(testDsmFile);
         List<DependencyType> dependencyTypeList = Util.getDependencyTypes(dsm.exhibitedDependencyLine);
         dsmBrowser = new EasyDSMQuery(dsm.matrixLines, dsm.filePaths, dependencyTypeList);
-        repl = new REPL(dsmBrowser);
+        repl = new Evaluator(dsmBrowser);
     }
 
     @After

@@ -9,7 +9,7 @@ import java.util.Scanner;
 /**
  * Created by I853985 on 1/13/2017.
  */
-public class ConsoleREPL extends REPL {
+public class ConsoleREPL extends Evaluator {
 
     private final String prompt = "DPD$ ";
     private final String exit = "exit";
