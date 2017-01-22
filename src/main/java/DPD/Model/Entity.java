@@ -13,6 +13,10 @@ public class Entity extends ArrayList<CNode> {
 
     private int maxPromotion;
 
+    public int getMaxScore() {
+        return maxPromotion;
+    }
+
     @Override
     public boolean addAll(Collection<? extends CNode> list) {
         list.forEach(c -> add(c));
@@ -26,19 +30,19 @@ public class Entity extends ArrayList<CNode> {
     }
 
     public void promoteAll(List<CNode> list) {
+        ++maxPromotion;
         for(CNode c: list) {
             CNode in = getByClassId(c.classId);
-            in.score += 1;
+            in.score = maxPromotion;
         }
-        ++maxPromotion;
     }
 
     public void demoteAll(List<CNode> list) {
+        --maxPromotion;
         for(CNode c: list) {
             CNode in = getByClassId(c.classId);
-            in.score -= 1;
+            in.score = maxPromotion;
         }
-        --maxPromotion;
     }
 
     public boolean hasClass(int classId) {

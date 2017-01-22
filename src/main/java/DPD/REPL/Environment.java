@@ -306,7 +306,7 @@ public class Environment {
 
         class PocketV {
             int pocketId = -1;
-            int score = 0;
+            double score = 0;
             String str = "";
 
             public PocketV(int p, int s, String print){
@@ -323,12 +323,18 @@ public class Environment {
             int score = 0;
             for(String eKey: b.keySet()){
                 pocketStr += ("\tEntity " + eKey + ": ");
-                for(CNode c: b.get(eKey)) {
+                double localScore = 0;
+                int acceptedClasses = 0;
+                Entity entity = b.get(eKey);
+                for(CNode c: entity) {
                     if(c.pocket == i) {
                         pocketStr += (dsmQuery.GetType(c.classId) + "(" + c.pocket + ")" + ", ");
-                        score += c.score;
+                        localScore += c.score;
+                        ++acceptedClasses;
                     }
                 }
+                localScore = localScore / (entity.getMaxScore() * acceptedClasses);
+                score += localScore;
                 pocketStr += "\n";
             }
             PocketV pocketV = new PocketV(i, score, pocketStr);
