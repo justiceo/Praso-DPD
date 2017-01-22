@@ -9,10 +9,10 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
  */
 public class MethodNameVisitor extends VoidVisitorAdapter {
     private boolean hasName;
-    private String name;
+    private String[] methodNames;
 
-    public boolean hasMethodName(CompilationUnit cu, String name) {
-        this.name = name;
+    public boolean hasMethodName(CompilationUnit cu, String[] mnames) {
+        this.methodNames = mnames;
         visit(cu, null);
         return hasName;
     }
@@ -20,7 +20,8 @@ public class MethodNameVisitor extends VoidVisitorAdapter {
 
     @Override
     public void visit(MethodDeclaration md, Object args) {
-        if(md.getName().contains(name))
-            hasName = true;
+        for(String method: methodNames)
+            if(md.getName().contains(method))
+                hasName = true;
     }
 }

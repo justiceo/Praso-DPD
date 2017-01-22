@@ -17,8 +17,7 @@ public class Util {
      * @return
      */
     public static List<DependencyType> getDependencyTypes(String dependencyLine) {
-        dependencyLine = dependencyLine.replace("[", "").replace("]", "");
-        String[] depStrings = dependencyLine.split(",");
+        String[] depStrings = extractArray(dependencyLine);
         List<DependencyType> dependencyTypes = new ArrayList<>(depStrings.length);
         for (int i = 0; i < depStrings.length; i++) {
             if( isDependencyCondition(depStrings[i])) {
@@ -88,5 +87,15 @@ public class Util {
 
     public static String getType(String filePath) {
         return filePath.substring(filePath.lastIndexOf("\\")+1, filePath.lastIndexOf("."));
+    }
+
+    public static boolean isArray(String args) {
+        return args.startsWith("[") && args.endsWith("]");
+    }
+
+    public static String[] extractArray(String args){
+        if(isArray(args))
+            args = args.replace("[", "").replace("]", "");
+        return args.split(",");
     }
 }

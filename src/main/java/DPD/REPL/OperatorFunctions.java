@@ -2,6 +2,7 @@ package DPD.REPL;
 
 import DPD.Browser.EasyDSMQuery;
 import DPD.Model.*;
+import DPD.Util;
 import com.github.javaparser.ast.CompilationUnit;
 
 import java.util.HashMap;
@@ -15,7 +16,6 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
     public OperatorFunctions(EasyDSMQuery dsmBrowser){
         put("and", new OperatorObject(true, (b, leftOp, rightOp, t) -> and_function(b, leftOp, rightOp, t)));
         put("method_name", new OperatorObject(false, this::method_name_function));
-        put("not_method_name", new OperatorObject(false, this::not_method_name_function));
         put("pocket_size", new OperatorObject(true, (b, leftOp, rightOp, t) -> pocket_size_function(b, leftOp, rightOp, t)));
         put("min_pocket_size", new OperatorObject(true, (b, leftOp, rightOp, t) -> min_pocket_size_function(b, leftOp, rightOp, t)));
         this.browser = dsmBrowser;
@@ -44,30 +44,18 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         }
     }
 
-
-
     private void method_name_function(Bucket b, String leftOp, String rightOp, Tuple t) throws Exception {
-        String method = leftOp;
         Entity entity = b.get(rightOp);
+        String[] args = Util.extractArray(leftOp);
 
         // for each class in entity, check if it has method
         for(CNode c: entity) {
             FileNode fn = browser.getFileNode(c.classId);
             CompilationUnit cu = fn.getCu();
             MethodNameVisitor mv = new MethodNameVisitor();
-            if(mv.hasMethodName(cu, method))
+            if(mv.hasMethodName(cu, args))
                 t.Y.add(c);
         }
-    }
-
-    private void not_method_name_function(Bucket b, String leftOp, String rightOp, Tuple t) throws Exception {
-        method_name_function(b, leftOp, rightOp, t);
-        Entity e = b.get(rightOp);
-
-        // we'll use t.X as temp
-        t.X.addAll(e);            // copy entity into t.X
-        t.X.removeAll(t.Y);     // remove all Y instances
-        t.Y = t.X;
     }
 
     /**
