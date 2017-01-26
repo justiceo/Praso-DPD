@@ -33,18 +33,18 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
      * @param rightOp
      * @param t
      */
-    private void and_function(Bucket b, String leftOp, String rightOp, Tuple t) {
+    private void and_function(Bucket b, String leftOp, String rightOp, EntityResult t) {
         // assert declared leftOp, and rightOp
         Entity left = b.get(leftOp);
         Entity right = b.get(rightOp);
 
         for(CNode c: left) {
             if(right.hasClass(c.classId))
-                t.X.add(c);
+                t.aux.add(c);
         }
     }
 
-    private void method_name_function(Bucket b, String leftOp, String rightOp, Tuple t) throws Exception {
+    private void method_name_function(Bucket b, String leftOp, String rightOp, EntityResult t) throws Exception {
         Entity entity = b.get(rightOp);
         String[] args = Util.extractArray(leftOp);
 
@@ -54,7 +54,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
             CompilationUnit cu = fn.getCu();
             MethodNameVisitor mv = new MethodNameVisitor();
             if(mv.hasMethodName(cu, args))
-                t.Y.add(c);
+                t.pivot.add(c);
         }
     }
 
@@ -65,7 +65,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
      * @param rightOp
      * @param t
      */
-    private void pocket_size_function(Bucket b, String leftOp, String rightOp, Tuple t) {
+    private void pocket_size_function(Bucket b, String leftOp, String rightOp, EntityResult t) {
         int count = Integer.parseInt(leftOp);
         Entity target = b.get(rightOp);
         if(target.size() < count) return;
@@ -79,7 +79,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
 
         for(CNode c: target) {
             if(pocketCounter.get(c.pocket) == count)
-                t.Y.add(c);
+                t.pivot.add(c);
         }
     }
 
@@ -90,7 +90,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
      * @param rightOp
      * @param t
      */
-    private void min_pocket_size_function(Bucket b, String leftOp, String rightOp, Tuple t) {
+    private void min_pocket_size_function(Bucket b, String leftOp, String rightOp, EntityResult t) {
         int count = Integer.parseInt(leftOp);
         Entity target = b.get(rightOp);
         if(target.size() < count) return;
@@ -104,7 +104,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
 
         for(CNode c: target) {
             if(pocketCounter.get(c.pocket) >= count)
-                t.Y.add(c);
+                t.pivot.add(c);
         }
     }
 

@@ -17,11 +17,11 @@ public class EasyDSMQuery extends DSMDataStructure {
         fileBrowser = new FileBrowser(filePaths);
     }
 
-    public void populateFromBucket(List<DependencyType> dependencies, Tuple t, Bucket b, String leftOp, String rightOp) {
+    public void populateFromBucket(List<DependencyType> dependencies, EntityResult t, Bucket b, String leftOp, String rightOp) {
 
     }
 
-    public void populate(List<DependencyType> dependencies, Tuple t) {
+    public void populate(List<DependencyType> dependencies, EntityResult t) {
         if(dependencies.contains(DependencyType.SPECIALIZE)) { // then it definitely doesn't contain Extend or IMPLEMENT (assert this)
             dependencies.remove(DependencyType.SPECIALIZE);
 
@@ -43,11 +43,11 @@ public class EasyDSMQuery extends DSMDataStructure {
     }
 
 
-    private void populate(Tuple t, DependencyType... dependencies) {
+    private void populate(EntityResult t, DependencyType... dependencies) {
         int dependency = getDepsAsOne(dependencies);
         if(dependency == 0) return; // cause this would accept all the empty cells
-        Entity xList = t.X;
-        Entity yList = t.Y;
+        Entity xList = t.aux;
+        Entity yList = t.pivot;
 
         for(ClassNode c: allClassNodes) {
             List<DepNode> dependents = c.column;

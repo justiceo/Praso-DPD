@@ -46,14 +46,14 @@ public class Environment {
 
     public void fillBucket(String bucketId, List<DependencyType> dependency, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId);
-        Tuple t = new Tuple();
+        EntityResult t = new EntityResult();
         dsmQuery.populate(dependency, t);
 
         Bucket b = bucketList.get(bucketId);
         b.addIfNotExists(leftOperand, rightOperand);
         setGroupId(t, b.get(rightOperand));
-        b.get(leftOperand).addAll(t.X);
-        b.get(rightOperand).addAll(t.Y);
+        b.get(leftOperand).addAll(t.aux);
+        b.get(rightOperand).addAll(t.pivot);
     }
 
     public void fillBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
@@ -62,7 +62,7 @@ public class Environment {
         if( op == null )
             throw new NotImplementedException();
 
-        Tuple t = new Tuple();
+        EntityResult t = new EntityResult();
         Bucket b = bucketList.get(bucketId);
         op.func.call(b, leftOperand, rightOperand, t);
 
@@ -75,8 +75,8 @@ public class Environment {
         setGroupId(t, b.get(rightOperand));
 
         if(isDefined(b, leftOperand))
-            b.get(leftOperand).addAll(t.X);
-        b.get(rightOperand).addAll(t.Y);
+            b.get(leftOperand).addAll(t.aux);
+        b.get(rightOperand).addAll(t.pivot);
     }
 
 
@@ -90,7 +90,7 @@ public class Environment {
 
     public void overwriteBucket(String bucketId, List<DependencyType> dependency, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId);
-        Tuple t = new Tuple();
+        EntityResult t = new EntityResult();
         dsmQuery.populate(dependency, t);
 
         Bucket b = bucketList.get(bucketId);
@@ -101,8 +101,8 @@ public class Environment {
 
         setGroupId(t, rightE);
 
-        leftE.resetTo(t.X);
-        rightE.resetTo(t.Y);
+        leftE.resetTo(t.aux);
+        rightE.resetTo(t.pivot);
     }
 
     public void overwriteBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
@@ -111,7 +111,7 @@ public class Environment {
         if( op == null )
             throw new NotImplementedException();
 
-        Tuple t = new Tuple();
+        EntityResult t = new EntityResult();
         Bucket b = bucketList.get(bucketId);
         op.func.call(b, leftOperand, rightOperand, t);
 
@@ -127,21 +127,21 @@ public class Environment {
         setGroupId(t, rightE);
 
         if(isDefined(b, leftOperand))
-            leftE = t.X;
-        rightE = t.Y;
+            leftE = t.aux;
+        rightE = t.pivot;
     }
 
     public void filterBucket(String bucketId, List<DependencyType> dependencies, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
-        Tuple t = new Tuple();
+        EntityResult t = new EntityResult();
         dsmQuery.populate(dependencies, t);
 
         Bucket b = bucketList.get(bucketId);
         setGroupId(t, b.get(rightOperand));
 
-        b.get(leftOperand).removeByClassId(t.X);
-        b.get(rightOperand).removeByClassId(t.Y);
+        b.get(leftOperand).removeByClassId(t.aux);
+        b.get(rightOperand).removeByClassId(t.pivot);
     }
 
     public void filterBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
@@ -156,7 +156,7 @@ public class Environment {
         if( op == null )
             throw new NotImplementedException();
 
-        Tuple t = new Tuple();
+        EntityResult t = new EntityResult();
         Bucket b = bucketList.get(bucketId);
         op.func.call(b, leftOperand, rightOperand, t);
 
@@ -165,8 +165,8 @@ public class Environment {
         setGroupId(t, b.get(rightOperand));
 
         if(isDefined(b, leftOperand))
-            b.get(leftOperand).removeByClassId(t.X);
-        b.get(rightOperand).removeByClassId(t.Y);
+            b.get(leftOperand).removeByClassId(t.aux);
+        b.get(rightOperand).removeByClassId(t.pivot);
     }
 
     public void promoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
@@ -178,15 +178,15 @@ public class Environment {
     public void promoteBucket(String bucketId, List<DependencyType> dependencies, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
-        Tuple t = new Tuple();
+        EntityResult t = new EntityResult();
 
         dsmQuery.populate(dependencies, t);
 
         Bucket b = bucketList.get(bucketId);
         setGroupId(t, b.get(rightOperand));
 
-        b.get(leftOperand).promoteAll(t.X);
-        b.get(rightOperand).promoteAll(t.Y);
+        b.get(leftOperand).promoteAll(t.aux);
+        b.get(rightOperand).promoteAll(t.pivot);
     }
 
     public void promoteBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
@@ -195,7 +195,7 @@ public class Environment {
         if( op == null )
             throw new NotImplementedException();
 
-        Tuple t = new Tuple();
+        EntityResult t = new EntityResult();
         Bucket b = bucketList.get(bucketId);
         op.func.call(b, leftOperand, rightOperand, t);
 
@@ -206,8 +206,8 @@ public class Environment {
         setGroupId(t, b.get(rightOperand));
 
         if(isDefined(b, leftOperand))
-            leftE.promoteAll(t.X);
-        rightE.promoteAll(t.Y);
+            leftE.promoteAll(t.aux);
+        rightE.promoteAll(t.pivot);
     }
 
     public void demoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
@@ -219,14 +219,14 @@ public class Environment {
     public void demoteBucket(String bucketId, List<DependencyType> dependencies, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
-        Tuple t = new Tuple();
+        EntityResult t = new EntityResult();
         dsmQuery.populate(dependencies, t);
 
         Bucket b = bucketList.get(bucketId);
         setGroupId(t, b.get(rightOperand));
 
-        b.get(leftOperand).demoteAll(t.X);
-        b.get(rightOperand).demoteAll(t.Y);
+        b.get(leftOperand).demoteAll(t.aux);
+        b.get(rightOperand).demoteAll(t.pivot);
     }
 
 
@@ -237,7 +237,7 @@ public class Environment {
         if( op == null )
             throw new NotImplementedException();
 
-        Tuple t = new Tuple();
+        EntityResult t = new EntityResult();
         Bucket b = bucketList.get(bucketId);
         op.func.call(b, leftOperand, rightOperand, t);
 
@@ -248,8 +248,8 @@ public class Environment {
         setGroupId(t, b.get(rightOperand));
 
         if(isDefined(b, leftOperand))
-            leftE.demoteAll(t.X);
-        rightE.demoteAll(t.Y);
+            leftE.demoteAll(t.aux);
+        rightE.demoteAll(t.pivot);
     }
 
     public void resolveBucket(String bucketId) throws Exception {
@@ -351,14 +351,14 @@ public class Environment {
         System.out.println("\n---------------------------\n");
     }
 
-    private void setGroupId(Tuple t, Entity entity) {
-        // t.Y is the pivot by default
-        for(CNode cn: t.Y) {
+    private void setGroupId(EntityResult t, Entity entity) {
+        // t.pivot is the pivot by default
+        for(CNode cn: t.pivot) {
             if(entity.hasClass(cn.classId)) {
                 int existingPocket = entity.getByClassId(cn.classId).pocket;
-                for(int i = 0; i < t.X.size(); i++){
-                    if(t.X.get(i).pocket == cn.pocket){
-                        t.X.get(i).pocket = existingPocket;
+                for(int i = 0; i < t.aux.size(); i++){
+                    if(t.aux.get(i).pocket == cn.pocket){
+                        t.aux.get(i).pocket = existingPocket;
                     }
                 }
                 cn.pocket = existingPocket;

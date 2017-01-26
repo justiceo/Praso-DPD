@@ -1,7 +1,7 @@
 package DPD.REPL;
 
 import DPD.Model.Bucket;
-import DPD.Model.Tuple;
+import DPD.Model.EntityResult;
 
 /**
  * Created by Justice on 1/17/2017.
@@ -17,6 +17,6 @@ public class OperatorObject {
 
     @FunctionalInterface
     public interface OperatorInterface {
-        void call(Bucket b, String leftOp, String rightOp, Tuple t) throws Exception;
+        void call(Bucket b, String leftOp, String rightOp, EntityResult t) throws Exception;
     }
 }
