@@ -85,4 +85,9 @@ public class Entity extends ArrayList<CNode> {
                 iter.remove();
         }
     }
+
+    public void resetTo(Entity x) {
+        clear();
+        addAll(x);
+    }
 }

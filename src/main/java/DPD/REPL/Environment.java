@@ -96,13 +96,13 @@ public class Environment {
         Bucket b = bucketList.get(bucketId);
         b.addIfNotExists(leftOperand, rightOperand);
 
-        Entity rightE = b.get(rightOperand);
-        Entity leftE = b.get(leftOperand);
+        Entity rightE = b.getEntity(rightOperand);
+        Entity leftE = b.getEntity(leftOperand);
 
         setGroupId(t, rightE);
 
-        leftE = t.X;
-        rightE = t.Y;
+        leftE.resetTo(t.X);
+        rightE.resetTo(t.Y);
     }
 
     public void overwriteBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {

@@ -19,6 +19,10 @@ public class Bucket extends HashMap<String, Entity> {
         }
     }
 
+    public Entity getEntity(String entityId) {
+        return get(entityId);
+    }
+
     public static int getPocket() {
         return pocket;
     }
