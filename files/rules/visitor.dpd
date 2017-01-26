@@ -6,10 +6,9 @@ Entity concreteE: 'Concrete Element'
 Bucket b: 'Visitor pattern'
 b <= concreteV specialize visitorI
 b <= concreteE specialize element
-b => concreteE [typed,call] visitorI
-b => concreteV [typed,call] concreteE
+b = concreteE [typed,call] visitorI
 b ++ 'accept' method_name element
 b ++ 'visit' method_name visitorI
 
 Resolve( b )
-Print( b )
+Pockets ( b )

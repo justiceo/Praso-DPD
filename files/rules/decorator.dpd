@@ -8,10 +8,12 @@ b <= leaf specialize component
 b <= decorator specialize component
 b <= concreteD specialize decorator
 b => leaf and component
-b => 2 pocket_size concreteD
+b => 1 pocket_size concreteD
 
 Resolve( b )
 Print( b )
+
+Pockets ( b )
 
 ###
 
