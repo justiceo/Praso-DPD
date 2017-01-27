@@ -34,8 +34,8 @@ public class FileREPL implements Runnable {
                     break;
                 evaluator.execute(line);
             } catch (Exception e) {
-                System.out.println("Error executing line" + i + ": " + line);
-                e.printStackTrace();
+                System.out.println("Error executing line " + (i+1) + ": " + line);
+                System.out.println(e.getMessage());
                 break;
             }
         }

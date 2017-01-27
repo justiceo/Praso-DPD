@@ -44,6 +44,10 @@ public class Tokenizer {
     }
 
     public String nextToken() {
-        return tokens[index++];
+        try {
+            return tokens[index++];
+        }catch (ArrayIndexOutOfBoundsException e) {
+            throw new IllegalArgumentException("More tokens expected");
+        }
     }
 }
