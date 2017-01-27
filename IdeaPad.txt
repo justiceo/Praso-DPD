@@ -1,0 +1,16 @@
+IdeaPad
+-------
+
+General improvements:
+- make praso case sensitive
+- move entity to a map instead of array
+- Increase control over parsing to 1. improve error result and 2. allow stronger arg assertions
+	
+
+Making functions testable
+	- Introduce BucketResult as the result of computing a BucketCondition
+	- Limit the operations of bucket to the five operators and test thoroughly the bucket interface
+	- Provide assertions in the code to help debugging
+	- move all operator functions to a separate, publicly exposed testable interface that returns BucketResult
+	- increase the power of the evaluator over the "correctness" of arguments to free up this new interface from unnecessary checks
+	
