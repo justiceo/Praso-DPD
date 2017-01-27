@@ -33,7 +33,7 @@ public class Entity extends ArrayList<CNode> {
         ++maxPromotion;
         for(CNode c: list) {
             CNode in = getByClassId(c.classId);
-            in.score = maxPromotion;
+            in.score += 1;
         }
     }
 
@@ -41,7 +41,7 @@ public class Entity extends ArrayList<CNode> {
         --maxPromotion;
         for(CNode c: list) {
             CNode in = getByClassId(c.classId);
-            in.score = maxPromotion;
+            in.score -= 1;
         }
     }
 

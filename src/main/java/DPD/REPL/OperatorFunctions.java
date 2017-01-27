@@ -108,4 +108,17 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         }
     }
 
+    private EntityResult min_pocket_size_function(Entity e, int desiredCount) {
+        EntityResult result = new EntityResult();
+        if(e.size() < desiredCount) return result;
+        HashMap<Integer, Integer> pocketCounter = new HashMap<>();
+        for(CNode c: e) {
+            int n = pocketCounter.containsKey(c.pocket) ? pocketCounter.get(c.pocket) : 0;
+            pocketCounter.put(c.pocket, ++n);
+            if(n == desiredCount)
+                result.pivot.add(c);
+        }
+        return result;
+    }
+
 }

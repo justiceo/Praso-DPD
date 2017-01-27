@@ -333,7 +333,7 @@ public class Environment {
                         ++acceptedClasses;
                     }
                 }
-                localScore = localScore / (entity.getMaxScore() * acceptedClasses);
+                //localScore = localScore / (entity.getMaxScore() * acceptedClasses);
                 score += localScore;
                 pocketStr += "\n";
             }
