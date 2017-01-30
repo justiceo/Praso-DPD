@@ -28,7 +28,6 @@ public class Environment {
         declaredVariables.put(entityId, name);
     }
 
-
     public void createBucket(String bucketId, String name) throws Exception {
         assertUndeclared(bucketId);
 
@@ -42,11 +41,9 @@ public class Environment {
         fillBucket(bucketId, d, leftOperand, rightOperand);
     }
 
-
-
     public void fillBucket(String bucketId, List<DependencyType> dependency, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId);
-        EntityResult t = new EntityResult();
+        BucketResult t = new BucketResult();
         dsmQuery.populate(dependency, t);
 
         Bucket b = bucketList.get(bucketId);
@@ -62,7 +59,7 @@ public class Environment {
         if( op == null )
             throw new NotImplementedException();
 
-        EntityResult t = new EntityResult();
+        BucketResult t = new BucketResult();
         Bucket b = bucketList.get(bucketId);
         op.func.call(b, leftOperand, rightOperand, t);
 
@@ -90,7 +87,7 @@ public class Environment {
 
     public void overwriteBucket(String bucketId, List<DependencyType> dependency, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId);
-        EntityResult t = new EntityResult();
+        BucketResult t = new BucketResult();
         dsmQuery.populate(dependency, t);
 
         Bucket b = bucketList.get(bucketId);
@@ -111,7 +108,7 @@ public class Environment {
         if( op == null )
             throw new NotImplementedException();
 
-        EntityResult t = new EntityResult();
+        BucketResult t = new BucketResult();
         Bucket b = bucketList.get(bucketId);
         op.func.call(b, leftOperand, rightOperand, t);
 
@@ -134,7 +131,7 @@ public class Environment {
     public void filterBucket(String bucketId, List<DependencyType> dependencies, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
-        EntityResult t = new EntityResult();
+        BucketResult t = new BucketResult();
         dsmQuery.populate(dependencies, t);
 
         Bucket b = bucketList.get(bucketId);
@@ -156,7 +153,7 @@ public class Environment {
         if( op == null )
             throw new NotImplementedException();
 
-        EntityResult t = new EntityResult();
+        BucketResult t = new BucketResult();
         Bucket b = bucketList.get(bucketId);
         op.func.call(b, leftOperand, rightOperand, t);
 
@@ -178,7 +175,7 @@ public class Environment {
     public void promoteBucket(String bucketId, List<DependencyType> dependencies, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
-        EntityResult t = new EntityResult();
+        BucketResult t = new BucketResult();
 
         dsmQuery.populate(dependencies, t);
 
@@ -195,7 +192,7 @@ public class Environment {
         if( op == null )
             throw new NotImplementedException();
 
-        EntityResult t = new EntityResult();
+        BucketResult t = new BucketResult();
         Bucket b = bucketList.get(bucketId);
         op.func.call(b, leftOperand, rightOperand, t);
 
@@ -219,7 +216,7 @@ public class Environment {
     public void demoteBucket(String bucketId, List<DependencyType> dependencies, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(bucketId, leftOperand, rightOperand);
 
-        EntityResult t = new EntityResult();
+        BucketResult t = new BucketResult();
         dsmQuery.populate(dependencies, t);
 
         Bucket b = bucketList.get(bucketId);
@@ -237,7 +234,7 @@ public class Environment {
         if( op == null )
             throw new NotImplementedException();
 
-        EntityResult t = new EntityResult();
+        BucketResult t = new BucketResult();
         Bucket b = bucketList.get(bucketId);
         op.func.call(b, leftOperand, rightOperand, t);
 
@@ -351,7 +348,7 @@ public class Environment {
         System.out.println("\n---------------------------\n");
     }
 
-    private void setGroupId(EntityResult t, Entity entity) {
+    private void setGroupId(BucketResult t, Entity entity) {
         // t.pivot is the pivot by default
         for(CNode cn: t.pivot) {
             if(entity.hasClass(cn.classId)) {

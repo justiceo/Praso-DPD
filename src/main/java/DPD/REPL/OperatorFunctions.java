@@ -33,7 +33,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
      * @param rightOp
      * @param t
      */
-    private void and_function(Bucket b, String leftOp, String rightOp, EntityResult t) {
+    private void and_function(Bucket b, String leftOp, String rightOp, BucketResult t) {
         // assert declared leftOp, and rightOp
         Entity left = b.get(leftOp);
         Entity right = b.get(rightOp);
@@ -44,7 +44,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         }
     }
 
-    private void method_name_function(Bucket b, String leftOp, String rightOp, EntityResult t) throws Exception {
+    private void method_name_function(Bucket b, String leftOp, String rightOp, BucketResult t) throws Exception {
         Entity entity = b.get(rightOp);
         String[] args = Util.extractArray(leftOp);
 
@@ -65,7 +65,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
      * @param rightOp
      * @param t
      */
-    private void pocket_size_function(Bucket b, String leftOp, String rightOp, EntityResult t) {
+    private void pocket_size_function(Bucket b, String leftOp, String rightOp, BucketResult t) {
         int count = Integer.parseInt(leftOp);
         Entity target = b.get(rightOp);
         if(target.size() < count) return;
@@ -90,7 +90,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
      * @param rightOp
      * @param t
      */
-    private void min_pocket_size_function(Bucket b, String leftOp, String rightOp, EntityResult t) {
+    private void min_pocket_size_function(Bucket b, String leftOp, String rightOp, BucketResult t) {
         int count = Integer.parseInt(leftOp);
         Entity target = b.get(rightOp);
         if(target.size() < count) return;
@@ -108,8 +108,8 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         }
     }
 
-    private EntityResult min_pocket_size_function(Entity e, int desiredCount) {
-        EntityResult result = new EntityResult();
+    private BucketResult min_pocket_size_function(Entity e, int desiredCount) {
+        BucketResult result = new BucketResult();
         if(e.size() < desiredCount) return result;
         HashMap<Integer, Integer> pocketCounter = new HashMap<>();
         for(CNode c: e) {

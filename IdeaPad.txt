@@ -13,4 +13,65 @@ Making functions testable
 	- Provide assertions in the code to help debugging
 	- move all operator functions to a separate, publicly exposed testable interface that returns BucketResult
 	- increase the power of the evaluator over the "correctness" of arguments to free up this new interface from unnecessary checks
-	
+	- the bucket interface basically prevents us from limiting functions to fill, filter etc. how?
+		* case filter and bucket, filter wants to use the elements in the bucket (unmodifiable list)
+		* method_name wants to use the bucket (to get class names in entity) - create getEntity that returns unmodifiable list?
+			or better still, pass 'unmodifiable' bucket to method_name, any attempt to update would throw exception.
+		* this should force method_name to respect the rules
+		* excludes and filter. excludes doesn't really know what you're doing or change it to distinct(e1, e2).
+		* now you can have distinct(e1, e2, e3). if an element in e2 is in e1 it would be removed. if an element in e3 is in e2 or e1 it would be removed.
+		* how does it affect pocketing? we initially give them random pivots and fix it later 
+			because currently pockets are set on a known pivot. We can still follow this approach,
+			but we'll need a way of precisely defining the pivot, a pivot marker?`
+			at what level do we pocket? 
+			
+			* what is the essence of a pivot? And why is there no alternate representation?
+				pivots are used to determine which entity to use for resolution or pocket matching.
+				e.g "e2 extends e1" and "e3 types e1" would cause multiple instances of a class to be in e1 where it could have been one.
+				
+			* say hello to normalize: we'll add classes anyhow with the repeats
+			* "normalize entity" will return a "set" of the classIds since duplicates would have been merged across all entities
+			* "normalize e1 e2" also solves another problem caused by deeply nested heirarchies - by collecting all the descendants into the same pocket
+			* 
+			
+Unify (normalize)
+=========
+Unify e1
+	- If a classId occurs more than once in an entity, 
+		- pick the pocketId of one of them and set aside
+		- for the rest of them, reset their entity-wide pocketId to the set-aside IdeaPad
+		- remove all the other classIds except the one whose pocketId is used
+
+* second problem: how do we put deep hierarchies into one pocket
+Normalize Hierachy
+------------------
+Nheirachy e1 e2 e3 will take an arbitrary number of entities and normalize them "in-order".
+so e1 e2 e3 == e1 e2 then e2 e3
+for e1 e2: if an element in e2 is also in e1, it's dependents are added to e1's pocket
+
+	- If a classId occurs more than once in an entity,
+		perform nhei above by entity-wide pocket reset is restricted to e2
+		
+				
+				
+				
+AY positive
+-----------
+Me
+Kyle
+Amber
+Jonathan
+Nathalie + 1
+Adia
+Valencia & Will
+Naomi
+Mrs carol + 1
+
+
+(wall) Tyrel
+(wall) Brandi
+(wall) Tiffany
+(wall) charity
+
+
+(none) joe 
