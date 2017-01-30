@@ -28,16 +28,16 @@ public class Evaluator {
                 evalBucketDeclaration(line);
                 break;
             case FillStatement:
-                evalFillStmt(line);
+                evalBucketStatement(line, StatementType.FillStatement);
                 break;
             case FilterStatement:
-                evalFilterStmt(line);
+                evalBucketStatement(line, StatementType.FilterStatement);
                 break;
             case PromoteStatement:
-                evalPromoteStmt(line);
+                evalBucketStatement(line, StatementType.PromoteStatement);
                 break;
             case DemoteStatement:
-                evalDemoteStmt(line);
+                evalBucketStatement(line, StatementType.DemoteStatement);
                 break;
             case ResolveStatement:
                 evalResolveStmt(line);
@@ -49,7 +49,7 @@ public class Evaluator {
                 evalPrintPocketStmt(line);
                 break;
             case OverwriteStatement:
-                evalOverwriteStmt(line);
+                evalBucketStatement(line, StatementType.OverwriteStatement);
                 break;
             case Noop:
                 break;
@@ -70,7 +70,7 @@ public class Evaluator {
         return StatementType.Noop;
     }
 
-    private enum StatementType {
+    protected enum StatementType {
         EntityDeclaration,
         BucketDeclaration,
         PrintStatement,
@@ -104,7 +104,7 @@ public class Evaluator {
         }
     }
 
-    private void evalFillStmt(String line) throws Exception {
+    private void evalBucketStatement(String line, StatementType type) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
         String e1 = st.nextToken();
@@ -112,86 +112,13 @@ public class Evaluator {
         String e2 = st.nextToken();
         if(condition.startsWith("[") && condition.endsWith("]")) {
             List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
-            exec.fillBucket(bucketId, dependencyTypes, e1, e2);
+            exec.bucketAction(bucketId, type, exec.evalDependency(dependencyTypes, e1, e2));
         }
         else if(Util.isDependencyCondition(condition)) {
-            exec.fillBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
+            exec.bucketAction(bucketId, type, exec.evalDependency(DependencyType.valueOf(condition), e1, e2));
         }
         else {
-            exec.fillBucket(bucketId, condition, e1, e2);
-        }
-    }
-
-    private void evalFilterStmt(String line) throws Exception {
-        Tokenizer st = new Tokenizer(line, delimiters);
-        String bucketId = st.nextToken();
-        String e1 = st.nextToken();
-        String condition = st.nextToken().toUpperCase();
-        String e2 = st.nextToken();
-        if(condition.startsWith("[") && condition.endsWith("]")) {
-            List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
-            exec.filterBucket(bucketId, dependencyTypes, e1, e2);
-        }
-        else if(Util.isDependencyCondition(condition))
-            exec.filterBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
-        else {
-            exec.filterBucket(bucketId, condition, e1, e2);
-        }
-    }
-
-    private void evalOverwriteStmt(String line) throws Exception {
-        Tokenizer st = new Tokenizer(line, delimiters);
-        String bucketId = st.nextToken();
-        String e1 = st.nextToken();
-        String condition = st.nextToken().toUpperCase();
-        String e2 = st.nextToken();
-        if(condition.startsWith("[") && condition.endsWith("]")) {
-            List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
-            exec.overwriteBucket(bucketId, dependencyTypes, e1, e2);
-        }
-        else if(Util.isDependencyCondition(condition)) {
-            exec.overwriteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
-        }
-        else {
-            exec.overwriteBucket(bucketId, condition, e1, e2);
-        }
-    }
-
-    private void evalPromoteStmt(String line) throws Exception {
-        Tokenizer st = new Tokenizer(line, delimiters);
-        String bucketId = st.nextToken();
-        String e1 = st.nextToken();
-        String condition = st.nextToken().toUpperCase();
-        String e2 = st.nextToken();
-
-        if(condition.startsWith("[") && condition.endsWith("]")) {
-            List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
-            exec.promoteBucket(bucketId, dependencyTypes, e1, e2);
-        }
-        else if(Util.isDependencyCondition(condition))
-            exec.promoteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
-        else {
-            exec.promoteBucket(bucketId, condition, e1, e2);
-        }
-    }
-
-    private void evalDemoteStmt(String line) throws Exception {
-        Tokenizer st = new Tokenizer(line, delimiters);
-        String bucketId = st.nextToken();
-        String e1 = st.nextToken();
-        String condition = st.nextToken().toUpperCase();
-        String e2 = st.nextToken();
-        if(Util.isDependencyCondition(condition))
-            exec.demoteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
-
-        if(condition.startsWith("[") && condition.endsWith("]")) {
-            List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
-            exec.demoteBucket(bucketId, dependencyTypes, e1, e2);
-        }
-        else if(Util.isDependencyCondition(condition))
-            exec.demoteBucket(bucketId, DependencyType.valueOf(condition), e1, e2);
-        else {
-            exec.demoteBucket(bucketId, condition, e1, e2);
+            exec.bucketAction(bucketId, type, exec.evalFunction(condition, e1, e2));
         }
     }
 

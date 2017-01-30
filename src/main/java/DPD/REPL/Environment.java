@@ -35,47 +35,6 @@ public class Environment {
         bucketList.put(bucketId, new Bucket());
     }
 
-    public void fillBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
-        List<DependencyType> d = new ArrayList<>();
-        d.add(dependency);
-        fillBucket(bucketId, d, leftOperand, rightOperand);
-    }
-
-    public void fillBucket(String bucketId, List<DependencyType> dependency, String leftOperand, String rightOperand) throws Exception {
-        assertDeclared(bucketId);
-        BucketResult t = new BucketResult();
-        dsmQuery.populate(dependency, t);
-
-        Bucket b = bucketList.get(bucketId);
-        b.addIfNotExists(leftOperand, rightOperand);
-        setGroupId(t, b.get(rightOperand));
-        b.get(leftOperand).addAll(t.aux);
-        b.get(rightOperand).addAll(t.pivot);
-    }
-
-    public void fillBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
-        assertDeclared(bucketId);
-        OperatorObject op = opFunc.get(operator);
-        if( op == null )
-            throw new NotImplementedException();
-
-        BucketResult t = new BucketResult();
-        Bucket b = bucketList.get(bucketId);
-        op.func.call(b, leftOperand, rightOperand, t);
-
-        /// below lines would need refactoring as they may never be executed
-
-        if( !op.isSingleOperator )
-            b.addIfNotExists(leftOperand);
-        b.addIfNotExists(rightOperand);
-
-        setGroupId(t, b.get(rightOperand));
-
-        if(isDefined(b, leftOperand))
-            b.get(leftOperand).addAll(t.aux);
-        b.get(rightOperand).addAll(t.pivot);
-    }
-
     public void fillBucket(String bucketId, BucketResult bResult) throws Exception {
         assertDeclared(bucketId);
         Bucket b = bucketList.get(bucketId);
@@ -93,12 +52,27 @@ public class Environment {
         }
     }
 
-
     public void filterBucket(String bucketId, BucketResult bucketResult) throws Exception {
         assertDeclared(bucketId);
         Bucket b = bucketList.get(bucketId);
         for(String key: bucketResult.keySet()) {
             b.get(key).removeByClassId(bucketResult.get(key));
+        }
+    }
+
+    public void promoteBucket(String bucketId, BucketResult bucketResult) throws Exception {
+        assertDeclared(bucketId);
+        Bucket b = bucketList.get(bucketId);
+        for(String key: bucketResult.keySet()) {
+            b.get(key).promoteAll(bucketResult.get(key));
+        }
+    }
+
+    public void demoteBucket(String bucketId, BucketResult bucketResult) throws Exception {
+        assertDeclared(bucketId);
+        Bucket b = bucketList.get(bucketId);
+        for(String key: bucketResult.keySet()) {
+            b.get(key).demoteAll(bucketResult.get(key));
         }
     }
 
@@ -125,178 +99,6 @@ public class Environment {
         BucketResult bucketResult = new BucketResult();
         op.func.call(bucketResult, operands[0], operands[1], bucketResult);
         return bucketResult;
-    }
-
-    public void overwriteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
-        List<DependencyType> d = new ArrayList<>();
-        d.add(dependency);
-        overwriteBucket(bucketId, d, leftOperand, rightOperand);
-    }
-
-
-
-    public void overwriteBucket(String bucketId, List<DependencyType> dependency, String leftOperand, String rightOperand) throws Exception {
-        assertDeclared(bucketId);
-        BucketResult t = new BucketResult();
-        dsmQuery.populate(dependency, t);
-
-        Bucket b = bucketList.get(bucketId);
-        b.addIfNotExists(leftOperand, rightOperand);
-
-        Entity rightE = b.getEntity(rightOperand);
-        Entity leftE = b.getEntity(leftOperand);
-
-        setGroupId(t, rightE);
-
-        leftE.resetTo(t.aux);
-        rightE.resetTo(t.pivot);
-    }
-
-    public void overwriteBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
-        assertDeclared(bucketId);
-        OperatorObject op = opFunc.get(operator);
-        if( op == null )
-            throw new NotImplementedException();
-
-        BucketResult t = new BucketResult();
-        Bucket b = bucketList.get(bucketId);
-        op.func.call(b, leftOperand, rightOperand, t);
-
-        /// below lines would need refactoring as they may never be executed
-
-        if( !op.isSingleOperator )
-            b.addIfNotExists(leftOperand);
-        b.addIfNotExists(rightOperand);
-
-        Entity rightE = b.get(rightOperand);
-        Entity leftE = b.get(leftOperand);
-
-        setGroupId(t, rightE);
-
-        if(isDefined(b, leftOperand))
-            leftE = t.aux;
-        rightE = t.pivot;
-    }
-
-    public void filterBucket(String bucketId, List<DependencyType> dependencies, String leftOperand, String rightOperand) throws Exception {
-        assertDeclared(bucketId, leftOperand, rightOperand);
-
-        BucketResult t = new BucketResult();
-        dsmQuery.populate(dependencies, t);
-
-        Bucket b = bucketList.get(bucketId);
-        setGroupId(t, b.get(rightOperand));
-
-        b.get(leftOperand).removeByClassId(t.aux);
-        b.get(rightOperand).removeByClassId(t.pivot);
-    }
-
-    public void filterBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
-        List<DependencyType> dt = new ArrayList<>();
-        dt.add(dependency);
-        filterBucket(bucketId, dt, leftOperand, rightOperand);
-    }
-
-    public void filterBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
-        assertDeclared(bucketId, rightOperand);
-        OperatorObject op = opFunc.get(operator);
-        if( op == null )
-            throw new NotImplementedException();
-
-        BucketResult t = new BucketResult();
-        Bucket b = bucketList.get(bucketId);
-        op.func.call(b, leftOperand, rightOperand, t);
-
-        /// below lines would need refactoring as they may never be executed
-
-        setGroupId(t, b.get(rightOperand));
-
-        if(isDefined(b, leftOperand))
-            b.get(leftOperand).removeByClassId(t.aux);
-        b.get(rightOperand).removeByClassId(t.pivot);
-    }
-
-    public void promoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
-        List<DependencyType> dependencyTypes = new ArrayList<>();
-        dependencyTypes.add(dependency);
-        promoteBucket(bucketId, dependencyTypes, leftOperand, rightOperand);
-    }
-
-    public void promoteBucket(String bucketId, List<DependencyType> dependencies, String leftOperand, String rightOperand) throws Exception {
-        assertDeclared(bucketId, leftOperand, rightOperand);
-
-        BucketResult t = new BucketResult();
-
-        dsmQuery.populate(dependencies, t);
-
-        Bucket b = bucketList.get(bucketId);
-        setGroupId(t, b.get(rightOperand));
-
-        b.get(leftOperand).promoteAll(t.aux);
-        b.get(rightOperand).promoteAll(t.pivot);
-    }
-
-    public void promoteBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
-        assertDeclared(bucketId, rightOperand);
-        OperatorObject op = opFunc.get(operator);
-        if( op == null )
-            throw new NotImplementedException();
-
-        BucketResult t = new BucketResult();
-        Bucket b = bucketList.get(bucketId);
-        op.func.call(b, leftOperand, rightOperand, t);
-
-        /// below lines would need refactoring as they may never be executed
-
-        Entity rightE = b.get(rightOperand);
-        Entity leftE = b.get(leftOperand);
-        setGroupId(t, b.get(rightOperand));
-
-        if(isDefined(b, leftOperand))
-            leftE.promoteAll(t.aux);
-        rightE.promoteAll(t.pivot);
-    }
-
-    public void demoteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
-        List<DependencyType> dependencyTypes = new ArrayList<>();
-        dependencyTypes.add(dependency);
-        demoteBucket(bucketId, dependencyTypes, leftOperand, rightOperand);
-    }
-
-    public void demoteBucket(String bucketId, List<DependencyType> dependencies, String leftOperand, String rightOperand) throws Exception {
-        assertDeclared(bucketId, leftOperand, rightOperand);
-
-        BucketResult t = new BucketResult();
-        dsmQuery.populate(dependencies, t);
-
-        Bucket b = bucketList.get(bucketId);
-        setGroupId(t, b.get(rightOperand));
-
-        b.get(leftOperand).demoteAll(t.aux);
-        b.get(rightOperand).demoteAll(t.pivot);
-    }
-
-
-
-    public void demoteBucket(String bucketId, String operator, String leftOperand, String rightOperand) throws Exception {
-        assertDeclared(bucketId, rightOperand);
-        OperatorObject op = opFunc.get(operator);
-        if( op == null )
-            throw new NotImplementedException();
-
-        BucketResult t = new BucketResult();
-        Bucket b = bucketList.get(bucketId);
-        op.func.call(b, leftOperand, rightOperand, t);
-
-        /// below lines would need refactoring as they may never be executed
-
-        Entity rightE = b.get(rightOperand);
-        Entity leftE = b.get(leftOperand);
-        setGroupId(t, b.get(rightOperand));
-
-        if(isDefined(b, leftOperand))
-            leftE.demoteAll(t.aux);
-        rightE.demoteAll(t.pivot);
     }
 
     public void resolveBucket(String bucketId) throws Exception {
@@ -436,4 +238,25 @@ public class Environment {
         result.add(input);
         return result;
     }
+
+    public void bucketAction(String bucketId, Evaluator.StatementType type, BucketResult bucketResult) throws Exception {
+        switch (type) {
+            case FillStatement:
+                fillBucket(bucketId, bucketResult);
+                break;
+            case OverwriteStatement:
+                assignBucket(bucketId, bucketResult);
+                break;
+            case FilterStatement:
+                filterBucket(bucketId, bucketResult);
+                break;
+            case PromoteStatement:
+                promoteBucket(bucketId, bucketResult);
+                break;
+            case DemoteStatement:
+                demoteBucket(bucketId, bucketResult);
+                break;
+        }
+    }
+
 }
