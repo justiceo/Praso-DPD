@@ -112,13 +112,13 @@ public class Evaluator {
         String e2 = st.nextToken();
         if(condition.startsWith("[") && condition.endsWith("]")) {
             List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
-            exec.bucketAction(bucketId, type, exec.evalDependency(dependencyTypes, e1, e2));
+            exec.evalBucketStatement(bucketId, type, exec.evalDependency(dependencyTypes, e1, e2));
         }
         else if(Util.isDependencyCondition(condition)) {
-            exec.bucketAction(bucketId, type, exec.evalDependency(DependencyType.valueOf(condition), e1, e2));
+            exec.evalBucketStatement(bucketId, type, exec.evalDependency(DependencyType.valueOf(condition), e1, e2));
         }
         else {
-            exec.bucketAction(bucketId, type, exec.evalFunction(condition, e1, e2));
+            exec.evalBucketStatement(bucketId, type, exec.evalFunction(bucketId, condition, e1, e2));
         }
     }
 

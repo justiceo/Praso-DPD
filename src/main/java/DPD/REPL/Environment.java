@@ -35,47 +35,6 @@ public class Environment {
         bucketList.put(bucketId, new Bucket());
     }
 
-    public void fillBucket(String bucketId, BucketResult bResult) throws Exception {
-        assertDeclared(bucketId);
-        Bucket b = bucketList.get(bucketId);
-        for(String key: bResult.keySet()) {
-            b.get(key).addAll(bResult.get(key));
-        }
-    }
-
-    public void assignBucket(String bucketId, BucketResult bucketResult) throws Exception {
-        assertDeclared(bucketId);
-        Bucket b = bucketList.get(bucketId);
-        for(String key: bucketResult.keySet()) {
-            b.get(key).clear();
-            b.get(key).addAll(bucketResult.get(key));
-        }
-    }
-
-    public void filterBucket(String bucketId, BucketResult bucketResult) throws Exception {
-        assertDeclared(bucketId);
-        Bucket b = bucketList.get(bucketId);
-        for(String key: bucketResult.keySet()) {
-            b.get(key).removeByClassId(bucketResult.get(key));
-        }
-    }
-
-    public void promoteBucket(String bucketId, BucketResult bucketResult) throws Exception {
-        assertDeclared(bucketId);
-        Bucket b = bucketList.get(bucketId);
-        for(String key: bucketResult.keySet()) {
-            b.get(key).promoteAll(bucketResult.get(key));
-        }
-    }
-
-    public void demoteBucket(String bucketId, BucketResult bucketResult) throws Exception {
-        assertDeclared(bucketId);
-        Bucket b = bucketList.get(bucketId);
-        for(String key: bucketResult.keySet()) {
-            b.get(key).demoteAll(bucketResult.get(key));
-        }
-    }
-
     public BucketResult evalDependency(DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
         return evalDependency(toList(dependency), leftOperand, rightOperand);
     }
@@ -91,14 +50,40 @@ public class Environment {
         return t;
     }
 
-    public BucketResult evalFunction(String operator, String... operands) throws Exception {
+    public BucketResult evalFunction(String bucketId, String operator, String... operands) throws Exception {
         OperatorObject op = opFunc.get(operator);
         if( op == null )
             throw new NotImplementedException();
 
         BucketResult bucketResult = new BucketResult();
-        op.func.call(bucketResult, operands[0], operands[1], bucketResult);
+        op.func.call(bucketList.get(bucketId), operands[0], operands[1], bucketResult);
         return bucketResult;
+    }
+
+    public void evalBucketStatement(String bucketId, Evaluator.StatementType action, BucketResult bResult) throws Exception {
+        assertDeclared(bucketId);
+        Bucket b = bucketList.get(bucketId);
+        for(String key: bResult.keySet()) {
+            b.addIfNotExists(key);
+            switch (action) {
+                case FillStatement:
+                    b.get(key).addAll(bResult.get(key));
+                    break;
+                case OverwriteStatement:
+                    b.get(key).clear();
+                    b.get(key).addAll(bResult.get(key));
+                    break;
+                case FilterStatement:
+                    b.get(key).removeByClassId(bResult.get(key));
+                    break;
+                case PromoteStatement:
+                    b.get(key).promoteAll(bResult.get(key));
+                    break;
+                case DemoteStatement:
+                    b.get(key).demoteAll(bResult.get(key));
+                    break;
+            }
+        }
     }
 
     public void resolveBucket(String bucketId) throws Exception {
@@ -237,26 +222,6 @@ public class Environment {
         List<T> result = new ArrayList<T>();
         result.add(input);
         return result;
-    }
-
-    public void bucketAction(String bucketId, Evaluator.StatementType type, BucketResult bucketResult) throws Exception {
-        switch (type) {
-            case FillStatement:
-                fillBucket(bucketId, bucketResult);
-                break;
-            case OverwriteStatement:
-                assignBucket(bucketId, bucketResult);
-                break;
-            case FilterStatement:
-                filterBucket(bucketId, bucketResult);
-                break;
-            case PromoteStatement:
-                promoteBucket(bucketId, bucketResult);
-                break;
-            case DemoteStatement:
-                demoteBucket(bucketId, bucketResult);
-                break;
-        }
     }
 
 }
