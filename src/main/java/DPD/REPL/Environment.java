@@ -76,6 +76,56 @@ public class Environment {
         b.get(rightOperand).addAll(t.pivot);
     }
 
+    public void fillBucket(String bucketId, BucketResult bResult) throws Exception {
+        assertDeclared(bucketId);
+        Bucket b = bucketList.get(bucketId);
+        for(String key: bResult.keySet()) {
+            b.get(key).addAll(bResult.get(key));
+        }
+    }
+
+    public void assignBucket(String bucketId, BucketResult bucketResult) throws Exception {
+        assertDeclared(bucketId);
+        Bucket b = bucketList.get(bucketId);
+        for(String key: bucketResult.keySet()) {
+            b.get(key).clear();
+            b.get(key).addAll(bucketResult.get(key));
+        }
+    }
+
+
+    public void filterBucket(String bucketId, BucketResult bucketResult) throws Exception {
+        assertDeclared(bucketId);
+        Bucket b = bucketList.get(bucketId);
+        for(String key: bucketResult.keySet()) {
+            b.get(key).removeByClassId(bucketResult.get(key));
+        }
+    }
+
+    public BucketResult evalDependency(DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
+        return evalDependency(toList(dependency), leftOperand, rightOperand);
+    }
+
+    public BucketResult evalDependency(List<DependencyType> dependency, String leftOperand, String rightOperand) throws Exception {
+        assertDeclared(leftOperand, rightOperand);
+        BucketResult t = new BucketResult();
+        dsmQuery.populate(dependency, t);
+
+        t.put(leftOperand, t.aux);
+        t.put(rightOperand, t.pivot);
+        setGroupId(t, t.get(rightOperand));
+        return t;
+    }
+
+    public BucketResult evalFunction(String operator, String... operands) throws Exception {
+        OperatorObject op = opFunc.get(operator);
+        if( op == null )
+            throw new NotImplementedException();
+
+        BucketResult bucketResult = new BucketResult();
+        op.func.call(bucketResult, operands[0], operands[1], bucketResult);
+        return bucketResult;
+    }
 
     public void overwriteBucket(String bucketId, DependencyType dependency, String leftOperand, String rightOperand) throws Exception {
         List<DependencyType> d = new ArrayList<>();
@@ -379,5 +429,11 @@ public class Environment {
 
     private boolean isDefined(Bucket b, String... variableIds) {
         return b.keySet().containsAll(Arrays.asList(variableIds));
+    }
+
+    public static <T> List<T> toList( T input ) {
+        List<T> result = new ArrayList<T>();
+        result.add(input);
+        return result;
     }
 }
