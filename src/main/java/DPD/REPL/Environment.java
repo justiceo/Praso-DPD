@@ -51,22 +51,29 @@ public class Environment {
     }
 
     public BucketResult evalFunction(String bucketId, String operator, String... operands) throws Exception {
+        return evalFunction(bucketList.get(bucketId), operator, operands);
+    }
+
+    public BucketResult evalFunction(Bucket bucket, String operator, String... operands) throws Exception {
         OperatorObject op = opFunc.get(operator);
         if( op == null )
             throw new NotImplementedException();
 
-        BucketResult bucketResult = new BucketResult();
-        op.func.call(bucketList.get(bucketId), operands[0], operands[1], bucketResult);
-        return bucketResult;
+        return op.func.call(bucket, operands[0], operands[1], null);
     }
 
-    public void evalBucketStatement(String bucketId, Evaluator.StatementType action, BucketResult bResult) throws Exception {
+    public Bucket evalBucketStatement(String bucketId, Evaluator.StatementType action, BucketResult bResult) throws Exception {
         assertDeclared(bucketId);
         Bucket b = bucketList.get(bucketId);
+        return evalBucketStatement(b, action, bResult);
+    }
+
+    public static Bucket evalBucketStatement(Bucket b, Evaluator.StatementType action, BucketResult bResult) throws Exception {
         bResult.keySet().forEach(k -> b.addIfNotExists(k));
         switch (action) {
             case FillStatement:
-                b.putAll(bResult); // this would replace
+                BucketResult finalBResult1 = bResult;
+                bResult.keySet().forEach(k -> b.get(k).addAll(finalBResult1.get(k)));
                 break;
             case OverwriteStatement:
                 // this has a filter effect, so elements should already exist in entity
@@ -92,9 +99,10 @@ public class Environment {
                 bResult.keySet().forEach(k -> b.get(k).promoteAll(finalBResult.get(k)));
                 break;
         }
+        return b;
     }
 
-    public void resolveBucket(String bucketId) throws Exception {
+    public Bucket resolveBucket(String bucketId) throws Exception {
         assertDeclared(bucketId);
 
         Bucket b = bucketList.get(bucketId);
@@ -109,6 +117,7 @@ public class Environment {
                 }
             }
         }
+        return b;
     }
 
     /**
@@ -232,7 +241,7 @@ public class Environment {
         return result;
     }
 	
-	private BucketResult trimToMatchBucket(Bucket principal, BucketResult composite) {
+	private static BucketResult trimToMatchBucket(Bucket principal, BucketResult composite) {
 		// for each entity in composite bucket, if it exists, replace otherwise remove
 		for(String key: composite.keySet()){
 			Entity pE = principal.get(key);

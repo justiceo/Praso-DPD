@@ -3,6 +3,7 @@ package DPD;
 import DPD.Model.DependencyType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -96,6 +97,15 @@ public class Util {
     public static String[] extractArray(String args){
         if(isArray(args))
             args = args.replace("[", "").replace("]", "");
-        return args.split(",");
+        String[] arr = args.split(",");
+        for(int i = 0; i < arr.length; i++) {
+            arr[i] = arr[i].trim();
+        }
+        return arr;
+    }
+
+    public static List<String> extractList(String s) {
+        String[] arr = extractArray(s);
+        return Arrays.asList(arr);
     }
 }

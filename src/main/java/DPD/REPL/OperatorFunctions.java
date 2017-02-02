@@ -33,7 +33,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
      * @param rightOp
      * @param t
      */
-    private void and_function(Bucket b, String leftOp, String rightOp, BucketResult t) {
+    private BucketResult and_function(Bucket b, String leftOp, String rightOp, BucketResult t) {
         // assert declared leftOp, and rightOp
         Entity left = b.get(leftOp);
         Entity right = b.get(rightOp);
@@ -42,9 +42,10 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
             if(right.hasClass(c.classId))
                 t.aux.add(c);
         }
+        return t;
     }
 
-    private void method_name_function(Bucket b, String leftOp, String rightOp, BucketResult t) throws Exception {
+    private BucketResult method_name_function(Bucket b, String leftOp, String rightOp, BucketResult t) throws Exception {
         Entity entity = b.get(rightOp);
         String[] args = Util.extractArray(leftOp);
 
@@ -56,6 +57,8 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
             if(mv.hasMethodName(cu, args))
                 t.pivot.add(c);
         }
+
+        return t;
     }
 
     /**
@@ -63,12 +66,12 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
      * @param b
      * @param leftOp
      * @param rightOp
-     * @param t
      */
-    private void pocket_size_function(Bucket b, String leftOp, String rightOp, BucketResult t) {
+    private BucketResult pocket_size_function(Bucket b, String leftOp, String rightOp, BucketResult discard) {
+        BucketResult t = new BucketResult();
         int count = Integer.parseInt(leftOp);
         Entity target = b.get(rightOp);
-        if(target.size() < count) return;
+        if(target.size() < count) return t;
         HashMap<Integer, Integer> pocketCounter = new HashMap<>();
         for(CNode c: target) {
             int n = 0;
@@ -81,6 +84,10 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
             if(pocketCounter.get(c.pocket) == count)
                 t.pivot.add(c);
         }
+
+        if(!t.pivot.isEmpty())
+            t.put(rightOp, t.pivot);
+        return t;
     }
 
     /**
@@ -90,10 +97,10 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
      * @param rightOp
      * @param t
      */
-    private void min_pocket_size_function(Bucket b, String leftOp, String rightOp, BucketResult t) {
+    private BucketResult min_pocket_size_function(Bucket b, String leftOp, String rightOp, BucketResult t) {
         int count = Integer.parseInt(leftOp);
         Entity target = b.get(rightOp);
-        if(target.size() < count) return;
+        if(target.size() < count) return t;
         HashMap<Integer, Integer> pocketCounter = new HashMap<>();
         for(CNode c: target) {
             int n = 0;
@@ -106,6 +113,8 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
             if(pocketCounter.get(c.pocket) >= count)
                 t.pivot.add(c);
         }
+
+        return t;
     }
 
     private BucketResult min_pocket_size_function(Entity e, int desiredCount) {

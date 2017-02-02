@@ -21,10 +21,15 @@ public class ExecEnvAccess {
 
     private String[] varNames = new String[] {"declaredVariables", "bucketList", "dsmQuery", "opFunc"};
 
-    public ExecEnvAccess(Evaluator repl) throws NoSuchFieldException, IllegalAccessException  {
+    public ExecEnvAccess(Evaluator repl) throws Exception {
+        init(getExecEnv(repl));
+    }
 
-        Environment exec = getExecEnv(repl);
+    public ExecEnvAccess(Environment exec) throws Exception {
+        init(exec);
+    }
 
+    private void init(Environment exec) throws Exception {
         Field field = Environment.class.getDeclaredField(varNames[0]);
         field.setAccessible(true);
         declaredVariables = (HashMap<String, String>) field.get(exec);

@@ -17,6 +17,6 @@ public class OperatorObject {
 
     @FunctionalInterface
     public interface OperatorInterface {
-        void call(Bucket b, String leftOp, String rightOp, BucketResult t) throws Exception;
+        BucketResult call(Bucket b, String leftOp, String rightOp, BucketResult t) throws Exception;
     }
 }
