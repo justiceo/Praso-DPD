@@ -63,26 +63,34 @@ public class Environment {
     public void evalBucketStatement(String bucketId, Evaluator.StatementType action, BucketResult bResult) throws Exception {
         assertDeclared(bucketId);
         Bucket b = bucketList.get(bucketId);
-        for(String key: bResult.keySet()) {
-            b.addIfNotExists(key);
-            switch (action) {
-                case FillStatement:
-                    b.get(key).addAll(bResult.get(key));
-                    break;
-                case OverwriteStatement:
-                    b.get(key).clear();
-                    b.get(key).addAll(bResult.get(key));
-                    break;
-                case FilterStatement:
-                    b.get(key).removeByClassId(bResult.get(key));
-                    break;
-                case PromoteStatement:
-                    b.get(key).promoteAll(bResult.get(key));
-                    break;
-                case DemoteStatement:
-                    b.get(key).demoteAll(bResult.get(key));
-                    break;
-            }
+        bResult.keySet().forEach(k -> b.addIfNotExists(k));
+        switch (action) {
+            case FillStatement:
+                b.putAll(bResult); // this would replace
+                break;
+            case OverwriteStatement:
+                // this has a filter effect, so elements should already exist in entity
+                bResult = trimToMatchBucket(b, bResult);
+                bResult.keySet().forEach(k -> b.get(k).clear());
+                b.putAll(bResult);
+                break;
+            case FilterStatement:
+                // this has a filter effect, so elements should already exist in entity
+                bResult = trimToMatchBucket(b, bResult);
+                BucketResult finalBResult = bResult;
+                bResult.keySet().forEach(k -> b.get(k).removeByClassId(finalBResult.get(k)));
+                break;
+            case PromoteStatement:
+                // necessary that we're promoting only items already in the entity
+                bResult = trimToMatchBucket(b, bResult);
+                finalBResult = bResult;
+                bResult.keySet().forEach(k -> b.get(k).promoteAll(finalBResult.get(k)));
+                break;
+            case DemoteStatement:
+                bResult = trimToMatchBucket(b, bResult);
+                finalBResult = bResult;
+                bResult.keySet().forEach(k -> b.get(k).promoteAll(finalBResult.get(k)));
+                break;
         }
     }
 
@@ -223,5 +231,21 @@ public class Environment {
         result.add(input);
         return result;
     }
+	
+	private BucketResult trimToMatchBucket(Bucket principal, BucketResult composite) {
+		// for each entity in composite bucket, if it exists, replace otherwise remove
+		for(String key: composite.keySet()){
+			Entity pE = principal.get(key);
+			Entity cE = composite.get(key);
+			for(int i = 0; i < cE.size(); i++) {
+				CNode cn = cE.get(i);
+				if(pE.hasClass(cn.classId))
+					cn = pE.getByClassId(cn.classId);
+				else 
+					cE.remove(cn);
+			}
+		}
+		return composite;
+	}
 
 }
