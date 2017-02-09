@@ -160,11 +160,18 @@ public class REPLTest {
         repl.execute("b = e2 SPECIALIZE e1");
         Entity e1 = exec.bucketList.get("b").get("e1");
         Entity e2 = exec.bucketList.get("b").get("e2");
+        assertTrue(e1.isEmpty() && e2.isEmpty());
 
-        assertTrue(e1.size() == 1);
-        assertTrue(e1.hasClass(1));
-        assertTrue(e2.size() == 2);
-        assertTrue(e2.hasClass(0) && e2.hasClass(4));
+
+        repl.execute("b <= e2 SPECIALIZE e1");
+        assertTrue(e1.size() == 1 && e2.size() == 2 && e2.size() == 2);
+        Entity e1again = exec.bucketList.get("b").get("e1");
+        assertTrue(e1 == e1again); // testing referential equality
+
+        repl.execute("b = e2 SPECIALIZE e1");
+        e1again = exec.bucketList.get("b").get("e1");
+        assertTrue(e1 == e1again); // testing referential equality
+        assertTrue(e1.size() == 1 && e2.size() == 2 && e2.size() == 2);
 
         repl.execute("b => e2 SPECIALIZE e1");
         repl.execute("Print b");
@@ -172,10 +179,7 @@ public class REPLTest {
         assertTrue(e2.isEmpty());
 
         repl.execute("b = e2 SPECIALIZE e1");
-        assertTrue(e1.size() == 1);
-        assertTrue(e1.hasClass(1));
-        assertTrue(e2.size() == 2);
-        assertTrue(e2.hasClass(0) && e2.hasClass(4));
+        assertTrue(e1.isEmpty() && e2.isEmpty());
         repl.execute("Print b");
     }
 
@@ -277,25 +281,35 @@ public class REPLTest {
         Entity e2 = exec.bucketList.get("b").get("e2");
         Entity e3 = exec.bucketList.get("b").get("e3");
 
-        assertTrue(!e1.isEmpty() && !e2.isEmpty() && !e3.isEmpty());
-
-        int e1size = e1.size();
-        int e2size = e2.size();
-        int e3size = e3.size();
-
-        assertTrue(e1size == 2 && e2size == 2 && e3size == 2);
+        assertTrue(e1.size() == 2 && e2.size() == 2 && e2.size() == 2);
         assertTrue(e2.hasClass(0) && e2.hasClass(4));
         assertTrue(e3.hasClass(2) && e3.hasClass(3));
         assertTrue(e1.hasClass(1));
 
         repl.execute("Resolve b");
-        repl.execute("Print b");
-        assertTrue(e1size == e1.size() && e2size == e2.size() && e3size == e3.size());
+        // should be empty because we didn't unify
+        assertTrue(e1.isEmpty() && e2.isEmpty() && e3.isEmpty());
 
+        // now do it again, with unify
+        repl.execute("b <= e2 SPECIALIZE e1");
+        repl.execute("b <= e3 TYPED e1 ");
+        assertTrue(e1.size() == 2 && e2.size() == 2 && e2.size() == 2);
+        assertTrue(e2.hasClass(0) && e2.hasClass(4));
+        assertTrue(e3.hasClass(2) && e3.hasClass(3));
+        assertTrue(e1.hasClass(1));
+
+        //repl.execute("b <= e1 unify");
+        assertTrue(e1.size() == 1 && e2.size() == 2 && e2.size() == 2);
+        assertTrue(e2.hasClass(0) && e2.hasClass(4));
+        assertTrue(e3.hasClass(2) && e3.hasClass(3));
+        assertTrue(e1.hasClass(1));
         // clear any of them and the rest should be cleared
+        repl.execute("Resolve b");
+        assertTrue(e1.size() == 1 && e2.size() == 2 && e2.size() == 2);
+
+        // purposefully clear one of the entities
         e3.clear();
         repl.execute("Resolve b");
-        repl.execute("Print b");
         assertTrue(e1.isEmpty() && e2.isEmpty() && e3.isEmpty());
     }
 
@@ -311,7 +325,7 @@ public class REPLTest {
         repl.execute("Print b");
         repl.execute("b <= e2 SPECIALIZE e1");
         repl.execute("Print b");
-        repl.execute("b => 'notify' not_method_name e2");
+        repl.execute("b = 'notify' method_name e2");
 
         Entity e1 = exec.bucketList.get("b").get("e1");
         Entity e2 = exec.bucketList.get("b").get("e2");

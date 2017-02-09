@@ -240,21 +240,27 @@ public class Environment {
         result.add(input);
         return result;
     }
-	
-	private static BucketResult trimToMatchBucket(Bucket principal, BucketResult composite) {
+
+    // removes every class or entity in composite that is not in principal
+    // hence we're are trimming composite contents to match the elements in principal
+	public static BucketResult trimToMatchBucket(Bucket principal, BucketResult composite) {
 		// for each entity in composite bucket, if it exists, replace otherwise remove
+        BucketResult result = new BucketResult();
 		for(String key: composite.keySet()){
 			Entity pE = principal.get(key);
+            if(pE == null) { // entity doesn't exist, so we don't have to add it's classes
+                continue;
+            }
 			Entity cE = composite.get(key);
-			for(int i = 0; i < cE.size(); i++) {
-				CNode cn = cE.get(i);
-				if(pE.hasClass(cn.classId))
-					cn = pE.getByClassId(cn.classId);
-				else 
-					cE.remove(cn);
-			}
+            Entity e = new Entity();
+            for(CNode cn: cE) {
+                if(pE.hasClass(cn.classId)) {
+                    e.add(pE.getByClassId(cn.classId).cloneTo(cn));
+                }
+            }
+            result.put(key, e);
 		}
-		return composite;
+		return result;
 	}
 
 }

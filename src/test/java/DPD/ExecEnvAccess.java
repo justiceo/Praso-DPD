@@ -2,6 +2,7 @@ package DPD;
 
 import DPD.Browser.EasyDSMQuery;
 import DPD.Model.Bucket;
+import DPD.Model.BucketResult;
 import DPD.REPL.Environment;
 import DPD.REPL.OperatorFunctions;
 import DPD.REPL.Evaluator;
@@ -18,7 +19,7 @@ public class ExecEnvAccess {
     public HashMap<String, Bucket> bucketList;
     public EasyDSMQuery dsmQuery;
     public OperatorFunctions opFunc;
-
+    private Environment env;
     private String[] varNames = new String[] {"declaredVariables", "bucketList", "dsmQuery", "opFunc"};
 
     public ExecEnvAccess(Evaluator repl) throws Exception {
@@ -26,6 +27,7 @@ public class ExecEnvAccess {
     }
 
     public ExecEnvAccess(Environment exec) throws Exception {
+        env = exec;
         init(exec);
     }
 
@@ -52,5 +54,9 @@ public class ExecEnvAccess {
         Field field = Evaluator.class.getDeclaredField(execEnv);
         field.setAccessible(true);
         return (Environment) field.get(repl);
+    }
+
+    public BucketResult trimToMatchBucket(Bucket principal, BucketResult composite) {
+        return env.trimToMatchBucket(principal, composite);
     }
 }

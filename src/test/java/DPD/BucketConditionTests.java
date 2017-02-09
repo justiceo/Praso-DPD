@@ -1,21 +1,16 @@
 package DPD;
 
 import DPD.Browser.EasyDSMQuery;
-import DPD.Model.BucketResult;
-import DPD.Model.DSMFileModel;
-import DPD.Model.DependencyType;
-import DPD.Model.Entity;
+import DPD.Model.*;
 import DPD.REPL.Environment;
 import DPD.REPL.Evaluator;
-import org.hamcrest.Description;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -95,7 +90,18 @@ public class BucketConditionTests {
         assertTrue(e2.hasClass(0) && e2.hasClass(4));
     }
 
-
+    @Test
+    public void trimToMatchTest() throws Exception {
+        Environment env = getReadyObserverEnv();
+        Bucket empty = new Bucket();
+        BucketResult implResult = env.evalDependency(DependencyType.IMPLEMENT, "e2", "e1");
+        assertTrue(implResult.get("e2").size() == 2 && implResult.get("e1").size() == 1);
+        empty = Environment.trimToMatchBucket(empty, implResult);
+        assertTrue(empty.keySet().isEmpty());
+        empty = Environment.trimToMatchBucket(implResult, implResult);
+        assertFalse(empty.keySet().isEmpty());
+        assertTrue(empty.get("e2").size() == 2 && empty.get("e1").size() == 1);
+    }
 
 
     private Environment getReadyObserverEnv() throws Exception {
