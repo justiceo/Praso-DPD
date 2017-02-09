@@ -8,7 +8,7 @@ General improvements:
 	
 
 Making functions testable
-	- Introduce BucketResult as the result of computing a BucketCondition
+	- [done] Introduce BucketResult as the result of computing a BucketCondition 
 	- Limit the operations of bucket to the five operators and test thoroughly the bucket interface
 	- Provide assertions in the code to help debugging
 	- move all operator functions to a separate, publicly exposed testable interface that returns BucketResult
@@ -33,7 +33,12 @@ Making functions testable
 			* "normalize entity" will return a "set" of the classIds since duplicates would have been merged across all entities
 			* "normalize e1 e2" also solves another problem caused by deeply nested heirarchies - by collecting all the descendants into the same pocket
 			* 
-			
+	- since bucket actions are now blind to bucket conditions, we need a way of telling the bucket Condition the source of entities - do we get it from dsm or existing bucket?
+		- however, a careful observation reveals that a fill would always happen from dsm, since filling from existing bucket would either be an assign or lead to duplicates
+		- a filter, assign, promote and demote have similar qualities, they are only applies to existing entities.
+		- one solution - check the returned elements from dsm are contained
+		- better solution - apply the search from the existing bucket itself - efficient for large dsms
+		- all custom funtions are either in filter or assign.
 Unify (normalize)
 =========
 Unify e1
@@ -54,24 +59,7 @@ for e1 e2: if an element in e2 is also in e1, it's dependents are added to e1's 
 		
 				
 				
-				
-AY positive
------------
-Me
-Kyle
-Amber
-Jonathan
-Nathalie + 1
-Adia
-Valencia & Will
-Naomi
-Mrs carol + 1
-
-
-(wall) Tyrel
-(wall) Brandi
-(wall) Tiffany
-(wall) charity
-
-
-(none) joe 
+todo:
+implement unify e1
+modify the tests to new system
+make more rigorous

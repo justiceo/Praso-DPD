@@ -141,6 +141,7 @@ public class REPLTest {
         assertTrue(e2.isEmpty());
 
         repl.execute("b <= e2 SPECIALIZE e1");
+        e1 = exec.bucketList.get("b").get("e1");
         assertTrue(e1.size() == 1);
         assertTrue(e1.hasClass(1));
         assertTrue(e2.size() == 2);
@@ -282,7 +283,10 @@ public class REPLTest {
         int e2size = e2.size();
         int e3size = e3.size();
 
-        assertTrue(e1size == 1 && e2size == 2 && e3size == 2);
+        assertTrue(e1size == 2 && e2size == 2 && e3size == 2);
+        assertTrue(e2.hasClass(0) && e2.hasClass(4));
+        assertTrue(e3.hasClass(2) && e3.hasClass(3));
+        assertTrue(e1.hasClass(1));
 
         repl.execute("Resolve b");
         repl.execute("Print b");

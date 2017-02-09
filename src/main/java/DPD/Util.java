@@ -4,6 +4,7 @@ import DPD.Model.DependencyType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -107,5 +108,16 @@ public class Util {
     public static List<String> extractList(String s) {
         String[] arr = extractArray(s);
         return Arrays.asList(arr);
+    }
+
+    public static <T> T[] array(T... args) {
+        return args;
+    }
+
+    // see Arrays.asList
+    public static <T> List<T> list(T... args) {
+        List<T> result = new ArrayList<T>();
+        Collections.addAll(result, args);
+        return result;
     }
 }

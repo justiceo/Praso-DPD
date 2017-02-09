@@ -96,7 +96,7 @@ public class Environment {
             case DemoteStatement:
                 bResult = trimToMatchBucket(b, bResult);
                 finalBResult = bResult;
-                bResult.keySet().forEach(k -> b.get(k).promoteAll(finalBResult.get(k)));
+                bResult.keySet().forEach(k -> b.get(k).demoteAll(finalBResult.get(k)));
                 break;
         }
         return b;
