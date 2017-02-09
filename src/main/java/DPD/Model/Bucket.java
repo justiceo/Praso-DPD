@@ -42,4 +42,10 @@ public class Bucket extends HashMap<String, Entity> {
         }
         return false;
     }
+
+    public void setPocket(int original, int newPocket) {
+        for(Entity e: values()) {
+            e.setPocket(original, newPocket);
+        }
+    }
 }

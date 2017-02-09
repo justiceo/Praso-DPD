@@ -122,6 +122,12 @@ public class Environment {
         return b;
     }
 
+    public Bucket unifyEntity(Entity e) throws Exception {
+
+        Entity dups = e.getDuplicates();
+        return null;
+    }
+
     /**
      * Prints bucket and bucket entities if specified
      * input types bucket or bucket.entity

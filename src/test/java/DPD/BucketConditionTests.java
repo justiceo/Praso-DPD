@@ -118,6 +118,26 @@ public class BucketConditionTests {
         assertTrue(empty.get("e2").size() == 2 && empty.get("e1").size() == 1);
     }
 
+    @Test
+    public void testEntityDuplicates() throws Exception {
+        Environment env = getReadyObserverEnv();
+        BucketResult implResult = env.evalDependency(DependencyType.IMPLEMENT, "e2", "e1");
+        Entity e2 = implResult.get("e2");
+        Entity dups = e2.getDuplicates();
+        assertTrue(dups.isEmpty());
+        e2.addAll(e2);
+        dups = e2.getDuplicates();
+        assertTrue(e2.size() == 2);
+        assertTrue(dups.size() == 0);
+        CNode cn = e2.get(0);
+        CNode diff = new CNode(cn.classId, cn.pocket);
+        diff.score = 10000;
+        e2.add(diff);
+        dups = e2.getDuplicates();
+        assertTrue(e2.size() == 3);
+        assertTrue(dups.size() == 1);
+    }
+
 
     private Environment getReadyObserverEnv() throws Exception {
         Environment env = ExecEnvAccess.getExecEnv(repl);

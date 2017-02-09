@@ -1,9 +1,6 @@
 package DPD.Model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Justice on 1/10/2017.
@@ -53,6 +50,7 @@ public class Entity extends ArrayList<CNode> {
         return false;
     }
 
+    /* this code is erroneous as multiple classId's can exist but only first returned */
     public CNode getByClassId(int classId) {
         for(int i = 0; i < size(); i++) {
             if(get(i).classId == classId)
@@ -89,5 +87,25 @@ public class Entity extends ArrayList<CNode> {
     public void resetTo(Entity x) {
         clear();
         addAll(x);
+    }
+
+    public void setPocket(int original, int newPocket) {
+        for(CNode cNode: this) {
+            if(cNode.pocket == original)
+                cNode.pocket = newPocket;
+        }
+    }
+
+    public Entity getDuplicates() {
+        Entity result = new Entity();
+        List<Integer> classMap = new ArrayList<>();
+        for(CNode c: this) {
+            if(classMap.contains(c.classId)) {
+                result.add(c);
+            }
+            else
+                classMap.add(c.classId);
+        }
+        return result;
     }
 }
