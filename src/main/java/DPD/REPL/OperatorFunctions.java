@@ -59,6 +59,9 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
                 t.pivot.add(c);
         }
 
+        if(!t.pivot.isEmpty())
+            t.put(rightOp, t.pivot);
+
         return t;
     }
 
