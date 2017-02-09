@@ -45,9 +45,10 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         return t;
     }
 
-    private BucketResult method_name_function(Bucket b, String leftOp, String rightOp, BucketResult t) throws Exception {
+    private BucketResult method_name_function(Bucket b, String leftOp, String rightOp, BucketResult discard) throws Exception {
         Entity entity = b.get(rightOp);
         String[] args = Util.extractArray(leftOp);
+        BucketResult t = new BucketResult();
 
         // for each class in entity, check if it has method
         for(CNode c: entity) {

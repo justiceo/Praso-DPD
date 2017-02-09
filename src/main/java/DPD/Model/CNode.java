@@ -23,4 +23,11 @@ public class CNode {
         CNode c = (CNode) other;
         return classId == c.classId && pocket == c.pocket && score == c.score;
     }
+
+    public CNode cloneTo(CNode cn) {
+        cn.pocket = pocket;
+        cn.classId = classId;
+        cn.score = score;
+        return cn;
+    }
 }

@@ -78,8 +78,10 @@ public class Environment {
             case OverwriteStatement:
                 // this has a filter effect, so elements should already exist in entity
                 bResult = trimToMatchBucket(b, bResult);
-                bResult.keySet().forEach(k -> b.get(k).clear());
-                b.putAll(bResult);
+                for(String k: bResult.keySet()) {
+                    b.get(k).clear();
+                    b.get(k).addAll(bResult.get(k));
+                }
                 break;
             case FilterStatement:
                 // this has a filter effect, so elements should already exist in entity
