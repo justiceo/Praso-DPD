@@ -38,7 +38,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         Entity left = b.get(leftOp);
         Entity right = b.get(rightOp);
 
-        for(CNode c: left) {
+        for(CNode c: left.toList()) {
             if(right.hasClass(c.classId))
                 t.aux.add(c);
         }
@@ -51,7 +51,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         BucketResult t = new BucketResult();
 
         // for each class in entity, check if it has method
-        for(CNode c: entity) {
+        for(CNode c: entity.toList()) {
             FileNode fn = browser.getFileNode(c.classId);
             CompilationUnit cu = fn.getCu();
             MethodNameVisitor mv = new MethodNameVisitor();
@@ -77,14 +77,14 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         Entity target = b.get(rightOp);
         if(target.size() < count) return t;
         HashMap<Integer, Integer> pocketCounter = new HashMap<>();
-        for(CNode c: target) {
+        for(CNode c: target.toList()) {
             int n = 0;
             if(pocketCounter.keySet().contains(c.pocket))
                 n = pocketCounter.get(c.pocket);
             pocketCounter.put(c.pocket, ++n);
         }
 
-        for(CNode c: target) {
+        for(CNode c: target.toList()) {
             if(pocketCounter.get(c.pocket) == count)
                 t.pivot.add(c);
         }
@@ -106,14 +106,14 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         Entity target = b.get(rightOp);
         if(target.size() < count) return t;
         HashMap<Integer, Integer> pocketCounter = new HashMap<>();
-        for(CNode c: target) {
+        for(CNode c: target.toList()) {
             int n = 0;
             if(pocketCounter.keySet().contains(c.pocket))
                 n = pocketCounter.get(c.pocket);
             pocketCounter.put(c.pocket, ++n);
         }
 
-        for(CNode c: target) {
+        for(CNode c: target.toList()) {
             if(pocketCounter.get(c.pocket) >= count)
                 t.pivot.add(c);
         }
@@ -125,7 +125,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         BucketResult result = new BucketResult();
         if(e.size() < desiredCount) return result;
         HashMap<Integer, Integer> pocketCounter = new HashMap<>();
-        for(CNode c: e) {
+        for(CNode c: e.toList()) {
             int n = pocketCounter.containsKey(c.pocket) ? pocketCounter.get(c.pocket) : 0;
             pocketCounter.put(c.pocket, ++n);
             if(n == desiredCount)

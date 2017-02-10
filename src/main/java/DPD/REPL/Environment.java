@@ -73,32 +73,32 @@ public class Environment {
         switch (action) {
             case FillStatement:
                 BucketResult finalBResult1 = bResult;
-                bResult.keySet().forEach(k -> b.get(k).addAll(finalBResult1.get(k)));
+                bResult.keySet().forEach(k -> b.get(k).addAll(finalBResult1.get(k).toList()));
                 break;
             case OverwriteStatement:
                 // this has a filter effect, so elements should already exist in entity
                 bResult = trimToMatchBucket(b, bResult);
                 for(String k: bResult.keySet()) {
                     b.get(k).clear();
-                    b.get(k).addAll(bResult.get(k));
+                    b.get(k).addAll(bResult.get(k).toList());
                 }
                 break;
             case FilterStatement:
                 // this has a filter effect, so elements should already exist in entity
                 bResult = trimToMatchBucket(b, bResult);
                 BucketResult finalBResult = bResult;
-                bResult.keySet().forEach(k -> b.get(k).removeByClassId(finalBResult.get(k)));
+                bResult.keySet().forEach(k -> b.get(k).removeAll(finalBResult.get(k).toList()));
                 break;
             case PromoteStatement:
                 // necessary that we're promoting only items already in the entity
                 bResult = trimToMatchBucket(b, bResult);
                 finalBResult = bResult;
-                bResult.keySet().forEach(k -> b.get(k).promoteAll(finalBResult.get(k)));
+                bResult.keySet().forEach(k -> b.get(k).promoteAll(finalBResult.get(k).toList()));
                 break;
             case DemoteStatement:
                 bResult = trimToMatchBucket(b, bResult);
                 finalBResult = bResult;
-                bResult.keySet().forEach(k -> b.get(k).demoteAll(finalBResult.get(k)));
+                bResult.keySet().forEach(k -> b.get(k).demoteAll(finalBResult.get(k).toList()));
                 break;
         }
         return b;
@@ -123,8 +123,6 @@ public class Environment {
     }
 
     public Bucket unifyEntity(Entity e) throws Exception {
-
-        Entity dups = e.getDuplicates();
         return null;
     }
 
@@ -151,7 +149,7 @@ public class Environment {
         Bucket b = bucketList.get(bucketId);
         for(String eKey: b.keySet()){
             System.out.print("\tEntity " + eKey + ": ");
-            for(CNode c: b.get(eKey)) {
+            for(CNode c: b.get(eKey).toList()) {
                 System.out.print(dsmQuery.GetType(c.classId) + "(" + c.pocket + ")" + ", ");
             }
             System.out.println();
@@ -185,7 +183,7 @@ public class Environment {
                 double localScore = 0;
                 int acceptedClasses = 0;
                 Entity entity = b.get(eKey);
-                for(CNode c: entity) {
+                for(CNode c: entity.toList()) {
                     if(c.pocket == i) {
                         pocketStr += (dsmQuery.GetType(c.classId) + "(" + c.pocket + ")" + ", ");
                         localScore += c.score;
@@ -212,10 +210,10 @@ public class Environment {
 
     private void setGroupId(BucketResult t, Entity entity) {
         // t.pivot is the pivot by default
-        for(CNode cn: t.pivot) {
+        for(CNode cn: t.pivot.toList()) {
             if(entity.hasClass(cn.classId)) {
-                int existingPocket = entity.getByClassId(cn.classId).pocket;
-                for(int i = 0; i < t.aux.size(); i++){
+                int existingPocket = entity.get(cn.classId).pocket;
+                for(int i: t.aux.keySet()){
                     if(t.aux.get(i).pocket == cn.pocket){
                         t.aux.get(i).pocket = existingPocket;
                     }
@@ -261,9 +259,9 @@ public class Environment {
             }
 			Entity cE = composite.get(key);
             Entity e = new Entity();
-            for(CNode cn: cE) {
+            for(CNode cn: cE.toList()) {
                 if(pE.hasClass(cn.classId)) {
-                    e.add(pE.getByClassId(cn.classId).cloneTo(cn));
+                    e.add(pE.get(cn.classId).cloneTo(cn));
                 }
             }
             result.put(key, e);

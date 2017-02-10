@@ -357,12 +357,12 @@ public class REPLTest {
 
         assertTrue(e2.size() == 2 && e1.size() == 1);
 
-        for(CNode c: e2) {
+        for(CNode c: e2.toList()) {
             assertTrue(c.score == 1);
         }
 
         repl.execute("b -- 2 pocket_size e2");
-        for(CNode c: e2) {
+        for(CNode c: e2.toList()) {
             assertTrue(c.score == 0);
         }
         repl.execute("Print b");

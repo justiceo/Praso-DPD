@@ -55,7 +55,7 @@ public class EasyDSMQuery extends DSMDataStructure {
                 if((dep.numValue & dependency) == dependency) {
                     CNode ynode;
                     if( yList.hasClass(dep.col) )
-                        ynode = yList.getByClassId(dep.col);
+                        ynode = yList.get(dep.col);
                     else {
                         ynode = new CNode(dep.col, Bucket.nextPocket());
                         yList.add(ynode);
