@@ -2,6 +2,7 @@ package DPD.Model;
 
 import DPD.Util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -13,21 +14,24 @@ import java.util.List;
 public class Entity extends HashMap<Integer, CNode> {
 
     private int maxPromotion;
-    private HashMap<Integer, List<Integer>> pockets = new HashMap<>();
+    protected HashMap<Integer, List<Integer>> pockets = new HashMap<>();
 
     public int getMaxScore() {
         return maxPromotion;
     }
 
 
-    public boolean addAll(Collection<? extends CNode> list) {
+    public void addAll(Collection<? extends CNode> list) {
         list.forEach(c -> add(c));
-        return true;
     }
 
     public void add(CNode cNode) {
-        if(containsKey(cNode.classId) && !values().contains(cNode))
+
+        if(containsKey(cNode.classId) && !values().contains(cNode)) {
             System.out.println("warn: Entity.add() - overwriting class " + cNode.classId);
+            cNode.score = get(cNode.classId).score; // but copy over score
+            remove(cNode.classId); // we don't want to leave it's pocket reference, so we clear
+        }
         put(cNode.classId, cNode);
         if(pockets.containsKey(cNode.pocket))
             pockets.get(cNode.pocket).add(cNode.classId);
@@ -63,13 +67,24 @@ public class Entity extends HashMap<Integer, CNode> {
     public void remove(int classId) {
         // remove it from pockets
         CNode cn = get(classId);
-        List<Integer> cl = pockets.get(cn.pocket);
-        if(cl.contains(cn.classId))
-            cl.remove(Integer.valueOf(cn.classId));
+        List<Integer> classList = pockets.get(cn.pocket);
+        if(classList.contains(cn.classId))
+            classList.remove(Integer.valueOf(cn.classId));
+
+        // if pocket is empty, remove it's key
+        if(classList.isEmpty())
+            pockets.remove(cn.pocket);
 
         super.remove(classId);
     }
 
+    public CNode remove(Object key) {
+        throw new UnsupportedOperationException();
+    }
+
+    public void clear() {
+        removeAll(new ArrayList<>(values()));
+    }
 
     // returns true if one of the classes in this collection has this pocket id
     public boolean hasPocket(int pocketId) {
@@ -77,12 +92,16 @@ public class Entity extends HashMap<Integer, CNode> {
     }
 
     public void removePocket(int pocket) {
-        List<Integer> classList = pockets.get(pockets);
-        if(classList == null) return;
-        classList.forEach(this::remove);
+        if( !pockets.containsKey(pocket)) return;
+
+        List<Integer> classList = pockets.get(pocket);
+        if(classList != null)
+            for(int c: classList)
+                super.remove(c);
         pockets.remove(pocket);
         // since we're removing by values, test to make sure pocket don't exist afterwards
     }
+
 
     public void resetTo(Entity x) {
         clear();

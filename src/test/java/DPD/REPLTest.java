@@ -294,8 +294,12 @@ public class REPLTest {
 
         // purposefully clear one of the entities
         e3.clear();
+
         repl.execute("Resolve b");
         repl.execute("Print b");
+        Entity e3again = exec.bucketList.get("b").get("e3");
+        assertTrue(e3 == e3again); // referential check
+        assertTrue(e3.isEmpty() && e3again.isEmpty());
         assertTrue(e1.isEmpty() && e2.isEmpty() && e3.isEmpty());
     }
 
