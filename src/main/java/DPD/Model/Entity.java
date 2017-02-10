@@ -26,7 +26,7 @@ public class Entity extends HashMap<Integer, CNode> {
     }
 
     public void add(CNode cNode) {
-        if(containsKey(cNode.classId))
+        if(containsKey(cNode.classId) && !values().contains(cNode))
             System.out.println("warn: Entity.add() - overwriting class " + cNode.classId);
         put(cNode.classId, cNode);
         if(pockets.containsKey(cNode.pocket))
@@ -78,6 +78,7 @@ public class Entity extends HashMap<Integer, CNode> {
 
     public void removePocket(int pocket) {
         List<Integer> classList = pockets.get(pockets);
+        if(classList == null) return;
         classList.forEach(this::remove);
         pockets.remove(pocket);
         // since we're removing by values, test to make sure pocket don't exist afterwards

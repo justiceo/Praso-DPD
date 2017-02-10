@@ -107,18 +107,31 @@ public class Evaluator {
     private void evalBucketStatement(String line, StatementType type) throws Exception {
         Tokenizer st = new Tokenizer(line, delimiters);
         String bucketId = st.nextToken();
+        String pivot = "";
         String e1 = st.nextToken();
+
         String condition = st.nextToken().toUpperCase();
         String e2 = st.nextToken();
-        if(condition.startsWith("[") && condition.endsWith("]")) {
+
+        // set pivot
+        if(e1.startsWith("*")) {
+            e1 = e1.substring(1);
+            pivot = e1;
+        }
+        else if(e2.startsWith("*")) {
+            e2 = e2.substring(1);
+            pivot = e2;
+        }
+
+        if(Util.isArray(condition)) {
             List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
-            exec.evalBucketStatement(bucketId, type, exec.evalDependency(dependencyTypes, e1, e2));
+            exec.evalBucketStatement(bucketId, type, exec.evalDependency(dependencyTypes, e1, e2), pivot);
         }
         else if(Util.isDependencyCondition(condition)) {
-            exec.evalBucketStatement(bucketId, type, exec.evalDependency(DependencyType.valueOf(condition), e1, e2));
+            exec.evalBucketStatement(bucketId, type, exec.evalDependency(DependencyType.valueOf(condition), e1, e2), pivot);
         }
         else {
-            exec.evalBucketStatement(bucketId, type, exec.evalFunction(bucketId, condition, e1, e2));
+            exec.evalBucketStatement(bucketId, type, exec.evalFunction(bucketId, condition, e1, e2), pivot);
         }
     }
 

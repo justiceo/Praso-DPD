@@ -46,7 +46,8 @@ public class Environment {
 
         t.put(leftOperand, t.aux);
         t.put(rightOperand, t.pivot);
-        setGroupId(t, t.get(rightOperand));
+        // no access to bucket means this cannot happen here;
+        //setGroupId(t, t.get(rightOperand));
         return t;
     }
 
@@ -62,9 +63,11 @@ public class Environment {
         return op.func.call(bucket, operands[0], operands[1], null);
     }
 
-    public Bucket evalBucketStatement(String bucketId, Evaluator.StatementType action, BucketResult bResult) throws Exception {
+    public Bucket evalBucketStatement(String bucketId, Evaluator.StatementType action, BucketResult bResult, String pivot) throws Exception {
         assertDeclared(bucketId);
         Bucket b = bucketList.get(bucketId);
+        if(!pivot.isEmpty())
+            setGroupId(bResult, b.get(pivot));
         return evalBucketStatement(b, action, bResult);
     }
 
