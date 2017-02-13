@@ -70,7 +70,7 @@ public class Evaluator {
         return StatementType.Noop;
     }
 
-    protected enum StatementType {
+    public enum StatementType {
         EntityDeclaration,
         BucketDeclaration,
         PrintStatement,

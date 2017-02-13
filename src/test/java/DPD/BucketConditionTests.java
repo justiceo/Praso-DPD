@@ -4,6 +4,7 @@ import DPD.Browser.EasyDSMQuery;
 import DPD.Model.*;
 import DPD.REPL.Environment;
 import DPD.REPL.Evaluator;
+import DPD.REPL.Evaluator.StatementType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,6 +12,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertSame;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -51,6 +53,74 @@ public class BucketConditionTests {
         assertTrue(e1.hasClass(1));
         assertTrue(e2.size() == 2);
         assertTrue(e2.hasClass(0) && e2.hasClass(4));
+    }
+
+    @Test
+    public void FillTest() throws Exception {
+        Environment env = getReadyObserverEnv();
+        BucketResult implResult = env.evalDependency(DependencyType.IMPLEMENT, "e2", "e1");
+        Bucket newBucket = new Bucket();
+        Bucket b = env.evalBucketStatement(newBucket, StatementType.FillStatement, implResult);
+        assertSame(b, newBucket);
+        assertTrue(b.size() == 2);
+        assertTrue(b.keySet().containsAll(Util.list("e2", "e1")));
+
+        Entity e1 = b.get("e1");
+        Entity e2 = b.get("e2");
+        CNode observerInterface = new CNode(1, 1);
+
+        assertTrue(e1.size() == 1);
+        assertTrue(e1.hasClass(1));
+        assertTrue(e1.containsValue(observerInterface));
+        assertTrue(e2.size() == 2);
+        assertTrue(e2.hasClass(0) && e2.hasClass(4));
+
+        env.evalBucketStatement(b, StatementType.FillStatement, implResult);
+
+        assertTrue(e1.size() == 1);
+        assertTrue(e1.hasClass(1));
+        assertTrue(e1.containsValue(observerInterface));
+        assertTrue(e2.size() == 2);
+        assertTrue(e2.hasClass(0) && e2.hasClass(4));
+
+        implResult = env.evalDependency(DependencyType.TYPED, "e2", "e1");
+        env.evalBucketStatement(b, StatementType.FillStatement, implResult);
+        assertTrue(e1.size() == 1);
+        observerInterface.pocket = 2;
+        assertTrue(e1.containsValue(observerInterface));
+        assertTrue(e2.size() == 4);
+        assertTrue(e2.keySet().containsAll(Util.list(0, 2, 3, 4)));
+    }
+
+    @Test
+    public void AssignTest() throws Exception {
+        Environment env = getReadyObserverEnv();
+        BucketResult implResult = env.evalDependency(DependencyType.IMPLEMENT, "e2", "e1");
+        Bucket newBucket = new Bucket();
+        Bucket b = env.evalBucketStatement(newBucket, StatementType.FillStatement, implResult);
+        env.evalBucketStatement(b, StatementType.OverwriteStatement, implResult);
+        Entity e1 = b.get("e1");
+        Entity e2 = b.get("e2");
+        CNode observerInterface = new CNode(1, 1);
+        assertTrue(e1.size() == 1);
+        assertTrue(e1.hasClass(1));
+        assertTrue(e1.containsValue(observerInterface));
+        assertTrue(e2.size() == 2);
+        assertTrue(e2.keySet().containsAll(Util.list(0, 4)));
+
+        implResult = env.evalDependency(DependencyType.TYPED, "e2", "e1");
+        env.evalBucketStatement(b, StatementType.OverwriteStatement, implResult);
+        assertTrue(e1.size() == 1);
+        assertTrue(e1.containsValue(observerInterface));
+        assertTrue(e2.size() == 0);
+
+
+        env.evalBucketStatement(b, StatementType.FillStatement, implResult);
+        env.evalBucketStatement(b, StatementType.OverwriteStatement, implResult);
+        assertTrue(e1.size() == 1);
+        assertTrue(e1.containsValue(observerInterface));
+        assertTrue(e2.size() == 2);
+        assertTrue(e2.keySet().containsAll(Util.list(2, 3)));
     }
 
     @Test
