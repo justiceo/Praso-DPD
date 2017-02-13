@@ -60,7 +60,7 @@ public class Environment {
         if( op == null )
             throw new NotImplementedException();
 
-        return op.func.call(bucket, operands[0], operands[1], null);
+        return op.func.call(bucket, operands[0], operands[1]);
     }
 
     public Bucket evalBucketStatement(String bucketId, Evaluator.StatementType action, BucketResult bResult, String pivot) throws Exception {

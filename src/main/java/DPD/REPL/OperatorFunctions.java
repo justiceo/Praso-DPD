@@ -14,10 +14,10 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
 
     private EasyDSMQuery browser;
     public OperatorFunctions(EasyDSMQuery dsmBrowser){
-        put("and", new OperatorObject(true, (b, leftOp, rightOp, t) -> and_function(b, leftOp, rightOp, t)));
+        put("and", new OperatorObject(true, (b, leftOp, rightOp) -> and_function(b, leftOp, rightOp)));
         put("method_name", new OperatorObject(false, this::method_name_function));
-        put("pocket_size", new OperatorObject(true, (b, leftOp, rightOp, t) -> pocket_size_function(b, leftOp, rightOp, t)));
-        put("min_pocket_size", new OperatorObject(true, (b, leftOp, rightOp, t) -> min_pocket_size_function(b, leftOp, rightOp, t)));
+        put("pocket_size", new OperatorObject(true, (b, leftOp, rightOp) -> pocket_size_function(b, leftOp, rightOp)));
+        put("min_pocket_size", new OperatorObject(true, (b, leftOp, rightOp) -> min_pocket_size_function(b, leftOp, rightOp)));
         this.browser = dsmBrowser;
     }
 
@@ -31,12 +31,12 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
      * @param b
      * @param leftOp
      * @param rightOp
-     * @param t
      */
-    private BucketResult and_function(Bucket b, String leftOp, String rightOp, BucketResult t) {
+    private BucketResult and_function(Bucket b, String leftOp, String rightOp) {
         // assert declared leftOp, and rightOp
         Entity left = b.get(leftOp);
         Entity right = b.get(rightOp);
+        BucketResult t = new BucketResult();
 
         for(CNode c: left.toList()) {
             if(right.hasClass(c.classId))
@@ -45,7 +45,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         return t;
     }
 
-    private BucketResult method_name_function(Bucket b, String leftOp, String rightOp, BucketResult discard) throws Exception {
+    private BucketResult method_name_function(Bucket b, String leftOp, String rightOp) throws Exception {
         Entity entity = b.get(rightOp);
         String[] args = Util.extractArray(leftOp);
         BucketResult t = new BucketResult();
@@ -71,7 +71,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
      * @param leftOp
      * @param rightOp
      */
-    private BucketResult pocket_size_function(Bucket b, String leftOp, String rightOp, BucketResult discard) {
+    private BucketResult pocket_size_function(Bucket b, String leftOp, String rightOp) {
         BucketResult t = new BucketResult();
         int count = Integer.parseInt(leftOp);
         Entity target = b.get(rightOp);
@@ -99,11 +99,11 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
      * @param b
      * @param leftOp
      * @param rightOp
-     * @param t
      */
-    private BucketResult min_pocket_size_function(Bucket b, String leftOp, String rightOp, BucketResult t) {
+    private BucketResult min_pocket_size_function(Bucket b, String leftOp, String rightOp) {
         int count = Integer.parseInt(leftOp);
         Entity target = b.get(rightOp);
+        BucketResult t = new BucketResult();
         if(target.size() < count) return t;
         HashMap<Integer, Integer> pocketCounter = new HashMap<>();
         for(CNode c: target.toList()) {
