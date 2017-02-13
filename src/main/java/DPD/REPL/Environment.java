@@ -96,7 +96,9 @@ public class Environment {
                 // necessary that we're promoting only items already in the entity
                 bResult = trimToMatchBucket(b, bResult);
                 finalBResult = bResult;
-                bResult.keySet().forEach(k -> b.get(k).promoteAll(finalBResult.get(k).toList()));
+                for(String k: bResult.keySet())
+                    b.get(k).promoteAll(bResult.get(k).toList());
+                //bResult.keySet().forEach(k -> b.get(k).promoteAll(finalBResult.get(k).toList()));
                 break;
             case DemoteStatement:
                 bResult = trimToMatchBucket(b, bResult);
@@ -125,10 +127,6 @@ public class Environment {
         return b;
     }
 
-    public Bucket unifyEntity(Entity e) throws Exception {
-        return null;
-    }
-
     /**
      * Prints bucket and bucket entities if specified
      * input types bucket or bucket.entity
@@ -150,13 +148,16 @@ public class Environment {
         if( !bucketList.containsKey(bucketId) ) return;
         System.out.println("Bucket " + bucketId);
         Bucket b = bucketList.get(bucketId);
+        double pocketScore = 0;
         for(String eKey: b.keySet()){
             System.out.print("\tEntity " + eKey + ": ");
+            pocketScore += b.get(eKey).getMaxScore();
             for(CNode c: b.get(eKey).toList()) {
                 System.out.print(dsmQuery.GetType(c.classId) + "(" + c.pocket + ")" + ", ");
             }
             System.out.println();
         }
+        System.out.print("\tscore: " + pocketScore  + "\n\n");
         System.out.println("\n---------------------------\n");
     }
 

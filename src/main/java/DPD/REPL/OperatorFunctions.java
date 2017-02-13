@@ -103,20 +103,9 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
     private BucketResult min_pocket_size_function(Bucket b, String leftOp, String rightOp) {
         int count = Integer.parseInt(leftOp);
         Entity target = b.get(rightOp);
-        BucketResult t = new BucketResult();
-        if(target.size() < count) return t;
-        HashMap<Integer, Integer> pocketCounter = new HashMap<>();
-        for(CNode c: target.toList()) {
-            int n = 0;
-            if(pocketCounter.keySet().contains(c.pocket))
-                n = pocketCounter.get(c.pocket);
-            pocketCounter.put(c.pocket, ++n);
-        }
-
-        for(CNode c: target.toList()) {
-            if(pocketCounter.get(c.pocket) >= count)
-                t.pivot.add(c);
-        }
+        BucketResult t = min_pocket_size_function(target, count);
+        if(!t.pivot.isEmpty())
+            t.put(rightOp, t.pivot);
 
         return t;
     }

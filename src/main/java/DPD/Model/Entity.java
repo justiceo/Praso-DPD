@@ -13,11 +13,12 @@ import java.util.List;
  */
 public class Entity extends HashMap<Integer, CNode> {
 
-    private int maxPromotion;
+    private int promotionCounter;
+    private int currentScore;
     protected HashMap<Integer, List<Integer>> pockets = new HashMap<>();
 
     public int getMaxScore() {
-        return maxPromotion;
+        return promotionCounter;
     }
 
 
@@ -41,18 +42,20 @@ public class Entity extends HashMap<Integer, CNode> {
     }
 
     public void promoteAll(Collection<? extends CNode> list) {
-        ++maxPromotion;
+        ++promotionCounter;
         for(CNode c: list) {
             CNode in = get(c.classId);
             in.score += 1;
+            ++currentScore;
         }
     }
 
     public void demoteAll(Collection<? extends CNode> list) {
-        --maxPromotion;
+        --promotionCounter;
         for(CNode c: list) {
             CNode in = get(c.classId);
             in.score -= 1;
+            ++currentScore;
         }
     }
 
@@ -125,5 +128,8 @@ public class Entity extends HashMap<Integer, CNode> {
         return values();
     }
 
-
+    public double getScore() {
+        int maxScore = promotionCounter * size();
+        return (currentScore * 1.0 ) / maxScore;
+    }
 }
