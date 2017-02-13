@@ -15,6 +15,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
     private EasyDSMQuery browser;
     public OperatorFunctions(EasyDSMQuery dsmBrowser){
         put("and", new OperatorObject(true, (b, leftOp, rightOp) -> and_function(b, leftOp, rightOp)));
+        put("xor", new OperatorObject(true, (b, leftOp, rightOp) -> xor_function(b, leftOp, rightOp)));
         put("method_name", new OperatorObject(false, this::method_name_function));
         put("pocket_size", new OperatorObject(true, (b, leftOp, rightOp) -> pocket_size_function(b, leftOp, rightOp)));
         put("min_pocket_size", new OperatorObject(true, (b, leftOp, rightOp) -> min_pocket_size_function(b, leftOp, rightOp)));
@@ -42,6 +43,29 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
             if(right.hasClass(c.classId))
                 t.aux.add(c);
         }
+        return t;
+    }
+
+    /**
+     * Returns the left entity intact (possibly use a pivotIdentifier)
+     * and the right entity minus elements that are in the left
+     * @param b
+     * @param leftOp
+     * @param rightOp
+     * @return
+     */
+    private BucketResult xor_function(Bucket b, String leftOp, String rightOp) {
+        // assert declared leftOp, and rightOp
+        Entity left = b.get(leftOp);
+        Entity right = b.get(rightOp);
+        BucketResult t = new BucketResult();
+        t.put(leftOp, left);
+
+        for(CNode c: left.toList()) {
+            if(right.hasClass(c.classId))
+                right.remove(c.classId);
+        }
+        t.put(rightOp, right);
         return t;
     }
 
