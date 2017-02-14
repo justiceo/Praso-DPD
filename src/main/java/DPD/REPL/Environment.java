@@ -41,8 +41,7 @@ public class Environment {
 
     public BucketResult evalDependency(List<DependencyType> dependency, String leftOperand, String rightOperand) throws Exception {
         assertDeclared(leftOperand, rightOperand);
-        BucketResult t = new BucketResult();
-        dsmQuery.populate(dependency, t);
+        BucketResult t = dsmQuery.populate(dependency);
 
         t.put(leftOperand, t.aux);
         t.put(rightOperand, t.pivot);
@@ -81,6 +80,7 @@ public class Environment {
             case OverwriteStatement:
                 // this has a filter effect, so elements should already exist in entity
                 bResult = trimToMatchBucket(b, bResult);
+                bResult = resolveBucket(bResult);
                 for(String k: bResult.keySet()) {
                     b.get(k).clear();
                     b.get(k).addAll(bResult.get(k).toList());
@@ -89,12 +89,14 @@ public class Environment {
             case FilterStatement:
                 // this has a filter effect, so elements should already exist in entity
                 bResult = trimToMatchBucket(b, bResult);
+                bResult = resolveBucket(bResult);
                 BucketResult finalBResult = bResult;
                 bResult.keySet().forEach(k -> b.get(k).removeAll(finalBResult.get(k).toList()));
                 break;
             case PromoteStatement:
                 // necessary that we're promoting only items already in the entity
                 bResult = trimToMatchBucket(b, bResult);
+                bResult = resolveBucket(bResult);
                 finalBResult = bResult;
                 for(String k: bResult.keySet())
                     b.get(k).promoteAll(bResult.get(k).toList());
@@ -102,6 +104,7 @@ public class Environment {
                 break;
             case DemoteStatement:
                 bResult = trimToMatchBucket(b, bResult);
+                bResult = resolveBucket(bResult);
                 finalBResult = bResult;
                 bResult.keySet().forEach(k -> b.get(k).demoteAll(finalBResult.get(k).toList()));
                 break;
@@ -113,6 +116,26 @@ public class Environment {
         assertDeclared(bucketId);
 
         Bucket b = bucketList.get(bucketId);
+        return resolveBucket(b);
+    }
+
+    public static Bucket resolveBucket(Bucket b) throws Exception {
+        for(int pocket = 0; pocket <= b.getPocket(); pocket++) {
+            boolean allHaveIt = true;
+            for(String entityId: b.keySet()) {
+                allHaveIt = allHaveIt && b.get(entityId).hasPocket(pocket);
+            }
+            if(!allHaveIt) {
+                for(String entityId: b.keySet()) {
+                    b.get(entityId).removePocket(pocket);
+                }
+            }
+        }
+        return b;
+    }
+
+
+    public static BucketResult resolveBucket(BucketResult b) throws Exception {
         for(int pocket = 0; pocket <= b.getPocket(); pocket++) {
             boolean allHaveIt = true;
             for(String entityId: b.keySet()) {

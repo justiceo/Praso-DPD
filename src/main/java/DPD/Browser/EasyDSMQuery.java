@@ -3,6 +3,7 @@ package DPD.Browser;
 import DPD.Model.*;
 import DPD.Util;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -21,7 +22,14 @@ public class EasyDSMQuery extends DSMDataStructure {
 
     }
 
-    public void populate(List<DependencyType> dependencies, BucketResult t) {
+    private HashMap<String, BucketResult> cache = new HashMap<>();
+
+    public BucketResult populate(List<DependencyType> dependencies) {
+        BucketResult t = new BucketResult();
+        String key = dependencies.toString();
+        if(cache.containsKey(key))
+            return cache.get(key);
+
         if(dependencies.contains(DependencyType.SPECIALIZE)) { // then it definitely doesn't contain Extend or IMPLEMENT (assert this)
             dependencies.remove(DependencyType.SPECIALIZE);
 
@@ -40,6 +48,8 @@ public class EasyDSMQuery extends DSMDataStructure {
             DependencyType[] dt = new DependencyType[dependencies.size()];
             populate(t, dependencies.toArray(dt));
         }
+        cache.put(key, t);
+        return t;
     }
 
 
