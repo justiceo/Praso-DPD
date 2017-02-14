@@ -1,10 +1,13 @@
 package DPD.REPL;
 
 import DPD.Browser.EasyDSMQuery;
+import DPD.Model.BucketResult;
 import DPD.Model.DependencyType;
 import DPD.Util;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Justice on 1/10/2017.
@@ -13,12 +16,14 @@ public class Evaluator {
 
     protected Environment exec;
     protected final String delimiters = ":=><=++--() ";
-
+    private Logger log = Logger.getGlobal();
     public Evaluator(EasyDSMQuery dsmBrowser) {
         exec = new Environment(dsmBrowser);
+        log.setLevel(Level.FINE);
     }
 
     public void execute(String line) throws Exception {
+        //System.out.println("Executing: " + line);
         StatementType st = getStatementType(line);
         switch (st) {
             case EntityDeclaration:
@@ -125,10 +130,14 @@ public class Evaluator {
 
         if(Util.isArray(condition)) {
             List<DependencyType> dependencyTypes = Util.getDependencyTypes(condition);
-            exec.evalBucketStatement(bucketId, type, exec.evalDependency(dependencyTypes, e1, e2), pivot);
+            BucketResult r = exec.evalDependency(dependencyTypes, e1, e2);
+            //System.out.println("Bucket result: " + r);
+            exec.evalBucketStatement(bucketId, type, r, pivot);
         }
         else if(Util.isDependencyCondition(condition)) {
-            exec.evalBucketStatement(bucketId, type, exec.evalDependency(DependencyType.valueOf(condition), e1, e2), pivot);
+            BucketResult r = exec.evalDependency(DependencyType.valueOf(condition), e1, e2);
+            //System.out.println("Bucket result: " + r);
+            exec.evalBucketStatement(bucketId, type, r, pivot);
         }
         else {
             exec.evalBucketStatement(bucketId, type, exec.evalFunction(bucketId, condition, e1, e2), pivot);

@@ -6,6 +6,7 @@ Bucket b: 'Simple Observer Pattern'
 b <= conObserver specialize observerI
 b <= subj [typed,use,call] *observerI
 b ++ 2 min_pocket_size conObserver
+b ++ '[notify,update]' method_name conObserver
 
 Print b
 Resolve( b )
