@@ -134,8 +134,10 @@ public class Environment {
      * @throws Exception
      */
     public void printObject(String objectId) throws Exception {
-        if(bucketList.containsKey(objectId))
-            printBucket(objectId); //System.out.println(objectId + ":\n" +bucketList.get(objectId));
+        if(bucketList.containsKey(objectId)) {
+            System.out.println("Bucket " + objectId);
+            printBucket(bucketList.get(objectId));
+        }
         else if(objectId.contains(".")) {
             String[] vars =  objectId.split(".");
             String entity = vars.length > 1 ? vars[1] : "";
@@ -144,10 +146,7 @@ public class Environment {
         }
     }
 
-    public void printBucket(String bucketId) {
-        if( !bucketList.containsKey(bucketId) ) return;
-        System.out.println("Bucket " + bucketId);
-        Bucket b = bucketList.get(bucketId);
+    public void printBucket(Bucket b) {
         double pocketScore = 0;
         for(String eKey: b.keySet()){
             System.out.print("\tEntity " + eKey + ": ");

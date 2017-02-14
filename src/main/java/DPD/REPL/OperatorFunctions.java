@@ -4,6 +4,7 @@ import DPD.Browser.EasyDSMQuery;
 import DPD.Model.*;
 import DPD.Util;
 import com.github.javaparser.ast.CompilationUnit;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.HashMap;
 
@@ -34,8 +35,9 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
      * @param rightOp
      */
     private BucketResult and_function(Bucket b, String leftOp, String rightOp) {
+        throw new NotImplementedException();
         // assert declared leftOp, and rightOp
-        Entity left = b.get(leftOp);
+        /*Entity left = b.get(leftOp);
         Entity right = b.get(rightOp);
         BucketResult t = new BucketResult();
 
@@ -43,7 +45,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
             if(right.hasClass(c.classId))
                 t.aux.add(c);
         }
-        return t;
+        return t;*/
     }
 
     /**

@@ -15,7 +15,7 @@ public class CNode {
 
     @Override
     public String toString() {
-        return "{ classId: " + classId + ", pocket: " + pocket + ", score: " + score + " }";
+        return "{classId: " + classId + ", pocket: " + pocket + "}";
     }
 
     @Override
