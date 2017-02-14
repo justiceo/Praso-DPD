@@ -2,6 +2,7 @@ package DPD.Browser;
 
 import DPD.Model.*;
 import DPD.Util;
+import org.apache.commons.lang3.SerializationUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,7 @@ public class EasyDSMQuery extends DSMDataStructure {
         BucketResult t = new BucketResult();
         String key = dependencies.toString();
         if(cache.containsKey(key))
-            return cache.get(key);
+            return getFromCache(key);
 
         if(dependencies.contains(DependencyType.SPECIALIZE)) { // then it definitely doesn't contain Extend or IMPLEMENT (assert this)
             dependencies.remove(DependencyType.SPECIALIZE);
@@ -49,7 +50,11 @@ public class EasyDSMQuery extends DSMDataStructure {
             populate(t, dependencies.toArray(dt));
         }
         cache.put(key, t);
-        return t;
+        return getFromCache(key);
+    }
+
+    private BucketResult getFromCache(String key) {
+        return SerializationUtils.clone(cache.get(key));
     }
 
 

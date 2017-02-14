@@ -1,9 +1,11 @@
 package DPD.Model;
 
+import java.io.Serializable;
+
 /**
  * Created by Justice on 1/10/2017.
  */
-public class CNode {
+public class CNode implements Serializable{
     public int classId = -1;
     public int pocket = -1;
     public int score = 0;
