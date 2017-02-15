@@ -175,7 +175,7 @@ public class Environment {
             System.out.print("\tEntity " + eKey + ": ");
             pocketScore += b.get(eKey).getMaxScore();
             for(CNode c: b.get(eKey).toList()) {
-                System.out.print(dsmQuery.GetType(c.classId) + "(" + c.pocket + ")" + ", ");
+                System.out.print(dsmQuery.GetType(c.classId) + "(" + c.classId + "," + c.pocket + ")" + ", ");
             }
             System.out.println();
         }

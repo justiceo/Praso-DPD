@@ -29,7 +29,7 @@ public class Entity extends HashMap<Integer, CNode> {
     public void add(CNode cNode) {
 
         if(containsKey(cNode.classId) && !values().contains(cNode)) {
-            System.out.println("warn: Entity.add() - overwriting class " + cNode.classId);
+            System.out.println("warn: Entity.add() - overwriting class (" + cNode.classId + ", " + get(cNode.classId).pocket + ")->(" + cNode.classId + ", " + cNode.pocket + ")");
             cNode.score = get(cNode.classId).score; // but copy over score
             remove(cNode.classId); // we don't want to leave it's pocket reference, so we clear
         }
