@@ -81,7 +81,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         for(CNode c: entity.toList()) {
             FileNode fn = browser.getFileNode(c.classId);
             CompilationUnit cu = fn.getCu();
-            MethodNameVisitor mv = new MethodNameVisitor();
+            SourceVisitor mv = new SourceVisitor();
             if(mv.hasMethodName(cu, args))
                 t.pivot.add(c);
         }
@@ -101,7 +101,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         for(CNode c: entity.toList()) {
             FileNode fn = browser.getFileNode(c.classId);
             CompilationUnit cu = fn.getCu();
-            MethodNameVisitor mv = new MethodNameVisitor();
+            SourceVisitor mv = new SourceVisitor();
             if(mv.hasTypeName(cu, args))
                 t.pivot.add(c);
         }

@@ -10,7 +10,7 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 /**
  * Created by Justice on 1/19/2017.
  */
-public class MethodNameVisitor {
+public class SourceVisitor {
     private boolean hasName;
     private String[] methodNames;
 
