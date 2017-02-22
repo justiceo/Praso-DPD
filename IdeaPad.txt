@@ -40,6 +40,10 @@ Making functions testable
 		- better solution - apply the search from the existing bucket itself - efficient for large dsms
 		- all custom funtions are either in filter or assign.
 
+    - setGroupId is still relying on pivot which is now out of vogue
+        if pivot is actually specified, it should be used, and entity should have an isPivot attribute
+
+    - overwriting class isn't behaving as expected, at least going by what the current print b and execute print b shows in visitor.dpd
 
 Unify (normalize)
 =========

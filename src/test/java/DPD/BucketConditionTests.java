@@ -110,13 +110,21 @@ public class BucketConditionTests {
 
         implResult = env.evalDependency(DependencyType.TYPED, "e2", "e1");
         env.evalBucketStatement(b, StatementType.OverwriteStatement, implResult);
-        assertTrue(e1.size() == 1);
-        assertTrue(e1.containsValue(observerInterface));
+        Entity e1again = b.get("e1");
+        assertSame(e1, e1again);
+        assertTrue(e1.size() == 0);
         assertTrue(e2.size() == 0);
 
 
+        b.clear();
+        implResult = env.evalDependency(DependencyType.TYPED, "e2", "e1");
         env.evalBucketStatement(b, StatementType.FillStatement, implResult);
+        System.out.println(b);
         env.evalBucketStatement(b, StatementType.OverwriteStatement, implResult);
+        e1again = b.get("e1");
+        //e1 = e1again;
+        assertSame(e1, e1again);
+        System.out.println(e1.size() + ", " + b);
         assertTrue(e1.size() == 1);
         assertTrue(e1.containsValue(observerInterface));
         assertTrue(e2.size() == 2);

@@ -115,6 +115,7 @@ public class Util {
     }
 
     // see Arrays.asList
+    // this one returns structurally modifiable list
     public static <T> List<T> list(T... args) {
         List<T> result = new ArrayList<T>();
         Collections.addAll(result, args);
