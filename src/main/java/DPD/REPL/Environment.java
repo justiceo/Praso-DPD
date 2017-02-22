@@ -66,7 +66,7 @@ public class Environment {
         assertDeclared(bucketId);
         Bucket b = bucketList.get(bucketId);
         if(!pivot.isEmpty())
-            setGroupId(bResult, b.get(pivot));
+            setGroupId(bResult, b.get(pivot), pivot);
         return evalBucketStatement(b, action, bResult);
     }
 
@@ -234,9 +234,15 @@ public class Environment {
         System.out.println("\n---------------------------\n");
     }
 
-    private void setGroupId(BucketResult t, Entity entity) {
+    private void setGroupId(BucketResult t, Entity entity, String pivot) {
+        // should be bResult.get(pivot)
         // t.pivot is the pivot by default
-        for(CNode cn: t.pivot.toList()) {
+        Entity pivotE;
+        if(t.containsKey(pivot))
+            pivotE = t.getEntity(pivot);
+        else
+            pivotE = t.pivot;
+        for(CNode cn: pivotE.toList()) {
             if(entity.hasClass(cn.classId)) {
                 int existingPocket = entity.get(cn.classId).pocket;
                 for(int i: t.aux.keySet()){
