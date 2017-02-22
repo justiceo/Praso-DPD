@@ -18,6 +18,7 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
         put("and", new OperatorObject(true, (b, leftOp, rightOp) -> and_function(b, leftOp, rightOp)));
         put("xor", new OperatorObject(true, (b, leftOp, rightOp) -> xor_function(b, leftOp, rightOp)));
         put("method_name", new OperatorObject(false, this::method_name_function));
+        put("type_name", new OperatorObject(false, this::type_name_function));
         put("pocket_size", new OperatorObject(true, (b, leftOp, rightOp) -> pocket_size_function(b, leftOp, rightOp)));
         put("min_pocket_size", new OperatorObject(true, (b, leftOp, rightOp) -> min_pocket_size_function(b, leftOp, rightOp)));
         this.browser = dsmBrowser;
@@ -82,6 +83,26 @@ public class OperatorFunctions extends HashMap<String, OperatorObject> {
             CompilationUnit cu = fn.getCu();
             MethodNameVisitor mv = new MethodNameVisitor();
             if(mv.hasMethodName(cu, args))
+                t.pivot.add(c);
+        }
+
+        if(!t.pivot.isEmpty())
+            t.put(rightOp, t.pivot);
+
+        return t;
+    }
+
+    private BucketResult type_name_function(Bucket b, String leftOp, String rightOp) throws Exception {
+        Entity entity = b.get(rightOp);
+        String[] args = Util.extractArray(leftOp);
+        BucketResult t = new BucketResult();
+
+        // for each class in entity, check if it has method
+        for(CNode c: entity.toList()) {
+            FileNode fn = browser.getFileNode(c.classId);
+            CompilationUnit cu = fn.getCu();
+            MethodNameVisitor mv = new MethodNameVisitor();
+            if(mv.hasTypeName(cu, args))
                 t.pivot.add(c);
         }
 

@@ -1,6 +1,7 @@
 package DPD.REPL;
 
 import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.stmt.ForeachStmt;
 import com.github.javaparser.ast.type.Type;
@@ -51,6 +52,24 @@ public class MethodNameVisitor {
             for(String method: methodNames)
                 if(md.getName().contains(method))
                     hasName = true;
+        }
+    }
+
+    private String[] typeNames;
+    private boolean hasTypeName;
+    public boolean hasTypeName(CompilationUnit cu, String[] types) {
+        this.typeNames = types;
+        TypeName tn = new TypeName();
+        tn.visit(cu, null);
+        return hasTypeName;
+    }
+    class TypeName extends VoidVisitorAdapter {
+        @Override
+        public void visit(ClassOrInterfaceDeclaration cd, Object args) {
+            for(String type: typeNames)
+                if(cd.getName().contains(type))
+                    hasTypeName = true;
+
         }
     }
 }

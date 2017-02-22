@@ -14,6 +14,8 @@ b = concreteV [typed] *element
 Print b
 b ++ 'accept' method_name element
 b ++ 'visit' method_name visitorI
+b ++ 'visitor' type_name visitorI
+b ++ 'visitor' type_name concreteV
 
 Resolve b
 Print b
