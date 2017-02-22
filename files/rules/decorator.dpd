@@ -5,11 +5,14 @@ Entity concreteD: 'Concrete Decorator'
 
 Bucket b: 'Decorator Pattern'
 b <= leaf specialize component
-b <= decorator specialize component
+b <= decorator specialize *component
 b <= concreteD specialize decorator
-b => leaf and component
-b => 1 pocket_size concreteD
+b = component xor leaf
+b = concreteD xor decorator
+b ++ 1 pocket_size concreteD
 
+Pockets b
+###
 Resolve( b )
 Print( b )
 

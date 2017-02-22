@@ -8,11 +8,14 @@ b <= subj [typed,use,call] *observerI
 b ++ 2 min_pocket_size conObserver
 b ++ '[notify,update]' method_name conObserver
 
-Print b
 Resolve( b )
 Pockets ( b )
 
 ###
+
+b ++ subj aggregates observerI
+b ++ subj obs_loop observerI
+
 b ++ subj [aggregate,has_notify_clause] observerI is an illegal statement, only dependencyTypes can be an array.
  this is because custom functions treat their args/ operands as they will.
 
