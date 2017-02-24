@@ -66,8 +66,9 @@ public class SourceVisitor {
     class TypeName extends VoidVisitorAdapter {
         @Override
         public void visit(ClassOrInterfaceDeclaration cd, Object args) {
+            String className = cd.getName().toLowerCase();
             for(String type: typeNames)
-                if(cd.getName().contains(type))
+                if(className.contains(type.toLowerCase()))
                     hasTypeName = true;
 
         }

@@ -146,6 +146,20 @@ public class BucketConditionTests {
         assertTrue(e2.hasClass(0) && e2.hasClass(4));
     }
 
+
+
+    @Test
+    public void typeNameTest() throws Exception {
+        Environment env = getReadyObserverEnv();
+        BucketResult b = env.evalDependency(DependencyType.IMPLEMENT, "e2", "e1");
+        BucketResult actualResult = env.evalFunction(b, "type_name", "IObserver", "e1");
+        assertTrue(actualResult.keySet().size() == 1);
+        Entity e1 = actualResult.get("e1");
+        assertTrue(e1.size() == 1 && e1.hasClass(1));
+        actualResult = env.evalFunction(b, "type_name", "IObserver", "e2");
+        assertTrue(actualResult.keySet().size() == 0);
+    }
+
     /***
      * Evaluating a pocket_size on simple observer should return the e2 bucket with both elements in it
      */
