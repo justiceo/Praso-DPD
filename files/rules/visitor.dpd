@@ -6,8 +6,15 @@ Entity concreteE: 'Concrete Element'
 Bucket b: 'Visitor pattern'
 b <= concreteV specialize visitorI
 b <= concreteE specialize element
-b = concreteE [typed,call] *visitorI
 Print b
+b = concreteE [typed,call] *element
+b => element xor visitorI
+b => concreteE xor concreteV        // if you're a concrete element, you shouldn't be in concrete visitor
+b ++ 'accept' method_name element
+b ++ 'visit' method_name visitorI
+b ++ 'visitor' type_name visitorI
+b ++ 'visitor' type_name concreteV
+Pockets b
 ###
 b = element [typed] *visitorI
 b = concreteV [typed] *element
