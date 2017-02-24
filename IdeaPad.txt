@@ -45,6 +45,12 @@ Making functions testable
 
     - overwriting class isn't behaving as expected, at least going by what the current print b and execute print b shows in visitor.dpd
 
+
+    - implement extractHierarchy(classId) on dsmquery to create new dsm data structure
+    - add printDsm() method on dsmdatastructure
+    - when you have a large project and you want to explore around some interfaces or even for testing specific patterns in java-design-patterns, this would come handy\
+    - plus prof. cai would love it == business requirement.
+
 Unify (normalize)
 =========
 Unify e1
