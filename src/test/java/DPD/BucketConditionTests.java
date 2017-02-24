@@ -152,12 +152,18 @@ public class BucketConditionTests {
     public void typeNameTest() throws Exception {
         Environment env = getReadyObserverEnv();
         BucketResult b = env.evalDependency(DependencyType.IMPLEMENT, "e2", "e1");
-        BucketResult actualResult = env.evalFunction(b, "type_name", "IObserver", "e1");
+        BucketResult actualResult = env.evalFunction(b, "type_name", "observer", "e1");
         assertTrue(actualResult.keySet().size() == 1);
         Entity e1 = actualResult.get("e1");
         assertTrue(e1.size() == 1 && e1.hasClass(1));
         actualResult = env.evalFunction(b, "type_name", "IObserver", "e2");
         assertTrue(actualResult.keySet().size() == 0);
+
+        actualResult = env.evalFunction(b, "type_name", "observer", "e2");
+        assertTrue(actualResult.keySet().size() == 1);
+        Entity e2 = actualResult.get("e2");
+        assertTrue(e2.size() == 2);
+        assertTrue(e2.hasClass(0) && e2.hasClass(4));
     }
 
     /***
