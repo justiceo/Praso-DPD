@@ -39,7 +39,7 @@ public class DSMDataStructure {
             String line = matrix[row].trim();
             String[] cells = line.split(" ");
             if(cells.length != matrixSize)
-                throw new IndexOutOfBoundsException("Non-square matrix detected");
+                throw new NumberFormatException("Non-square matrix detected");
             for(int col = 0; col < matrixSize; col++) {
                 String data = cells[col];
                 if( !data.equals("0") && data.length() != dependencyTypes.size())
@@ -206,10 +206,10 @@ public class DSMDataStructure {
         else if(cn.column.size() > 0)
             classSet.add(cn.column.get(0).col);
 
-        for(DepNode dn: cn.row) { // dependencies
+        for(DepNode dn: cn.row) { // get dependencies
             classSet.add(dn.col);
         }
-        for(DepNode dn: cn.column) { // dependents
+        for(DepNode dn: cn.column) { // get dependents
             classSet.add(dn.row);
         }
 
@@ -240,19 +240,9 @@ public class DSMDataStructure {
 
     private String expandRowAdj(List<DepNode> row, int size, List<Integer> classIds, int keyClass) {
         StringBuilder res = new StringBuilder();
-        int counter = 0;
-        for(DepNode dn: row){ // we only want to append data nodes that are in class Id
-
-            while(counter < dn.col) {
-                if(classIds.contains(counter++))
-                    res.append("0 ");
-            }
-            res.append(dn.value + " ");
-            ++counter;
-        }
-        while(counter < size){
-             if(classIds.contains(counter++))
-                res.append("0 ");
+        for(int classId: classIds) {
+            DepNode dn = row.stream().filter(d -> d.col == classId).findFirst().orElse(null);
+            res.append(dn == null ? "0 " : dn.value + " ");
         }
         return res.toString();
     }
@@ -309,6 +299,11 @@ public class DSMDataStructure {
             this.row = row;
             this.col = col;
             this.numValue = Integer.parseInt(this.value, 2);
+        }
+
+        @Override
+        public String toString() {
+            return "(" + row + "," + col + "," + value + ")";
         }
     }
 }
