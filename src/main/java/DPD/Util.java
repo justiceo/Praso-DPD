@@ -2,10 +2,7 @@ package DPD;
 
 import DPD.Model.DependencyType;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Justice on 1/5/2017.
@@ -114,11 +111,28 @@ public class Util {
         return args;
     }
 
+/*
+    public static <T> T[] array(Collection<T> collection) {
+        T[] arr = (T[]) new Object[collection.size()];
+        collection.toArray(arr);
+        return arr;
+    }
+*/
     // see Arrays.asList
     // this one returns structurally modifiable list
     public static <T> List<T> list(T... args) {
         List<T> result = new ArrayList<T>();
         Collections.addAll(result, args);
         return result;
+    }
+
+    public static <T> List<T> list(Collection<T> collection) {
+        List<T> res = new ArrayList<>();
+        res.addAll(collection);
+        return res;
+    }
+
+    public static void println(Object o) {
+        System.out.println(o);
     }
 }

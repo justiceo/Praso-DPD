@@ -1,12 +1,12 @@
 package DPD.Browser;
 
 import DPD.Model.DependencyType;
+import DPD.Util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.logging.Logger;
+
+import static DPD.Util.*;
 
 /**
  * Created by Justice on 1/3/2017.
@@ -104,7 +104,7 @@ public class DSMDataStructure {
     /**
      * Determine if a particular dependency exists on this class' dependency line
      * @param indexOfClass
-     * @param indexOfDependency
+     * @param dependency
      * @return
      */
     public boolean hasDependency(int indexOfClass, DependencyType dependency) {
@@ -196,6 +196,96 @@ public class DSMDataStructure {
         for(int i: nums)
             sb.append(i);
         return Integer.parseInt(sb.toString(), 2);
+    }
+
+    public DSMDataStructure getSubDSM(int classId) {
+        ClassNode cn = allClassNodes.get(classId);
+        HashSet<Integer> classSet = new HashSet<>();
+        if(cn.row.size() > 0)
+            classSet.add(cn.row.get(0).row);
+        else if(cn.column.size() > 0)
+            classSet.add(cn.column.get(0).col);
+
+        for(DepNode dn: cn.row) { // dependencies
+            classSet.add(dn.col);
+        }
+        for(DepNode dn: cn.column) { // dependents
+            classSet.add(dn.row);
+        }
+
+        List<Integer> classIds = list(classSet);
+        Collections.sort(classIds);
+
+        // fill in the file paths
+        List<String> filePaths = new ArrayList();
+        for(int i: classIds) {
+            filePaths.add( allClassNodes.get(i).filePath );
+        }
+
+        // create matrix
+        int size = classIds.size();
+        String[] matrix = new String[size];
+
+        // fill in deps in adjusted space
+        for(int index = 0; index < classIds.size(); index++) {
+            int id = classIds.get(index);
+            String row = expandRowAdj(allClassNodes.get(id).row, size, classIds, classId);
+            matrix[index] = row;
+        }
+
+        String[] filePathsArr = new String[filePaths.size()];
+        filePaths.toArray(filePathsArr);
+        return new DSMDataStructure(matrix, filePathsArr, list(dependencyTypes.keySet()));
+    }
+
+    private String expandRowAdj(List<DepNode> row, int size, List<Integer> classIds, int keyClass) {
+        StringBuilder res = new StringBuilder();
+        int counter = 0;
+        for(DepNode dn: row){ // we only want to append data nodes that are in class Id
+
+            while(counter < dn.col) {
+                if(classIds.contains(counter++))
+                    res.append("0 ");
+            }
+            res.append(dn.value + " ");
+            ++counter;
+        }
+        while(counter < size){
+             if(classIds.contains(counter++))
+                res.append("0 ");
+        }
+        return res.toString();
+    }
+
+    public String expandRow(List<DepNode> row, int size) {
+        StringBuilder res = new StringBuilder();
+        int counter = 0;
+        for(DepNode dn: row){
+            while(counter++ < dn.col) res.append("0 ");
+            res.append(dn.value + " ");
+        }
+        while(counter++ < size) res.append("0 ");
+        return res.toString();
+    }
+
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        int size = allClassNodes.size();
+
+        // add dependency types and matrix size
+        res.append(dependencyTypes.keySet().toString() + "\n" + size + "\n");
+
+        // add the matrix rows
+        for(ClassNode cn: allClassNodes) {
+            res.append(expandRow(cn.row, size) + "\n");
+        }
+
+        // add the file paths
+        allClassNodes.forEach(cn -> res.append(cn.filePath + "\n"));
+
+        return res.toString();
     }
 
     class ClassNode {
