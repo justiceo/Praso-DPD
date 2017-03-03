@@ -25,10 +25,7 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         //runAllFiles();
-        //runParticularFile();
-        String[] arr = array("1", "2");
-        Test t = new Test();
-        println(arr);
+        runParticularFile();
     }
 
     public static void runOnConsole() {
