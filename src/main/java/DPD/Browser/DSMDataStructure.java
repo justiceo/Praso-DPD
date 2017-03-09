@@ -198,6 +198,16 @@ public class DSMDataStructure {
         return Integer.parseInt(sb.toString(), 2);
     }
 
+    public DSMDataStructure getSubDSM(String type) {
+        for(int i=0; i < allClassNodes.size(); i++) {
+            String x = Util.getType(allClassNodes.get(i).filePath);
+            if(x.equals(type)) {
+                return getSubDSM(i);
+            }
+        }
+        return null;
+    }
+
     public DSMDataStructure getSubDSM(int classId) {
         ClassNode cn = allClassNodes.get(classId);
         HashSet<Integer> classSet = new HashSet<>();
