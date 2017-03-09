@@ -5,9 +5,12 @@ import DPD.Model.BucketResult;
 import DPD.Model.DependencyType;
 import DPD.Util;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static DPD.Util.println;
 
 /**
  * Created by Justice on 1/10/2017.
@@ -169,8 +172,8 @@ public class Evaluator {
     private void evalSubDsmStatement(String line) {
         Tokenizer st = new Tokenizer(line, delimiters);
         st.nextToken(); // eat SubDsm keyword
-        String typeOrClassIndex = st.nextToken();
-        exec.getSubDsm(typeOrClassIndex);
+        String[] args = st.rest();
+        exec.getSubDsm(args);
     }
 
     private void evalDsmStatement(String line) {

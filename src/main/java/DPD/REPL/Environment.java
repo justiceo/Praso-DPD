@@ -318,6 +318,10 @@ public class Environment {
         }
     }
 
+    public void getSubDsm(String[] args) {
+        println(dsmQuery.getSubDSM(args));
+    }
+
     public void printDsm() {
         println(dsmQuery);
     }

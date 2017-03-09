@@ -1,6 +1,7 @@
 package DPD.REPL;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -49,5 +50,9 @@ public class Tokenizer {
         }catch (ArrayIndexOutOfBoundsException e) {
             throw new IllegalArgumentException("More tokens expected");
         }
+    }
+
+    public String[] rest() {
+        return Arrays.copyOfRange(tokens, index, tokens.length); 
     }
 }

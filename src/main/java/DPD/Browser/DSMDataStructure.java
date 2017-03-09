@@ -202,7 +202,15 @@ public class DSMDataStructure {
     }
 
     public DSMDataStructure getSubDSM(String type) {
-        return getSubDSM(typeDict.getClassIndex(type));
+        int[] n = new int[]{typeDict.getClassIndex(type)};
+        return getSubDSM(n);
+    }
+
+    public DSMDataStructure getSubDSM(String[] args) {
+        int[] arr = new int[args.length];
+        int i = 0;
+        for(String s: args) arr[i++] = typeDict.getClassIndex(s);
+        return getSubDSM(arr);
     }
 
     public DSMDataStructure getSubDSM(int classId) {
@@ -236,7 +244,7 @@ public class DSMDataStructure {
         // fill in deps in adjusted space
         for(int index = 0; index < classIds.size(); index++) {
             int id = classIds.get(index);
-            String row = expandRowAdj(allClassNodes.get(id).row, size, classIds, classId);
+            String row = expandRowAdj(allClassNodes.get(id).row, classIds);
             matrix[index] = row;
         }
 
@@ -245,7 +253,40 @@ public class DSMDataStructure {
         return new DSMDataStructure(matrix, filePathsArr, list(dependencyTypes.keySet()));
     }
 
-    private String expandRowAdj(List<DepNode> row, int size, List<Integer> classIds, int keyClass) {
+    public DSMDataStructure getSubDSM(int... classIds) {
+        HashSet<Integer> classSet = new HashSet<>();
+        for(int c: classIds) {
+            Arrays.stream(getDependencies(c)).forEach(i -> classSet.add(i));
+            Arrays.stream(getDependents(c)).forEach(i -> classSet.add(i));
+            classSet.add(c);
+        }
+
+        List<Integer> sortedClassIds = list(classSet);
+        Collections.sort(sortedClassIds);
+
+        // fill in the file paths
+        List<String> filePaths = new ArrayList();
+        for(int i: sortedClassIds) {
+            filePaths.add( allClassNodes.get(i).filePath );
+        }
+
+        // create matrix
+        int size = sortedClassIds.size();
+        String[] matrix = new String[size];
+
+        // fill in deps in adjusted space
+        for(int index = 0; index < sortedClassIds.size(); index++) {
+            int id = sortedClassIds.get(index);
+            String row = expandRowAdj(allClassNodes.get(id).row, sortedClassIds);
+            matrix[index] = row;
+        }
+
+        String[] filePathsArr = new String[filePaths.size()];
+        filePaths.toArray(filePathsArr);
+        return new DSMDataStructure(matrix, filePathsArr, list(dependencyTypes.keySet()));
+    }
+
+    private String expandRowAdj(List<DepNode> row, List<Integer> classIds) {
         StringBuilder res = new StringBuilder();
         for(int classId: classIds) {
             DepNode dn = row.stream().filter(d -> d.col == classId).findFirst().orElse(null);
