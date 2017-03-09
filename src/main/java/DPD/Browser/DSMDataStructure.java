@@ -20,6 +20,7 @@ public class DSMDataStructure {
     protected List<ClassNode> allClassNodes = new ArrayList<>();
     protected HashMap<DependencyType, Integer> dependencyTypes;
     protected int matrixSize = 0;
+    protected TypeDict typeDict = new TypeDict();
 
     public DSMDataStructure(String[] matrix, String[] filePaths, List<DependencyType> dependencies) {
         if(matrix.length != filePaths.length)
@@ -30,9 +31,10 @@ public class DSMDataStructure {
             dependencyTypes.put(dependencies.get(i), i);
         }
 
-        // initialize all nodes
+        // initialize all nodes and typeDict
         for(int i = 0; i < matrixSize; i++) {
             allClassNodes.add(new ClassNode(filePaths[i]));
+            typeDict.put(getType(filePaths[i]), i);
         }
 
         // start connecting the dots
@@ -200,13 +202,7 @@ public class DSMDataStructure {
     }
 
     public DSMDataStructure getSubDSM(String type) {
-        for(int i=0; i < allClassNodes.size(); i++) {
-            String x = Util.getType(allClassNodes.get(i).filePath);
-            if(x.equals(type)) {
-                return getSubDSM(i);
-            }
-        }
-        return null;
+        return getSubDSM(typeDict.getClassIndex(type));
     }
 
     public DSMDataStructure getSubDSM(int classId) {
@@ -269,8 +265,8 @@ public class DSMDataStructure {
         return res.toString();
     }
 
-    public List<String> getPaths() {
-        return allClassNodes.stream().map(c -> c.filePath).collect(Collectors.toList());
+    public List<String> getTypes() {
+        return new ArrayList<String>(typeDict.keySet());
     }
 
 
@@ -319,6 +315,12 @@ public class DSMDataStructure {
         @Override
         public String toString() {
             return "(" + row + "," + col + "," + value + ")";
+        }
+    }
+
+    class TypeDict extends HashMap<String, Integer> {
+        int getClassIndex(String type) {
+            return get(type);
         }
     }
 }

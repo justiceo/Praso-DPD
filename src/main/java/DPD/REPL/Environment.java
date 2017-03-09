@@ -8,7 +8,6 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static DPD.Util.getType;
 import static DPD.Util.isInteger;
 import static DPD.Util.println;
 
@@ -325,8 +324,7 @@ public class Environment {
 
     public void findTypes(String query) {
         String finalQuery = query.toLowerCase();
-        List<String> paths  = dsmQuery.getPaths().stream()
-                .map(Util::getType)
+        List<String> paths  = dsmQuery.getTypes().stream()
                 .filter(ff -> ff.toLowerCase().contains(finalQuery))
                 .collect(Collectors.toList());
         println(paths);
