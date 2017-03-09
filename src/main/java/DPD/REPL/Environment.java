@@ -6,6 +6,9 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 
+import static DPD.Util.isInteger;
+import static DPD.Util.println;
+
 /**
  * Created by Justice on 1/10/2017.
  */
@@ -301,4 +304,15 @@ public class Environment {
 		return result;
 	}
 
+    public void getSubDsm(String typeOrClassIndex) {
+        // if it's all numbers, then it's class Id, check if it exists
+        // if type isn't valid, print potential alternates
+        if(isInteger(typeOrClassIndex)) {
+            int index = Integer.parseInt(typeOrClassIndex);
+            println(dsmQuery.getSubDSM(index));
+        }
+        else {
+            println(dsmQuery.getSubDSM(typeOrClassIndex));
+        }
+    }
 }

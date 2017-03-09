@@ -56,6 +56,8 @@ public class Evaluator {
             case OverwriteStatement:
                 evalBucketStatement(line, StatementType.OverwriteStatement);
                 break;
+            case SubDsmStatement:
+                evalSubDsmStatement(line);
             case Noop:
                 break;
         }
@@ -71,7 +73,8 @@ public class Evaluator {
         if( line.contains("=") ) return StatementType.OverwriteStatement;
         if( line.contains("++") ) return StatementType.PromoteStatement;
         if( line.contains("--") ) return StatementType.DemoteStatement;
-        if( line.contains("Resolve") ) return StatementType.ResolveStatement;
+        if( line.startsWith("Resolve") ) return StatementType.ResolveStatement;
+        if( line.startsWith("SubDsm") ) return StatementType.SubDsmStatement;
         return StatementType.Noop;
     }
 
@@ -86,7 +89,7 @@ public class Evaluator {
         ResolveStatement,
         Noop,
         PrintPocketStatement,
-        OverwriteStatement,
+        OverwriteStatement, SubDsmStatement,
     }
 
     private void evalEntityDeclaration(String line) throws Exception {
@@ -149,6 +152,13 @@ public class Evaluator {
         st.nextToken(); // eat Resolve keyword
         String bucketId = st.nextToken();
         exec.resolveBucket(bucketId);
+    }
+
+    private void evalSubDsmStatement(String line) {
+        Tokenizer st = new Tokenizer(line, delimiters);
+        st.nextToken(); // eat SubDsm keyword
+        String typeOrClassIndex = st.nextToken();
+        exec.getSubDsm(typeOrClassIndex);
     }
 
     private void evalPrintStmt(String line) throws Exception {
