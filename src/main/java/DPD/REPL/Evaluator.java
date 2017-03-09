@@ -58,6 +58,10 @@ public class Evaluator {
                 break;
             case SubDsmStatement:
                 evalSubDsmStatement(line);
+                break;
+            case DsmStatement:
+                evalDsmStatement(line);
+                break;
             case Noop:
                 break;
         }
@@ -75,6 +79,7 @@ public class Evaluator {
         if( line.contains("--") ) return StatementType.DemoteStatement;
         if( line.startsWith("Resolve") ) return StatementType.ResolveStatement;
         if( line.startsWith("SubDsm") ) return StatementType.SubDsmStatement;
+        if( line.startsWith("Dsm") ) return StatementType.DsmStatement;
         return StatementType.Noop;
     }
 
@@ -89,7 +94,9 @@ public class Evaluator {
         ResolveStatement,
         Noop,
         PrintPocketStatement,
-        OverwriteStatement, SubDsmStatement,
+        OverwriteStatement,
+        SubDsmStatement,
+        DsmStatement,
     }
 
     private void evalEntityDeclaration(String line) throws Exception {
@@ -159,6 +166,12 @@ public class Evaluator {
         st.nextToken(); // eat SubDsm keyword
         String typeOrClassIndex = st.nextToken();
         exec.getSubDsm(typeOrClassIndex);
+    }
+
+    private void evalDsmStatement(String line) {
+        Tokenizer st = new Tokenizer(line, delimiters);
+        st.nextToken(); // eat Dsm keyword
+        exec.printDsm();
     }
 
     private void evalPrintStmt(String line) throws Exception {

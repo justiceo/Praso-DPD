@@ -315,4 +315,8 @@ public class Environment {
             println(dsmQuery.getSubDSM(typeOrClassIndex));
         }
     }
+
+    public void printDsm() {
+        println(dsmQuery);
+    }
 }
