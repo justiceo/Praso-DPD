@@ -2,10 +2,13 @@ package DPD.REPL;
 
 import DPD.Browser.EasyDSMQuery;
 import DPD.Model.*;
+import DPD.Util;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
+import static DPD.Util.getType;
 import static DPD.Util.isInteger;
 import static DPD.Util.println;
 
@@ -318,5 +321,14 @@ public class Environment {
 
     public void printDsm() {
         println(dsmQuery);
+    }
+
+    public void findTypes(String query) {
+        String finalQuery = query.toLowerCase();
+        List<String> paths  = dsmQuery.getPaths().stream()
+                .map(Util::getType)
+                .filter(ff -> ff.toLowerCase().contains(finalQuery))
+                .collect(Collectors.toList());
+        println(paths);
     }
 }

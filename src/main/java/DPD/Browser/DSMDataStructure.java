@@ -5,6 +5,7 @@ import DPD.Util;
 
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import static DPD.Util.*;
 
@@ -266,6 +267,10 @@ public class DSMDataStructure {
         }
         while(counter++ < size) res.append("0 ");
         return res.toString();
+    }
+
+    public List<String> getPaths() {
+        return allClassNodes.stream().map(c -> c.filePath).collect(Collectors.toList());
     }
 
 

@@ -59,6 +59,9 @@ public class Evaluator {
             case SubDsmStatement:
                 evalSubDsmStatement(line);
                 break;
+            case FindInterfaceStatement:
+                evalFindInterfaces(line);
+                break;
             case DsmStatement:
                 evalDsmStatement(line);
                 break;
@@ -80,6 +83,7 @@ public class Evaluator {
         if( line.startsWith("Resolve") ) return StatementType.ResolveStatement;
         if( line.startsWith("SubDsm") ) return StatementType.SubDsmStatement;
         if( line.startsWith("Dsm") ) return StatementType.DsmStatement;
+        if( line.startsWith("Find") ) return StatementType.FindInterfaceStatement;
         return StatementType.Noop;
     }
 
@@ -97,6 +101,7 @@ public class Evaluator {
         OverwriteStatement,
         SubDsmStatement,
         DsmStatement,
+        FindInterfaceStatement,
     }
 
     private void evalEntityDeclaration(String line) throws Exception {
@@ -172,6 +177,13 @@ public class Evaluator {
         Tokenizer st = new Tokenizer(line, delimiters);
         st.nextToken(); // eat Dsm keyword
         exec.printDsm();
+    }
+
+    private void evalFindInterfaces(String line) {
+        Tokenizer st = new Tokenizer(line, delimiters);
+        st.nextToken(); // eat Find keyword
+        String query = st.nextToken();
+        exec.findTypes(query);
     }
 
     private void evalPrintStmt(String line) throws Exception {
