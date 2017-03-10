@@ -48,7 +48,7 @@ public class DSMDataStructure {
                 if( !data.equals("0") && data.length() != dependencyTypes.size())
                     throw new IllegalStateException("Invalid data length. Number of exhibited dependencies: " + dependencyTypes.size() + ", data length: " + data.length());
 
-                if( data.length() == 1) continue;
+                if( data.equals("0")) continue;
                 DepNode dn = new DepNode(cells[col], row, col);
                 allClassNodes.get(row).row.add(dn);
                 allClassNodes.get(col).column.add(dn);
