@@ -1,13 +1,12 @@
 package DPD.Browser;
 
 import DPD.Model.DependencyType;
-import DPD.Util;
 
 import java.util.*;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
-import static DPD.Util.*;
+import static DPD.Util.getType;
+import static DPD.Util.list;
 
 /**
  * Created by Justice on 1/3/2017.
@@ -21,11 +20,19 @@ public class DSMDataStructure {
     protected HashMap<DependencyType, Integer> dependencyTypes;
     protected int matrixSize = 0;
     protected TypeDict typeDict = new TypeDict();
+    List<DependencyType> dependencies;
 
     public DSMDataStructure(String[] matrix, String[] filePaths, List<DependencyType> dependencies) {
         if(matrix.length != filePaths.length)
             throw new IllegalArgumentException("matrix size must equal number of files");
         matrixSize = matrix.length;
+
+        // refactor dependency matrix and dependencies if necessary
+        String availableDeps = getAvailableDependencies(matrix, dependencies.size());
+        dependencies = refactorDependencies(dependencies, availableDeps);
+        matrix = refactorMatrix(matrix, availableDeps);
+
+        this.dependencies = dependencies;
         dependencyTypes = new HashMap<>();
         for(int i = 0; i < dependencies.size(); i++) {
             dependencyTypes.put(dependencies.get(i), i);
@@ -54,6 +61,57 @@ public class DSMDataStructure {
                 allClassNodes.get(col).column.add(dn);
             }
         }
+    }
+
+    private String getAvailableDependencies(String[] matrix, int size) {
+        int num = 0;
+        for(String r: matrix) {
+            for(String c: r.split(" ")) {
+                num = num | Integer.parseInt(c.trim(), 2);
+            }
+        }
+        // add front zeros
+        String str = Integer.toBinaryString(num);
+        while(str.length() < size)
+            str = "0" + str;
+
+        return str;
+    }
+
+    // returns all the used dependencies from the old one
+    private List<DependencyType> refactorDependencies(List<DependencyType> dependencies, String available) {
+        List<DependencyType> result = new ArrayList<>();
+        for(int i = 0; i < available.length(); i++) {
+            if(available.charAt(i) == '1')
+                result.add(dependencies.get(i));
+        }
+        return result;
+    }
+
+    private String[] refactorMatrix(String[] matrix, String available) {
+        List<Integer> indices = new ArrayList<>();
+        for(int i = 0; i < available.length(); i++) {
+            if(available.charAt(i) == '1')
+                indices.add(i);
+        }
+        String[] result = new String[matrix.length];
+        for(int i = 0; i < matrix.length; i++) {
+            String[] cells = matrix[i].split(" ");
+            for(int j = 0; j < cells.length; j++) {
+                if(!cells[j].equals("0"))
+                    cells[j] = resize(cells[j], indices);
+            }
+            result[i] = String.join(" ", cells);
+        }
+        return result;
+    }
+
+    private String resize(String original, List<Integer> available) {
+        StringBuilder sb = new StringBuilder();
+        for(int i: available) {
+            sb.append(original.charAt(i));
+        }
+        return sb.toString();
     }
 
     /**
@@ -283,7 +341,7 @@ public class DSMDataStructure {
 
         String[] filePathsArr = new String[filePaths.size()];
         filePaths.toArray(filePathsArr);
-        return new DSMDataStructure(matrix, filePathsArr, list(dependencyTypes.keySet()));
+        return new DSMDataStructure(matrix, filePathsArr, dependencies);
     }
 
     private String expandRowAdj(List<DepNode> row, List<Integer> classIds) {
