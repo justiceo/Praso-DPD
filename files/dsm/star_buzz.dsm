@@ -1,0 +1,64 @@
+[Call,Typed,Import,Extend,Create,Implement]
+31
+0 0 0 0 0 000100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 100000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 000100 0 0 0 0 0 0 0 0 
+0 0 0 011000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 101100 
+0 0 0 0 0 0 0 0 0 0 0 111000 0 0 0 0 111000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 001001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 001001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 001001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+000010 000010 100010 110000 000010 0 000010 0 000010 0 0 0 100010 100010 000010 000010 0 100010 000010 000010 0 000010 0 000010 000010 000010 000010 100010 000010 000010 0 
+0 0 0 100000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 000100 0 0 0 0 0 0 0 0 
+0 0 0 110000 0 0 0 110010 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 001100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 011000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 101100 
+0 0 0 011000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 101100 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 000100 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 000100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 011000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 101100 
+0 0 0 100000 0 0 0 0 0 0 000100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 000100 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 001001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 001001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 001100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 000100 0 0 0 0 0 0 0 0 0 0 
+0 0 0 100000 0 0 0 0 0 0 000100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 100000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 000100 0 0 0 0 0 0 0 0 
+0 0 0 100000 0 0 0 0 0 0 000100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 011000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 101100 
+0 0 0 0 0 000100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 001001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 110100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+D:.Code.IdeaProjects.StarBuzz.src.sizes.TeaSm_java
+D:.Code.IdeaProjects.StarBuzz.src.extras.GreenTea_java
+D:.Code.IdeaProjects.StarBuzz.src.extras.Jasmine_java
+D:.Code.IdeaProjects.StarBuzz.src.starbuzzcore.Beverage_java
+D:.Code.IdeaProjects.StarBuzz.src.recipes.CoffeeDrink_java
+D:.Code.IdeaProjects.StarBuzz.src.sizes.TeaBased_java
+D:.Code.IdeaProjects.StarBuzz.src.recipes.MilkFreeTeaDrink_java
+D:.Code.IdeaProjects.StarBuzz.src.starbuzzcore.Parser_java
+D:.Code.IdeaProjects.StarBuzz.src.extras.RedTea_java
+D:.Code.IdeaProjects.StarBuzz.src.starbuzzcore.Starbuzz_java
+D:.Code.IdeaProjects.StarBuzz.src.extras.CoffeeBeverage_java
+D:.Code.IdeaProjects.StarBuzz.src.interfaces.SizeFactor_java
+D:.Code.IdeaProjects.StarBuzz.src.extras.Ginger_java
+D:.Code.IdeaProjects.StarBuzz.src.extras.WhipCream_java
+D:.Code.IdeaProjects.StarBuzz.src.sizes.CoffeeSm_java
+D:.Code.IdeaProjects.StarBuzz.src.sizes.TeaLg_java
+D:.Code.IdeaProjects.StarBuzz.src.interfaces.Recipe_java
+D:.Code.IdeaProjects.StarBuzz.src.extras.Milk_java
+D:.Code.IdeaProjects.StarBuzz.src.extras.Espresso_java
+D:.Code.IdeaProjects.StarBuzz.src.sizes.CoffeeMed_java
+D:.Code.IdeaProjects.StarBuzz.src.sizes.CoffeeBased_java
+D:.Code.IdeaProjects.StarBuzz.src.recipes.MilkFreeCoffeeDrink_java
+D:.Code.IdeaProjects.StarBuzz.src.extras.TeaBeverage_java
+D:.Code.IdeaProjects.StarBuzz.src.sizes.CoffeeLg_java
+D:.Code.IdeaProjects.StarBuzz.src.extras.HouseBlend_java
+D:.Code.IdeaProjects.StarBuzz.src.extras.WhiteTea_java
+D:.Code.IdeaProjects.StarBuzz.src.extras.Decaf_java
+D:.Code.IdeaProjects.StarBuzz.src.extras.Chocolate_java
+D:.Code.IdeaProjects.StarBuzz.src.sizes.TeaMed_java
+D:.Code.IdeaProjects.StarBuzz.src.recipes.TeaDrink_java
+D:.Code.IdeaProjects.StarBuzz.src.starbuzzcore.Ingredient_java
