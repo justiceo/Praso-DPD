@@ -2,7 +2,7 @@ package DPD;
 
 import DPD.Browser.EasyDSMQuery;
 import DPD.Model.CNode;
-import DPD.Model.DSMFileModel;
+import DPD.Model.DSMModel;
 import DPD.Model.DependencyType;
 import DPD.Model.Entity;
 import DPD.REPL.Evaluator;
@@ -26,7 +26,7 @@ public class REPLTest {
 
     @Before
     public void setup() {
-        DSMFileModel dsm = new DSMFileModel(testDsmFile);
+        DSMModel dsm = DSMModel.parse(testDsmFile);
         List<DependencyType> dependencyTypeList = Util.getDependencyTypes(dsm.exhibitedDependencyLine);
         dsmBrowser = new EasyDSMQuery(dsm.matrixLines, dsm.filePaths, dependencyTypeList);
         repl = new Evaluator(dsmBrowser);

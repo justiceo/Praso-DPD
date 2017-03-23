@@ -1,7 +1,7 @@
 package DPD;
 
 import DPD.Browser.EasyDSMQuery;
-import DPD.Model.DSMFileModel;
+import DPD.Model.DSMModel;
 import DPD.Model.DependencyType;
 import DPD.REPL.ConsoleREPL;
 import DPD.REPL.FileREPL;
@@ -23,7 +23,7 @@ public class Main {
     }
 
     public static void runOnConsole() {
-        DSMFileModel dsm = new DSMFileModel(testDsmFile);
+        DSMModel dsm = DSMModel.parse(testDsmFile);
         List<DependencyType> dependencyTypeList = Util.getDependencyTypes(dsm.exhibitedDependencyLine);
         EasyDSMQuery dsmQuery = new EasyDSMQuery(dsm.matrixLines, dsm.filePaths, dependencyTypeList);
         ConsoleREPL repl = new ConsoleREPL(dsmQuery);
@@ -33,7 +33,7 @@ public class Main {
     public static void runAllFiles() throws InterruptedException {
         File dir = new File("files\\rules\\");
         File[] entries = dir.listFiles();
-        DSMFileModel dsm = new DSMFileModel(testDsmFile);
+        DSMModel dsm = DSMModel.parse(testDsmFile);
         List<DependencyType> dependencyTypeList = Util.getDependencyTypes(dsm.exhibitedDependencyLine);
         EasyDSMQuery dsmQuery = new EasyDSMQuery(dsm.matrixLines, dsm.filePaths, dependencyTypeList);
         for(File f: entries){
@@ -48,7 +48,7 @@ public class Main {
 
     public static void runParticularFile() {
         File f = new File("files\\rules\\composite.dpd");
-        DSMFileModel dsm = new DSMFileModel(testDsmFile);
+        DSMModel dsm = DSMModel.parse(testDsmFile);
         List<DependencyType> dependencyTypeList = Util.getDependencyTypes(dsm.exhibitedDependencyLine);
         EasyDSMQuery dsmQuery = new EasyDSMQuery(dsm.matrixLines, dsm.filePaths, dependencyTypeList);
         System.out.println("Currently executing: " + f.getName());

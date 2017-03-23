@@ -26,7 +26,7 @@ public class BucketConditionTests {
 
     @Before
     public void setup() {
-        DSMFileModel dsm = new DSMFileModel(testDsmFile);
+        DSMModel dsm = DSMModel.parse(testDsmFile);
         List<DependencyType> dependencyTypeList = Util.getDependencyTypes(dsm.exhibitedDependencyLine);
         dsmBrowser = new EasyDSMQuery(dsm.matrixLines, dsm.filePaths, dependencyTypeList);
         repl = new Evaluator(dsmBrowser);
