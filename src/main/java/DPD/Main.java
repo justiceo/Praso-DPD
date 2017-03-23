@@ -7,6 +7,7 @@ import DPD.REPL.ConsoleREPL;
 import DPD.REPL.FileREPL;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 /**
@@ -19,10 +20,11 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         //runAllFiles();
         //runParticularFile();
+
         runOnConsole();
     }
 
-    public static void runOnConsole() {
+    public static void runOnConsole() throws FileNotFoundException {
         DSMModel dsm = DSMModel.parse(testDsmFile);
         List<DependencyType> dependencyTypeList = Util.getDependencyTypes(dsm.exhibitedDependencyLine);
         EasyDSMQuery dsmQuery = new EasyDSMQuery(dsm.matrixLines, dsm.filePaths, dependencyTypeList);
@@ -30,7 +32,7 @@ public class Main {
         repl.start();
     }
 
-    public static void runAllFiles() throws InterruptedException {
+    public static void runAllFiles() throws InterruptedException, FileNotFoundException {
         File dir = new File("files\\rules\\");
         File[] entries = dir.listFiles();
         DSMModel dsm = DSMModel.parse(testDsmFile);
@@ -46,7 +48,7 @@ public class Main {
 
     }
 
-    public static void runParticularFile() {
+    public static void runParticularFile() throws FileNotFoundException {
         File f = new File("files\\rules\\composite.dpd");
         DSMModel dsm = DSMModel.parse(testDsmFile);
         List<DependencyType> dependencyTypeList = Util.getDependencyTypes(dsm.exhibitedDependencyLine);

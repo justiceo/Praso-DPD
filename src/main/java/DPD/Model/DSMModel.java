@@ -5,7 +5,6 @@ import DPD.Util;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.logging.Logger;
 
 /**
  * Created by Justice on 3/20/2016.
@@ -30,15 +29,9 @@ public class DSMModel {
      */
     public String[] matrixLines;
 
-    public static DSMModel parse(String dsmFilePath) {
+    public static DSMModel parse(String dsmFilePath) throws FileNotFoundException {
         DSMModel dsmModel = new DSMModel();
-        Scanner in = null;
-        try {
-            in = new Scanner(new File(dsmFilePath));
-        } catch (FileNotFoundException e) {
-            Logger.getGlobal().severe("Dsm file does not exist: " + dsmFilePath);
-            return null;
-        }
+        Scanner in = new Scanner(new File(dsmFilePath));
 
         dsmModel.exhibitedDependencyLine = in.nextLine();
         int matrixSize = Integer.parseInt(in.nextLine());
