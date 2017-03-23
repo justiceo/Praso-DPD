@@ -17,7 +17,7 @@ public class Main {
 
     private static final String testDsmFile = "files\\dsm\\java-design-patterns.dsm";
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, FileNotFoundException {
         //runAllFiles();
         //runParticularFile();
 
