@@ -11,6 +11,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import static org.junit.Assert.assertTrue;
@@ -25,7 +26,7 @@ public class REPLTest {
     String testDsmFile = "files/test.dsm";
 
     @Before
-    public void setup() {
+    public void setup() throws FileNotFoundException {
         DSMModel dsm = DSMModel.parse(testDsmFile);
         List<DependencyType> dependencyTypeList = Util.getDependencyTypes(dsm.exhibitedDependencyLine);
         dsmBrowser = new EasyDSMQuery(dsm.matrixLines, dsm.filePaths, dependencyTypeList);
