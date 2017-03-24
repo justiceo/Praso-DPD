@@ -1,6 +1,7 @@
 package DPD
 
 import DPD.Model.DependencyType_S
+import Models._
 
 import scala.io.Source
 
@@ -18,7 +19,7 @@ object Main_S {
     files.foreach(println)
   }
 
-  def parse(path: String): (List[(DependencyType_S.Value, Int)], Int, List[Array[(Int, Int)]], List[String]) = {
+  def parse(path: String): (List[DependencyType_S.Value], Int, Matrix, List[String]) = {
     val depLine::countLine::matrix_files = Source.fromFile(path).getLines().toList
     val count = Integer.parseInt(countLine)
 
@@ -35,10 +36,8 @@ object Main_S {
         else l
       })
 
-    val deps = extractDepArray(depLine)
-    val depSize = deps.length - 1
-    val finalDependencyTuple = deps.zipWithIndex.map((t) => (t._1, math.pow(2,depSize-t._2).toInt))
-    (finalDependencyTuple,  // dependency line
+
+    (extractDepArray(depLine),  // dependency line
       count,                    // size of the matrix
       extractDepMatrix(matrix_files.take(count)),   // the matrix parsed
       fixFilePath(matrix_files.takeRight(count)))   // the file paths fixed
