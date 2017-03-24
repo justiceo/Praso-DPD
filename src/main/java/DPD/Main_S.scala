@@ -1,6 +1,6 @@
 package DPD
 
-import DPD.Browser.{DSMDataStructure, DSMDataStructure_S}
+import DPD.Browser.DSMDataStructure_S
 import DPD.Model.DependencyType_S
 import Models._
 
@@ -20,14 +20,14 @@ object Main_S {
   }
 
   def parse(path: String): (List[DependencyType_S.Value], Int, Matrix, List[String]) = {
-    val depLine::countLine::matrix_files = Source.fromFile(path).getLines().toList
+    val depLine :: countLine :: matrix_files = Source.fromFile(path).getLines().toList
     val count = Integer.parseInt(countLine)
 
     def extractDepArray(arg: String): List[DependencyType_S.Value] =
       arg.replace("[", "").replace("]", "").split(",").map(x => DependencyType_S.withName(x.trim.toUpperCase)).toList
 
     def extractDepMatrix(lines: List[String]): List[Array[(Int, Int)]] =
-      lines.map(l => l.split(" ").map(c => Integer.parseInt(c,2)).zipWithIndex.filter(t => t._1 != 0))
+      lines.map(l => l.split(" ").map(c => Integer.parseInt(c, 2)).zipWithIndex.filter(t => t._1 != 0))
 
     def fixFilePath(paths: List[String]): List[String] =
       paths.map(l => {
@@ -37,9 +37,9 @@ object Main_S {
       })
 
 
-    (extractDepArray(depLine),  // dependency line
-      count,                    // size of the matrix
-      extractDepMatrix(matrix_files.take(count)),   // the matrix parsed
-      fixFilePath(matrix_files.takeRight(count)))   // the file paths fixed
+    (extractDepArray(depLine), // dependency line
+      count, // size of the matrix
+      extractDepMatrix(matrix_files.take(count)), // the matrix parsed
+      fixFilePath(matrix_files.takeRight(count))) // the file paths fixed
   }
 }
