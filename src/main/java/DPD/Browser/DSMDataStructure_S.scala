@@ -38,8 +38,13 @@ class DSMDataStructure_S(val dependencies: List[DependencyType_S.Value],
   def updateIndices(matrix: Matrix, originalOrder: List[Int]): Matrix =
     matrix.map(_.map((t) => (t._1, originalOrder.indexOf(t._2))))
 
-  def expandMatrix: Matrix = expandMatrix(adjMatrix)
+  def getUsedDependencies: List[DependencyType_S.Value] = getUsedDependencies(adjMatrix, dependencies)
+  def getUsedDependencies(matrix: Matrix, dependencies: List[DependencyType_S.Value]): List[DependencyType_S.Value] = {
+    val used = Integer.toBinaryString(matrix.flatten.map((t) => t._1).reduce((a,b) => a | b))
+    dependencies.zipWithIndex.collect { case t if used.charAt(t._2) == '1' => t._1 }
+  }
 
+  def expandMatrix: Matrix = expandMatrix(adjMatrix)
   def expandMatrix(matrix: Matrix): Matrix = matrix.map(arr => {
     val (el, indices) = arr.unzip
     Array.range(0, matrix.size).map(i => {
