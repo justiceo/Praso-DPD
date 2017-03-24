@@ -43,4 +43,8 @@ object Implicits {
 
     def getEntity(key: String) = hmap.get(key)
   }
+
+  implicit class _List(list: List[String]) {
+    def reduceWith(separator: String): String = list.reduce((a,b) => a + separator + b)
+  }
 }

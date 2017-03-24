@@ -1,5 +1,6 @@
 package DPD
 
+import DPD.Browser.{DSMDataStructure, DSMDataStructure_S}
 import DPD.Model.DependencyType_S
 import Models._
 
@@ -14,9 +15,11 @@ object Main_S {
   def main(args: Array[String]): Unit = {
     val (dependencies, count, adjMatrix, files) = parse(testDsmFile)
 
+    val dsm = new DSMDataStructure_S(dependencies, adjMatrix, files)
     println("dependendies", dependencies)
-    adjMatrix.foreach(arr => {arr.foreach(print); println})
-    files.foreach(println)
+    //adjMatrix.foreach(arr => {arr.foreach(print); println})
+    //files.foreach(println)
+    println(dsm)
   }
 
   def parse(path: String): (List[DependencyType_S.Value], Int, Matrix, List[String]) = {

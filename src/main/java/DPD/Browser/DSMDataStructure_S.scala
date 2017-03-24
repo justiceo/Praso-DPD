@@ -2,6 +2,7 @@ package DPD.Browser
 
 import DPD.Model.DependencyType_S
 import Models._
+import DPD.Model.Implicits._
 
 /**
   * Created by Justice on 3/23/2017.
@@ -36,11 +37,7 @@ class DSMDataStructure_S (val dependencies: List[DependencyType_S.Value],
         else (0 to diff).map(_ => "0").reduce((a,b) => a+b) + s
       }).reduce((a,b) => a + " " + b))
 
-    // generate (0,0) to (0,n) tuples, then map and insert data, then flatten numbers, reduce numbers
-    // flatten the matrix to string
-
-    s"${getDepLine} \n$size \n${files.reduce((a,b)=> a+"\n"+b)}"
-
+    s"${getDepLine} \n$size \n${flattenMatrix(expandMatrix).reduceWith("\n")} \n${files.reduceWith("\n")}"
   }
 
 
