@@ -1,5 +1,7 @@
 package DPD.Model
 
+import Models.Matrix
+
 /**
   * Created by Justice on 3/23/2017.
   */
@@ -45,6 +47,7 @@ object Implicits {
   }
 
   implicit class _List(list: List[String]) {
-    def reduceWith(separator: String): String = list.reduce((a,b) => a + separator + b)
+    def join(separator: String = ""): String = list.reduce((a, b) => a + separator + b)
   }
+
 }
