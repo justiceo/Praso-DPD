@@ -8,7 +8,7 @@ import scala.io.Source
   * Created by Justice on 3/23/2017.
   */
 object Main_S {
-  val testDsmFile = "files\\dsm\\java-design-patterns.dsm"
+  val testDsmFile = "files\\dsm\\simpleObserverPattern.dsm"
 
   def main(args: Array[String]): Unit = {
     val (dependencies, count, adjMatrix, files) = parse(testDsmFile)
@@ -18,7 +18,7 @@ object Main_S {
     files.foreach(println)
   }
 
-  def parse(path: String): (List[DependencyType_S.Value], Int, List[Array[(Int, Int)]], List[String]) = {
+  def parse(path: String): (List[(DependencyType_S.Value, Int)], Int, List[Array[(Int, Int)]], List[String]) = {
     val depLine::countLine::matrix_files = Source.fromFile(path).getLines().toList
     val count = Integer.parseInt(countLine)
 
@@ -35,7 +35,10 @@ object Main_S {
         else l
       })
 
-    (extractDepArray(depLine),  // dependency line
+    val deps = extractDepArray(depLine)
+    val depSize = deps.length - 1
+    val finalDependencyTuple = deps.zipWithIndex.map((t) => (t._1, math.pow(2,depSize-t._2).toInt))
+    (finalDependencyTuple,  // dependency line
       count,                    // size of the matrix
       extractDepMatrix(matrix_files.take(count)),   // the matrix parsed
       fixFilePath(matrix_files.takeRight(count)))   // the file paths fixed
