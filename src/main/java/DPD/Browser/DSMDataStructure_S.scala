@@ -20,15 +20,20 @@ class DSMDataStructure_S (val dependencies: List[DependencyType_S.Value],
   def subDsm(classId: Int): String = {
     val classes = (classId::dependents(classId) ++ dependencies(classId)).distinct.sorted
     val newMatrix: Matrix = adjMatrix.zipWithIndex.collect{ case t if classes.contains(t._2) => t._1}
-                        .map(arr => arr.collect{ case a if classes.contains(a._2) => a })
+                        .map(arr => arr.collect{ case c if classes.contains(c._2) => c })
     newMatrix.map(arr => arr.map(t => t._2).toString).toString()
-    flattenMatrix(newMatrix).join("\n")
+    flattenMatrix(expandMatrix(updateIndices(newMatrix, classes))).join("\n")
   }
+
+  def rawString(matrix: Matrix): String = matrix.map(arr => {arr.map(_.toString()).join()}).join("\n")
 
   override def toString: String =
     s"${getDepLine} \n$size \n${flattenMatrix(expandMatrix).join("\n")} \n${files.join("\n")}"
 
   def getDepLine: String = "[" + dependencies.map(_ toString).join(",") + "]"
+
+  def updateIndices(matrix: Matrix, originalOrder: List[Int]): Matrix =
+      matrix.map(_.map((t) => (t._1, originalOrder.indexOf(t._2))))
 
   def expandMatrix: Matrix = expandMatrix(adjMatrix)
   def expandMatrix(matrix: Matrix): Matrix = matrix.map(arr => {
@@ -46,6 +51,4 @@ class DSMDataStructure_S (val dependencies: List[DependencyType_S.Value],
       if(s.equals("0") || diff == 0) s
       else (0 until diff).map(_ => "0").reduce((a,b) => a+b) + s
     }).reduce((a,b) => a + " " + b))
-
-
 }

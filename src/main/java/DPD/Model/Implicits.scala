@@ -50,4 +50,8 @@ object Implicits {
     def join(separator: String = ""): String = list.reduce((a, b) => a + separator + b)
   }
 
+  implicit class _Array(array: Array[String]) {
+    def join(separator: String = ""): String = array.reduce((a, b) => a + separator + b)
+  }
+
 }
