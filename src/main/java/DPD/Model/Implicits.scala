@@ -54,12 +54,28 @@ object Implicits {
     def join(separator: String = ""): String = array.reduce((a, b) => a + separator + b)
   }
 
+  // flattens the matrix by including row data alongsize after column in a list
+  implicit class _Matrix(matrix: Matrix) {
+    // converts List[Array[(data, colIndex)]] to List[(data, colIndex, rowIndex)]
+    def trio: List[(Int, Int Int)] = matrix.zipWithIndex.map((t) => t._1.map(d => (d._1, d._2, t._2) )).flatten
+  }
+
   implicit class _DSMDataStructure_S(dsmDs: _DSMDataStructure_S) {
     def findTypes(types: String*): List[String] =
       dsmDs.files.filter(f => types.exists(f.contains))
 
     //(classId, size)
     def keyInterface: (Int, Int) = dsmDs.adjMatrix.flatten.collect { case t => t._1 != 0 => t._2 }.groupBy(i => i).mapValues(_.size).maxBy(_._2)      
+  
+    def dependency(dep: DependencyType): List[(Int, Int)] = {
+      val bitmask = math.pow(2, dsmDs.dependencies.size - dsmDs.dependencies.indexOf(dep) - 1);
+      dsmDs.adjMatrix.trio.collect { case t => t._1 & bitmask => (t._2, t._3)}
+    }
+    
+    def dependency(deps: DependencyType*): List[(Int, Int)] = {
+      val bitmask = deps.map(dsmDs.toBinaryMask).reduceLeft(_|_)
+      dsmDs.adjMatrix.trio.collect { case t => t._1 & bitmask => (t._2, t._3)}
+    }
   }
 
 }

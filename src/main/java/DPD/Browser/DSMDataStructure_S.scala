@@ -78,4 +78,6 @@ class DSMDataStructure_S(val dependencies: List[DependencyType_S.Value],
       if (s.equals("0") || diff == 0) s
       else (0 until diff).map(_ => "0").reduce((a, b) => a + b) + s
     }).reduce((a, b) => a + " " + b))
+
+  def toBinaryMask(dep: DependencyType_S): Int = math.pow(2, dependencies.size - 1 - dependencies.indexOf(dep))
 }
