@@ -80,4 +80,13 @@ class DSMDataStructure_S(val dependencies: List[DependencyType_S.Value],
     }).reduce((a, b) => a + " " + b))
 
   def toBinaryMask(dep: DependencyType_S): Int = math.pow(2, dependencies.size - 1 - dependencies.indexOf(dep))
+
+  def getType(classId: Int): String = {
+    val cuttoff = files(classId).lastIndexOf("\\")
+    files(classId).subString(cuttoff)
+  }
+
+  def sourceRoot: String = files.reduce((a,b) => a.zip(b).takeWhile(Function.tupled(_ == _)).map((_._1).mkString
+
+  def getFQType(classId: Int): String = files(classId).replace(sourceRoot, "")
 }
