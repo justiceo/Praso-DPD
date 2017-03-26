@@ -54,4 +54,12 @@ object Implicits {
     def join(separator: String = ""): String = array.reduce((a, b) => a + separator + b)
   }
 
+  implicit class _DSMDataStructure_S(dsmDs: _DSMDataStructure_S) {
+    def findTypes(types: String*): List[String] =
+      dsmDs.files.filter(f => types.exists(f.contains))
+
+    //(classId, size)
+    def keyInterface: (Int, Int) = dsmDs.adjMatrix.flatten.collect { case t => t._1 != 0 => t._2 }.groupBy(i => i).mapValues(_.size).maxBy(_._2)      
+  }
+
 }
