@@ -12,6 +12,7 @@ class DSMDataStructure_S(val dependencies: List[DependencyType_S.Value],
                          val files: List[String]) {
 
   val size: Int = adjMatrix.length
+  lazy val sourceRoot: String = files.reduce((a,b) => a.zip(b).takeWhile(Function.tupled(_ == _)).map((_._1).mkString
 
   //def dependents2(classId: Int): List[Int] = adjMatrix.zipWithIndex.filter((t) => t._1.exists(c => c._2 == classId)).map(t => t._2)
   def dependents(classId: Int): List[Int] = adjMatrix.zipWithIndex.collect { case t if t._1.exists(c => c._2 == classId) => t._2 }
@@ -85,8 +86,6 @@ class DSMDataStructure_S(val dependencies: List[DependencyType_S.Value],
     val cuttoff = files(classId).lastIndexOf("\\")
     files(classId).subString(cuttoff)
   }
-
-  def sourceRoot: String = files.reduce((a,b) => a.zip(b).takeWhile(Function.tupled(_ == _)).map((_._1).mkString
 
   def getFQType(classId: Int): String = files(classId).replace(sourceRoot, "")
 }
