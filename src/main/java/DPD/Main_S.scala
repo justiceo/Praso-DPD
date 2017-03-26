@@ -42,4 +42,8 @@ object Main_S {
       extractDepMatrix(matrix_files.take(count)), // the matrix parsed
       fixFilePath(matrix_files.takeRight(count))) // the file paths fixed
   }
+
+  def export(dsm: DSMDataStructure_S, filepath: String = "export.dsm"): String =
+      new PrintWriter(filepath) { write(dsm.toString); close }
+  
 }
