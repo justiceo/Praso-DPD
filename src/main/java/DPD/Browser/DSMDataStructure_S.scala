@@ -33,9 +33,7 @@ class DSMDataStructure_S(val dependencies: List[DependencyType_S.Value],
     //flattenMatrix(expandMatrix(updateIndices(newMatrix, classes))).join("\n")
   }
 
-  def rawString(matrix: Matrix): String = matrix.map(arr => {
-    arr.map(_.toString()).join()
-  }).join("\n")
+  def rawString(matrix: Matrix = adjMatrix): String = matrix.map(_.map(_.toString).mkString).mkString("\n")
 
   def refactorMatrix(matrix: Matrix, deps: List[Int]): Matrix =
     matrix.map(_.map((t) => {
@@ -44,9 +42,8 @@ class DSMDataStructure_S(val dependencies: List[DependencyType_S.Value],
     }
     ))
 
-
   override def toString: String =
-    s"${getDepLine} \n$size \n${flattenMatrix(expandMatrix).join("\n")} \n${files.join("\n")}"
+    s"$getDepLine \n$size \n${flattenMatrix(expandMatrix()).join("\n")} \n${files.join("\n")}"
 
   def getDepLine: String = "[" + dependencies.map(_ toString).join(",") + "]"
 
@@ -65,9 +62,7 @@ class DSMDataStructure_S(val dependencies: List[DependencyType_S.Value],
     used.zipWithIndex.collect { case c if c._1 == '1' => c._2 }.toList
   }
 
-  def expandMatrix: Matrix = expandMatrix(adjMatrix)
-
-  def expandMatrix(matrix: Matrix): Matrix = matrix.map(arr => {
+  def expandMatrix(matrix: Matrix = adjMatrix): Matrix = matrix.map(arr => {
     val (el, indices) = arr.unzip
     Array.range(0, matrix.size).map(i => {
       if (indices.contains(i))

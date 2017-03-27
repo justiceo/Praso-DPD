@@ -4,6 +4,7 @@ import java.io.PrintWriter
 
 import DPD.Browser.DSMDataStructure_S
 import DPD.Model.DependencyType_S
+import DPD.Model.Implicits._
 import Models._
 
 import scala.io.Source
@@ -19,6 +20,8 @@ object Main_S {
 
     val dsm = new DSMDataStructure_S(dependencies, adjMatrix, files)
     println("dependendies", dependencies)
+    println(dsm.rawString())
+    println(dsm.adjMatrix.trio)
   }
 
   def parse(path: String): (List[DependencyType_S.Value], Int, Matrix, List[String]) = {
