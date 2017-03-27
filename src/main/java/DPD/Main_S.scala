@@ -1,5 +1,7 @@
 package DPD
 
+import java.io.PrintWriter
+
 import DPD.Browser.DSMDataStructure_S
 import DPD.Model.DependencyType_S
 import Models._
@@ -43,7 +45,11 @@ object Main_S {
       fixFilePath(matrix_files.takeRight(count))) // the file paths fixed
   }
 
-  def export(dsm: DSMDataStructure_S, filepath: String = "export.dsm"): String =
-      new PrintWriter(filepath) { write(dsm.toString); close }
-  
+  def export(dsm: DSMDataStructure_S, filepath: String = "export.dsm"): Boolean = {
+    new PrintWriter(filepath) {
+      write(dsm.toString)
+      close()
+    }
+    true
+  }
 }

@@ -12,7 +12,7 @@ class DSMDataStructure_S(val dependencies: List[DependencyType_S.Value],
                          val files: List[String]) {
 
   val size: Int = adjMatrix.length
-  lazy val sourceRoot: String = files.reduce((a,b) => a.zip(b).takeWhile(Function.tupled(_ == _)).map((_._1).mkString
+  lazy val sourceRoot: String = files.reduce((a,b) => a.zip(b).takeWhile((t) => t._1 == t._2).map(_._1).mkString)
 
   //def dependents2(classId: Int): List[Int] = adjMatrix.zipWithIndex.filter((t) => t._1.exists(c => c._2 == classId)).map(t => t._2)
   def dependents(classId: Int): List[Int] = adjMatrix.zipWithIndex.collect { case t if t._1.exists(c => c._2 == classId) => t._2 }
@@ -26,7 +26,7 @@ class DSMDataStructure_S(val dependencies: List[DependencyType_S.Value],
     //newMatrix.map(arr => arr.map(t => t._2).toString).toString()
     val depIndices = getIndexUsedDependencies(newMatrix)
     new DSMDataStructure_S(
-      dependencies.zipWithIndex.collect{ case t if depIndices.contains(t._2) => t._1 }
+      dependencies.zipWithIndex.collect{ case t if depIndices.contains(t._2) => t._1 },
       refactorMatrix(newMatrix, depIndices),
       files.zipWithIndex.collect{ case t if classes.contains(t._2) => t._1 }
     )
@@ -37,13 +37,13 @@ class DSMDataStructure_S(val dependencies: List[DependencyType_S.Value],
     arr.map(_.toString()).join()
   }).join("\n")
 
-  def refactorMatrix(matrix: Matrix, deps: List[Int]]): Matrix = {
+  def refactorMatrix(matrix: Matrix, deps: List[Int]): Matrix =
     matrix.map(_.map((t) => {
-      if(t._1 != 0)
-        Integer.parseInt(t._1.toBinaryString.zipWithIndex.collect { case c if deps.contains(c._2) => c._1}.join())
-      else t._1
-    }))
-  }
+      val newDep = t._1.toBinaryString.zipWithIndex.collect { case c if deps.contains(c._2) => c._1}
+      (Integer.parseInt(newDep.mkString), t._2)
+    }
+     ))
+
 
   override def toString: String =
     s"${getDepLine} \n$size \n${flattenMatrix(expandMatrix).join("\n")} \n${files.join("\n")}"
@@ -80,12 +80,28 @@ class DSMDataStructure_S(val dependencies: List[DependencyType_S.Value],
       else (0 until diff).map(_ => "0").reduce((a, b) => a + b) + s
     }).reduce((a, b) => a + " " + b))
 
-  def toBinaryMask(dep: DependencyType_S): Int = math.pow(2, dependencies.size - 1 - dependencies.indexOf(dep))
+  def toBinaryMask(dep: DependencyType_S.Value): Int = math.pow(2, dependencies.size - 1 - dependencies.indexOf(dep)).toInt
 
   def getType(classId: Int): String = {
     val cuttoff = files(classId).lastIndexOf("\\")
-    files(classId).subString(cuttoff)
+    files(classId).substring(cuttoff)
   }
 
   def getFQType(classId: Int): String = files(classId).replace(sourceRoot, "")
+
+  def findTypes(types: String*): List[String] =
+    files.filter(f => types.exists(f.contains))
+
+  //(classId, size)
+  def keyInterface: (Int, Int) = adjMatrix.flatten.map(t => t._2).groupBy(i => i).mapValues(_.size).maxBy(_._2)
+
+  def dependency(dep: DependencyType_S.Value): List[(Int, Int)] = {
+    val bitmask = math.pow(2, dependencies.size - dependencies.indexOf(dep) - 1).toInt
+    adjMatrix.trio.collect { case t if (t._1 & bitmask) > 0 => (t._2, t._3)}
+  }
+
+  def dependency(deps: DependencyType_S.Value*): List[(Int, Int)] = {
+    val bitmask = deps.map(toBinaryMask).reduceLeft(_|_)
+    adjMatrix.trio.collect { case t if (t._1 & bitmask) > 0 => (t._2, t._3)}
+  }
 }
