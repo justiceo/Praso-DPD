@@ -43,9 +43,9 @@ class DSMDataStructure_S(val dependencies: List[DependencyType_S.Value],
     ))
 
   override def toString: String =
-    s"$getDepLine \n$size \n${flattenMatrix(expandMatrix()).join("\n")} \n${files.join("\n")}"
+    s"$getDepLine \n$size \n${flattenMatrix(expandMatrix()).mkString("\n")} \n${files.mkString("\n")}"
 
-  def getDepLine: String = "[" + dependencies.map(_ toString).join(",") + "]"
+  def getDepLine: String = dependencies.map(_ toString).mkString("[", ",", "]")
 
   def updateIndices(matrix: Matrix, originalOrder: List[Int]): Matrix =
     matrix.map(_.map((t) => (t._1, originalOrder.indexOf(t._2))))

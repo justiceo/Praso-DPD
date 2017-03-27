@@ -47,14 +47,6 @@ object Implicits {
     def getEntity(key: String) = hmap.get(key)
   }
 
-  implicit class _List(list: List[String]) {
-    def join(separator: String = ""): String = list.reduce((a, b) => a + separator + b)
-  }
-
-  implicit class _Array(array: Array[String]) {
-    def join(separator: String = ""): String = array.reduce((a, b) => a + separator + b)
-  }
-
   // flattens the matrix by including row data alongsize after column in a list
   implicit class _Matrix(matrix: Matrix) {
     // converts List[Array[(data, colIndex)]] to List[(data, colIndex, rowIndex)]
