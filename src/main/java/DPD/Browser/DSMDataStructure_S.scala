@@ -86,6 +86,6 @@ class DSMDataStructure_S(val dependencyTypes: List[DependencyType_S.Value],
 
   def dependencyPair(deps: DependencyType_S.Value*): List[(Int, Int)] = {
     val bitmask = deps.map(toBinaryMask).reduceLeft(_ | _)
-    adjMatrix.trio.collect { case t if (t._1 & bitmask) > 0 => (t._3, t._2) }
+    adjMatrix.trio.collect { case t if (t._1 & bitmask) == bitmask => (t._3, t._2) }
   }
 }
