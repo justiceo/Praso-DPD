@@ -32,6 +32,9 @@ class DSMDataStructure_S(val dependencyTypes: List[DependencyType_S.Value],
       used.zipWithIndex.collect { case c if c._1 == '1' => c._2 }.toList
     }
 
+    def updateIndices(matrix: Matrix, originalOrder: List[Int]): Matrix =
+      matrix.map(_.map((t) => (t._1, originalOrder.indexOf(t._2))))
+
     val classes = (classId :: dependents(classId) ++ dependencies(classId)).distinct.sorted
     val newMatrix: Matrix = adjMatrix.zipWithIndex.collect { case t if classes.contains(t._2) => t._1 }
       .map(arr => arr.collect { case c if classes.contains(c._2) => c })
@@ -42,20 +45,14 @@ class DSMDataStructure_S(val dependencyTypes: List[DependencyType_S.Value],
       refactorMatrix(newMatrix, depIndices),
       files.zipWithIndex.collect { case t if classes.contains(t._2) => t._1 }
     )
-    //flattenMatrix(expandMatrix(updateIndices(newMatrix, classes))).join("\n")
   }
 
-  def rawString(matrix: Matrix = adjMatrix): String = matrix.map(_.map(_.toString).mkString).mkString("\n")
+  def matrixStr(matrix: Matrix = adjMatrix): String = matrix.map(_.map(_.toString).mkString).mkString("\n")
 
-
-
-  override def toString: String =
-    s"$getDepLine \n$size \n${flattenMatrix(expandMatrix()).mkString("\n")} \n${files.mkString("\n")}"
-
-  def getDepLine: String = dependencyTypes.map(_ toString).mkString("[", ",", "]")
-
-  def updateIndices(matrix: Matrix, originalOrder: List[Int]): Matrix =
-    matrix.map(_.map((t) => (t._1, originalOrder.indexOf(t._2))))
+  override def toString: String = {
+    val depLine = dependencyTypes.map(_ toString).mkString("[", ",", "]")
+    s"$depLine \n$size \n${flattenMatrix(expandMatrix()).mkString("\n")} \n${files.mkString("\n")}"
+  }
 
   def expandMatrix(matrix: Matrix = adjMatrix): Matrix = matrix.map(arr => {
     val (el, indices) = arr.unzip
@@ -70,7 +67,7 @@ class DSMDataStructure_S(val dependencyTypes: List[DependencyType_S.Value],
     adjMatrix.map(_.map((t) => Integer.toBinaryString(t._1)).map(s => {
       val diff = dependencyTypes.size - s.length
       if (s.equals("0") || diff == 0) s
-      else (0 until diff).map(_ => "0").reduce((a, b) => a + b) + s
+      else (0 until diff).map(_ => "0").mkString("") + s
     }).reduce((a, b) => a + " " + b))
 
   def toBinaryMask(dep: DependencyType_S.Value): Int = math.pow(2, dependencyTypes.size - 1 - dependencyTypes.indexOf(dep)).toInt
