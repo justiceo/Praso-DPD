@@ -75,3 +75,6 @@ todo:
 implement unify e1
 modify the tests to new system
 make more rigorous
+
+export and view in titan
+test on more patterns
