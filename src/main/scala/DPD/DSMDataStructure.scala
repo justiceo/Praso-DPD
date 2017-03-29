@@ -73,7 +73,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
 
   def getType(classId: Int): String = {
     val cuttoff = files(classId).lastIndexOf("\\")
-    files(classId).substring(cuttoff)
+    files(classId).substring(cuttoff+1).replace(".java", "")
   }
 
   def getFQType(classId: Int): String = files(classId).replace(sourceRoot, "")
