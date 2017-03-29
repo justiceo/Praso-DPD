@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'scala'
 
 group = 'dpd'
 version = '1.0-SNAPSHOT'
