@@ -15,7 +15,7 @@ lazy val root = (project in file(".")).
 
 lazy val fixPaths = taskKey[Unit]("Fixes the file paths in DSM files")
 fixPaths := {
-  def fixFilePaths(dsmFilePath: String): List[String] = {    
+  def fixFilePaths(dsmFilePath: String) = {    
     def fix(path: String): String = 
         if (path.endsWith("_java"))
           path.replace(".", "\\").replace("_", ".")
@@ -29,12 +29,12 @@ fixPaths := {
       write(newLines.mkString("\n"))
       close()
     }
-    newLines
-  }  
+  }
+
+  // fix dsms in Main
+  (new File("src\\main\\resources\\dsm")).listFiles.filter(_.isFile).map(_.getAbsolutePath).foreach(fixFilePaths)
 
   // fix dsms in Test
-  (new File("src\\test\\resources\\")).listFiles.filter(_.isFile).map(_.getAbsolutePath).foreach(fixFilePaths)
-  //println(x)
-  //x.map(_.getAbsolutePath).foreach(f => { println(f); fixFilePaths(f)})
-
+  (new File("src\\test\\resources\\dsm")).listFiles.filter(_.isFile).map(_.getAbsolutePath).foreach(fixFilePaths)
+  
 }
