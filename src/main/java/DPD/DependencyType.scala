@@ -3,7 +3,7 @@ package DPD
 /**
  * Created by Justice on 3/23/2017.
  */
-object DependencyType_S extends Enumeration {
+object DependencyType extends Enumeration {
     val
     TYPED,
     USE,

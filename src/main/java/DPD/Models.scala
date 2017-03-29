@@ -2,10 +2,10 @@
   * Created by Justice on 3/24/2017.
   */
 
-import DPD.DependencyType_S
+import DPD.DependencyType
 
 package object Models {
   type Matrix = List[Array[(Int, Int)]]
-  type DependencyTypes = List[DependencyType_S.Value]
+  type DependencyTypes = List[DependencyType.Value]
 }
 
