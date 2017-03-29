@@ -14,8 +14,7 @@ object Main {
   val testDsmFile = "src\\main\\resources\\dsm\\simpleObserverPattern.dsm"
 
   def main(args: Array[String]): Unit = {
-    fixFilePaths("src\\test\\resources\\test.dsm")
-    
+    println("Welcome to Praso-DPD")
   }
 
   def parse(path: String): (List[DependencyType.Value], Int, Matrix, List[String]) = {

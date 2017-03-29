@@ -6,7 +6,7 @@ import scala.io.Source
 
 class DSMDataStructureSpec extends FlatSpec with Matchers {
 
-    lazy val testDsmFile = "src\\test\\resources\\test.dsm"
+    lazy val testDsmFile = "src\\test\\resources\\dsm\\test.dsm"
     lazy val (dependencies, count, adjMatrix, files) = Main.parse(testDsmFile)
     lazy val dsmDS = new DSMDataStructure(dependencies, adjMatrix, files)
 
