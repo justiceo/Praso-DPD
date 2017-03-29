@@ -50,7 +50,7 @@ object Implicits {
   // flattens the matrix by including row data alongsize after column in a list
   implicit class _Matrix(matrix: Matrix) {
     // converts List[Array[(data, colIndex)]] to List[(data, colIndex, rowIndex)]
-    def trio: List[(Int, Int, Int)] = matrix.zipWithIndex.flatMap((t) => t._1.map(d => (d._1, d._2, t._2)))
+    lazy val trio: List[(Int, Int, Int)] = matrix.zipWithIndex.flatMap((t) => t._1.map(d => (d._1, d._2, t._2)))
   }
 
 }

@@ -10,7 +10,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
                        val adjMatrix: Matrix,
                        val files: List[String]) {
 
-  val size: Int = adjMatrix.length
+  lazy val size: Int = adjMatrix.length
   lazy val sourceRoot: String = files.reduce((a, b) => a.zip(b).takeWhile((t) => t._1 == t._2).map(_._1).mkString)
 
   //def dependents2(classId: Int): List[Int] = adjMatrix.zipWithIndex.filter((t) => t._1.exists(c => c._2 == classId)).map(t => t._2)
