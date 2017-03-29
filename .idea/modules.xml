@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DPD.iml" filepath="$PROJECT_DIR$/DPD.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DPD.iml" filepath="$PROJECT_DIR$/.idea/modules/DPD.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DPD_main.iml" filepath="$PROJECT_DIR$/.idea/modules/DPD_main.iml" group="DPD" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DPD_test.iml" filepath="$PROJECT_DIR$/.idea/modules/DPD_test.iml" group="DPD" />
     </modules>
   </component>
 </project>
