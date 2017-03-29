@@ -2,20 +2,17 @@ package DPD
 
 import Models.Matrix
 import org.scalatest._
+import scala.io.Source
 
 class DSMDataStructureSpec extends FlatSpec with Matchers {
 
-    lazy val fixture = new {
-        val dependencies: List[DependencyType.Value] = List(DependencyType.EXTEND, DependencyType.USE)
-        val matrix: Matrix = List(Array((1,0)), Array((1,1)))
-        val files: List[String] = List("d:/code/file/test.java", "d:/code/file/another.java")
-    }
+    lazy val testDsmFile = "src\\test\\resources\\test.dsm"
+    lazy val (dependencies, count, adjMatrix, files) = Main.parse(testDsmFile)
+    lazy val dsmDS = new DSMDataStructure(dependencies, adjMatrix, files)
 
-    lazy val dsm = new DSMDataStructure(fixture.dependencies, fixture.matrix, fixture.files)
-
-    "The Hello Object" should "say hello" in {
-        val f = fixture
-        val dsmDS = new DSMDataStructure(f.dependencies, f.matrix, f.files)
-        "hello" shouldEqual "hello"
+    "toString" should "return original dsm file input" in {
+        val dsmStr = dsmDS.toString.split("\n").toList.map(_.trim.toUpperCase)
+        val original = Source.fromFile(testDsmFile).getLines().toList.map(_.trim.toUpperCase)
+        dsmStr shouldEqual original
     }
 }

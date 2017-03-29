@@ -43,7 +43,7 @@ object Main {
     (extractDepArray(depLine), // dependency line
       count, // size of the matrix
       extractDepMatrix(matrix_files.take(count)), // the matrix parsed
-      fixFilePath(matrix_files.takeRight(count))) // the file paths fixed
+      matrix_files.takeRight(count)) // the file paths fixed
   }
 
   def export(dsm: DSMDataStructure, filepath: String = "export.dsm"): Boolean = {
