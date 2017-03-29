@@ -14,12 +14,8 @@ object Main {
   val testDsmFile = "src\\main\\resources\\dsm\\simpleObserverPattern.dsm"
 
   def main(args: Array[String]): Unit = {
-    val (dependencies, count, adjMatrix, files) = parse(testDsmFile)
-
-    val dsm = new DSMDataStructure(dependencies, adjMatrix, files)
-    println("dependendies", dependencies)
-    println(dsm)
-    println(dsm.adjMatrix.trio)
+    fixFilePaths("src\\test\\resources\\test.dsm")
+    
   }
 
   def parse(path: String): (List[DependencyType.Value], Int, Matrix, List[String]) = {
@@ -31,14 +27,6 @@ object Main {
 
     def extractDepMatrix(lines: List[String]): List[Array[(Int, Int)]] =
       lines.map(l => l.split(" ").map(c => Integer.parseInt(c, 2)).zipWithIndex.filter(t => t._1 != 0))
-
-    def fixFilePath(paths: List[String]): List[String] =
-      paths.map(l => {
-        if (l.endsWith("_java"))
-          l.replace(".", "\\").replace("_", ".")
-        else l
-      })
-
 
     (extractDepArray(depLine), // dependency line
       count, // size of the matrix
@@ -53,4 +41,22 @@ object Main {
     }
     true
   }
+
+  def fixFilePaths(dsmFilePath: String): List[String] = {    
+    def fix(path: String): String = 
+        if (path.endsWith("_java"))
+          path.replace(".", "\\").replace("_", ".")
+        else path
+    val (depLine :: countLine :: matrix_files) = Source.fromFile(dsmFilePath).getLines().toList
+    val count = Integer.parseInt(countLine)
+    val matrix = matrix_files.take(count)
+    val files = matrix_files.takeRight(count).map(fix)
+    val newLines: List[String] = depLine :: (countLine :: matrix ++ files)
+    new PrintWriter(dsmFilePath) {
+      write(newLines.mkString("\n"))
+      close()
+    }
+    newLines
+  }
+
 }
