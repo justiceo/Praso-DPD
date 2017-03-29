@@ -13,7 +13,7 @@ import scala.io.Source
   * Created by Justice on 3/23/2017.
   */
 object Main_S {
-  val testDsmFile = "resources\\dsm\\simpleObserverPattern.dsm"
+  val testDsmFile = "src\\main\\resources\\dsm\\simpleObserverPattern.dsm"
 
   def main(args: Array[String]): Unit = {
     val (dependencies, count, adjMatrix, files) = parse(testDsmFile)
