@@ -6,7 +6,7 @@ import scala.io.Source
 
 class DSMDataStructureSpec extends FlatSpec with Matchers {
 
-    lazy val testDsmFile = "src\\test\\resources\\dsm\\test.dsm"
+    lazy val testDsmFile = "src\\test\\resources\\dsm\\observer-test.dsm"
     lazy val (dependencies, count, adjMatrix, files) = Main.parse(testDsmFile)
     lazy val dsmDS = new DSMDataStructure(dependencies, adjMatrix, files)
 
@@ -21,6 +21,23 @@ class DSMDataStructureSpec extends FlatSpec with Matchers {
 
     it should "have a sourceRoot that matches path up till package names" in {
         dsmDS.sourceRoot shouldEqual "D:\\Code\\IdeaProjects\\DesignPatterns\\src\\CommonPatterns\\observer\\"
+    }
+
+    "keyInterface" should "return (top interface, dependency count) when called without args" in {
+        dsmDS.keyInterface() shouldEqual List((1,4))
+    }
+
+    it should "return the same data when called with a count of 1" in {
+        dsmDS.keyInterface(1) shouldEqual List((1,4))
+    }
+
+    it should "return an empty list when called with 0" in {
+        dsmDS.keyInterface(0) shouldEqual List()
+    }
+
+    it should "return the keyInterface with the next inorder interface when there is no mode" in {
+        // data set is unsuitable for this test, as there is only one group where all classes fall into
+        //dsmDS.keyInterface(2) shouldEqual List((1,4), (0,0))
     }
 
 

@@ -81,7 +81,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   def findTypes(types: String*): List[String] =
     files.filter(f => types.exists(f.contains))
 
-  def keyInterface(top: Int): List[(Int, Int)] = adjMatrix.flatten.map(_._2).groupBy(i => i).mapValues(_.size).toList.sortBy(_._2).reverse.take(2)
+  def keyInterface(top: Int = 1): List[(Int, Int)] = adjMatrix.flatten.map(_._2).groupBy(i => i).mapValues(_.size).toList.sortBy(_._2).reverse.take(top)
 
   def dependencyPair(deps: DependencyType.Value*): List[(Int, Int)] = {
     val bitmask = deps.map(toBinaryMask).reduceLeft(_ | _)
