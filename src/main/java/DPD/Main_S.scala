@@ -2,7 +2,7 @@ package DPD
 
 import java.io.PrintWriter
 
-import DPD.Browser.DSMDataStructure_S
+import DPD.DSMDataStructure_S
 import DPD.DependencyType_S
 import DPD.Implicits._
 import Models._
@@ -20,7 +20,7 @@ object Main_S {
 
     val dsm = new DSMDataStructure_S(dependencies, adjMatrix, files)
     println("dependendies", dependencies)
-    println(dsm.rawString())
+    println(dsm)
     println(dsm.adjMatrix.trio)
   }
 
