@@ -1,4 +1,4 @@
-package DPD.Model
+package DPD
 
 import Models.Matrix
 

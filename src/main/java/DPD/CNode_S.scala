@@ -1,4 +1,4 @@
-package DPD.Model
+package DPD
 
 /**
   * Created by Justice on 3/23/2017.

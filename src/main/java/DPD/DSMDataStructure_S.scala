@@ -1,7 +1,7 @@
-package DPD.Browser
+package DPD
 
-import DPD.Model.DependencyType_S
-import DPD.Model.Implicits._
+import DPD.DependencyType_S
+import DPD.Implicits._
 import Models._
 
 /**
