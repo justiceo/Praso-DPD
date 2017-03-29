@@ -1,6 +1,5 @@
 package DPD
 
-import DPD.DependencyType
 import DPD.Implicits._
 import Models._
 

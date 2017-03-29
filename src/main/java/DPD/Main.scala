@@ -2,8 +2,6 @@ package DPD
 
 import java.io.PrintWriter
 
-import DPD.DSMDataStructure
-import DPD.DependencyType
 import DPD.Implicits._
 import Models._
 
