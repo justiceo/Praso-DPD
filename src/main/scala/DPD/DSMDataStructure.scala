@@ -83,6 +83,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
 
   def keyInterface(top: Int = 1): List[(Int, Int)] = adjMatrix.flatten.map(_._2).groupBy(i => i).mapValues(_.size).toList.sortBy(_._2).reverse.take(top)
 
+  def namedKeyInterfaces(top: Int = 1) = keyInterface(top).map(t => getType(t._1))
   def dependencyPair(deps: DependencyType.Value*): List[(Int, Int)] = {
     val bitmask = deps.map(toBinaryMask).reduceLeft(_ | _)
     adjMatrix.trio.collect { case t if (t._1 & bitmask) == bitmask => (t._3, t._2) }
