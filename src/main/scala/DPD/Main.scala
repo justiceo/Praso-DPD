@@ -41,22 +41,4 @@ object Main {
     }
     true
   }
-
-  def fixFilePaths(dsmFilePath: String): List[String] = {    
-    def fix(path: String): String = 
-        if (path.endsWith("_java"))
-          path.replace(".", "\\").replace("_", ".")
-        else path
-    val (depLine :: countLine :: matrix_files) = Source.fromFile(dsmFilePath).getLines().toList
-    val count = Integer.parseInt(countLine)
-    val matrix = matrix_files.take(count)
-    val files = matrix_files.takeRight(count).map(fix)
-    val newLines: List[String] = depLine :: (countLine :: matrix ++ files)
-    new PrintWriter(dsmFilePath) {
-      write(newLines.mkString("\n"))
-      close()
-    }
-    newLines
-  }
-
 }

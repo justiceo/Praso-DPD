@@ -5,8 +5,8 @@
 0 110 0 0 0 
 0 110 0 0 0 
 0 001 0 0 0 
-D:.Code.IdeaProjects.DesignPatterns.src.CommonPatterns.observer.ConcreteObserverB_java
-D:.Code.IdeaProjects.DesignPatterns.src.CommonPatterns.observer.IObserver_java
-D:.Code.IdeaProjects.DesignPatterns.src.CommonPatterns.observer.SubjectA_java
-D:.Code.IdeaProjects.DesignPatterns.src.CommonPatterns.observer.SubjectB_java
-D:.Code.IdeaProjects.DesignPatterns.src.CommonPatterns.observer.ConcreteObserverA_java
+D:\Code\IdeaProjects\DesignPatterns\src\CommonPatterns\observer\ConcreteObserverB.java
+D:\Code\IdeaProjects\DesignPatterns\src\CommonPatterns\observer\IObserver.java
+D:\Code\IdeaProjects\DesignPatterns\src\CommonPatterns\observer\SubjectA.java
+D:\Code\IdeaProjects\DesignPatterns\src\CommonPatterns\observer\SubjectB.java
+D:\Code\IdeaProjects\DesignPatterns\src\CommonPatterns\observer\ConcreteObserverA.java
