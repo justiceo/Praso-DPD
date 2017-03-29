@@ -52,3 +52,7 @@ fabric.properties
 DPD.iml
 .idea/
 build/
+
+
+# scala
+target/
