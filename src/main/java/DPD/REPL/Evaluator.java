@@ -5,12 +5,9 @@ import DPD.Model.BucketResult;
 import DPD.Model.DependencyType;
 import DPD.Util;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static DPD.Util.println;
 
 /**
  * Created by Justice on 1/10/2017.
@@ -68,6 +65,12 @@ public class Evaluator {
             case DsmStatement:
                 evalDsmStatement(line);
                 break;
+            case ClassId:
+                evalClassId(line);
+                break;
+            case Export:
+                evalExport(line);
+                break;
             case Noop:
                 break;
         }
@@ -87,6 +90,8 @@ public class Evaluator {
         if( line.startsWith("SubDsm") ) return StatementType.SubDsmStatement;
         if( line.startsWith("Dsm") ) return StatementType.DsmStatement;
         if( line.startsWith("Find") ) return StatementType.FindInterfaceStatement;
+        if (line.startsWith("ClassId")) return StatementType.ClassId;
+        if (line.startsWith("Export")) return StatementType.Export;
         return StatementType.Noop;
     }
 
@@ -105,6 +110,8 @@ public class Evaluator {
         SubDsmStatement,
         DsmStatement,
         FindInterfaceStatement,
+        ClassId,
+        Export,
     }
 
     private void evalEntityDeclaration(String line) throws Exception {
@@ -201,5 +208,19 @@ public class Evaluator {
         st.nextToken(); // eat print keyword
         String objectId = st.nextToken();
         exec.printByPocket(objectId);
+    }
+
+    private void evalClassId(String line) throws Exception {
+        Tokenizer st = new Tokenizer(line, delimiters);
+        st.nextToken(); // eat classId keyword
+        String query = st.nextToken();
+        exec.getClassId(query);
+    }
+
+    private void evalExport(String line) {
+        Tokenizer st = new Tokenizer(line, delimiters);
+        st.nextToken(); // eat export keyword
+        String[] query = st.rest();
+        exec.export(query);
     }
 }

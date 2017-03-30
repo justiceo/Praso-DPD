@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DPD.iml" filepath="$PROJECT_DIR$/DPD.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dpd-v4.iml" filepath="$PROJECT_DIR$/.idea/modules/dpd-v4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dpd-v4-build.iml" filepath="$PROJECT_DIR$/.idea/modules/dpd-v4-build.iml" />
     </modules>
   </component>
 </project>

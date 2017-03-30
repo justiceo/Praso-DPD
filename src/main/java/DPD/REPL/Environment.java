@@ -2,9 +2,10 @@ package DPD.REPL;
 
 import DPD.Browser.EasyDSMQuery;
 import DPD.Model.*;
-import DPD.Util;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -332,5 +333,23 @@ public class Environment {
                 .filter(ff -> ff.toLowerCase().contains(finalQuery))
                 .collect(Collectors.toList());
         println(paths);
+    }
+
+    public void getClassId(String type) {
+        println(dsmQuery.getClassId(type));
+    }
+
+    public void export(String[] type) {
+
+        try{
+            // Create file
+            FileWriter fstream = new FileWriter("export-dsm.txt");
+            BufferedWriter out = new BufferedWriter(fstream);
+            out.write(dsmQuery.getSubDSM(type).toString());
+            //Close the output stream
+            out.close();
+        }catch (Exception e){//Catch exception if any
+            System.err.println("Error: " + e.getMessage());
+        }
     }
 }

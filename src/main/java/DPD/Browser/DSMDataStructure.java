@@ -271,6 +271,10 @@ public class DSMDataStructure {
         return getSubDSM(arr);
     }
 
+    public int getClassId(String type) {
+        return typeDict.getClassIndex(type);
+    }
+
     public DSMDataStructure getSubDSM(int classId) {
         ClassNode cn = allClassNodes.get(classId);
         HashSet<Integer> classSet = new HashSet<>();

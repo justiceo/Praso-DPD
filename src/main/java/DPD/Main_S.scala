@@ -20,7 +20,6 @@ object Main_S {
 
     val dsm = new DSMDataStructure_S(dependencies, adjMatrix, files)
     println("dependendies", dependencies)
-    println(dsm.rawString())
     println(dsm.adjMatrix.trio)
   }
 
