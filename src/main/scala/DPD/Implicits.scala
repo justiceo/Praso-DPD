@@ -6,7 +6,7 @@ import Models.Matrix
   * Created by Justice on 3/23/2017.
   */
 object Implicits {
-
+/*
   implicit class _Entity(hmap: Map[Int, CNode_S]) {
     def promoteAll(): Map[Int, CNode_S] = hmap.mapValues(c => new CNode_S(c.classId, c.pocket + 1, c.score))
 
@@ -46,7 +46,7 @@ object Implicits {
 
     def getEntity(key: String) = hmap.get(key)
   }
-
+*/
   // flattens the matrix by including row data alongsize after column in a list
   implicit class _Matrix(matrix: Matrix) {
     // converts List[Array[(data, colIndex)]] to List[(data, colIndex, rowIndex)]
