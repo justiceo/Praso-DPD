@@ -1,0 +1,28 @@
+[CAST, CREATE, TYPED, USE, CALL, EXTEND]
+13
+0 0 0 0 0 0 011001 001001 0 0 0 010100 0
+0 0 0 0 0 0 0 0 0 0 0 0 001000
+0 010110 0 0 0 0 0 0 0 0 0 0 010000
+0 0 011001 0 000001 011001 011001 000001 0 0 0 0 0
+0 0 0 0 0 0 0 0 0 000100 0 0 0
+0 010110 0 0 0 0 0 0 0 111000 0 0 010000
+0 010110 0 0 0 0 0 0 111000 0 0 0 010000
+0 0 0 0 0 0 0 0 000100 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 000100
+0 0 0 0 0 0 0 0 0 0 0 0 000100
+0 0 0 0 001001 011001 0 0 0 0 0 010100 0
+0 011000 0 0 0 0 0 0 0 0 0 0 001000
+0 0 0 0 0 0 0 0 0 0 0 0 0
+D:\Code\Open Source Projects\java-design-patterns\bridge\src\test\java\com\iluwatar\bridge\SoulEatingMagicWeaponTest.java
+D:\Code\Open Source Projects\java-design-patterns\bridge\src\main\java\com\iluwatar\bridge\MagicWeapon.java
+D:\Code\Open Source Projects\java-design-patterns\bridge\src\main\java\com\iluwatar\bridge\FlyingMagicWeapon.java
+D:\Code\Open Source Projects\java-design-patterns\bridge\src\main\java\com\iluwatar\bridge\App.java
+D:\Code\Open Source Projects\java-design-patterns\bridge\src\main\java\com\iluwatar\bridge\Excalibur.java
+D:\Code\Open Source Projects\java-design-patterns\bridge\src\main\java\com\iluwatar\bridge\BlindingMagicWeapon.java
+D:\Code\Open Source Projects\java-design-patterns\bridge\src\main\java\com\iluwatar\bridge\SoulEatingMagicWeapon.java
+D:\Code\Open Source Projects\java-design-patterns\bridge\src\main\java\com\iluwatar\bridge\Stormbringer.java
+D:\Code\Open Source Projects\java-design-patterns\bridge\src\main\java\com\iluwatar\bridge\SoulEatingMagicWeaponImpl.java
+D:\Code\Open Source Projects\java-design-patterns\bridge\src\main\java\com\iluwatar\bridge\BlindingMagicWeaponImpl.java
+D:\Code\Open Source Projects\java-design-patterns\bridge\src\test\java\com\iluwatar\bridge\BlindingMagicWeaponTest.java
+D:\Code\Open Source Projects\java-design-patterns\bridge\src\test\java\com\iluwatar\bridge\MagicWeaponTest.java
+D:\Code\Open Source Projects\java-design-patterns\bridge\src\main\java\com\iluwatar\bridge\MagicWeaponImpl.java

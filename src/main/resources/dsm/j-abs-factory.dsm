@@ -1,0 +1,18 @@
+[CREATE, TYPED, IMPLEMENT, CALL]
+8
+0 0 0100 0100 0100 0 0001 0 
+0010 0 1100 1100 1100 0010 0100 1110 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0100 0100 0100 0 0001 0 
+0 0 0100 0100 0100 0 0 0 
+0010 0 1100 1100 1100 0010 1100 0 
+D:\Code\Open Source Projects\java-design-patterns\abstract-factory\src\main\java\com\iluwatar\abstractfactory\ElfKingdomFactory.java
+D:\Code\Open Source Projects\java-design-patterns\abstract-factory\src\test\java\com\iluwatar\abstractfactory\AbstractFactoryTest.java
+D:\Code\Open Source Projects\java-design-patterns\abstract-factory\src\main\java\com\iluwatar\abstractfactory\Army.java
+D:\Code\Open Source Projects\java-design-patterns\abstract-factory\src\main\java\com\iluwatar\abstractfactory\Castle.java
+D:\Code\Open Source Projects\java-design-patterns\abstract-factory\src\main\java\com\iluwatar\abstractfactory\King.java
+D:\Code\Open Source Projects\java-design-patterns\abstract-factory\src\main\java\com\iluwatar\abstractfactory\OrcKingdomFactory.java
+D:\Code\Open Source Projects\java-design-patterns\abstract-factory\src\main\java\com\iluwatar\abstractfactory\KingdomFactory.java
+D:\Code\Open Source Projects\java-design-patterns\abstract-factory\src\main\java\com\iluwatar\abstractfactory\App.java
