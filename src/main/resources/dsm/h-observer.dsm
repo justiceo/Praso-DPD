@@ -1,0 +1,18 @@
+[CAST, CREATE, TYPED, USE, CALL, IMPLEMENT]
+8
+0 0 0 111100 0 0 000001 0
+011010 0 011010 011010 011010 0 0 0
+0 0 0 111100 0 0 000001 0
+0 0 0 0 0 0 0 0
+0 0 0 111100 0 0 000001 0
+011010 0 011010 011010 011010 0 0 011010
+0 0 0 0 0 0 0 0
+0 0 0 111100 0 0 000001 0
+D:\Code\Github\Head-First-Design-Patterns\src\headfirst\designpatterns\observer\weatherobservable\ForecastDisplay.java
+D:\Code\Github\Head-First-Design-Patterns\src\headfirst\designpatterns\observer\weatherobservable\WeatherStation.java
+D:\Code\Github\Head-First-Design-Patterns\src\headfirst\designpatterns\observer\weatherobservable\StatisticsDisplay.java
+D:\Code\Github\Head-First-Design-Patterns\src\headfirst\designpatterns\observer\weatherobservable\WeatherData.java
+D:\Code\Github\Head-First-Design-Patterns\src\headfirst\designpatterns\observer\weatherobservable\CurrentConditionsDisplay.java
+D:\Code\Github\Head-First-Design-Patterns\src\headfirst\designpatterns\observer\weatherobservable\WeatherStationHeatIndex.java
+D:\Code\Github\Head-First-Design-Patterns\src\headfirst\designpatterns\observer\weatherobservable\DisplayElement.java
+D:\Code\Github\Head-First-Design-Patterns\src\headfirst\designpatterns\observer\weatherobservable\HeatIndexDisplay.java
