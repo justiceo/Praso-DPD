@@ -1,5 +1,6 @@
 package FuncDsm
 import scala.io.Source
+import scala.collection.mutable.ListBuffer
 import DPD._
 
 // read all lines in file
@@ -15,21 +16,21 @@ import DPD._
 
 object FuncDsm {
 
-    case class Csv(caller: String, line: Int, dependency: DependencyType.Value, caller: String)
+    case class Csv(caller: String, line: Int, dependency: DependencyType.Value, callee: String)
 
-    def main(args: Array[String]) = {
+    def main(args: Array[String]): Unit = {
         println("hello main works");
     }
 
     def run(file: String) = {
         val lines = Source.fromFile(file).getLines();
-        val csv: List[Csv] = lines.map(tokenize); 
+        val csv: List[Csv] = lines.map(l => tokenize(l)).toList; 
         verifyCsv(csv); 
         val dependencies: List[DependencyType.Value] = csv.map(_.dependency).distinct.sorted
-        val grouped = csv.map(l => (l.caller, dependencies.indexOf(l.dependency), csv.indexOf(l.callee))).groupBy(_ => _.caller)
-        val files = grouped.keySet()
+        val grouped = csv.map(l => (l.caller, dependencies.indexOf(l.dependency), csv.indexOf(l.callee))).groupBy(_._1)
+        val files = grouped.keys.toList
         val matrix = grouped.map(t => serialize(t._2, dependencies.size))
-        val dsm = dependencies.mkString(",") + "\n" + files.count + "\n" + matrix.mkString("\n") + files.makString("\n")
+        val dsm = dependencies.mkString(",") + "\n" + files.size + "\n" + matrix.mkString("\n") + files.mkString("\n")
         println(dsm)
     }
 
@@ -38,14 +39,14 @@ object FuncDsm {
     }
 
     def tokenize(line: String): Csv = {
-        val tokens = List();
-        val iter = line.iterator();
-        var sb = new StringBuilder();
+        val tokens = ListBuffer[String]();
+        val iter = line.iterator
+        var sb = new StringBuilder()
         while(iter.hasNext) {
-            val ch = iter.next();
+            var ch = iter.next()
             if(ch == ",") {
-                tokens.add(sb.toString);
-                sb = new StringBuilder();
+                tokens += (sb.toString)
+                sb = new StringBuilder()
             }
             else if(ch == "(") {
                 while(ch != ")") {
@@ -56,16 +57,16 @@ object FuncDsm {
             }
             else sb.append(ch);
         }
-        Csv(tokens(0), tokens(1), tokens(2), tokens(3));
+        return Csv(tokens(0), tokens(1).toInt, DependencyType.withName(tokens(2)), tokens(3));
     }
 
     def verifyCsv(csvList: List[Csv]): Unit = {
         //all callees must end with ")"
         //all callers must end start with "D:Code",
         //the other two, Line and Dependency would throw an initialization exception otherwise
-        if (! csvList.map(_.callee).every(_.endsWith(")")) ) 
-            throw new FormatException("all callees must end with ')'")
-        if (! csvList.map(_.callee).every(_.beginsWith("D:/Code")) ) 
-            throw new FormatException("all callers must begin with 'D:/Code'")
+        if (csvList.map(_.callee).exists(s => s.endsWith(")")) ) 
+            throw new Exception("all callees must end with ')'")
+        if (csvList.map(_.callee).exists(s => !s.startsWith("D:/Code")) ) 
+            throw new Exception("all callers must begin with 'D:/Code'")
     }
 }
