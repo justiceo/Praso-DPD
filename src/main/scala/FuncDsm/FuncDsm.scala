@@ -29,11 +29,21 @@ object FuncDsm {
         val csv: List[Csv] = lines.toList.tail.map(l => tokenize(l))
         verifyCsv(csv)
         val dependencies: List[DependencyType.Value] = csv.map(_.dependsOnType).distinct.sorted
-        val grouped = csv.map(l => (l.function, dependencies.indexOf(l.dependsOnType), getCsvIndex(csv, l.dependsOnFunction))).groupBy(_._1)
-        val files = grouped.keys.toList
-        val matrix = grouped.map(t => serialize(t._2, dependencies.size, files.size))
-        val dsm = dependencies.mkString(",") + "\n" + files.size + "\n" + matrix.mkString("\n") + files.mkString("\n")
-        println(dsm)
+        // thin down to csv to only the three essential components
+        val thinned: List[(String, Int, String)] = csv.map(l => (l.function, dependencies.indexOf(l.dependsOnType), l.dependsOnFunction))
+        // group the thinned version by functions and preserve order
+        val grouped: Map[String, List[(String, Int, String)]] = thinned.groupBy(_._1)
+        // extract the functions only
+        val functions = grouped.keys.toList.sorted
+        // extract the dependsOnFunctions and add if not exists
+        // because functions that have zero dependencies but have dependents should also be here
+
+        // merge the two lists and sort
+
+        println(functions.mkString("\n"))
+        //val matrix = grouped.map(t => serialize(t._2, dependencies.size, files.size))
+        //val dsm = dependencies.mkString(",") + "\n" + files.size + "\n" + matrix.mkString("\n") + files.mkString("\n")
+        //println(dsm)
     }
 
     def getCsvIndex(csvList: List[Csv], func: String): Int = {
