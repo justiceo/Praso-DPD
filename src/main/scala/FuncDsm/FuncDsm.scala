@@ -24,13 +24,47 @@ object FuncDsm {
         run("D:\\Code\\IdeaProjects\\DPD\\src\\main\\resources\\func-dependency.csv")
     }
 
+    def fixDependsOn(hostfunc: String, dependsOnFunction: String, dependsOnFile: String): String = {
+        // units the file and function into one for better matching
+        // convert D:\Code\sample.java to D:.Code.sample
+        val trimmedFile = dependsOnFile.replace(".java", "").replace("\\", ".")
+        val funcPrefix =
+            if (dependsOnFunction.indexOf(".") > -1)
+                dependsOnFunction.substring(0, dependsOnFunction.indexOf("."))
+            else dependsOnFunction
+        val pkgPrefix = hostfunc.substring(0, hostfunc.indexOf("."))
+        // remove everything before package prefix
+        val depFunc =
+            if(trimmedFile.indexOf(pkgPrefix) > -1)
+                trimmedFile.substring(trimmedFile.indexOf(pkgPrefix))
+            else trimmedFile
+
+        // if the dep function already end's with class name, replace it with full function
+        if(depFunc.endsWith(funcPrefix)) {
+            val cut = depFunc.lastIndexOf(funcPrefix)
+            depFunc.substring(cut) + dependsOnFunction
+        }
+        // otherwise append it
+        else depFunc + "." + dependsOnFunction
+    }
+
+    def noargs(function: String): String = {
+        // removes the args (*) from a function and returns it
+        // basically masks function overloads
+        if(function.contains('(')) {
+            function.substring(0, function.indexOf('('))
+        }
+        else function
+    }
+
     def run(file: String) = {
         val lines = Source.fromFile(file).getLines()
         val csv: List[Csv] = lines.toList.tail.map(l => tokenize(l))
         verifyCsv(csv)
         val dependencies: List[DependencyType.Value] = csv.map(_.dependsOnType).distinct.sorted
+
         // thin down to csv to only the three essential components
-        val thinned: List[(String, Int, String)] = csv.map(l => (l.function, dependencies.indexOf(l.dependsOnType), l.dependsOnFunction))
+        val thinned: List[(String, Int, String)] = csv.map(l => (noargs(l.function), dependencies.indexOf(l.dependsOnType), fixDependsOn(l.function, l.dependsOnFunction, l.dependsOnFile)))
         // group the thinned version by functions and preserve order
         val grouped: Map[String, List[(String, Int, String)]] = thinned.groupBy(_._1)
         // extract the functions only
@@ -40,10 +74,10 @@ object FuncDsm {
 
         // merge the two lists and sort
 
-        println(functions.mkString("\n"))
-        //val matrix = grouped.map(t => serialize(t._2, dependencies.size, files.size))
-        //val dsm = dependencies.mkString(",") + "\n" + files.size + "\n" + matrix.mkString("\n") + files.mkString("\n")
-        //println(dsm)
+        //println(functions.mkString("\n"))
+        val matrix = grouped.map(t => serialize(t._2, dependencies.size, functions.size))
+        val dsm = dependencies.mkString(",") + "\n" + functions.size + "\n" + matrix.mkString("\n") + functions.mkString("\n")
+        println(dsm)
     }
 
     def getCsvIndex(csvList: List[Csv], func: String): Int = {
@@ -53,7 +87,7 @@ object FuncDsm {
     }
 
 
-    def serialize(csv: List[(String, Int, Int)], depSize: Int, fileSize: Int): String = {
+    def serialize(csv: List[(String, Int, String)], depSize: Int, fileSize: Int): String = {
         val depfuncs = csv.map(t => t._3);
         (0 to fileSize).toList.map(_ => "0").zipWithIndex.map(t => {
             if(depfuncs.contains(t._2)) {
