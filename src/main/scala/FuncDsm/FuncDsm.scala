@@ -87,8 +87,10 @@ object FuncDsm {
     }
 
 
+    // given the number of total number of functions, the size of dependency string,
+    // generate a dependency binary string "0010" for a function againt the other functions
     def serialize(csv: List[(String, Int, String)], depSize: Int, fileSize: Int): String = {
-        val depfuncs = csv.map(t => t._3);
+        val depfuncs = csv.map(t => t._3)
         (0 to fileSize).toList.map(_ => "0").zipWithIndex.map(t => {
             if(depfuncs.contains(t._2)) {
                 "11111"
