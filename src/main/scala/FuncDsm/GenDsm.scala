@@ -9,10 +9,10 @@ class GenDsm(csvList: List[FuncDsm.Csv]) {
 
     val packagePrefix:String =  dotPrefix(csvList.head.function)
     val dependencies:List[DependencyType.Value] = csvList.map(_.dependsOnType).distinct.sorted
-    val zeroDep = (0 until dependencies.size).toList.map(_ => "0").mkString
+    val zeroDep = dependencies.indices.toList.map(_ => "0").mkString
     val dependsOnFunction = csvList.map(t => fqfunction(t.dependsOnFunction, t.dependsOnFile))
     lazy val functions = (csvList.map(_.function) ::: dependsOnFunction).map(noargs).distinct.sorted 
-    lazy val zeroDepFunc: List[String] = (0 until functions.size).toList.map(_ => "0")
+    lazy val zeroDepFunc: List[String] = functions.indices.toList.map(_ => "0")
     
     // group all the csvList by function
     val thinned: List[(String, String, String)] = csvList.map(t => (noargs(t.function), depString(t.dependsOnType), fqfunction(t.dependsOnFunction, t.dependsOnFile)))

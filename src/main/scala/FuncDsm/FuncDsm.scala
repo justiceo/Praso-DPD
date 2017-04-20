@@ -2,6 +2,7 @@ package FuncDsm
 import scala.io.Source
 import scala.collection.mutable.ListBuffer
 import DPD._
+import java.io._
 
 // read all lines in file
 // use tokenizer to break up into csv columns
@@ -19,13 +20,20 @@ object FuncDsm {
     case class Csv(function: String, file:String, line: Int, dependsOnFunction: String, dependsOnType: DependencyType.Value, dependsOnFile: String)
 
     def main(args: Array[String]): Unit = {
-        val genDsm = new GenDsm(getCsvFromFile(getFilePath("simpleProject.csv")))
-        println(genDsm.printStr)
+        genDsm(getFilePath("simpleProject.csv"))
+    }
+
+    def genDsm(file: String): Unit = {
+        val genDsm = new GenDsm(getCsvFromFile(file))
+        val pw = new PrintWriter(new File(file + ".dsm"))
+        println(genDsm.printStr + "\n" + file)
+        pw.write(genDsm.printStr)
+        pw.close()
     }
     
     def getFilePath(file: String): String = getClass.getClassLoader.getResource(file).getPath
 
-    def getCsvFromFile(file: String) = {
+    def getCsvFromFile(file: String): List[Csv] = {
         val lines = Source.fromFile(file).getLines()
         lines.toList.tail.map(l => tokenize(l))
     }    
