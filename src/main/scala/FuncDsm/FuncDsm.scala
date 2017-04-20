@@ -21,7 +21,7 @@ object FuncDsm {
     def main(args: Array[String]): Unit = {
         println("hello main works")
         println(tokenize("org.apache.commons.compress.AbstractTestCase.addArchiveEntry(ArchiveOutputStream out,String filename,File infile),D:\\Code\\Tools\\art_tools\\scripts\\dump\\commons-compress\\src\\test\\java\\org\\apache\\commons\\compress\\AbstractTestCase.java,214,ArchiveOutputStream.createArchiveEntry,Call,D:\\Code\\Tools\\art_tools\\scripts\\dump\\commons-compress\\src\\main\\java\\org\\apache\\commons\\compress\\archivers\\ArchiveOutputStream.java"))
-        run("D:\\Code\\IdeaProjects\\DPD\\src\\main\\resources\\func-dependency.csv")
+        run(getClass.getClassLoader.getResource("func-dependency.csv").getPath)
     }
 
     def fixDependsOn(hostfunc: String, dependsOnFunction: String, dependsOnFile: String): String = {
