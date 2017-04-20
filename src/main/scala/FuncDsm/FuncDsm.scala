@@ -21,7 +21,7 @@ object FuncDsm {
     def main(args: Array[String]): Unit = {
         val genDsm = new GenDsm(getCsvFromFile(getFilePath("simpleProject.csv")))
         println(genDsm.printStr)
-        println("\n" + genDsm.zeroDep)
+        println("\n" + genDsm.funcs_with_dep)
         //run(getFilePath("func-dependency.csv"))
     }
     

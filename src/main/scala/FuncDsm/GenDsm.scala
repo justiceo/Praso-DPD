@@ -9,12 +9,32 @@ class GenDsm(csvList: List[FuncDsm.Csv]) {
 
     val packagePrefix:String =  dotPrefix(csvList.head.function)
     val dependencies:List[DependencyType.Value] = csvList.map(_.dependsOnType).distinct.sorted
-    val zeroDep = (0 until dependencies.size).toList.map(_ => "0").mkString("")
+    val zeroDep = (0 until dependencies.size).toList.map(_ => "0").mkString
     val dependsOnFunction = csvList.map(t => fqfunction(t.dependsOnFunction, t.dependsOnFile))
     lazy val functions = (csvList.map(_.function) ::: dependsOnFunction).map(noargs).distinct.sorted 
-
+    lazy val zeroDepFunc: List[String] = (0 until functions.size).toList.map(_ => "0")
     // group all the csvList by function
-    val matrix = "0 0 0 0"
+    val thinned: List[(String, String, String)] = csvList.map(t => (noargs(t.function), depString(t.dependsOnType), fqfunction(t.dependsOnFunction, t.dependsOnFile)))
+    val grouped: Map[String, List[(String, String, String)]] = thinned.groupBy(_._1)
+    val funcs_with_dep = grouped.keys.toList
+
+    val matrix = functions.map(f => {
+        // if it exists, then it has dependencies
+        if(funcs_with_dep.contains(f)) {
+            var zerod = zeroDepFunc.toArray
+            grouped.get(f) match {
+                case Some(a) => { a.foreach(t => {
+                        val index = functions.indexOf(t._3)
+                        zerod(index) = t._2
+                    }) 
+                }
+                case None => throw new Exception("list shouldn't be empty'")
+            }
+            zerod.mkString(" ")
+        }
+        // otherwise, it doesn't, print zeros
+        else zeroDepFunc.mkString(" ")
+    })
 
     // transforms "function(Type arg)" to "function" 
     // basically masks function overloads
@@ -26,9 +46,9 @@ class GenDsm(csvList: List[FuncDsm.Csv]) {
     // given a dependencyType return it's string
     def depString(dep:DependencyType.Value):String = {
         val index = dependencies.indexOf(dep)
-        var rep = zeroDep.toArray;
-        rep(index)= 1;
-        rep.mkString;
+        var rep = zeroDep.toArray
+        rep(index)= '1'
+        rep.mkString
     }
     // given a package prefix, function and it's file
     // returns the combined universal identifier for the function
