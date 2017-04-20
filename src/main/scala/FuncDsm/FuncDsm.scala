@@ -19,10 +19,13 @@ object FuncDsm {
     case class Csv(function: String, file:String, line: Int, dependsOnFunction: String, dependsOnType: DependencyType.Value, dependsOnFile: String)
 
     def main(args: Array[String]): Unit = {
-        println("hello main works")
-        println(tokenize("org.apache.commons.compress.AbstractTestCase.addArchiveEntry(ArchiveOutputStream out,String filename,File infile),D:\\Code\\Tools\\art_tools\\scripts\\dump\\commons-compress\\src\\test\\java\\org\\apache\\commons\\compress\\AbstractTestCase.java,214,ArchiveOutputStream.createArchiveEntry,Call,D:\\Code\\Tools\\art_tools\\scripts\\dump\\commons-compress\\src\\main\\java\\org\\apache\\commons\\compress\\archivers\\ArchiveOutputStream.java"))
-        run(getClass.getClassLoader.getResource("func-dependency.csv").getPath)
+        val genDsm = new GenDsm(getCsvFromFile(getFilePath("simpleProject.csv")))
+        println(genDsm.printStr)
+        println("\n" + genDsm.zeroDep)
+        //run(getFilePath("func-dependency.csv"))
     }
+    
+    def getFilePath(file: String): String = getClass.getClassLoader.getResource(file).getPath
 
     def fixDependsOn(hostfunc: String, dependsOnFunction: String, dependsOnFile: String): String = {
         // units the file and function into one for better matching
@@ -48,13 +51,25 @@ object FuncDsm {
         else depFunc + "." + dependsOnFunction
     }
 
+    // transforms "function(Type arg)" to "function" 
+    // basically masks function overloads
     def noargs(function: String): String = {
-        // removes the args (*) from a function and returns it
-        // basically masks function overloads
+        
         if(function.contains('(')) {
             function.substring(0, function.indexOf('('))
         }
         else function
+    }
+
+    // given a package prefix, function and it's file
+    // returns the combined universal identifier for the function
+    def fqfunction() = {
+
+    }
+
+    def getCsvFromFile(file: String) = {
+        val lines = Source.fromFile(file).getLines()
+        lines.toList.tail.map(l => tokenize(l))
     }
 
     def run(file: String) = {
@@ -119,7 +134,8 @@ object FuncDsm {
             else sb.append(ch)
         }
         tokens += sb.toString // empty string buffer
-        Csv(tokens(0), tokens(1), tokens(2).toInt, tokens(3), DependencyType.withName(tokens(4).toUpperCase()), tokens(5))
+        def dotFile(file:String):String = file.replace(".java", "").replace("\\", ".")
+        Csv(tokens(0), tokens(1), tokens(2).toInt, tokens(3), DependencyType.withName(tokens(4).toUpperCase()), dotFile(tokens(5)))
     }
 
     def verifyCsv(csvList: List[Csv]): Unit = {
