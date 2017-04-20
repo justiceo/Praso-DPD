@@ -20,15 +20,25 @@ object FuncDsm {
     case class Csv(function: String, file:String, line: Int, dependsOnFunction: String, dependsOnType: DependencyType.Value, dependsOnFile: String)
 
     def main(args: Array[String]): Unit = {
-        genDsm(getFilePath("simpleProject.csv"))
+        val files = getListOfFiles(new File("D:\\Code\\Tools\\art_tools\\scripts\\project399\\csv"), "csv")
+        files.par.foreach(f => genDsm(f.getAbsolutePath))
     }
 
+    def getListOfFiles(dir: File, ext:String):List[File] = dir.listFiles.filter(f => f.isFile && f.getName.endsWith(ext)).toList
+
     def genDsm(file: String): Unit = {
-        val genDsm = new GenDsm(getCsvFromFile(file))
-        val pw = new PrintWriter(new File(file + ".dsm"))
-        println(genDsm.printStr + "\n" + file)
-        pw.write(genDsm.printStr)
-        pw.close()
+        try {
+            val csv = getCsvFromFile(file)
+            val dsmFile = new File(new File(file).getAbsolutePath + ".dsm")
+            if (csv.isEmpty || dsmFile.exists()) return
+            val genDsm = new GenDsm(csv)
+            val pw = new PrintWriter(dsmFile)
+            println("writing dsm for: " + dsmFile.getName)
+            pw.write(genDsm.printStr)
+            pw.close()
+        }catch  {
+            case e: Exception => println("\n***Error processing " + file + "\n" + e)
+        }
     }
     
     def getFilePath(file: String): String = getClass.getClassLoader.getResource(file).getPath

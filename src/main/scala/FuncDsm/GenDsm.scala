@@ -56,7 +56,7 @@ class GenDsm(csvList: List[FuncDsm.Csv]) {
     // returns the combined universal identifier for the function
     def fqfunction(function:String, file:String):String = {
         //file should start from package prefix
-        val trimmedFile = file.substring(file.indexOf(packagePrefix))
+        val trimmedFile = if(file.indexOf(packagePrefix) > -1) file.substring(file.indexOf(packagePrefix)) else file
 
         //prevent duplicate use of class name
         if(trimmedFile.endsWith(dotPrefix(function)))
