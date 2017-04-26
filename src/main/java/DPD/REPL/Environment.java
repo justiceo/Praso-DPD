@@ -343,9 +343,10 @@ public class Environment {
 
         try{
             // Create file
-            FileWriter fstream = new FileWriter("export-dsm.txt");
+            String[] typeArgs = Arrays.copyOfRange(type, 0, type.length-1);
+            FileWriter fstream = new FileWriter(type[type.length-1]);
             BufferedWriter out = new BufferedWriter(fstream);
-            out.write(dsmQuery.getSubDSM(type).toString());
+            out.write(dsmQuery.getSubDSM(typeArgs).toString());
             //Close the output stream
             out.close();
         }catch (Exception e){//Catch exception if any
