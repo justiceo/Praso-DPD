@@ -1,0 +1,114 @@
+[CAST, IMPORT, EXTEND, TYPED, USE, CALL, CREATE, IMPLEMENT]
+56
+0 0 01000000 0 0 01000100 0 0 0 0 0 01100000 0 0 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01100000 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 00011000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 0 
+0 0 01100100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000001 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000100 01100100 0 0 0 01000100 01000100 0 01000000 0 0 0 00000010 11000100 01100100 01000100 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000100 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 01000100 0 0 0 0 0 01100000 01000100 0 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01100000 01000000 0 0 01001000 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 01100000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01100000 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 01000100 0 0 0 0 0 0 0 01000100 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01001000 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 01010100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01110100 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 01010100 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 01000100 0 0 0 0 0 01100000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01100000 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 01000100 0 0 0 0 0 01100000 0 0 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01100000 01000000 0 0 0 01001010 0 0 0 
+0 0 0 0 0 01000100 0 0 0 0 0 01100000 0 0 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 11100100 0 0 0 0 0 0 0 0 0 01100000 01000000 0 0 01001000 0 0 0 0 
+0 0 0 0 0 0 0 01001000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010100 0 0 0 0 0 01000100 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 01010100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 01010100 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 00100000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000100 0 0 0 0 0 0 0 0 0 0 0 0 00100000 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 01100100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000100 0 0 0 0 0 0 0 0 0 0 0 0 01100100 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000100 0 0 0 0 0 0 0 01001000 0 0 0 0 0 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 01000100 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000100 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 01001010 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 01110100 0 0 0 0 0 0 01110100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000100 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 00011000 0 0 0 0 0 0 0 
+0 0 0 0 0 01000100 0 0 0 0 0 0 0 01001000 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 01000010 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 11010100 
+0 0 0 0 0 01000100 0 0 0 0 0 01100000 0 0 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01100000 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000100 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 01000100 0 0 0 0 0 01100000 0 0 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01100000 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 01010100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 01010100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01110100 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 01010100 0 0 0 
+0 0 0 0 0 01000100 0 0 0 0 0 01110000 0 0 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01110000 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 01110100 0 0 0 0 0 0 01110100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 00100100 01001000 0 0 0 0 0 0 0 0 0 0 0 01000100 0 0 0 0 0 0 0 01001000 0 0 0 0 0 01000000 0 0 01000000 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010100 0 0 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 01000100 0 0 0 0 0 01100000 0 0 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01100000 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 01010100 0 0 0 0 0 01110100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010100 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 01010100 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 01000100 0 0 0 0 0 0 0 01011000 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 01000100 0 0 0 0 0 0 0 01011000 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 00010100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010100 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 01000100 0 0 0 0 0 01100000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01100000 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 01100000 0 0 0 0 0 01001000 0 0 0 0 0 0 0 0 0 0 0 0 0 01100100 0 0 01000100 0 0 0 0 0 0 0 0 0 0 0 0 01100000 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 01010100 0 0 0 0 0 01110000 0 0 0 0 0 01011000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01110000 01010000 0 0 0 0 0 0 0 
+0 0 0 0 01100100 01000100 0 0 0 0 0 0 0 0 0 0 0 0 01000100 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000100 0 0 0 0 0 0 0 0 0 0 0 01000100 0 01010000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 0 
+0 0 0 0 0 01000100 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 01001010 0 0 0 0 
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\figures\ImageFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\util\collections\jdk11\CollectionsFactoryJDK11.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\util\Iconkit.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\application\DrawApplication.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\InsertIntoDrawingVisitor.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\HandleEnumerator.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\contrib\GraphicalCompositeFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\AbstractTool.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\figures\FigureAttributes.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\samples\net\NodeFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\test\standard\FigureAndEnumeratorTest.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\util\StorableInput.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\figures\RectangleFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\figures\LineConnection.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\samples\pert\PertFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\CreationTool.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\test\standard\ReverseFigureEnumeratorTest.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\AbstractFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\StandardFigureSelection.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\figures\BorderTool.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\util\CommandChoice.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\figures\GroupFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\AbstractCommand.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\test\standard\HandleEnumeratorTest.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\DeleteFromDrawingVisitor.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\test\util\ReverseListEnumeratorTest.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\util\collections\jdk12\CollectionsFactoryJDK12.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\figures\ElbowConnection.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\framework\JHotDrawRuntimeException.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\util\JDOStorageFormat.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\contrib\TextAreaFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\QuadTree.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\figures\RoundRectangleFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\contrib\ComponentFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\FigureEnumerator.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\contrib\DesktopEventService.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\test\standard\FigureEnumeratorTest.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\figures\TextFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\contrib\CustomToolBar.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\test\standard\HandleAndEnumeratorTest.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\figures\GroupCommand.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\util\StorageFormatManager.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\util\UndoableAdapter.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\contrib\PolygonFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\test\standard\StandardFigureSelectionTest.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\CutCommand.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\DeleteCommand.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\util\StorableOutput.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\util\CollectionsFactory.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\contrib\dnd\DNDFigures.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\figures\EllipseFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\CompositeFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\figures\PolyLineFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\StandardDrawingView.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\util\UndoManager.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\StandardDrawing.java

@@ -1,0 +1,60 @@
+[CAST, IMPORT, EXTEND, TYPED, USE, CALL, CREATE, IMPLEMENT]
+29
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10100000 00000001 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 00110000 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01110000 0 0 0 0 0 0 0 0 11110010 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10100000 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 00110001 0 0 0 0 0 0 0 0 0 0 0 0 01010000 0 0 0 0 
+0 0 0 01100100 01000100 0 0 01100000 0 0 01000000 00100000 0 0 01000000 0 11100000 0 0 0 0 0 01000000 01100000 01000000 01001000 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01110100 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 
+0 0 0 01100000 01000100 0 0 01100000 0 0 01000000 00100000 0 0 0 0 01100000 01100000 0 0 0 0 0 01100000 01000000 01001000 0 0 0 
+0 0 0 0 0 01100100 0 0 0 0 0 0 0 0 0 0 0 0 0 01000100 0 0 0 0 0 0 01000100 00000100 0 
+0 0 0 01000100 0 0 0 00100000 0 0 0 01100000 0 0 01100000 0 01100001 01100000 0 0 01000100 0 0 00100000 01000000 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 01000100 0 0 0 0 0 01000000 00100000 0 0 0 0 01000000 01100000 0 0 01000100 0 0 0 01010000 01001010 0 0 0 
+0 0 0 0 0 0 0 01100000 0 0 01001000 0 0 0 0 0 00000010 0 0 0 0 0 0 01100000 0 0 0 0 0 
+0 0 0 00100000 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 00100000 0 0 00100000 0 0 00100000 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 00100000 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 00110000 0 0 01000100 0 0 0 01010000 0 0 0 0 
+0 0 0 0 01010100 0 0 0 0 0 0 00100000 0 00011000 0 0 0 0 0 0 0 0 01010000 0 01010000 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10100000 00100001 0 0 0 0 0 0 01010000 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 00100100 0 0 0 01100000 01100000 0 0 01000100 0 0 0 01000000 01000000 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01100000 01100000 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01000000 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+01000100 11100100 0 01100100 0 0 0 01100000 0 0 01001000 0 0 0 01000001 01000100 11100000 01100000 01100100 0 01000100 0 0 01100000 01000000 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 01110000 0 0 0 0 0 0 0 0 11110010 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 00100000 01100000 0 0 0 0 0 0 0 01000000 0 0 01001000 
+0 0 0 01100100 01000100 0 0 0 0 0 01000000 00100000 0 0 01000000 0 01100000 01100000 0 0 0 0 0 0 01010000 01001010 0 0 0 
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\ReverseFigureEnumerator.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\OrderedFigureElement.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\contrib\NestedCreationTool.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\framework\FigureChangeEvent.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\HandleEnumerator.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\contrib\GraphicalCompositeFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\test\contrib\ComponentFigureTest.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\util\StorableInput.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\samples\pert\PertFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\samples\javadraw\JavaDrawApp.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\AbstractFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\framework\HandleEnumeration.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\figures\GroupFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\figures\AttributeFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\framework\FigureChangeListener.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\util\Bounds.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\framework\Figure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\framework\FigureEnumeration.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\QuadTree.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\contrib\ComponentFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\FigureEnumerator.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\figures\GroupCommand.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\BoxHandleKit.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\util\StorableOutput.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\util\CollectionsFactory.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\CompositeFigure.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\contrib\CompositeFigureCreationTool.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\samples\javadraw\BouncingDrawing.java
+D:\Code\IdeaProjects\jhotdraw60b1\src\org\jhotdraw\standard\StandardDrawing.java
