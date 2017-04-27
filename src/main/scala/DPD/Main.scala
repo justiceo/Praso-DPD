@@ -17,7 +17,7 @@ object Main {
     lazy val trio: List[(Int, Int, Int)] = matrix.zipWithIndex.flatMap((t) => t._1.map(d => (d._1, d._2, t._2)))
   }
 
-  val testDsmFile = "src\\main\\resources\\dsm\\head-first-design-patterns.dsm"
+  val testDsmFile = getResourcePath("dsm/head-first-design-patterns.dsm")
 
   def main(args: Array[String]): Unit = {
     println("Welcome to Praso-DPD")
@@ -28,6 +28,8 @@ object Main {
     println(subDsmDs.matrixStr)
 
   }
+  
+  def getResourcePath(file: String): String = getClass.getClassLoader.getResource(file).getPath
 
   def parse(path: String): (List[DependencyType.Value], Int, Matrix, List[String]) = {
     val depLine :: countLine :: matrix_files = Source.fromFile(path).getLines().toList
