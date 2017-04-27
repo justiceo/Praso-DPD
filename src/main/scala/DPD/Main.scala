@@ -19,41 +19,11 @@ object Main {
     println("Welcome to Praso-DPD")
     val (dependencies, count, matrix, files) = parse(testDsmFile)
     val dsmDs = new DSMDataStructure(dependencies, matrix, files)
-    val subDsmDs = dsmDs.subDsm(1);
+    val subDsmDs = dsmDs.subDsm(1)
     println(dsmDs.namedKeyInterfaces(5))
+    println(subDsmDs.matrixStr)
 
-    // compiler settings
-    val settings = new Settings
-    settings.processArgumentString("-deprecation -feature -Xfatal-warnings -Xlint")
-
-    // the interpreter is used by the javax.script engine
-    val intp = new IMain(settings)
-    def interpret(code: String): Unit = {
-      import Results._
-      val res = intp.interpret(code) match {
-        case Success => "OK!"
-        case _       => "Sorry, try again."
-      }
-      println(res)
-    }
-    /*interpret("""println("hello, world")""")
-    interpret("""println(""")
-    interpret("""val who = "world" ; println("hello, $who")""")*/
-
-    val interactive = new ILoop()
-    interactive.process(settings)
-
-
-    val hello = "Hello"
-    // Break into debug REPL with
-    /*ammonite.Main(
-      predef = "println(\"Starting Debugging!\")"
-    ).run(
-      "hello" -> hello,
-      "fooValue" -> foo()
-    )*/
   }
-  def foo() = 1
 
   def parse(path: String): (List[DependencyType.Value], Int, Matrix, List[String]) = {
     val depLine :: countLine :: matrix_files = Source.fromFile(path).getLines().toList

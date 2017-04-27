@@ -10,14 +10,19 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
                        val adjMatrix: Matrix,
                        val files: List[String]) {
 
-  lazy val size: Int = adjMatrix.length
+  /** The size of the matrix, also the number of files  */
+  val size: Int = adjMatrix.length
+
+  /** The folder prefix to the source root, usually starting with C:/ */
   lazy val sourceRoot: String = files.reduce((a, b) => a.zip(b).takeWhile((t) => t._1 == t._2).map(_._1).mkString)
 
-  //def dependents2(classId: Int): List[Int] = adjMatrix.zipWithIndex.filter((t) => t._1.exists(c => c._2 == classId)).map(t => t._2)
+  /** Returns all the classes that are dependent on this class. a.k.a column dependency */
   def dependents(classId: Int): List[Int] = adjMatrix.zipWithIndex.collect { case t if t._1.exists(c => c._2 == classId) => t._2 }
 
+  /** Returns all the classes this class is dependent on. a.k.a row dependency */
   def dependencies(classId: Int): List[Int] = adjMatrix(classId).map(t => t._2).toList
 
+  /** Returns a subDsm of all classes (dependents and dependencies) related to this class */
   def subDsm(classId: Int): DSMDataStructure = {
     def refactorMatrix(matrix: Matrix, deps: List[Int]): Matrix =
       matrix.map(_.map((t) => {
@@ -46,14 +51,17 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
     )
   }
 
-  def matrixStr(matrix: Matrix = adjMatrix): String = matrix.map(_.map(_.toString).mkString).mkString("\n")
+  /** Returns a string representation of the adjacency matrix - list of tuples (dependencyType, classIndex) */
+  def matrixStr: String = adjMatrix.map(_.map(_.toString).mkString).mkString("\n")
 
+  /** Returns a dsm file representation of the dependency, matrix and files */
   override def toString: String = {
     val depLine = dependencyTypes.map(_ toString).mkString("[", ",", "]")
-    s"$depLine \n$size \n${flattenMatrix(expandMatrix()).mkString("\n")} \n${files.mkString("\n")}"
+    s"$depLine \n$size \n${rowsAsStrings(squarify()).mkString("\n")} \n${files.mkString("\n")}"
   }
 
-  def expandMatrix(matrix: Matrix = adjMatrix): Matrix = matrix.map(arr => {
+  /** Returns a "square" adjacency matrix by including the empty dependencies that were omitted */
+  def squarify(matrix: Matrix = adjMatrix): Matrix = matrix.map(arr => {
     val (el, indices) = arr.unzip
     Array.range(0, matrix.size).map(i => {
       if (indices.contains(i))
@@ -62,20 +70,24 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
     })
   })
 
-  def flattenMatrix(adjMatrix: Matrix): List[String] =
+  /** Returns a list of matrix row strings - where each string is the representation of an adjacency list */
+  def rowsAsStrings(adjMatrix: Matrix): List[String] =
     adjMatrix.map(_.map((t) => Integer.toBinaryString(t._1)).map(s => {
       val diff = dependencyTypes.size - s.length
       if (s.equals("0") || diff == 0) s
       else (0 until diff).map(_ => "0").mkString("") + s
     }).reduce((a, b) => a + " " + b))
 
+  /** Returns a decimal that represents the binary string of this dependency */
   def toBinaryMask(dep: DependencyType.Value): Int = math.pow(2, dependencyTypes.size - 1 - dependencyTypes.indexOf(dep)).toInt
 
+  /** Returns the type by removing preceeding folders and the .java suffix */
   def getType(classId: Int): String = {
     val cuttoff = files(classId).lastIndexOf("\\")
     files(classId).substring(cuttoff+1).replace(".java", "")
   }
 
+  /** Returns a "highly-probable" package type of the given class */
   def getFQType(classId: Int): String = files(classId).replace(sourceRoot, "")
 
   def findTypes(types: String*): List[String] =
