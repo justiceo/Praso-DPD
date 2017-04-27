@@ -3,9 +3,6 @@ package DPD
 import java.io.PrintWriter
 import scala.tools.nsc.Settings
 import scala.tools.nsc.interpreter._
-import DPD.Implicits._
-import Models._
-//import ammonite._
 
 import scala.io.Source
 
@@ -13,6 +10,13 @@ import scala.io.Source
   * Created by Justice on 3/23/2017.
   */
 object Main {
+
+  type Matrix = List[Array[(Int, Int)]]
+  implicit class _Matrix(matrix: Matrix) {
+    // converts List[Array[(data, colIndex)]] to List[(data, colIndex, rowIndex)]
+    lazy val trio: List[(Int, Int, Int)] = matrix.zipWithIndex.flatMap((t) => t._1.map(d => (d._1, d._2, t._2)))
+  }
+
   val testDsmFile = "src\\main\\resources\\dsm\\head-first-design-patterns.dsm"
 
   def main(args: Array[String]): Unit = {
