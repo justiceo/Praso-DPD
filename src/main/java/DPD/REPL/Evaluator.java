@@ -5,6 +5,7 @@ import DPD.Model.BucketResult;
 import DPD.Model.DependencyType;
 import DPD.Util;
 
+import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,6 +72,9 @@ public class Evaluator {
             case Export:
                 evalExport(line);
                 break;
+            case PatternStatement:
+                evalPattern(line);
+                break;
             case Noop:
                 break;
         }
@@ -92,6 +96,7 @@ public class Evaluator {
         if( line.startsWith("Find") ) return StatementType.FindInterfaceStatement;
         if (line.startsWith("ClassId")) return StatementType.ClassId;
         if (line.startsWith("Export")) return StatementType.Export;
+        if (line.startsWith("Pattern")) return StatementType.PatternStatement;
         return StatementType.Noop;
     }
 
@@ -112,6 +117,7 @@ public class Evaluator {
         FindInterfaceStatement,
         ClassId,
         Export,
+        PatternStatement
     }
 
     private void evalEntityDeclaration(String line) throws Exception {
@@ -222,5 +228,16 @@ public class Evaluator {
         st.nextToken(); // eat export keyword
         String[] query = st.rest();
         exec.export(query);
+    }
+
+    private void evalPattern(String line) {
+        Tokenizer st = new Tokenizer(line, delimiters);
+        st.nextToken(); // eat pattern keyword
+        String[] args = st.rest();
+        File f = new File("files\\rules\\" + args[0] + ".dpd");
+        EasyDSMQuery dsmQuery = EasyDSMQuery.getInstace();
+        System.out.println("Currently executing: " + f.getName());
+        FileREPL reader = new FileREPL(f.getAbsolutePath(), dsmQuery);
+        reader.run();
     }
 }

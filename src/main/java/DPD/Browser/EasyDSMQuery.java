@@ -17,6 +17,7 @@ public class EasyDSMQuery extends DSMDataStructure {
     public EasyDSMQuery(String[] matrix, String[] filePaths, List<DependencyType> dependencyCount) {
         super(matrix, filePaths, dependencyCount);
         fileBrowser = new FileBrowser(filePaths);
+        _instance = this;
     }
 
     public void populateFromBucket(List<DependencyType> dependencies, BucketResult t, Bucket b, String leftOp, String rightOp) {
@@ -88,5 +89,10 @@ public class EasyDSMQuery extends DSMDataStructure {
 
     public FileNode getFileNode(int classId) {
         return fileBrowser.getByClassId(classId);
+    }
+
+    private static EasyDSMQuery _instance;
+    public static EasyDSMQuery getInstace() {
+        return _instance;
     }
 }
