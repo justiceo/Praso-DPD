@@ -14,6 +14,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
 
   /** The folder prefix to the source root, usually starting with C:/ */
   lazy val sourceRoot: String = files.reduce((a, b) => a.zip(b).takeWhile((t) => t._1 == t._2).map(_._1).mkString)
+  val types: List[String] = files.indices.map(getFQType).toList
 
   /** Returns all the classes that are dependent on this class. a.k.a column dependency */
   def dependents(classId: Int): List[Int] = adjMatrix.zipWithIndex.collect { case t if t._1.exists(c => c._2 == classId) => t._2 }
@@ -89,13 +90,12 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   /** Returns a "highly-probable" package type of the given class */
   def getFQType(classId: Int): String = files(classId).replace(sourceRoot, "")
 
-  def findTypes(types: String*): List[String] =
-    files.filter(f => types.exists(f.contains))
 
   def keyInterface(top: Int = 1): List[(Int, Int)] = adjMatrix.flatten.map(_._2).groupBy(i => i).mapValues(_.size).toList.sortBy(_._2).reverse.take(top)
 
   def namedKeyInterfaces(top: Int = 1): List[String] = keyInterface(top).map(t => getType(t._1))
 
+  /** takes a variable number of dependencyTypes and returns classes that satisfy them all */
   def dependencyPair(deps: DependencyType.Value*): List[(Int, Int)] = {
     val bitmask = deps.map(toBinaryMask).reduceLeft(_ | _)
     adjMatrix.trio.collect { case t if (t._1 & bitmask) == bitmask => (t._3, t._2) }
@@ -106,7 +106,21 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   /// Dependency Types aliases
   /////////////////////
   def EXTEND: List[(Int, Int)] = dependencyPair(DependencyType.EXTEND)
-  def SPECIALIZE: List[(Int, Int)] = dependencyPair(DependencyType.EXTEND, DependencyType.IMPLEMENT)
   def IMPLEMENT: List[(Int, Int)] = dependencyPair(DependencyType.IMPLEMENT)
+  def SPECIALIZE: List[(Int, Int)] = EXTEND ++ IMPLEMENT
   def USE: List[(Int, Int)] = dependencyPair(DependencyType.USE)
+
+
+  //////////////////////
+  /// Utility functions
+  //////////////////////
+
+  /** Returns fq classes whose names contain any of the arguments to the function */
+  def find(args: String*): List[String] = types.filter(f => args.exists(f.contains))
+
+  /** input should be the result from 'find' function
+    * return the class indices of the classes specified as args
+    */
+  def resolve(args: String*): List[Int] = types.zipWithIndex.collect{ case t if args.contains(t._1) => t._2 }
+
 }

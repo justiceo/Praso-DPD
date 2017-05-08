@@ -10,6 +10,8 @@ import scala.io.Source
   * Created by Justice on 3/23/2017.
   */
 object Main {
+  def test() = "test from main works"
+
 
   type Matrix = List[Array[(Int, Int)]]
   implicit class _Matrix(matrix: Matrix) {
@@ -46,6 +48,10 @@ object Main {
     new DSMDataStructure(extractDepArray(depLine), // dependency line
       extractDepMatrix(matrix_files.take(count)), // the matrix parsed
       matrix_files.takeRight(count)) // the file paths fixed
+  }
+
+  def entity(name: String): List[Int] = {
+    List()
   }
 
   def export(dsm: DSMDataStructure, filepath: String = "export.dsm"): Boolean = {
