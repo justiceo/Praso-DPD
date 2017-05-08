@@ -100,4 +100,13 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
     val bitmask = deps.map(toBinaryMask).reduceLeft(_ | _)
     adjMatrix.trio.collect { case t if (t._1 & bitmask) == bitmask => (t._3, t._2) }
   }
+
+
+  /////////////////////
+  /// Dependency Types aliases
+  /////////////////////
+  def EXTEND: List[(Int, Int)] = dependencyPair(DependencyType.EXTEND)
+  def SPECIALIZE: List[(Int, Int)] = dependencyPair(DependencyType.EXTEND, DependencyType.IMPLEMENT)
+  def IMPLEMENT: List[(Int, Int)] = dependencyPair(DependencyType.IMPLEMENT)
+  def USE: List[(Int, Int)] = dependencyPair(DependencyType.USE)
 }
