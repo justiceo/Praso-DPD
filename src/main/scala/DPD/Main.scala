@@ -32,6 +32,8 @@ object Main {
   
   def resource(file: String): String = getClass.getClassLoader.getResource(file).getPath
 
+  def parse: DSMDataStructure = parse(testDsmFile)
+
   def parse(path: String): DSMDataStructure = _parse(resource(path))
 
   /** takes a dsm file as input and returns a DSM data structure */

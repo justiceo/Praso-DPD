@@ -12,7 +12,8 @@ object ScalaREPL {
     ).run(
       "hello" -> hello,
       "fooValue" -> foo(),
-      "test" -> Main.test()
+      "test" -> Main.test(),
+      "parse" -> Main.parse
     )
   }
   def foo() = 1
