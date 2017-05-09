@@ -1,6 +1,6 @@
 package DPD
 
-import DPD.Main._
+import DPD.Util._
 
 /**
   * Created by Justice on 3/23/2017.
@@ -81,11 +81,6 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   /** Returns a decimal that represents the binary string of this dependency */
   def toBinaryMask(dep: DependencyType.Value): Int = math.pow(2, dependencyTypes.size - 1 - dependencyTypes.indexOf(dep)).toInt
 
-  /** Returns the type by removing preceeding folders and the .java suffix */
-  def getType(classId: Int): String = {
-    val cuttoff = files(classId).lastIndexOf("\\")
-    files(classId).substring(cuttoff+1).replace(".java", "")
-  }
 
   /** Returns a "highly-probable" package type of the given class */
   def getFQType(classId: Int): String = files(classId).replace(sourceRoot, "")
@@ -93,7 +88,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
 
   def keyInterface(top: Int = 1): List[(Int, Int)] = adjMatrix.flatten.map(_._2).groupBy(i => i).mapValues(_.size).toList.sortBy(_._2).reverse.take(top)
 
-  def namedKeyInterfaces(top: Int = 1): List[String] = keyInterface(top).map(t => getType(t._1))
+  def namedKeyInterfaces(top: Int = 1): List[String] = keyInterface(top).map(t => nice(t._1))
 
   /** takes a variable number of dependencyTypes and returns classes that satisfy them all */
   def dependencyPair(deps: DependencyType.Value*): List[(Int, Int)] = {
@@ -105,10 +100,18 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   /////////////////////
   /// Dependency Types aliases
   /////////////////////
-  def EXTEND: List[(Int, Int)] = dependencyPair(DependencyType.EXTEND)
-  def IMPLEMENT: List[(Int, Int)] = dependencyPair(DependencyType.IMPLEMENT)
-  def SPECIALIZE: List[(Int, Int)] = EXTEND ++ IMPLEMENT
+  def TYPED: List[(Int, Int)] = dependencyPair(DependencyType.TYPED)
   def USE: List[(Int, Int)] = dependencyPair(DependencyType.USE)
+  def IMPLEMENT: List[(Int, Int)] = dependencyPair(DependencyType.IMPLEMENT)
+  def EXTEND: List[(Int, Int)] = dependencyPair(DependencyType.EXTEND)
+  def CALL: List[(Int, Int)] = dependencyPair(DependencyType.CALL)
+  def SET: List[(Int, Int)] = dependencyPair(DependencyType.SET)
+  def IMPORT: List[(Int, Int)] = dependencyPair(DependencyType.IMPORT)
+  def CREATE: List[(Int, Int)] = dependencyPair(DependencyType.CREATE)
+  def CAST: List[(Int, Int)] = dependencyPair(DependencyType.CAST)
+  def THROW: List[(Int, Int)] = dependencyPair(DependencyType.THROW)
+  def MODIFY: List[(Int, Int)] = dependencyPair(DependencyType.MODIFY)
+  def SPECIALIZE: List[(Int, Int)] = (EXTEND ++ IMPLEMENT).distinct
 
 
   //////////////////////
@@ -117,6 +120,15 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
 
   /** Returns fq classes whose names contain any of the arguments to the function */
   def find(args: String*): List[String] = types.filter(f => args.exists(f.contains))
+
+
+  /** Returns the type (or nice name) by removing preceeding folders and the .java suffix */
+  def nice(classId: Int): String = {
+    val cuttoff = files(classId).lastIndexOf("\\")
+    files(classId).substring(cuttoff+1).replace(".java", "")
+  }
+  def nice(t: (Int, Int)): (String, String) = (nice(t._1), nice(t._2))
+  def nice(l: List[(Int, Int)]): List[(String, String)] = l.map(nice)
 
   /** input should be the result from 'find' function
     * return the class indices of the classes specified as args

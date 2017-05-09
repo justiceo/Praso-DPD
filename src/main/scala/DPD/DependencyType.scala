@@ -9,12 +9,10 @@ object DependencyType extends Enumeration {
     USE,
     IMPLEMENT,
     EXTEND,
-    AGGREGATE,
     CALL,
     SET,
     IMPORT,
     CREATE,
-    SPECIALIZE,
     CAST,
     THROW,
     MODIFY

@@ -7,7 +7,7 @@ import scala.io.Source
 class DSMDataStructure_VisitorSpec extends FlatSpec with Matchers {
 
     lazy val testDsmFile = "src\\test\\resources\\dsm\\visitor-test.dsm"
-    lazy val (dependencies, count, adjMatrix, files) = Main.parse(testDsmFile)
+    lazy val (dependencies, count, adjMatrix, files) = Util.parse(testDsmFile)
     lazy val dsmDS = new DSMDataStructure(dependencies, adjMatrix, files)
     
     "DSMDataStructure_Visitor" should "have equal matrix and file sizes" in {

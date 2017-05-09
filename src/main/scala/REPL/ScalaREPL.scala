@@ -1,6 +1,6 @@
 import scala.tools.nsc.interpreter._
 import scala.tools.nsc.Settings
-import DPD.Main
+import DPD.Util
 
 object ScalaREPL {
   def main(args: Array[String]): Unit = {
@@ -12,8 +12,9 @@ object ScalaREPL {
     ).run(
       "hello" -> hello,
       "fooValue" -> foo(),
-      "test" -> Main.test(),
-      "parse" -> Main.parse
+      "test" -> Util.test(),
+      "parse" -> Util.parse,
+      "$" -> Util
     )
   }
   def foo() = 1

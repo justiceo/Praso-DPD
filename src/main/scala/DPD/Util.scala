@@ -9,26 +9,18 @@ import scala.io.Source
 /**
   * Created by Justice on 3/23/2017.
   */
-object Main {
+object Util {
+
   def test() = "test from main works"
 
-
   type Matrix = List[Array[(Int, Int)]]
+
   implicit class _Matrix(matrix: Matrix) {
     // converts List[Array[(data, colIndex)]] to List[(data, colIndex, rowIndex)]
     lazy val trio: List[(Int, Int, Int)] = matrix.zipWithIndex.flatMap((t) => t._1.map(d => (d._1, d._2, t._2)))
   }
 
   val testDsmFile = "dsm/head-first-design-patterns.dsm"
-
-  def main(args: Array[String]): Unit = {
-    println("Welcome to Praso-DPD")
-    val dsmDs = parse(testDsmFile)
-    val subDsmDs = dsmDs.subDsm(1)
-    println(dsmDs.namedKeyInterfaces(5))
-    println(subDsmDs.matrixStr)
-
-  }
   
   def resource(file: String): String = getClass.getClassLoader.getResource(file).getPath
 

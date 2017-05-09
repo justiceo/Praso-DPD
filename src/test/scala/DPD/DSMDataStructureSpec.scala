@@ -7,7 +7,7 @@ import scala.io.Source
 class DSMDataStructureSpec extends FlatSpec with Matchers {
 
     lazy val testDsmFile = "src\\test\\resources\\dsm\\observer-test.dsm"
-    lazy val (dependencies, count, adjMatrix, files) = Main.parse(testDsmFile)
+    lazy val (dependencies, count, adjMatrix, files) = Util.parse(testDsmFile)
     lazy val dsmDS = new DSMDataStructure(dependencies, adjMatrix, files)
 
     // property tests
@@ -48,7 +48,7 @@ class DSMDataStructureSpec extends FlatSpec with Matchers {
     }
 
     "getType" should "return the class name (type)" in {
-        assertResult("ConcreteObserverB")(dsmDS.getType(0))
+        assertResult("ConcreteObserverB")(dsmDS.nice(0))
     }
     
 }
