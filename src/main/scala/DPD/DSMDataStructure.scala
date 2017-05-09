@@ -52,7 +52,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   }
 
   /** takes fq classes names, resolves their indices and calls main subdsm */
-  def subDsm(classNames: String*): DSMDataStructure = _subDsm(resolve(classNames:_*):_*)
+  def subDsm(classNames: List[String]): DSMDataStructure = _subDsm(resolve(classNames:_*):_*)
 
   /** Returns a string representation of the adjacency matrix - list of tuples (dependencyType, classIndex) */
   def matrixStr: String = adjMatrix.map(_.map(_.toString).mkString).mkString("\n")
@@ -114,7 +114,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   def CAST: List[(Int, Int)] = dependencyPair(DependencyType.CAST)
   def THROW: List[(Int, Int)] = dependencyPair(DependencyType.THROW)
   def MODIFY: List[(Int, Int)] = dependencyPair(DependencyType.MODIFY)
-  def SPECIALIZE: List[(Int, Int)] = (EXTEND ++ IMPLEMENT).distinct
+  def SPECIALIZE: List[(Int, Int)] = (EXTEND ::: IMPLEMENT).distinct
 
 
   //////////////////////

@@ -46,7 +46,7 @@ object Util {
   }
 
   def entity(name: String): Entity = {
-    val e1: Entity = List()
+    var e1: Entity = List()
     e1.name = name
     e1
   }
