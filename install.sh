@@ -8,7 +8,7 @@ fi
 
 # If Java is not installed, install it
 if [ -n `which java` ]; then
-  sudo apt-get install openjdk-8-jre
+  sudo apt-get install openjdk-8-jdk
 fi
 
 
