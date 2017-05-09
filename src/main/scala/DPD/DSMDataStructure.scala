@@ -16,9 +16,18 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   lazy val sourceRoot: String = files.reduce((a, b) => a.zip(b).takeWhile((t) => t._1 == t._2).map(_._1).mkString)
   val types: List[String] = files.indices.map(getFQType).toList
 
+  /** takes a variable number of dependencyTypes and returns pair classes that satisfy them all */
+  def dependencyPair(deps: DependencyType.Value*): List[(Int, Int)] = {
+    val bitmask = deps.map(toBinaryMask).reduceLeft(_ | _)
+    adjMatrix.trio.collect { case t if (t._1 & bitmask) == bitmask => (t._3, t._2) }
+  }
+
   /** Returns all the classes that are dependent on this class. a.k.a column dependency */
   def dependents(classId: Int): List[Int] = adjMatrix.zipWithIndex.collect { case t if t._1.exists(c => c._2 == classId) => t._2 }
 
+  /** Returns all the classes that have all this dependents on them */
+  def dependents(deps: DependencyType.Value*): List[Int] = dependencyPair(deps:_*).unzip._2.distinct
+  
   /** Returns all the classes this class is dependent on. a.k.a row dependency */
   def dependencies(classId: Int): List[Int] = adjMatrix(classId).map(t => t._2).toList
 
@@ -93,11 +102,6 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
 
   def namedKeyInterfaces(top: Int = 1): List[String] = keyInterface(top).map(t => nice(t._1))
 
-  /** takes a variable number of dependencyTypes and returns classes that satisfy them all */
-  def dependencyPair(deps: DependencyType.Value*): List[(Int, Int)] = {
-    val bitmask = deps.map(toBinaryMask).reduceLeft(_ | _)
-    adjMatrix.trio.collect { case t if (t._1 & bitmask) == bitmask => (t._3, t._2) }
-  }
 
 
   /////////////////////
@@ -137,4 +141,6 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
     */
   def resolve(args: String*): List[Int] = types.zipWithIndex.collect{ case t if args.contains(t._1) => t._2 }
 
+  def subClasses(classId: Int): List[(Int, Int)] = dependencyPair(EXTEND, IMPLEMENT).filter(t => t._2 == classId)
+  def subClasses(classIds: Int*): List[(Int, Int)] = classIds.flatMap(subClasses)
 }

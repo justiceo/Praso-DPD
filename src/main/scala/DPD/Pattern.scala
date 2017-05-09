@@ -48,10 +48,10 @@ object Pattern {
         val component = dsm.superClasses(composite)
         val leaf = sub.exclude(composite)
 
-        removeEmptyPockets()
+        //removeEmptyPockets()
         
         Map("Composite" -> composite,
             "Component" -> component,
-            "Leaf" -> leaf);
+            "Leaf" -> leaf)
     }    
 }
