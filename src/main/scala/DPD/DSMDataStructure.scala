@@ -22,8 +22,8 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   /** Returns all the classes this class is dependent on. a.k.a row dependency */
   def dependencies(classId: Int): List[Int] = adjMatrix(classId).map(t => t._2).toList
 
-  /** Returns a subDsm of all classes (dependents and dependencies) related to this class */
-  def subDsm(classId: Int): DSMDataStructure = {
+  /** Returns a subDsm of all classes (dependents and dependencies) related to these classes */
+  def subDsm(classIds: Int*): DSMDataStructure = {
     def refactorMatrix(matrix: Matrix, deps: List[Int]): Matrix =
       matrix.map(_.map((t) => {
         val newDep = t._1.toBinaryString.zipWithIndex.collect { case c if deps.contains(c._2) => c._1 }
@@ -39,7 +39,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
     def updateIndices(matrix: Matrix, originalOrder: List[Int]): Matrix =
       matrix.map(_.map((t) => (t._1, originalOrder.indexOf(t._2))))
 
-    val classes = (classId :: dependents(classId) ++ dependencies(classId)).distinct.sorted
+    val classes: List[Int] = classIds.flatMap(classId => classId :: dependents(classId) ++ dependencies(classId)).distinct.sorted.toList
     val newMatrix: Matrix = adjMatrix.zipWithIndex.collect { case t if classes.contains(t._2) => t._1 }
       .map(arr => arr.collect { case c if classes.contains(c._2) => c })
     //newMatrix.map(arr => arr.map(t => t._2).toString).toString()
@@ -50,6 +50,9 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
       files.zipWithIndex.collect { case t if classes.contains(t._2) => t._1 }
     )
   }
+
+  /** takes fq classes names, resolves their indices and calls main subdsm */
+  def subDsm(classNames: String*): DSMDataStructure = subDsm(resolve(classNames:_*):_*)
 
   /** Returns a string representation of the adjacency matrix - list of tuples (dependencyType, classIndex) */
   def matrixStr: String = adjMatrix.map(_.map(_.toString).mkString).mkString("\n")
@@ -119,8 +122,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   //////////////////////
 
   /** Returns fq classes whose names contain any of the arguments to the function */
-  def find(args: String*): List[String] = types.filter(f => args.exists(f.contains))
-
+  def find(args: String*): List[String] = types.filter(f => args.exists(f.toLowerCase.contains))
 
   /** Returns the type (or nice name) by removing preceeding folders and the .java suffix */
   def nice(classId: Int): String = {
