@@ -1,5 +1,3 @@
-import scala.tools.nsc.interpreter._
-import scala.tools.nsc.Settings
 import DPD.Util
 
 object ScalaREPL {

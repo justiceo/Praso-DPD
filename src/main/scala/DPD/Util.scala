@@ -1,9 +1,6 @@
 package DPD
 
 import java.io.PrintWriter
-import scala.tools.nsc.Settings
-import scala.tools.nsc.interpreter._
-
 import scala.io.Source
 
 /**
@@ -11,13 +8,17 @@ import scala.io.Source
   */
 object Util {
 
-  def test() = "test from main works"
-
   type Matrix = List[Array[(Int, Int)]]
+  case class CNode(classId: Int, pocket: Int, score: Int)
+  type Entity = List[CNode]
 
   implicit class _Matrix(matrix: Matrix) {
     // converts List[Array[(data, colIndex)]] to List[(data, colIndex, rowIndex)]
     lazy val trio: List[(Int, Int, Int)] = matrix.zipWithIndex.flatMap((t) => t._1.map(d => (d._1, d._2, t._2)))
+  }
+
+  implicit class _Entity(entity: Entity) {
+    var name: String = ""
   }
 
   val testDsmFile = "dsm/head-first-design-patterns.dsm"
@@ -44,8 +45,10 @@ object Util {
       matrix_files.takeRight(count)) // the file paths fixed
   }
 
-  def entity(name: String): List[Int] = {
-    List()
+  def entity(name: String): Entity = {
+    val e1: Entity = List()
+    e1.name = name
+    e1
   }
 
   def export(dsm: DSMDataStructure, filepath: String = "export.dsm"): Boolean = {
