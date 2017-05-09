@@ -23,7 +23,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   def dependencies(classId: Int): List[Int] = adjMatrix(classId).map(t => t._2).toList
 
   /** Returns a subDsm of all classes (dependents and dependencies) related to these classes */
-  def subDsm(classIds: Int*): DSMDataStructure = {
+  def _subDsm(classIds: Int*): DSMDataStructure = {
     def refactorMatrix(matrix: Matrix, deps: List[Int]): Matrix =
       matrix.map(_.map((t) => {
         val newDep = t._1.toBinaryString.zipWithIndex.collect { case c if deps.contains(c._2) => c._1 }
@@ -52,7 +52,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   }
 
   /** takes fq classes names, resolves their indices and calls main subdsm */
-  def subDsm(classNames: String*): DSMDataStructure = subDsm(resolve(classNames:_*):_*)
+  def subDsm(classNames: String*): DSMDataStructure = _subDsm(resolve(classNames:_*):_*)
 
   /** Returns a string representation of the adjacency matrix - list of tuples (dependencyType, classIndex) */
   def matrixStr: String = adjMatrix.map(_.map(_.toString).mkString).mkString("\n")
