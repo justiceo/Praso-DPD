@@ -8,6 +8,16 @@ import DPD.Util._
 class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
                        val adjMatrix: Matrix,
                        val files: List[String]) {
+  def subClasses(component: Nothing) = ???
+
+  def superClasses(decorator: List[Int]) = ???
+
+  def subClasses(elementsP: Any) = ???
+
+  def classesThat(values: List[_root_.DPD.DependencyType.Value], observerInterface: List[Int]) = ???
+
+  def subClasses(observerInterface: List[Int]) = ???
+
 
   /** The size of the matrix, also the number of files  */
   val size: Int = adjMatrix.length
@@ -107,7 +117,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   /////////////////////
   /// Dependency Types aliases
   /////////////////////
-  def TYPED: List[(Int, Int)] = dependencyPair(DependencyType.TYPED)
+  def $TYPED: List[(Int, Int)] = dependencyPair(DependencyType.TYPED)
   def USE: List[(Int, Int)] = dependencyPair(DependencyType.USE)
   def IMPLEMENT: List[(Int, Int)] = dependencyPair(DependencyType.IMPLEMENT)
   def EXTEND: List[(Int, Int)] = dependencyPair(DependencyType.EXTEND)
@@ -133,6 +143,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
     val cuttoff = files(classId).lastIndexOf("\\")
     files(classId).substring(cuttoff+1).replace(".java", "")
   }
+  def nice(classIds: Int*): List[String] = classIds.map(nice).toList
   def nice(t: (Int, Int)): (String, String) = (nice(t._1), nice(t._2))
   def nice(l: List[(Int, Int)]): List[(String, String)] = l.map(nice)
 
@@ -141,6 +152,6 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
     */
   def resolve(args: String*): List[Int] = types.zipWithIndex.collect{ case t if args.contains(t._1) => t._2 }
 
-  def subClasses(classId: Int): List[(Int, Int)] = dependencyPair(EXTEND, IMPLEMENT).filter(t => t._2 == classId)
-  def subClasses(classIds: Int*): List[(Int, Int)] = classIds.flatMap(subClasses)
+  def subClasses(classId: Int): List[(Int, Int)] = SPECIALIZE.filter(t => t._2 == classId)
+  def subClasses(classIds: Int*): List[(Int, Int)] = classIds.flatMap(subClasses).toList
 }

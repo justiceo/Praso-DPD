@@ -21,7 +21,7 @@ object ScalaREPL {
       "THROW" -> DependencyType.THROW,
       "MODIFY" -> DependencyType.MODIFY,
 
-      "$" -> Util
+      "$" -> Util,
       "pattern" -> Pattern
     )
   }

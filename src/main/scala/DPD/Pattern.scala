@@ -1,12 +1,14 @@
 package DPD
 
+import DPD.DependencyType._
+
 object Pattern {
 
     def observer(dsm: DSMDataStructure): Map[String, List[Int]] = {
         // observer interfaces must be extended by concrete observers, typed and called by subjects
-        val observerInterface: List[Int] = dsm.dependents(EXTEND, TYPED, CALL);
-        val concPair: List[(Int, Int)] = dsm.subClasses(observerInterface);
-        val subjPair: List[(Int, Int)] = dsm.classesThat([TYPED, CALL], observerInterface)
+        val observerInterface: List[Int] = dsm.dependents(EXTEND, TYPED, CALL)
+        val concPair: List[(Int, Int)] = dsm.subClasses(observerInterface)
+        val subjPair: List[(Int, Int)] = dsm.classesThat(List(TYPED, CALL), observerInterface)
 
         val (concreteObservers, subjects) = observerInterface.reconcile(concPair, subjPair)
 
@@ -16,7 +18,7 @@ object Pattern {
     }
 
     def visitor(dsm: DSMDataStructure): Map[String, List[Int]] = {
-        val (sup, sub) = dsm.SPECIALIZE
+        val (sup, sub) = dsm SPECIALIZE
         val pockets = pockets(dsm.SPECIALIZE)
         val visitorP = pockets.that([TYPED, CALL], sub)
         val elementsP = pockets.that([TYPED, CALL], sup)
@@ -29,11 +31,13 @@ object Pattern {
             "Concrete Element" -> concEle)
     }
 
+    def min_pocket(classes: List[(Int, Int)], i: Int) = ???
+
     def decorator(dsm: DSMDataStructure): Map[String, List[Int]] = {
-        val (sup, sub) = min_pocket(dsm.SPECIALIZE, 3)
+        val (sup:List[Int], sub:List[Int]) = min_pocket(dsm.SPECIALIZE, 3)
         val decorator = sup intersect sub
-        val concDecorator = dsm.subClasses(decorator)
-        val component = dsm.superClasses(decorator)
+        val concDecorator = dsm subClasses decorator
+        val component = dsm superClasses decorator
         val concComponent = dsm.subClasses(component).exclude(decorator, concDecorator)
 
         Map("Component" -> component,
