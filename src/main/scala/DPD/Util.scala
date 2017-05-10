@@ -28,7 +28,7 @@ object Util {
 
   implicit class _TupleList(t: List[(Int, Int)]) {
       def asEntities: (Entity, Entity) = ???
-      def min(n:Int): List[(Int, Int)] = ???
+      def atLeast(n:Int): List[(Int, Int)] = ???
   }
 
   val testDsmFile = "dsm/head-first-design-patterns.dsm"
