@@ -6,6 +6,14 @@ import DPD.Util._TupleList
 
 object Pattern {
 
+    /** things to watch out for
+      * - duplicate classes across entities
+      * - scoring mechanism for promoting and demoting
+      * - write them unit tests!
+      * @param dsm
+      * @return
+      */
+
     def observer(dsm: DSMDataStructure): Map[String, Entity] = {
         // observer interfaces must be extended by concrete observers, typed and called by subjects
         val (sup, sub) = dsm.SPECIALIZE.min(2) asEntities
