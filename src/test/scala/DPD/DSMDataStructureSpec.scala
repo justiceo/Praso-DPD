@@ -50,5 +50,9 @@ class DSMDataStructureSpec extends FlatSpec with Matchers {
     "getType" should "return the class name (type)" in {
         assertResult("ConcreteObserverB")(dsmDS.nice(0))
     }
+
+    it should "return original dsm in the observer interface case" in {
+        dsmDS.toString shouldEqual dsmDS._subDsm(1).toString
+    }
     
 }

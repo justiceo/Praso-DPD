@@ -38,7 +38,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
     def refactorMatrix(matrix: Matrix, deps: List[Int]): Matrix =
       matrix.map(_.map((t) => {
         val newDep = t._1.toBinaryString.zipWithIndex.collect { case c if deps.contains(c._2) => c._1 }
-        (Integer.parseInt(newDep.mkString), t._2)
+        (Integer.parseInt(newDep.mkString, 2), t._2)
       }
       ))
 

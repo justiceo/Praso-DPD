@@ -31,7 +31,7 @@ object Util {
       def atLeast(n:Int): List[(Int, Int)] = ???
   }
 
-  val testDsmFile = "dsm/head-first-design-patterns.dsm"
+  val testDsmFile = "dsm/simpleObserverPattern.dsm"
   
   def resource(file: String): String = getClass.getClassLoader.getResource(file).getPath
 
