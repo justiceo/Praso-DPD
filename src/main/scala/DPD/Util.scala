@@ -9,7 +9,7 @@ import scala.io.Source
 object Util {
 
   type Matrix = List[Array[(Int, Int)]]
-  case class CNode(classId: Int, pocket: Int, score: Int)
+  case class CNode(classId: Int, score: Int, pocket: Int)
   type Entity = List[CNode]
 
   implicit class _Matrix(matrix: Matrix) {
@@ -23,7 +23,7 @@ object Util {
      */
     def exclude(others: Entity*): Entity = {
       val toExclude = others.flatMap(_.ids).distinct
-      entity.filter(t => !toExclude.contains(t.classId))
+      entity.filterNot(t => toExclude.contains(t.classId))
     }
 
     /**
@@ -37,8 +37,6 @@ object Util {
 
     def reconcile(a:Entity, b:Entity): (Entity, Entity) = ???
 
-    def nice(dsm:DSMDataStructure):String = ???
-
     /**
      * Returns classes from the given entity with this same pocket as this entity
      * Note: the function name is meant to be "human friendly"
@@ -47,6 +45,7 @@ object Util {
      * todo: refactor to use dsm
      */
     def superClasses(other:Entity): Entity = other.filter(e => pockets.contains(e.pocket))
+    
     def subClasses(other:Entity): Entity = superClasses(other)
 
     def ids:List[Int] = entity.map(_.classId)
@@ -67,7 +66,7 @@ object Util {
       }
   }
 
-  val testDsmFile = "dsm/simpleObserverPattern.dsm"
+  val testDsmFile = "dsm/simpleVisitorPattern.dsm"
 
   var pocketCounter:Int = 10000;
   def nextPocket:Int = {

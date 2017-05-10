@@ -25,11 +25,13 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   /** Returns all the classes that are dependent on this class. a.k.a column dependency */
   def dependents(classId: Int): List[Int] = adjMatrix.zipWithIndex.collect { case t if t._1.exists(c => c._2 == classId) => t._2 }
 
-  /** Returns all the classes that have all this dependents on them */
+  /** Returns all the classes that have all this dependents on them
+   *  Each class in the result fulfills every single dependency specified
+   */
   def dependents(deps: DependencyType.Value*): List[Int] = dependencyPair(deps:_*).unzip._2.distinct
 
   /** Returns all the classes that have the specified kind of dependency on this class */
-  def dependents(classId: Int, deps: DependencyType.Value*): List[Int] = dependencyPair(deps:_*).filter(_._2 == classId).unzip._2.distinct
+  def dependents(classId: Int, deps: DependencyType.Value*): List[Int] = dependencyPair(deps:_*).filter(_._2 == classId).unzip._1.distinct
   
   /** Returns all the classes this class is dependent on. a.k.a row dependency */
   def dependencies(classId: Int): List[Int] = adjMatrix(classId).map(t => t._2).toList
@@ -38,7 +40,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   def dependencies(deps: DependencyType.Value*): List[Int] = dependencyPair(deps:_*).unzip._1.distinct
 
   /** Returns all the classes this class has the specified dependency on */
-  def dependencies(classId: Int, deps:DependencyType.Value*): List[Int] = dependencyPair(deps:_*).filter(_._1 == classId).unzip._1.distinct
+  def dependencies(classId: Int, deps:DependencyType.Value*): List[Int] = dependencyPair(deps:_*).filter(_._1 == classId).unzip._2.distinct
 
   /** Returns a subDsm of all classes (dependents and dependencies) related to these classes */
   def _subDsm(classIds: Int*): DSMDataStructure = {

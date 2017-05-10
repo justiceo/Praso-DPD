@@ -3,6 +3,7 @@ package DPD
 import org.scalatest._
 import scala.io.Source
 import DPD.Util._Matrix
+import DependencyType._
 
 class DSMDataStructureSpec extends FlatSpec with Matchers {
 
@@ -69,6 +70,49 @@ class DSMDataStructureSpec extends FlatSpec with Matchers {
 
         val matrix = subDsm.adjMatrix
         assert(matrix.trio.head._1 == 1)
+    }
+
+    "dependents" should "return all classes that are dependent on the given class" in {
+        dsm.dependents(1) shouldEqual List(0,2,3,4)
+        dsm.dependents(0) shouldEqual List.empty
+    }
+
+    it should "return all classes that have given dependencies on them" in {
+        dsm.dependents(IMPLEMENT) shouldEqual List(1)
+        dsm.dependents(SET) shouldEqual List.empty
+        dsm.dependents(IMPLEMENT, TYPED, USE) shouldEqual List.empty
+        dsm.dependents(TYPED, USE) shouldEqual List(1)
+    }
+
+    it should "return all dependent classes that have specified dependencies" in {
+        dsm.dependents(1, IMPLEMENT) shouldEqual List(0,4)
+        dsm.dependents(1, TYPED,USE) shouldEqual List(2,3)
+        dsm.dependents(1, SET) shouldEqual List.empty
+        dsm.dependents(0, IMPLEMENT) shouldEqual List.empty
+    }
+
+
+
+    "dependencies" should "return all classes that this class is dependent on" in {
+        dsm.dependencies(1) shouldEqual List.empty
+        dsm.dependencies(0) shouldEqual List(1)
+        dsm.dependencies(2) shouldEqual List(1)
+    }
+
+    it should "return all classes have the given dependencies" in {
+        dsm.dependencies(IMPLEMENT) shouldEqual List(0,4)
+        dsm.dependencies(SET) shouldEqual List.empty
+        dsm.dependencies(IMPLEMENT, TYPED, USE) shouldEqual List.empty
+        dsm.dependencies(TYPED, USE) shouldEqual List(2,3)
+        dsm.dependencies(TYPED) shouldEqual List(2,3)
+    }
+
+    it should "return all class it has the specified dependencies on" in {
+        dsm.dependencies(0, IMPLEMENT) shouldEqual List(1)
+        dsm.dependencies(2, TYPED,USE) shouldEqual List(1)
+        dsm.dependencies(0, TYPED,USE) shouldEqual List.empty
+        dsm.dependencies(1, SET) shouldEqual List.empty
+        dsm.dependencies(3, USE) shouldEqual List(1)
     }
     
 
