@@ -18,16 +18,15 @@ object Util {
   }
 
   implicit class _Entity(entity: Entity) {
-    var name: String = ""
-    def exclude(l: Entity): Entity = ???
-    def exclude(l: List[Int]): List[Int] = ???
-    def that(l: List[DependencyType.Value], e:Entity) = ???
+    def exclude(l: Entity*): Entity = ???
+    def that(l: List[DependencyType.Value], e:Entity): Entity = ???
     def thatIs(l: List[DependencyType.Value]): Entity = ???
-    def ids:List[Int] = ???
     def reconcile(a:Entity, b:Entity): (Entity, Entity) = ???
+    def subClasses(a:Entity): Entity = ???
+    def superClasses(a:Entity): Entity = ???
   }
 
-  implicit class _Tuple2(t: List[(Int, Int)]) {
+  implicit class _TupleList(t: List[(Int, Int)]) {
       def asEntities: (Entity, Entity) = ???
       def min(n:Int): List[(Int, Int)] = ???
   }
@@ -56,11 +55,7 @@ object Util {
       matrix_files.takeRight(count)) // the file paths fixed
   }
 
-  def entity(name: String): Entity = {
-    var e1: Entity = List()
-    e1.name = name
-    e1
-  }
+  def newEntity: Entity = List()
 
   def export(dsm: DSMDataStructure, filepath: String = "export.dsm"): Boolean = {
     new PrintWriter(filepath) {

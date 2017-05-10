@@ -8,16 +8,8 @@ import DPD.Util._
 class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
                        val adjMatrix: Matrix,
                        val files: List[String]) {
-  def subClasses(component: Nothing) = ???
 
-  def superClasses(decorator: List[Int]) = ???
-
-  def subClasses(elementsP: Any) = ???
-
-  def classesThat(values: List[_root_.DPD.DependencyType.Value], observerInterface: List[Int]) = ???
-
-  def subClasses(observerInterface: List[Int]) = ???
-
+  def classesThat(values: List[DependencyType.Value], observerInterface: Entity): List[(Int, Int)] = ???
 
   /** The size of the matrix, also the number of files  */
   val size: Int = adjMatrix.length

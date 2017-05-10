@@ -2,36 +2,29 @@ package DPD
 
 import DPD.DependencyType._
 import DPD.Util.Entity
-import DPD.Util._Tuple2
+import DPD.Util._TupleList
 
 object Pattern {
 
-    def observer(dsm: DSMDataStructure): Map[String, List[Int]] = {
+    def observer(dsm: DSMDataStructure): Map[String, Entity] = {
         // observer interfaces must be extended by concrete observers, typed and called by subjects
         val (sup, sub) = dsm.SPECIALIZE.min(2) asEntities
         val obsI = sup.thatIs(List(TYPED, CALL)) // some pockets are removed at this point
-        val subj = dsm.classesThat(List(TYPED, CALL), obsI.ids)
+        val (subj, observerI) = dsm.classesThat(List(TYPED, CALL), sup) asEntities
 
-        val (conc, subj) = obsI.reconcile(sub, subj)
+        val (concreteObservers, subjects) = observerI.reconcile(sub, subj)
 
-        val observerInterface: List[Int] = dsm.dependents(EXTEND, TYPED, CALL)
-        val concPair: List[(Int, Int)] = dsm.subClasses(observerInterface)
-        val subjPair: List[(Int, Int)] = dsm.classesThat(List(TYPED, CALL), observerInterface)
-
-        val (concreteObservers, subjects) = observerInterface.reconcile(concPair, subjPair)
-
-        Map("Observer Interface" -> observerInterface,
+        Map("Observer Interface" -> observerI,
             "Concrete Observer" -> concreteObservers,
             "Subject" -> subjects)
     }
 
-    def visitor(dsm: DSMDataStructure): Map[String, List[Int]] = {
-        val (sup, sub) = dsm SPECIALIZE
-        val pockets: Entity = pocketize(dsm.SPECIALIZE.asEntities)
-        val visitorP = pockets.that(List(TYPED, CALL), sub)
-        val elementsP = pockets.that(List(TYPED, CALL), sup)
-        val concVisitor = dsm.subClasses(visitorP)
-        val concEle = dsm.subClasses(elementsP)
+    def visitor(dsm: DSMDataStructure): Map[String, Entity] = {
+        val (sup, sub) = dsm.SPECIALIZE asEntities
+        val visitorP = sup.that(List(TYPED, CALL), sub)
+        val elementsP = sup.that(List(TYPED, CALL), sup)
+        val concVisitor = visitorP.subClasses(sub)
+        val concEle = elementsP.subClasses(sub)
 
         Map("Visitor Interface" -> visitorP,
             "Concrete Visitor" -> concVisitor,
@@ -39,14 +32,12 @@ object Pattern {
             "Concrete Element" -> concEle)
     }
 
-    def min_pocket(classes: List[(Int, Int)], i: Int) = ???
-
-    def decorator(dsm: DSMDataStructure): Map[String, List[Int]] = {
-        val (sup:List[Int], sub:List[Int]) = min_pocket(dsm.SPECIALIZE, 3)
+    def decorator(dsm: DSMDataStructure): Map[String, Entity] = {
+        val (sup, sub) =dsm.SPECIALIZE.min(3) asEntities
         val decorator = sup intersect sub
-        val concDecorator = dsm subClasses decorator
-        val component = dsm superClasses decorator
-        val concComponent = dsm.subClasses(component).exclude(decorator, concDecorator)
+        val concDecorator = decorator subClasses sub
+        val component = decorator superClasses sup
+        val concComponent = decorator.subClasses(component).exclude(decorator, concDecorator)
 
         Map("Component" -> component,
             "Decorator" -> decorator,
@@ -54,14 +45,13 @@ object Pattern {
             "Concrete Decorator" -> concDecorator)
     }
 
-    def composite(dsm: DSMDataStructure): Map[String, List[Int]] = {
-        val (sup, sub) = min_pocket(dsm.SPECIALIZE, 3)
-        val composite = sub.classesThat(List(TYPED), sup)
-        val component = dsm.superClasses(composite)
-        val leaf = sub.exclude(composite)
+    def composite(dsm: DSMDataStructure): Map[String, Entity] = {
+        val (sup, sub) = dsm.SPECIALIZE.min(3) asEntities
+        val composite = sub.that(List(TYPED), sup)
+        val component = composite superClasses sup
+        val leaf = sub exclude composite
 
         //removeEmptyPockets()
-        
         Map("Composite" -> composite,
             "Component" -> component,
             "Leaf" -> leaf)
