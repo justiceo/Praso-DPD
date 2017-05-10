@@ -3,6 +3,7 @@ package DPD
 import DPD.DependencyType._
 import DPD.Util.Entity
 import DPD.Util._TupleList
+import scala.language.postfixOps
 
 object Pattern {
 
