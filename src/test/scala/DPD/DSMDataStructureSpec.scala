@@ -1,13 +1,14 @@
 package DPD
 
-import Models.Matrix
+import Util.Matrix
 import org.scalatest._
 import scala.io.Source
 
 class DSMDataStructureSpec extends FlatSpec with Matchers {
 
-    lazy val testDsmFile = "src\\test\\resources\\dsm\\observer-test.dsm"
-    lazy val (dependencies, count, adjMatrix, files) = Util.parse(testDsmFile)
+    lazy val testDsmFile = "dsm/observer-test.dsm"
+    val dsm = Util.parse(testDsmFile)
+    val (dependencies, count, adjMatrix, files)  = (dsm.dependencyTypes, dsm.files.size, dsm.adjMatrix, dsm.files)
     lazy val dsmDS = new DSMDataStructure(dependencies, adjMatrix, files)
 
     // property tests
@@ -43,7 +44,7 @@ class DSMDataStructureSpec extends FlatSpec with Matchers {
 
     "toString" should "return original dsm file input (ignoring cases)" in {
         val dsmStr = dsmDS.toString.split("\n").toList.map(_.trim.toUpperCase)
-        val original = Source.fromFile(testDsmFile).getLines().toList.map(_.trim.toUpperCase)
+        val original = Source.fromFile(Util.resource(testDsmFile)).getLines().toList.map(_.trim.toUpperCase)
         dsmStr shouldEqual original
     }
 
