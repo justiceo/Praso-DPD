@@ -19,6 +19,17 @@ object Util {
 
   implicit class _Entity(entity: Entity) {
     var name: String = ""
+    def exclude(l: Entity): Entity = ???
+    def exclude(l: List[Int]): List[Int] = ???
+    def that(l: List[DependencyType.Value], e:Entity) = ???
+    def thatIs(l: List[DependencyType.Value]): Entity = ???
+    def ids:List[Int] = ???
+    def reconcile(a:Entity, b:Entity): (Entity, Entity) = ???
+  }
+
+  implicit class _Tuple2(t: List[(Int, Int)]) {
+      def asEntities: (Entity, Entity) = ???
+      def min(n:Int): List[(Int, Int)] = ???
   }
 
   val testDsmFile = "dsm/head-first-design-patterns.dsm"

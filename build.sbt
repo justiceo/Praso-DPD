@@ -40,11 +40,3 @@ fixPaths := {
   (new File("src\\test\\resources\\dsm")).listFiles.filter(_.isFile).map(_.getAbsolutePath).foreach(fixFilePaths)
   
 }
-
-lazy val genScripts = taskKey[Unit]("Generate ammonite scripts from scala sources")
-genScripts := {
-  // read all files in src/main/scala/DPD
-  // remove the package declaration
-  // use $file for local imports
-  // change file extension to .sc
-}
