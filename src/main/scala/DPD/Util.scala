@@ -18,12 +18,37 @@ object Util {
   }
 
   implicit class _Entity(entity: Entity) {
-    def exclude(l: Entity*): Entity = ???
-    def that(l: List[DependencyType.Value], e:Entity): Entity = ???
-    def thatIs(l: List[DependencyType.Value]): Entity = ???
+    /**
+     * returns a disjoint of this entity with the given entities
+     */
+    def exclude(others: Entity*): Entity = {
+      val toExclude = others.flatMap(_.ids).distinct
+      entity.filter(t => !toExclude.contains(t.classId))
+    }
+
+    /**
+     * returns this entity with members who exhibit a given dependency with classes in another entity
+     */
+    def that(deps: List[DependencyType.Value], other:Entity, dsm:DSMDataStructure): Entity = 
+      entity.filter(t => !dsm.dependencies(t.classId, deps:_*).intersect(other.ids).isEmpty)    
+
+    def thatIs(deps:List[DependencyType.Value], dsm:DSMDataStructure): Entity = 
+      entity.filter(t => !dsm.dependents(t.classId, deps:_*).isEmpty)
+
     def reconcile(a:Entity, b:Entity): (Entity, Entity) = ???
-    def subClasses(a:Entity): Entity = ???
-    def superClasses(a:Entity): Entity = ???
+
+    /**
+     * Returns classes from the given entity with this same pocket as this entity
+     * Note: the function name is meant to be "human friendly"
+     * The argument to this function is what makes the difference.
+     * For super classes, the arg needs to be a SUPER-class entity!!! to get the desired behavior
+     * todo: refactor to use dsm
+     */
+    def superClasses(other:Entity): Entity = other.filter(e => pockets.contains(e.pocket))
+    def subClasses(other:Entity): Entity = superClasses(other)
+
+    def ids:List[Int] = entity.map(_.classId)
+    def pockets:List[Int] = entity.map(_.pocket)
   }
 
   implicit class _TupleList(t: List[(Int, Int)]) {

@@ -18,7 +18,7 @@ object Pattern {
     def observer(dsm: DSMDataStructure): Map[String, Entity] = {
         // observer interfaces must be extended by concrete observers, typed and called by subjects
         val (sup:Entity, sub:Entity) = dsm.SPECIALIZE.atLeast(2) asEntities
-        val obsI = sup.thatIs(List(TYPED, CALL)) // some pockets are removed at this point
+        val obsI = sup.thatIs(List(TYPED, CALL), dsm) // some pockets are removed at this point
         val (subj, observerI) = dsm.classesThat(List(TYPED, CALL), sup) asEntities
 
         val (concreteObservers, subjects) = observerI.reconcile(sub, subj)
@@ -30,8 +30,8 @@ object Pattern {
 
     def visitor(dsm: DSMDataStructure): Map[String, Entity] = {
         val (sup, sub) = dsm.SPECIALIZE asEntities
-        val visitorP = sup.that(List(TYPED, CALL), sub)
-        val elementsP = sup.that(List(TYPED, CALL), sup)
+        val visitorP = sup.that(List(TYPED, CALL), sub, dsm)
+        val elementsP = sup.that(List(TYPED, CALL), sup, dsm)
         val concVisitor = visitorP.subClasses(sub)
         val concEle = elementsP.subClasses(sub)
 
@@ -56,7 +56,7 @@ object Pattern {
 
     def composite(dsm: DSMDataStructure): Map[String, Entity] = {
         val (sup, sub) = dsm.SPECIALIZE.atLeast(3) asEntities
-        val composite = sub.that(List(TYPED), sup)
+        val composite = sub.that(List(TYPED), sup, dsm)
         val component = composite superClasses sup
         val leaf = sub exclude composite
 

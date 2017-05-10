@@ -9,8 +9,6 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
                        val adjMatrix: Matrix,
                        val files: List[String]) {
 
-  def classesThat(values: List[DependencyType.Value], observerInterface: Entity): List[(Int, Int)] = ???
-
   /** The size of the matrix, also the number of files  */
   val size: Int = adjMatrix.length
 
@@ -29,9 +27,18 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
 
   /** Returns all the classes that have all this dependents on them */
   def dependents(deps: DependencyType.Value*): List[Int] = dependencyPair(deps:_*).unzip._2.distinct
+
+  /** Returns all the classes that have the specified kind of dependency on this class */
+  def dependents(classId: Int, deps: DependencyType.Value*): List[Int] = dependencyPair(deps:_*).filter(_._2 == classId).unzip._2.distinct
   
   /** Returns all the classes this class is dependent on. a.k.a row dependency */
   def dependencies(classId: Int): List[Int] = adjMatrix(classId).map(t => t._2).toList
+
+  /** Returns all the classes that have all this dependencies on others */
+  def dependencies(deps: DependencyType.Value*): List[Int] = dependencyPair(deps:_*).unzip._1.distinct
+
+  /** Returns all the classes this class has the specified dependency on */
+  def dependencies(classId: Int, deps:DependencyType.Value*): List[Int] = dependencyPair(deps:_*).filter(_._1 == classId).unzip._1.distinct
 
   /** Returns a subDsm of all classes (dependents and dependencies) related to these classes */
   def _subDsm(classIds: Int*): DSMDataStructure = {
@@ -150,4 +157,8 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
 
   def subClasses(classId: Int): List[(Int, Int)] = SPECIALIZE.filter(t => t._2 == classId)
   def subClasses(classIds: Int*): List[(Int, Int)] = classIds.flatMap(subClasses).toList
+
+  def classesThat(deps: List[DependencyType.Value], entity: Entity): List[(Int, Int)] = 
+    dependencyPair(deps:_*).filter(t => entity.ids.contains(t._2))
+  
 }
