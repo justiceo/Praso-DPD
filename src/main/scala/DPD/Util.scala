@@ -37,6 +37,8 @@ object Util {
 
     def reconcile(a:Entity, b:Entity): (Entity, Entity) = ???
 
+    def nice(dsm:DSMDataStructure):String = ???
+
     /**
      * Returns classes from the given entity with this same pocket as this entity
      * Note: the function name is meant to be "human friendly"
@@ -51,12 +53,27 @@ object Util {
     def pockets:List[Int] = entity.map(_.pocket)
   }
 
-  implicit class _TupleList(t: List[(Int, Int)]) {
-      def asEntities: (Entity, Entity) = ???
-      def atLeast(n:Int): List[(Int, Int)] = ???
+  implicit class _TupleList(list: List[(Int, Int)]) {
+      def asEntities: (Entity, Entity) = {
+        val grouped = list.groupBy(_._1).map(t => (t._1, t._2, Util.nextPocket))
+        val l1 = grouped.map(t => CNode(t._1, 0, t._3)).toList
+        val l2 = grouped.flatMap(t => { t._2.map(c => CNode(c._2, 0, t._3))}).toList
+        (l1, l2)
+      }
+
+      def atLeast(n:Int): List[(Int, Int)] = {
+        val grouped = list.groupBy(_._1).map(t => (t._1, t._2.size))
+        list.filter(t => grouped(t._1) >= n)
+      }
   }
 
   val testDsmFile = "dsm/simpleObserverPattern.dsm"
+
+  var pocketCounter:Int = 10000;
+  def nextPocket:Int = {
+    pocketCounter += 1
+    pocketCounter
+  }
   
   def resource(file: String): String = getClass.getClassLoader.getResource(file).getPath
 
