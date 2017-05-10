@@ -52,3 +52,9 @@ target/
 DPD.iml
 .idea/
 build/
+
+# Ensime files
+.ensime
+.ensime_cache
+ensime-langserver.log
+pc.stdout.log
