@@ -22,7 +22,8 @@ object ScalaREPL {
       "MODIFY" -> DependencyType.MODIFY,
 
       "$" -> Util,
-      "pattern" -> Pattern
+      "pattern" -> Pattern,
+      "dsm" -> Util.parse
     )
   }
 }

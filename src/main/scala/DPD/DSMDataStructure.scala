@@ -35,15 +35,19 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
 
   /** Returns a subDsm of all classes (dependents and dependencies) related to these classes */
   def _subDsm(classIds: Int*): DSMDataStructure = {
+    // adds zeros when necessary to a binary string to ensure the size is consistent
+    def adjBinaryStr(n:Int):String =  "00000000000" + n.toBinaryString takeRight dependencyTypes.size
+
     def refactorMatrix(matrix: Matrix, deps: List[Int]): Matrix =
       matrix.map(_.map((t) => {
-        val newDep = t._1.toBinaryString.zipWithIndex.collect { case c if deps.contains(c._2) => c._1 }
+        val newDep = adjBinaryStr(t._1).zipWithIndex.collect { case c if deps.contains(c._2) => c._1 }
         (Integer.parseInt(newDep.mkString, 2), t._2)
       }
       ))
 
+    // given a matrix, returns the numerical indices of dependencies that are used
     def getIndexUsedDependencies(matrix: Matrix): List[Int] = {
-      val used = Integer.toBinaryString(matrix.flatten.map((t) => t._1).reduce((a, b) => a | b))
+      val used = adjBinaryStr(matrix.flatten.map((t) => t._1).reduce((a, b) => a | b))
       used.zipWithIndex.collect { case c if c._1 == '1' => c._2 }.toList
     }
 

@@ -2,6 +2,7 @@ package DPD
 
 import org.scalatest._
 import scala.io.Source
+import DPD.Util._Matrix
 
 class DSMDataStructureSpec extends FlatSpec with Matchers {
 
@@ -51,8 +52,24 @@ class DSMDataStructureSpec extends FlatSpec with Matchers {
         assertResult("ConcreteObserverB")(dsmDS.nice(0))
     }
 
-    it should "return original dsm in the observer interface case" in {
+    "subDsm" should "return original dsm in the observer interface case" in {
         dsmDS.toString shouldEqual dsmDS._subDsm(1).toString
     }
+
+    it should "return correct dependency type, matrix and files" in {
+        val subDsm = dsmDS._subDsm(0)
+
+        val files = subDsm.files
+        assert(files.size == 2 &&
+        files.exists(_.endsWith("ConcreteObserverB.java")) &&
+        files.exists(_.endsWith("IObserver.java")))
+
+        val deps = subDsm.dependencyTypes
+        assert(deps.size == 1 && deps.contains(DependencyType.IMPLEMENT))
+
+        val matrix = subDsm.adjMatrix
+        assert(matrix.trio.head._1 == 1)
+    }
     
+
 }
