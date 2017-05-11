@@ -19,7 +19,7 @@ object FuncDsm {
 
     case class Csv(function: String, file:String, line: Int, dependsOnFunction: String, dependsOnType: DependencyType.Value, dependsOnFile: String)
 
-    def main(args: Array[String]): Unit = {
+    def oldMain(args: Array[String]): Unit = {
         val files = getListOfFiles(new File("D:\\Code\\Tools\\art_tools\\scripts\\project399\\csv"), "csv")
         files.par.foreach(f => genDsm(f.getAbsolutePath))
     }

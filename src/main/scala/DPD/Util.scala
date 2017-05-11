@@ -17,6 +17,26 @@ object Util {
     lazy val trio: List[(Int, Int, Int)] = matrix.zipWithIndex.flatMap((t) => t._1.map(d => (d._1, d._2, t._2)))
   }
 
+  implicit class _EntityTuple(eTup: (Entity, Entity)) {
+    // group hierachies
+    def inGroups: (Entity, Entity) = {
+      val (sub, sup) = eTup
+      var e1:Entity = List.empty      
+      var e2:Entity = List.empty
+      
+      val grouped:Map[Int, Entity] = sup.groupBy(_.classId)
+      
+      grouped foreach { case (id, ent) => {          
+        val otherClasses:Entity = sub.filter(c => ent.pockets.contains(c.pocket) )
+        val remapped = otherClasses.map(c => CNode(c.classId, 0, ent.pockets.head))
+        e2 = e2 ::: remapped
+        e1 = CNode(id, 0, ent.pockets.head) :: e1
+      }}
+      
+      (e2, e1)
+    }
+  }
+
   implicit class _Entity(entity: Entity) {
     /**
      * returns a disjoint of this entity with the given entities
@@ -35,7 +55,8 @@ object Util {
     def thatIs(deps:List[DependencyType.Value], dsm:DSMDataStructure): Entity = 
       entity.filter(t => !dsm.dependents(t.classId, deps:_*).isEmpty)
 
-    def reconcile(a:Entity, b:Entity): (Entity, Entity) = ???
+    def reconcile(a:Entity, b:Entity): (Entity, Entity, Entity) = ???
+
 
     /**
      * Returns classes from the given entity with this same pocket as this entity

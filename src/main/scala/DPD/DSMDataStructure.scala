@@ -122,17 +122,8 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   /////////////////////
   /// Dependency Types aliases
   /////////////////////
-  def $TYPED: List[(Int, Int)] = dependencyPair(DependencyType.TYPED)
-  def USE: List[(Int, Int)] = dependencyPair(DependencyType.USE)
   def IMPLEMENT: List[(Int, Int)] = dependencyPair(DependencyType.IMPLEMENT)
   def EXTEND: List[(Int, Int)] = dependencyPair(DependencyType.EXTEND)
-  def CALL: List[(Int, Int)] = dependencyPair(DependencyType.CALL)
-  def SET: List[(Int, Int)] = dependencyPair(DependencyType.SET)
-  def IMPORT: List[(Int, Int)] = dependencyPair(DependencyType.IMPORT)
-  def CREATE: List[(Int, Int)] = dependencyPair(DependencyType.CREATE)
-  def CAST: List[(Int, Int)] = dependencyPair(DependencyType.CAST)
-  def THROW: List[(Int, Int)] = dependencyPair(DependencyType.THROW)
-  def MODIFY: List[(Int, Int)] = dependencyPair(DependencyType.MODIFY)
   def SPECIALIZE: List[(Int, Int)] = (EXTEND ::: IMPLEMENT).distinct
 
 

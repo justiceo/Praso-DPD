@@ -3,6 +3,7 @@ package DPD
 import DPD.DependencyType._
 import DPD.Util.Entity
 import DPD.Util._TupleList
+import DPD.Util._
 import scala.language.postfixOps
 
 object Pattern {
@@ -21,7 +22,7 @@ object Pattern {
         val obsI = sup.thatIs(List(TYPED, CALL), dsm) // some pockets are removed at this point
         val (subj, observerI) = dsm.classesThat(List(TYPED, CALL), sup) asEntities
 
-        val (concreteObservers, subjects) = observerI.reconcile(sub, subj)
+        val (s, concreteObservers, subjects) = observerI.reconcile(sub, subj)
 
         Map("Observer Interface" -> observerI,
             "Concrete Observer" -> concreteObservers,
@@ -29,7 +30,7 @@ object Pattern {
     }
 
     def _visitor(dsm: DSMDataStructure): Map[String, Entity] = {
-        val (sub, sup) = dsm.SPECIALIZE.asEntities
+        val (sub, sup) = dsm.SPECIALIZE.asEntities inGroups
         val elementsP = sup.that(List(TYPED), sup, dsm)
         val visitorP = sup.that(List(TYPED), sub, dsm)
         val concVisitor = visitorP.subClasses(sub)
