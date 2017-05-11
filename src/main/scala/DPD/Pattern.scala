@@ -1,9 +1,7 @@
 package DPD
 
 import DPD.DependencyType._
-import DPD.Util.Entity
-import DPD.Util._TupleList
-import DPD.Util._
+import DPD.Types._
 import scala.language.postfixOps
 
 object Pattern {

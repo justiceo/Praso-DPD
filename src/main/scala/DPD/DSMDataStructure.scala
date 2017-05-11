@@ -1,6 +1,6 @@
 package DPD
 
-import DPD.Util._
+import DPD.Types._
 
 /**
   * Created by Justice on 3/23/2017.
