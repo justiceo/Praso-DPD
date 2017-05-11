@@ -106,7 +106,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
     }).reduce((a, b) => a + " " + b))
 
   /** Returns a decimal that represents the binary string of this dependency */
-  def toBinaryMask(dep: DependencyType.Value): Int = math.pow(2, dependencyTypes.size - 1 - dependencyTypes.indexOf(dep)).toInt
+  def toBinaryMask(dep: DependencyType.Value): Int = math.pow(2, (dependencyTypes.size - 1 - dependencyTypes.indexOf(dep)).toDouble).toInt
 
 
   /** Returns a "highly-probable" package type of the given class */
