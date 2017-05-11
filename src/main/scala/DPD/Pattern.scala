@@ -16,18 +16,19 @@ object Pattern {
       * @return
       */
 
-    def observer(dsm: DSMDataStructure): Map[String, Entity] = {
+    def _observer(dsm: DSMDataStructure): Map[String, Entity] = {
         // observer interfaces must be extended by concrete observers, typed and called by subjects
-        val (sup:Entity, sub:Entity) = dsm.SPECIALIZE.atLeast(2) asEntities
-        val obsI = sup.thatIs(List(TYPED, CALL), dsm) // some pockets are removed at this point
-        val (subj, observerI) = dsm.classesThat(List(TYPED, CALL), sup) asEntities
+        val (sub:Entity, sup:Entity) = dsm.SPECIALIZE.asEntities.inGroups
+        println("sub, sup: " + sub + sup)
+        val obsI = sup.thatIs(List(TYPED, USE), dsm) // some pockets are removed at this point
+        val conO = obsI.subClasses(sub)
+        val (subj, observerI) = dsm.classesThat(List(TYPED, USE), obsI) asEntities
 
-        val (s, concreteObservers, subjects) = observerI.reconcile(sub, subj)
-
-        Map("Observer Interface" -> observerI,
-            "Concrete Observer" -> concreteObservers,
-            "Subject" -> subjects)
+        Map("Observer Interface" -> obsI,
+            "Concrete Observer" -> conO,
+            "Subject" -> subj)
     }
+    def observer(dsm:DSMDataStructure):Map[String, List[String]] = nice(_observer(dsm), dsm)
 
     def _visitor(dsm: DSMDataStructure): Map[String, Entity] = {
         val (sub, sup) = dsm.SPECIALIZE.asEntities inGroups
@@ -52,18 +53,21 @@ object Pattern {
         m
     }
 
-    def decorator(dsm: DSMDataStructure): Map[String, Entity] = {
-        val (sup, sub) =dsm.SPECIALIZE.atLeast(3) asEntities
-        val decorator = sup intersect sub
+    def _decorator(dsm: DSMDataStructure): Map[String, Entity] = {
+        val (sub, sup) =dsm.SPECIALIZE.asEntities.inGroups
+        println("sub, sup: " + sub + sup)
+        val decorator = sup andIn sub       
+        println("dec: " + decorator) 
         val concDecorator = decorator subClasses sub
         val component = decorator superClasses sup
-        val concComponent = decorator.subClasses(component).exclude(decorator, concDecorator)
+        val concComponent = component.subClasses(sub).exclude(decorator, concDecorator)
 
         Map("Component" -> component,
             "Decorator" -> decorator,
             "Concrete Component" -> concComponent,
             "Concrete Decorator" -> concDecorator)
     }
+     def decorator(dsm: DSMDataStructure):Map[String, List[String]] = nice(_decorator(dsm), dsm)
 
     def composite(dsm: DSMDataStructure): Map[String, Entity] = {
         val (sup, sub) = dsm.SPECIALIZE.atLeast(3) asEntities

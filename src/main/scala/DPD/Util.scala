@@ -57,6 +57,7 @@ object Util {
 
     def reconcile(a:Entity, b:Entity): (Entity, Entity, Entity) = ???
 
+    def andIn(other:Entity): Entity = entity.filter(c => other.ids.contains(c.classId))
 
     /**
      * Returns classes from the given entity with this same pocket as this entity
@@ -82,8 +83,8 @@ object Util {
       }
 
       def atLeast(n:Int): List[(Int, Int)] = {
-        val grouped = list.groupBy(_._1).map(t => (t._1, t._2.size))
-        list.filter(t => grouped(t._1) >= n)
+        val grouped = list.groupBy(_._2).map(t => (t._1, t._2.size))
+        list.filter(t => grouped(t._2) >= n)
       }
   }
 
