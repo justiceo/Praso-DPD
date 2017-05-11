@@ -38,8 +38,6 @@ object Util {
       matrix_files.takeRight(count)) // the file paths fixed
   }
 
-  def newEntity: Entity = List()
-
   def export(dsm: DSMDataStructure, filepath: String = "export.dsm"): Boolean = {
     new PrintWriter(filepath) {
       write(dsm.toString)

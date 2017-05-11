@@ -1,6 +1,4 @@
-import DPD.Util
-import DPD.DependencyType
-import DPD.Pattern
+package DPD
 
 object ScalaREPL {
   def main(args: Array[String]): Unit = {
