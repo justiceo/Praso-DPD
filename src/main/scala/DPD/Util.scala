@@ -1,18 +1,20 @@
 package DPD
 
 import java.io.PrintWriter
+
 import scala.io.Source
 
 /**
   * Created by Justice on 3/23/2017.
   */
 object Util {
-  var pocketCounter:Int = 10000;
-  def nextPocket:Int = {
+  var pocketCounter: Int = 10000
+
+  def nextPocket: Int = {
     pocketCounter += 1
     pocketCounter
   }
-  
+
   def resource(file: String): String = getClass.getClassLoader.getResource(file).getPath
 
   def parse(path: String): DSMDataStructure = _parse(resource(path))

@@ -26,26 +26,26 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   def dependents(classId: Int): List[Int] = adjMatrix.zipWithIndex.collect { case t if t._1.exists(c => c._2 == classId) => t._2 }
 
   /** Returns all the classes that have all this dependents on them
-   *  Each class in the result fulfills every single dependency specified
-   */
-  def dependents(deps: DependencyType.Value*): List[Int] = dependencyPair(deps:_*).unzip._2.distinct
+    * Each class in the result fulfills every single dependency specified
+    */
+  def dependents(deps: DependencyType.Value*): List[Int] = dependencyPair(deps: _*).unzip._2.distinct
 
   /** Returns all the classes that have the specified kind of dependency on this class */
-  def dependents(classId: Int, deps: DependencyType.Value*): List[Int] = dependencyPair(deps:_*).filter(_._2 == classId).unzip._1.distinct
-  
+  def dependents(classId: Int, deps: DependencyType.Value*): List[Int] = dependencyPair(deps: _*).filter(_._2 == classId).unzip._1.distinct
+
   /** Returns all the classes this class is dependent on. a.k.a row dependency */
   def dependencies(classId: Int): List[Int] = adjMatrix(classId).map(t => t._2).toList
 
   /** Returns all the classes that have all this dependencies on others */
-  def dependencies(deps: DependencyType.Value*): List[Int] = dependencyPair(deps:_*).unzip._1.distinct
+  def dependencies(deps: DependencyType.Value*): List[Int] = dependencyPair(deps: _*).unzip._1.distinct
 
   /** Returns all the classes this class has the specified dependency on */
-  def dependencies(classId: Int, deps:DependencyType.Value*): List[Int] = dependencyPair(deps:_*).filter(_._1 == classId).unzip._2.distinct
+  def dependencies(classId: Int, deps: DependencyType.Value*): List[Int] = dependencyPair(deps: _*).filter(_._1 == classId).unzip._2.distinct
 
   /** Returns a subDsm of all classes (dependents and dependencies) related to these classes */
   def _subDsm(classIds: Int*): DSMDataStructure = {
     // adds zeros when necessary to a binary string to ensure the size is consistent
-    def adjBinaryStr(n:Int):String =  "00000000000" + n.toBinaryString takeRight dependencyTypes.size
+    def adjBinaryStr(n: Int): String = "00000000000" + n.toBinaryString takeRight dependencyTypes.size
 
     def refactorMatrix(matrix: Matrix, deps: List[Int]): Matrix =
       matrix.map(_.map((t) => {
@@ -76,7 +76,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   }
 
   /** takes fq classes names, resolves their indices and calls main subdsm */
-  def subDsm(classNames: List[String]): DSMDataStructure = _subDsm(resolve(classNames:_*):_*)
+  def subDsm(classNames: List[String]): DSMDataStructure = _subDsm(resolve(classNames: _*): _*)
 
   /** Returns a string representation of the adjacency matrix - list of tuples (dependencyType, classIndex) */
   def matrixStr: String = adjMatrix.map(_.map(_.toString).mkString).mkString("\n")
@@ -118,12 +118,13 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   def namedKeyInterfaces(top: Int = 1): List[String] = keyInterface(top).map(t => nice(t._1))
 
 
-
   /////////////////////
   /// Dependency Types aliases
   /////////////////////
   def IMPLEMENT: List[(Int, Int)] = dependencyPair(DependencyType.IMPLEMENT)
+
   def EXTEND: List[(Int, Int)] = dependencyPair(DependencyType.EXTEND)
+
   def SPECIALIZE: List[(Int, Int)] = (EXTEND ::: IMPLEMENT).distinct
 
 
@@ -137,21 +138,25 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   /** Returns the type (or nice name) by removing preceeding folders and the .java suffix */
   def nice(classId: Int): String = {
     val cuttoff = files(classId).lastIndexOf("\\")
-    files(classId).substring(cuttoff+1).replace(".java", "")
+    files(classId).substring(cuttoff + 1).replace(".java", "")
   }
+
   def nice(classIds: Int*): List[String] = classIds.map(nice).toList
+
   def nice(t: (Int, Int)): (String, String) = (nice(t._1), nice(t._2))
+
   def nice(l: List[(Int, Int)]): List[(String, String)] = l.map(nice)
 
   /** input should be the result from 'find' function
     * return the class indices of the classes specified as args
     */
-  def resolve(args: String*): List[Int] = types.zipWithIndex.collect{ case t if args.contains(t._1) => t._2 }
+  def resolve(args: String*): List[Int] = types.zipWithIndex.collect { case t if args.contains(t._1) => t._2 }
 
   def subClasses(classId: Int): List[(Int, Int)] = SPECIALIZE.filter(t => t._2 == classId)
+
   def subClasses(classIds: Int*): List[(Int, Int)] = classIds.flatMap(subClasses).toList
 
-  def classesThat(deps: List[DependencyType.Value], entity: Entity): List[(Int, Int)] = 
-    dependencyPair(deps:_*).filter(t => entity.ids.contains(t._2))
-  
+  def classesThat(deps: List[DependencyType.Value], entity: Entity): List[(Int, Int)] =
+    dependencyPair(deps: _*).filter(t => entity.ids.contains(t._2))
+
 }

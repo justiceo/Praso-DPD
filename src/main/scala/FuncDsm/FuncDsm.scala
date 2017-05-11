@@ -1,8 +1,11 @@
 package FuncDsm
-import scala.io.Source
-import scala.collection.mutable.ListBuffer
-import DPD._
+
 import java.io._
+
+import DPD._
+
+import scala.collection.mutable.ListBuffer
+import scala.io.Source
 
 // read all lines in file
 // use tokenizer to break up into csv columns
@@ -17,58 +20,61 @@ import java.io._
 
 object FuncDsm {
 
-    case class Csv(function: String, file:String, line: Int, dependsOnFunction: String, dependsOnType: DependencyType.Value, dependsOnFile: String)
+  case class Csv(function: String, file: String, line: Int, dependsOnFunction: String, dependsOnType: DependencyType.Value, dependsOnFile: String)
 
-    def oldMain(args: Array[String]): Unit = {
-        val files = getListOfFiles(new File("D:\\Code\\Tools\\art_tools\\scripts\\project399\\csv"), "csv")
-        files.par.foreach(f => genDsm(f.getAbsolutePath))
+  def oldMain(args: Array[String]): Unit = {
+    val files = getListOfFiles(new File("D:\\Code\\Tools\\art_tools\\scripts\\project399\\csv"), "csv")
+    files.par.foreach(f => genDsm(f.getAbsolutePath))
+  }
+
+  def getListOfFiles(dir: File, ext: String): List[File] = dir.listFiles.filter(f => f.isFile && f.getName.endsWith(ext)).toList
+
+  def genDsm(file: String): Unit = {
+    try {
+      val csv = getCsvFromFile(file)
+      val dsmFile = new File(new File(file).getAbsolutePath + ".dsm")
+      if (csv.isEmpty || dsmFile.exists()) return
+      val genDsm = new GenDsm(csv)
+      val pw = new PrintWriter(dsmFile)
+      println("writing dsm for: " + dsmFile.getName)
+      pw.write(genDsm.printStr)
+      pw.close()
+    } catch {
+      case e: Exception => println("\n***Error processing " + file + "\n" + e)
     }
+  }
 
-    def getListOfFiles(dir: File, ext:String):List[File] = dir.listFiles.filter(f => f.isFile && f.getName.endsWith(ext)).toList
+  def getFilePath(file: String): String = getClass.getClassLoader.getResource(file).getPath
 
-    def genDsm(file: String): Unit = {
-        try {
-            val csv = getCsvFromFile(file)
-            val dsmFile = new File(new File(file).getAbsolutePath + ".dsm")
-            if (csv.isEmpty || dsmFile.exists()) return
-            val genDsm = new GenDsm(csv)
-            val pw = new PrintWriter(dsmFile)
-            println("writing dsm for: " + dsmFile.getName)
-            pw.write(genDsm.printStr)
-            pw.close()
-        }catch  {
-            case e: Exception => println("\n***Error processing " + file + "\n" + e)
+  def getCsvFromFile(file: String): List[Csv] = {
+    val lines = Source.fromFile(file).getLines()
+    lines.toList.tail.map(l => tokenize(l))
+  }
+
+  def tokenize(line: String): Csv = {
+    val tokens = ListBuffer[String]()
+    val iter = line.iterator
+    var sb = new StringBuilder()
+    while (iter.hasNext) {
+      var ch = iter.next()
+      if (ch == ',') {
+        tokens += sb.toString
+        sb = new StringBuilder()
+      }
+      else if (ch == '(') {
+        while (ch != ')') {
+          sb.append(ch)
+          ch = iter.next()
         }
+        sb.append(ch) // add closing ")"
+      }
+      else sb.append(ch)
     }
-    
-    def getFilePath(file: String): String = getClass.getClassLoader.getResource(file).getPath
+    tokens += sb.toString
 
-    def getCsvFromFile(file: String): List[Csv] = {
-        val lines = Source.fromFile(file).getLines()
-        lines.toList.tail.map(l => tokenize(l))
-    }    
+    // empty string buffer
+    def dotFile(file: String): String = file.replace(".java", "").replace("\\", ".")
 
-    def tokenize(line: String): Csv = {
-        val tokens = ListBuffer[String]()
-        val iter = line.iterator
-        var sb = new StringBuilder()
-        while(iter.hasNext) {
-            var ch = iter.next()
-            if(ch == ',') {
-                tokens += sb.toString
-                sb = new StringBuilder()
-            }
-            else if(ch == '(') {
-                while(ch != ')') {
-                    sb.append(ch)
-                    ch = iter.next()
-                }
-                sb.append(ch) // add closing ")"
-            }
-            else sb.append(ch)
-        }
-        tokens += sb.toString // empty string buffer
-        def dotFile(file:String):String = file.replace(".java", "").replace("\\", ".")
-        Csv(tokens(0), tokens(1), tokens(2).toInt, tokens(3), DependencyType.withName(tokens(4).toUpperCase()), dotFile(tokens(5)))
-    }
+    Csv(tokens(0), tokens(1), tokens(2).toInt, tokens(3), DependencyType.withName(tokens(4).toUpperCase()), dotFile(tokens(5)))
+  }
 }
