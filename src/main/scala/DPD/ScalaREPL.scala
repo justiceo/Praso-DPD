@@ -2,9 +2,13 @@ package DPD
 
 object ScalaREPL {
   def main(args: Array[String]): Unit = {
+    
+    // if no dsm is specified, use default
+    val dsmFile = if(args.length == 0) "dsm/simpleVisitorPattern.dsm" else args(0)
+    
     // Break into debug REPL with
     ammonite.Main(
-      predef = "println(\"Starting Debugging!\")"
+      predef = "println(\"Starting DPD!\")"
     ).run(
       // put dependency types constant in the environment
       "TYPED" -> DependencyType.TYPED,
@@ -21,7 +25,7 @@ object ScalaREPL {
 
       "$" -> Util,
       "pattern" -> Pattern,
-      "dsm" -> Util.parse
+      "dsm" -> Util.parse(dsmFile)
     )
   }
 }

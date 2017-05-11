@@ -7,8 +7,6 @@ import scala.io.Source
   * Created by Justice on 3/23/2017.
   */
 object Util {
-  val testDsmFile = "dsm/simpleVisitorPattern.dsm"
-
   var pocketCounter:Int = 10000;
   def nextPocket:Int = {
     pocketCounter += 1
@@ -17,13 +15,11 @@ object Util {
   
   def resource(file: String): String = getClass.getClassLoader.getResource(file).getPath
 
-  def parse: DSMDataStructure = parse(testDsmFile)
-
   def parse(path: String): DSMDataStructure = _parse(resource(path))
 
   /** takes a dsm file as input and returns a DSM data structure */
   def _parse(path: String): DSMDataStructure = {
-    val depLine :: countLine :: matrix_files = Source.fromFile(path).getLines().toList
+    val depLine :: countLine :: matrix_files = Source.fromFile(path).getLines().takeWhile(l => !l.startsWith("###")).toList
     val count = Integer.parseInt(countLine)
 
     def extractDepArray(arg: String): List[DependencyType.Value] =

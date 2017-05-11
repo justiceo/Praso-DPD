@@ -17,7 +17,6 @@ object Pattern {
     def _observer(dsm: DSMDataStructure): Map[String, Entity] = {
         // observer interfaces must be extended by concrete observers, typed and called by subjects
         val (sub:Entity, sup:Entity) = dsm.SPECIALIZE.asEntities.inGroups
-        println("sub, sup: " + sub + sup)
         val obsI = sup.thatIs(List(TYPED, USE), dsm) // some pockets are removed at this point
         val conO = obsI.subClasses(sub)
         val (subj, observerI) = dsm.classesThat(List(TYPED, USE), obsI) asEntities
@@ -53,9 +52,7 @@ object Pattern {
 
     def _decorator(dsm: DSMDataStructure): Map[String, Entity] = {
         val (sub, sup) =dsm.SPECIALIZE.asEntities.inGroups
-        println("sub, sup: " + sub + sup)
-        val decorator = sup andIn sub       
-        println("dec: " + decorator) 
+        val decorator = sup andIn sub     
         val concDecorator = decorator subClasses sub
         val component = decorator superClasses sup
         val concComponent = component.subClasses(sub).exclude(decorator, concDecorator)
@@ -67,7 +64,7 @@ object Pattern {
     }
      def decorator(dsm: DSMDataStructure):Map[String, List[String]] = nice(_decorator(dsm), dsm)
 
-    def composite(dsm: DSMDataStructure): Map[String, Entity] = {
+    def _composite(dsm: DSMDataStructure): Map[String, Entity] = {
         val (sup, sub) = dsm.SPECIALIZE.atLeast(3) asEntities
         val composite = sub.that(List(TYPED), sup, dsm)
         val component = composite superClasses sup
@@ -77,5 +74,13 @@ object Pattern {
         Map("Composite" -> composite,
             "Component" -> component,
             "Leaf" -> leaf)
-    }    
+    } 
+    def composite(dsm:DSMDataStructure):Map[String, List[String]] = nice(_composite(dsm), dsm)  
+
+    def runAll(dsm:DSMDataStructure): Map[String, Map[String, List[String]]] = 
+        Map("Observer Pattern" -> observer(dsm),
+            "Visitor Pattern" -> visitor(dsm),
+            "Decorator Pattern" -> decorator(dsm),
+            "Composite Pattern" -> composite(dsm))
+    
 }
