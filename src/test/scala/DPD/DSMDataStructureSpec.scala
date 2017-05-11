@@ -3,7 +3,6 @@ package DPD
 import org.scalatest._
 import scala.io.Source
 import DPD.Types._
-import DPD.DSMDataStructure._
 import DependencyType._
 
 class DSMDataStructureSpec extends FlatSpec with Matchers {
