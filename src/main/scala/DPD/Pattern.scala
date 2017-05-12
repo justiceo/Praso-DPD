@@ -6,16 +6,7 @@ import DPD.Types._
 import scala.language.postfixOps
 
 object Pattern {
-
-  /** things to watch out for
-    * - duplicate classes across entities
-    * - scoring mechanism for promoting and demoting
-    * - write them unit tests!
-    *
-    * @param dsm
-    * @return
-    */
-
+  
   def _observer(dsm: DSMDataStructure): Map[String, Entity] = {
     // observer interfaces must be extended by concrete observers, typed and called by subjects
     val (sub: Entity, sup: Entity) = dsm.SPECIALIZE.asEntities.inGroups

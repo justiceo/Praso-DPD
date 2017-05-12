@@ -60,12 +60,9 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
       used.zipWithIndex.collect { case c if c._1 == '1' => c._2 }.toList
     }
 
-    def updateIndices(matrix: Matrix, originalOrder: List[Int]): Matrix =
-      matrix.map(_.map((t) => (t._1, originalOrder.indexOf(t._2))))
-
     val classes: List[Int] = classIds.flatMap(classId => classId :: dependents(classId) ++ dependencies(classId)).distinct.sorted.toList
     val newMatrix: Matrix = adjMatrix.zipWithIndex.collect { case t if classes.contains(t._2) => t._1 }
-      .map(arr => arr.collect { case c if classes.contains(c._2) => c })
+      .map(arr => arr.collect { case c if classes.contains(c._2) => (c._1, classes.indexOf(c._2)) })
     //newMatrix.map(arr => arr.map(t => t._2).toString).toString()
     val depIndices = getIndexUsedDependencies(newMatrix)
     new DSMDataStructure(
