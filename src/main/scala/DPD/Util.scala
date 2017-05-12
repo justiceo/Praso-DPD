@@ -1,7 +1,7 @@
 package DPD
 
 import java.io.PrintWriter
-
+import sys.process._
 import scala.io.Source
 
 /**
@@ -41,5 +41,21 @@ object Util {
       close()
     }
     true
+  }
+
+  def gitClone(url:String): String = {
+    val repoName = url.substring(url.lastIndexOf("/")+1).replace(".git", "")
+    val destination = "./target/" + repoName
+
+    if(new java.io.File(destination).exists) 
+      s"$repoName already exists locally in $destination"
+    else {
+      s"git clone $url $destination".!
+      s"$repoName cloned successfully"
+    }
+  }
+
+  def genDsm(project:String): String = {
+    ""
   }
 }
