@@ -8,7 +8,7 @@ object ScalaREPL {
 
     // Break into debug REPL with
     ammonite.Main(
-      predef = "println(\"Starting DPD!\")"
+      //predef = "println(\"Starting DPD!\")"
     ).run(
       // put dependency types constant in the environment
       "TYPED" -> DependencyType.TYPED,
