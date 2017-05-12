@@ -55,7 +55,17 @@ object Util {
     }
   }
 
-  def genDsm(project:String): String = {
-    ""
+  def genDsm(projectPath:String): String = {
+    val udb = projectPath + "/project.udb"
+    val cytoscape = projectPath + "/cytoscape.xml"
+    val dsm = projectPath + "project.dsm"
+
+    s"und create -db $udb -languages java > /dev/null".!
+    s"und -db $udb add $projectPath > /dev/null".!
+    s"und analyze $udb > /dev/null".!
+    s"und export -dependencies file cytoscape $cytoscape $udb > /dev/null".!
+    s"java -jar ./jars/genSdsm-cmd-jdk1.6.jar -cytoscape -f $cytoscape -o $dsm > /dev/null".!
+
+    "Done generating dsm"
   }
 }
