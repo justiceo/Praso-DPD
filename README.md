@@ -5,7 +5,7 @@ Automatically detect software design patterns by constraint satisfaction using a
 This project depends on [Scitools Understand](https://scitools.com/features) for generating dependency matrices.
 There's also a free [student licence](https://scitools.com/student/)
 
-The interactive shell uses [Ammonite](https://lihaoyi.com/ammonite), which not only makes it possible to run the program interatively, but brings the capabilities of scala and bash into the mix.
+The interactive shell uses [Ammonite](http://www.lihaoyi.com/Ammonite/ m), which not only makes it possible to run the program interatively, but brings the capabilities of scala and bash into the mix.
 
 ### Install & Run
 - Clone repo: `git clone https://github.com/justiceo/praso-dpd`

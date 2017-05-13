@@ -63,7 +63,7 @@ object Pattern {
   def decorator(dsm: DSMDataStructure): Map[String, List[String]] = nice(_decorator(dsm), dsm)
 
   def _composite(dsm: DSMDataStructure): Map[String, Entity] = {
-    val (sup, sub) = dsm.SPECIALIZE.atLeast(3) asEntities
+    val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
     val composite = sub.that(List(TYPED), sup, dsm)
     val component = composite superClasses sup
     val leaf = sub exclude composite
