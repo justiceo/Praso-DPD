@@ -2,11 +2,19 @@ package DPD
 
 import DPD.DependencyType._
 import DPD.Types._
-
 import scala.language.postfixOps
 
-object Pattern {
+object Pattern { 
+
+  object Flag extends Enumeration {
+    val
+    IgnoreTest,
+    RemoveAnyEmpty,
+    RemoveAllEmpty
+    = Value
+  } 
   
+  def observer(dsm: DSMDataStructure): Map[String, List[String]] = nice(_observer(dsm), dsm)
   def _observer(dsm: DSMDataStructure): Map[String, Entity] = {
     // observer interfaces must be extended by concrete observers, typed and called by subjects
     val (sub: Entity, sup: Entity) = dsm.SPECIALIZE.asEntities.inGroups
@@ -20,8 +28,8 @@ object Pattern {
       "Subject" -> subj)
   }
 
-  def observer(dsm: DSMDataStructure): Map[String, List[String]] = nice(_observer(dsm), dsm)
 
+  def visitor(dsm: DSMDataStructure): Map[String, List[String]] = nice(_visitor(dsm), dsm)
   def _visitor(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities inGroups
     val elementsP = sup.that(List(TYPED), sup, dsm)
@@ -35,18 +43,7 @@ object Pattern {
       "Concrete Element" -> concEle)
   }
 
-  def visitor(dsm: DSMDataStructure): Map[String, List[String]] = nice(_visitor(dsm), dsm)
-
-  def nice(res: Map[String, Entity], dsm: DSMDataStructure): Map[String, List[String]] = {
-    var m: Map[String, List[String]] = Map()
-    res foreach { case (name, entity) => {
-      val entStr: List[String] = entity.map(c => dsm.nice(c.classId))
-      m += (name -> entStr)
-    }
-    }
-    m
-  }
-
+  def decorator(dsm: DSMDataStructure): Map[String, List[String]] = nice(_decorator(dsm), dsm)
   def _decorator(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
     val decorator = sup andIn sub
@@ -60,8 +57,7 @@ object Pattern {
       "Concrete Decorator" -> concDecorator)
   }
 
-  def decorator(dsm: DSMDataStructure): Map[String, List[String]] = nice(_decorator(dsm), dsm)
-
+  def composite(dsm: DSMDataStructure): Map[String, List[String]] = nice(_composite(dsm), dsm)
   def _composite(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
     val composite = sub.that(List(TYPED), sup, dsm)
@@ -74,12 +70,61 @@ object Pattern {
       "Leaf" -> leaf)
   }
 
-  def composite(dsm: DSMDataStructure): Map[String, List[String]] = nice(_composite(dsm), dsm)
+  def absFactory(dsm: DSMDataStructure): Map[String, List[String]] = nice(_absFactory(dsm), dsm)
+  def _absFactory(dsm: DSMDataStructure): Map[String, Entity] = {
+    val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
+    //removeEmptyPockets()
+    Map()
+  }
 
-  def runAll(dsm: DSMDataStructure): Map[String, Map[String, List[String]]] =
+  def brdige(dsm: DSMDataStructure): Map[String, List[String]] = nice(_brdige(dsm), dsm)
+  def _brdige(dsm: DSMDataStructure): Map[String, Entity] = {
+    val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
+    //removeEmptyPockets()
+    Map()
+  }
+
+  def builder(dsm: DSMDataStructure): Map[String, List[String]] = nice(_builder(dsm), dsm)
+  def _builder(dsm: DSMDataStructure): Map[String, Entity] = {
+    val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
+    //removeEmptyPockets()
+    Map()
+  }
+
+  def factoryMethod(dsm: DSMDataStructure): Map[String, List[String]] = nice(_factoryMethod(dsm), dsm)
+  def _factoryMethod(dsm: DSMDataStructure): Map[String, Entity] = {
+    val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
+    //removeEmptyPockets()
+    Map()
+  }
+
+  def facade(dsm: DSMDataStructure): Map[String, List[String]] = nice(_facade(dsm), dsm)
+  def _facade(dsm: DSMDataStructure): Map[String, Entity] = {
+    val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
+    //removeEmptyPockets()
+    Map()
+  }
+
+  // add adapter
+
+  def runAll(dsm: DSMDataStructure): Map[String, Map[String, List[String]]] = {
+    // IgnoreTest flag can be processed here (... or passed on)
+    // RemoveAnyEmpty flag can be processed here
+    // RemoveAllEmpty flag can be processed here
+    // Pockets cannot be processed here - diff return type
     Map("Observer Pattern" -> observer(dsm),
       "Visitor Pattern" -> visitor(dsm),
       "Decorator Pattern" -> decorator(dsm),
       "Composite Pattern" -> composite(dsm))
+  }
 
+    
+  def nice(res: Map[String, Entity], dsm: DSMDataStructure): Map[String, List[String]] = {
+    var m: Map[String, List[String]] = Map()
+    res foreach { case (name, entity) => {
+      val entStr: List[String] = entity.map(c => dsm.nice(c.classId))
+      m += (name -> entStr)
+    }}
+    m
+  }
 }

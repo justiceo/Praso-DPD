@@ -18,6 +18,9 @@ The interactive shell uses [Ammonite](http://www.lihaoyi.com/Ammonite/ m), which
 ###### Real todo
 - Inspect vetted design pattern implementations (jhotdraw, java-design-patterns, head-first, gof)
 - Create rules for as many patterns as possible
+- Add discriminatory rules to the patterns to reduce false positives
+- Add print pocket method that prints the list in pockets
+- Add the IgnoreTest flag to ignore test classes in the patterns
 - Implement scoring system
 - Install understandand
 
