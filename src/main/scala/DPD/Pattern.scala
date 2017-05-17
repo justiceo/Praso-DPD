@@ -118,6 +118,23 @@ object Pattern {
       "Composite Pattern" -> composite(dsm))
   }
 
+  def runAllSrc(dsm: DSMDataStructure): Map[String, Map[String, List[String]]] = {
+    val obs = nice(removeTests(_observer(dsm), dsm), dsm)
+    val res = Map("Observer Pattern" -> obs,
+      "Visitor Pattern" -> visitor(dsm),
+      "Decorator Pattern" -> decorator(dsm),
+      "Composite Pattern" -> composite(dsm))
+
+    res.filter(t => !t._2.exists(s => s._2.isEmpty))
+  }
+
+  def removeTests(pattern: Map[String, Entity], dsm:DSMDataStructure): Map[String, Entity] = {
+    // for each entity, filter out nodes that are tests
+    var res: Map[String, Entity] = Map()
+    for((name, entity) <- pattern)
+      res += ( name -> entity.filterNot(a  => dsm.isTestClass(a.classId)))    
+    res
+  }
     
   def nice(res: Map[String, Entity], dsm: DSMDataStructure): Map[String, List[String]] = {
     var m: Map[String, List[String]] = Map()

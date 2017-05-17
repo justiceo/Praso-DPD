@@ -156,4 +156,6 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   def classesThat(deps: List[DependencyType.Value], entity: Entity): List[(Int, Int)] =
     dependencyPair(deps: _*).filter(t => entity.ids.contains(t._2))
 
+  def isTestClass(classId: Int): Boolean = nice(classId).endsWith("Test")
+
 }
