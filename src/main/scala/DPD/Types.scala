@@ -46,12 +46,17 @@ object Types {
     /**
       * returns this entity with members who exhibit a given dependency with classes in another entity
       */
+    def that(dep: DependencyType.Value, other: Entity, dsm: DSMDataStructure): Entity = that(List(dep), other, dsm)
+    def that(dep1: DependencyType.Value, dep2: DependencyType.Value, other: Entity, dsm: DSMDataStructure): Entity = that(List(dep1, dep2), other, dsm)
     def that(deps: List[DependencyType.Value], other: Entity, dsm: DSMDataStructure): Entity =
       entity.filter(t => !dsm.dependencies(t.classId, deps: _*).intersect(other.ids).isEmpty)
 
+    def thatIs(dep: DependencyType.Value, dsm: DSMDataStructure): Entity = thatIs(List(dep), dsm)
+    def thatIs(dep1: DependencyType.Value, dep2: DependencyType.Value, dsm: DSMDataStructure): Entity = thatIs(List(dep1, dep2), dsm)
     def thatIs(deps: List[DependencyType.Value], dsm: DSMDataStructure): Entity =
       entity.filter(t => !dsm.dependents(t.classId, deps: _*).isEmpty)
 
+    def thatIs(dep: DependencyType.Value, other: Entity, dsm: DSMDataStructure): Entity = thatIs(List(dep), other, dsm)
     def thatIs(deps: List[DependencyType.Value], other: Entity, dsm: DSMDataStructure): Entity =
       entity.filter(t => !dsm.dependents(t.classId, deps: _*).intersect(other.ids).isEmpty)
 

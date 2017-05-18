@@ -18,7 +18,7 @@ object Pattern {
   def _observer(dsm: DSMDataStructure): Map[String, Entity] = {
     // observer interfaces must be extended by concrete observers, typed and called by subjects
     val (sub: Entity, sup: Entity) = dsm.SPECIALIZE.asEntities.inGroups
-    val obsI = sup.thatIs(List(TYPED, USE), dsm)
+    val obsI = sup.thatIs(TYPED, USE, dsm)
     // some pockets are removed at this point
     val conO = obsI.subClasses(sub)
     val (subj, observerI) = dsm.classesThat(List(TYPED, USE), obsI) asEntities
@@ -32,8 +32,8 @@ object Pattern {
   def visitor(dsm: DSMDataStructure): Map[String, List[String]] = nice(removeTests(_visitor(dsm), dsm), dsm)
   def _visitor(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities inGroups
-    val elementsP = sup.that(List(TYPED), sup, dsm)
-    val visitorP = sup.that(List(TYPED), sub, dsm)
+    val elementsP = sup.that(TYPED, sup, dsm)
+    val visitorP = sup.that(TYPED, sub, dsm)
     val concVisitor = visitorP.subClasses(sub)
     val concEle = elementsP.subClasses(sub)
 
@@ -60,7 +60,7 @@ object Pattern {
   def composite(dsm: DSMDataStructure): Map[String, List[String]] = nice(removeTests(_composite(dsm), dsm), dsm)
   def _composite(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
-    val composite = sub.that(List(CALL), sup, dsm)
+    val composite = sub.that(CALL, sup, dsm)
     val component = composite superClasses sup
     val leaf = sub exclude composite
 
@@ -73,9 +73,9 @@ object Pattern {
   def absFactory(dsm: DSMDataStructure): Map[String, List[String]] = nice(removeTests(_absFactory(dsm), dsm), dsm)
   def _absFactory(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
-    val concreteFactory = sub.that(List(TYPED), sup, dsm).that(List(CREATE), sub, dsm)
+    val concreteFactory = sub.that(TYPED, sup, dsm).that(CREATE, sub, dsm)
     val abstractFactory = concreteFactory.superClasses(sup)
-    val abstractProduct = sup.thatIs(List(TYPED), abstractFactory, dsm)
+    val abstractProduct = sup.thatIs(TYPED, abstractFactory, dsm)
     val concreteProduct = abstractProduct.subClasses(sub)
 
     Map(
