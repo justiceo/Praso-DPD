@@ -52,6 +52,9 @@ object Types {
     def thatIs(deps: List[DependencyType.Value], dsm: DSMDataStructure): Entity =
       entity.filter(t => !dsm.dependents(t.classId, deps: _*).isEmpty)
 
+    def thatIs(deps: List[DependencyType.Value], other: Entity, dsm: DSMDataStructure): Entity =
+      entity.filter(t => !dsm.dependents(t.classId, deps: _*).intersect(other.ids).isEmpty)
+
     def reconcile(a: Entity, b: Entity): (Entity, Entity, Entity) = ???
 
     def andIn(other: Entity): Entity = entity.filter(c => other.ids.contains(c.classId))

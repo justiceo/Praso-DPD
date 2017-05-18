@@ -73,8 +73,17 @@ object Pattern {
   def absFactory(dsm: DSMDataStructure): Map[String, List[String]] = nice(removeTests(_absFactory(dsm), dsm), dsm)
   def _absFactory(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
-    //removeEmptyPockets()
-    Map()
+    val concreteFactory = sub.that(List(TYPED), sup, dsm).that(List(CREATE), sub, dsm)
+    val abstractFactory = concreteFactory.superClasses(sup)
+    val abstractProduct = sup.thatIs(List(TYPED), abstractFactory, dsm)
+    val concreteProduct = abstractProduct.subClasses(sub)
+
+    Map(
+      "Abstract Factory" -> abstractFactory,
+      "Concrete Factory" -> concreteFactory,
+      "Abstract Product" -> abstractProduct,
+      "Concrete Product" -> concreteProduct
+    )
   }
 
   def brdige(dsm: DSMDataStructure): Map[String, List[String]] = nice(removeTests(_brdige(dsm), dsm), dsm)

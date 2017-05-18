@@ -29,3 +29,8 @@ The interactive shell uses [Ammonite](http://www.lihaoyi.com/Ammonite/ m), which
 - Use machine learning to detect observer pattern
 - Generate dsm and func from source using Understand
 - Parse source files for additional meta-data
+
+
+optimizations
+- string paddTo
+- 0-range).indices instead of zipWithIndex
