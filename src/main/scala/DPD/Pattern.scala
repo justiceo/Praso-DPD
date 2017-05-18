@@ -60,7 +60,7 @@ object Pattern {
   def composite(dsm: DSMDataStructure): Map[String, List[String]] = nice(removeTests(_composite(dsm), dsm), dsm)
   def _composite(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
-    val composite = sub.that(List(TYPED), sup, dsm)
+    val composite = sub.that(List(CALL), sup, dsm)
     val component = composite superClasses sup
     val leaf = sub exclude composite
 
