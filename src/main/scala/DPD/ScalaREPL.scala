@@ -5,6 +5,7 @@ object ScalaREPL {
 
     // if no dsm is specified, use default
     val dsmFile = if (args.length == 0) "dsm/simpleVisitorPattern.dsm" else args(0)
+    lazy val dsm = Util.parse(dsmFile)
 
     // Break into debug REPL with
     ammonite.Main(
@@ -26,7 +27,7 @@ object ScalaREPL {
 
       "$" -> Util,
       "pattern" -> Pattern,
-      "dsm" -> Util.parse(dsmFile)
+      "dsm" -> dsm
     )
   }
 }
