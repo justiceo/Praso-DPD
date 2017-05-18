@@ -86,11 +86,20 @@ object Pattern {
     )
   }
 
-  def brdige(dsm: DSMDataStructure): Map[String, List[String]] = nice(removeTests(_brdige(dsm), dsm), dsm)
-  def _brdige(dsm: DSMDataStructure): Map[String, Entity] = {
+  def bridge(dsm: DSMDataStructure): Map[String, List[String]] = nice(removeTests(_bridge(dsm), dsm), dsm)
+  def _bridge(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
-    //removeEmptyPockets()
-    Map()
+    val abstraction = sup.that(TYPED, sup, dsm)
+    val refinedAbs = abstraction.subClasses(sub)
+    val implementor = sup.thatIs(TYPED, abstraction, dsm).exclude(abstraction)
+    val concImpl = implementor subClasses sub
+
+    Map(
+      "Abstraction" -> abstraction,
+      "Refined Abstraction" -> refinedAbs,
+      "Implementor" -> implementor,
+      "Concrete Implementor" -> concImpl
+    )
   }
 
   def builder(dsm: DSMDataStructure): Map[String, List[String]] = nice(removeTests(_builder(dsm), dsm), dsm)
@@ -142,7 +151,7 @@ object Pattern {
       "Decorator Pattern" -> decorator(dsm),
       "Composite Pattern" -> composite(dsm),
       "Abstract Factory" -> absFactory(dsm),
-      "Bridge Pattern" -> brdige(dsm),
+      "Bridge Pattern" -> bridge(dsm),
       "Builder Pattern" -> builder(dsm),
       "Factory Method" -> factoryMethod(dsm),
       "Facada" -> facade(dsm),
