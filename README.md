@@ -23,6 +23,7 @@ The interactive shell uses [Ammonite](http://www.lihaoyi.com/Ammonite/ m), which
 - Add the IgnoreTest flag to ignore test classes in the patterns
 - Implement scoring system
 - Install understandand
+- Try the new patterns from p.c.
 
 ###### Fancy todo
 - Add function dsm to the mix

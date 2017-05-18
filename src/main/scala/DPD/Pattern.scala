@@ -103,8 +103,17 @@ object Pattern {
   def factoryMethod(dsm: DSMDataStructure): Map[String, List[String]] = nice(removeTests(_factoryMethod(dsm), dsm), dsm)
   def _factoryMethod(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
-    //removeEmptyPockets()
-    Map()
+    val concreteCreator = sub.that(TYPED, sup, dsm).that(CREATE, sub, dsm)
+    val creator = concreteCreator.superClasses(sup)
+    val abstractProduct = sup.thatIs(TYPED, creator, dsm)
+    val concreteProduct = abstractProduct.subClasses(sub)
+
+    Map(
+      "Creator" -> creator,
+      "Concrete Creator" -> concreteCreator,
+      "Product" -> abstractProduct,
+      "Concrete Product" -> concreteProduct
+    )
   }
 
   def facade(dsm: DSMDataStructure): Map[String, List[String]] = nice(_facade(dsm), dsm)
