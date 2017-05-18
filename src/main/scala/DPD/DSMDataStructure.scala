@@ -102,6 +102,22 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
       else (0 until diff).map(_ => "0").mkString("") + s
     }).reduce((a, b) => a + " " + b))
 
+  /** same as rowAsStrings, but adds spaces to 0's to achieve a square effect */
+  def paddedRowsAsStrings(adjMatrix: Matrix): List[String] = {
+    val singleCharPadding = (0 until dependencyTypes.size - 1).map(_ => " ").mkString("")
+    val topIndex = "    " + (0 until adjMatrix.size).map(i => i + singleCharPadding).mkString(" ")
+    val underLine = (0 to topIndex.length).map(i => "-").mkString("")
+    val matStr = adjMatrix.map(_.map((t) => Integer.toBinaryString(t._1)).map(s => {
+      val diff = dependencyTypes.size - s.length
+      if (s.equals("0")) "0" + singleCharPadding
+      else if (diff == 0) s
+      // if the binary form is shorter than expected length, add zeros in front
+      else (0 until diff).map(_ => "0").mkString("") + s
+    }).reduce((a, b) => a + " " + b))
+    val withSideIndex = matStr.zipWithIndex.map(s => s._2 + " | " + s._1)
+    topIndex :: underLine :: withSideIndex
+  }
+
   /** Returns a decimal that represents the binary string of this dependency */
   def toBinaryMask(dep: DependencyType.Value): Int = math.pow(2, (dependencyTypes.size - 1 - dependencyTypes.indexOf(dep)).toDouble).toInt
 
@@ -143,6 +159,12 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   def nice(t: (Int, Int)): (String, String) = (nice(t._1), nice(t._2))
 
   def nice(l: List[(Int, Int)]): List[(String, String)] = l.map(nice)
+
+  def nice: String = {
+    val depLine = dependencyTypes.map(_.toString).mkString("[", ",", "]")
+    val numberedFiles = files.zipWithIndex.map(t => "(" + t._2 + ") " + getFQType(t._2))
+    s"$depLine \n${paddedRowsAsStrings(squarify()).mkString("\n")} \n${numberedFiles.mkString("\n")}"
+  }
 
   /** input should be the result from 'find' function
     * return the class indices of the classes specified as args
