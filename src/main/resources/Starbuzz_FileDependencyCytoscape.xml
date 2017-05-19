@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graph xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cy="http://www.cytoscape.org" xmlns="http://www.cs.rpi.edu/XGMML" label=" File Dependencies" Directed="0" Graphic="0" Layout="Circular">
+       <att name="documentVersion" value="1.1"/>
+       <att name="networkMetadata">
+               <rdf:RDF>
+                       <rdf:Description rdf:about="http://www.cytoscape.org/">
+                               <dc:type>File Dependencies</dc:type>
+                               <dc:description/>
+                               <dc:identifier>-</dc:identifier>
+                               <dc:date/>
+                               <dc:title/>
+                               <dc:source>http://localhost/?p=</dc:source>
+                               <dc:format>Cytoscape-XGMML</dc:format>
+                       </rdf:Description>
+               </rdf:RDF>
+       </att>
+   <node id="148" label="Espresso.java id:148">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="Espresso.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\extras\Espresso.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="0" y="0" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="112" label="TeaLg.java id:112">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="TeaLg.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\sizes\TeaLg.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="115" y="0" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="120" label="Chocolate.java id:120">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="Chocolate.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\extras\Chocolate.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="230" y="0" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="147" label="CoffeeBeverage.java id:147">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="CoffeeBeverage.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\extras\CoffeeBeverage.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="345" y="0" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="93" label="CoffeeDrink.java id:93">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="CoffeeDrink.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\recipes\CoffeeDrink.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="460" y="0" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="81" label="Beverage.java id:81">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="Beverage.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\starbuzzcore\Beverage.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="0" y="115" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="101" label="CoffeeSm.java id:101">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="CoffeeSm.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\sizes\CoffeeSm.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="115" y="115" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="107" label="TeaBeverage.java id:107">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="TeaBeverage.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\extras\TeaBeverage.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="230" y="115" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="38" label="Jasmine.java id:38">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="Jasmine.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\extras\Jasmine.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="345" y="115" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="150" label="TeaBased.java id:150">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="TeaBased.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\sizes\TeaBased.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="460" y="115" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="17" label="CoffeeBased.java id:17">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="CoffeeBased.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\sizes\CoffeeBased.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="0" y="230" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="124" label="Starbuzz.java id:124">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="Starbuzz.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\starbuzzcore\Starbuzz.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="115" y="230" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="97" label="MilkFreeTeaDrink.java id:97">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="MilkFreeTeaDrink.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\recipes\MilkFreeTeaDrink.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="230" y="230" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="103" label="TeaMed.java id:103">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="TeaMed.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\sizes\TeaMed.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="345" y="230" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="99" label="TeaDrink.java id:99">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="TeaDrink.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\recipes\TeaDrink.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="460" y="230" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="114" label="RedTea.java id:114">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="RedTea.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\extras\RedTea.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="0" y="345" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="116" label="Ingredient.java id:116">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="Ingredient.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\starbuzzcore\Ingredient.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="115" y="345" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="143" label="HouseBlend.java id:143">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="HouseBlend.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\extras\HouseBlend.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="230" y="345" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="145" label="CoffeeMed.java id:145">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="CoffeeMed.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\sizes\CoffeeMed.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="345" y="345" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="108" label="Ginger.java id:108">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="Ginger.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\extras\Ginger.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="460" y="345" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="33" label="Decaf.java id:33">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="Decaf.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\extras\Decaf.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="0" y="460" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="44" label="Parser.java id:44">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="Parser.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\starbuzzcore\Parser.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="115" y="460" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="20" label="WhipCream.java id:20">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="WhipCream.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\extras\WhipCream.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="230" y="460" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="9" label="MilkFreeCoffeeDrink.java id:9">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="MilkFreeCoffeeDrink.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\recipes\MilkFreeCoffeeDrink.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="345" y="460" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="95" label="GreenTea.java id:95">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="GreenTea.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\extras\GreenTea.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="460" y="460" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="89" label="WhiteTea.java id:89">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="WhiteTea.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\extras\WhiteTea.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="0" y="575" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="141" label="TeaSm.java id:141">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="TeaSm.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\sizes\TeaSm.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="115" y="575" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="1" label="CoffeeLg.java id:1">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="CoffeeLg.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\sizes\CoffeeLg.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="230" y="575" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="137" label="Milk.java id:137">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="Milk.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\extras\Milk.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="345" y="575" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="92" label="SizeFactor.java id:92">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="SizeFactor.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\interfaces\SizeFactor.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="460" y="575" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+   <node id="119" label="Recipe.java id:119">
+           <att type="string" name="node.shape" value="rect"/>
+           <att type="string" name="node.fontSize" value="5"/>
+           <att type="string" name="node.label" value="Recipe.java"/>
+           <att type="string" name="longName" value="D:\Code\IdeaProjects\StarBuzz\src\interfaces\Recipe.java"/>
+           <graphics type="RECTANGLE" h="35" w="35" x="0" y="690" fill="#ffffff" width="1" outline="#000000" cy:nodeTransparency="1.0" cy:nodeLabelFont="Default-0-8" cy:borderLineType="solid"/>
+   </node>
+     <edge source="148" target="147" label="Espresso.java(Depends On)CoffeeBeverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Espresso.java(Depends On)CoffeeBeverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Extend"/>
+     </edge>
+     <edge source="148" target="81" label="Espresso.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Espresso.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call"/>
+     </edge>
+     <edge source="112" target="150" label="TeaLg.java(Depends On)TeaBased.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="TeaLg.java(Depends On)TeaBased.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Extend"/>
+     </edge>
+     <edge source="120" target="116" label="Chocolate.java(Depends On)Ingredient.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Chocolate.java(Depends On)Ingredient.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Import, Extend"/>
+     </edge>
+     <edge source="120" target="81" label="Chocolate.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Chocolate.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Typed, Import"/>
+     </edge>
+     <edge source="147" target="81" label="CoffeeBeverage.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="CoffeeBeverage.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Import, Extend"/>
+     </edge>
+     <edge source="93" target="119" label="CoffeeDrink.java(Depends On)Recipe.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="CoffeeDrink.java(Depends On)Recipe.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Import, Implement"/>
+     </edge>
+     <edge source="81" target="92" label="Beverage.java(Depends On)SizeFactor.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Beverage.java(Depends On)SizeFactor.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Typed, Import"/>
+     </edge>
+     <edge source="81" target="119" label="Beverage.java(Depends On)Recipe.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Beverage.java(Depends On)Recipe.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Typed, Import"/>
+     </edge>
+     <edge source="101" target="17" label="CoffeeSm.java(Depends On)CoffeeBased.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="CoffeeSm.java(Depends On)CoffeeBased.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Extend"/>
+     </edge>
+     <edge source="107" target="81" label="TeaBeverage.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="TeaBeverage.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Import, Extend"/>
+     </edge>
+     <edge source="38" target="116" label="Jasmine.java(Depends On)Ingredient.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Jasmine.java(Depends On)Ingredient.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Import, Extend"/>
+     </edge>
+     <edge source="38" target="81" label="Jasmine.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Jasmine.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Typed, Import"/>
+     </edge>
+     <edge source="150" target="92" label="TeaBased.java(Depends On)SizeFactor.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="TeaBased.java(Depends On)SizeFactor.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Import, Implement"/>
+     </edge>
+     <edge source="17" target="92" label="CoffeeBased.java(Depends On)SizeFactor.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="CoffeeBased.java(Depends On)SizeFactor.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Import, Implement"/>
+     </edge>
+     <edge source="124" target="44" label="Starbuzz.java(Depends On)Parser.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Starbuzz.java(Depends On)Parser.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Create, Typed"/>
+     </edge>
+     <edge source="124" target="81" label="Starbuzz.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Starbuzz.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Typed"/>
+     </edge>
+     <edge source="97" target="119" label="MilkFreeTeaDrink.java(Depends On)Recipe.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="MilkFreeTeaDrink.java(Depends On)Recipe.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Import, Implement"/>
+     </edge>
+     <edge source="103" target="150" label="TeaMed.java(Depends On)TeaBased.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="TeaMed.java(Depends On)TeaBased.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Extend"/>
+     </edge>
+     <edge source="99" target="119" label="TeaDrink.java(Depends On)Recipe.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="TeaDrink.java(Depends On)Recipe.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Import, Implement"/>
+     </edge>
+     <edge source="114" target="107" label="RedTea.java(Depends On)TeaBeverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="RedTea.java(Depends On)TeaBeverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Extend"/>
+     </edge>
+     <edge source="114" target="81" label="RedTea.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="RedTea.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call"/>
+     </edge>
+     <edge source="116" target="81" label="Ingredient.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Ingredient.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Typed, Extend"/>
+     </edge>
+     <edge source="143" target="147" label="HouseBlend.java(Depends On)CoffeeBeverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="HouseBlend.java(Depends On)CoffeeBeverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Extend"/>
+     </edge>
+     <edge source="143" target="81" label="HouseBlend.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="HouseBlend.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call"/>
+     </edge>
+     <edge source="145" target="17" label="CoffeeMed.java(Depends On)CoffeeBased.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="CoffeeMed.java(Depends On)CoffeeBased.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Extend"/>
+     </edge>
+     <edge source="108" target="116" label="Ginger.java(Depends On)Ingredient.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Ginger.java(Depends On)Ingredient.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Import, Extend"/>
+     </edge>
+     <edge source="108" target="81" label="Ginger.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Ginger.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Typed, Import"/>
+     </edge>
+     <edge source="33" target="147" label="Decaf.java(Depends On)CoffeeBeverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Decaf.java(Depends On)CoffeeBeverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Extend"/>
+     </edge>
+     <edge source="33" target="81" label="Decaf.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Decaf.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call"/>
+     </edge>
+     <edge source="44" target="95" label="Parser.java(Depends On)GreenTea.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)GreenTea.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="103" label="Parser.java(Depends On)TeaMed.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)TeaMed.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="114" label="Parser.java(Depends On)RedTea.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)RedTea.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="20" label="Parser.java(Depends On)WhipCream.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)WhipCream.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Create"/>
+     </edge>
+     <edge source="44" target="1" label="Parser.java(Depends On)CoffeeLg.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)CoffeeLg.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="120" label="Parser.java(Depends On)Chocolate.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)Chocolate.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Create"/>
+     </edge>
+     <edge source="44" target="137" label="Parser.java(Depends On)Milk.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)Milk.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Create"/>
+     </edge>
+     <edge source="44" target="141" label="Parser.java(Depends On)TeaSm.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)TeaSm.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="97" label="Parser.java(Depends On)MilkFreeTeaDrink.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)MilkFreeTeaDrink.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="99" label="Parser.java(Depends On)TeaDrink.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)TeaDrink.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="148" label="Parser.java(Depends On)Espresso.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)Espresso.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="33" label="Parser.java(Depends On)Decaf.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)Decaf.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="145" label="Parser.java(Depends On)CoffeeMed.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)CoffeeMed.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="112" label="Parser.java(Depends On)TeaLg.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)TeaLg.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="93" label="Parser.java(Depends On)CoffeeDrink.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)CoffeeDrink.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="143" label="Parser.java(Depends On)HouseBlend.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)HouseBlend.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="9" label="Parser.java(Depends On)MilkFreeCoffeeDrink.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)MilkFreeCoffeeDrink.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="89" label="Parser.java(Depends On)WhiteTea.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)WhiteTea.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="108" label="Parser.java(Depends On)Ginger.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)Ginger.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Create"/>
+     </edge>
+     <edge source="44" target="81" label="Parser.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Typed"/>
+     </edge>
+     <edge source="44" target="101" label="Parser.java(Depends On)CoffeeSm.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)CoffeeSm.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Create"/>
+     </edge>
+     <edge source="44" target="38" label="Parser.java(Depends On)Jasmine.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Parser.java(Depends On)Jasmine.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Create"/>
+     </edge>
+     <edge source="20" target="116" label="WhipCream.java(Depends On)Ingredient.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="WhipCream.java(Depends On)Ingredient.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Import, Extend"/>
+     </edge>
+     <edge source="20" target="81" label="WhipCream.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="WhipCream.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Typed, Import"/>
+     </edge>
+     <edge source="9" target="119" label="MilkFreeCoffeeDrink.java(Depends On)Recipe.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="MilkFreeCoffeeDrink.java(Depends On)Recipe.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Import, Implement"/>
+     </edge>
+     <edge source="95" target="107" label="GreenTea.java(Depends On)TeaBeverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="GreenTea.java(Depends On)TeaBeverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Extend"/>
+     </edge>
+     <edge source="95" target="81" label="GreenTea.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="GreenTea.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call"/>
+     </edge>
+     <edge source="89" target="107" label="WhiteTea.java(Depends On)TeaBeverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="WhiteTea.java(Depends On)TeaBeverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Extend"/>
+     </edge>
+     <edge source="89" target="81" label="WhiteTea.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="WhiteTea.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call"/>
+     </edge>
+     <edge source="141" target="150" label="TeaSm.java(Depends On)TeaBased.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="TeaSm.java(Depends On)TeaBased.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Extend"/>
+     </edge>
+     <edge source="1" target="17" label="CoffeeLg.java(Depends On)CoffeeBased.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="CoffeeLg.java(Depends On)CoffeeBased.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Extend"/>
+     </edge>
+     <edge source="137" target="116" label="Milk.java(Depends On)Ingredient.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Milk.java(Depends On)Ingredient.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Call, Import, Extend"/>
+     </edge>
+     <edge source="137" target="81" label="Milk.java(Depends On)Beverage.java">
+             <att type="string" name="edge.targetArrowShape" value="ARROW"/>
+             <att type="string" name="edge.color" value="#0000FF"/>
+             <att type="string" name="canonicalName" value="Milk.java(Depends On)Beverage.java"/>
+             <att type="string" name="interaction" value="Depends On"/>
+             <att type="string" name="dependency kind" value="Typed, Import"/>
+     </edge>
+</graph>
