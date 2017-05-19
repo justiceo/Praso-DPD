@@ -20,9 +20,8 @@ The interactive shell uses [Ammonite](http://www.lihaoyi.com/Ammonite/ m), which
 - Create rules for as many patterns as possible
 - Add discriminatory rules to the patterns to reduce false positives
 - Add print pocket method that prints the list in pockets
-- Add the IgnoreTest flag to ignore test classes in the patterns
 - Implement scoring system
-- Install understandand
+- Install understand
 - Try the new patterns from p.c.
 
 ###### Fancy todo

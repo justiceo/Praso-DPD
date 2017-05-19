@@ -20,3 +20,10 @@ sudo apt-get install sbt
 # Install ammonite-scripts, ammonite-ops and ammonite-shell
 mkdir ~/.ammonite
 cp ./project/predef* ~/.ammonite
+
+# Install Understand for x64 linux
+wget http://latest.scitools.com/Understand/Understand-4.0.892-Linux-64bit.tgz
+tar -xvzf Understand-4.0.800-Linux-64bit.tgz
+sudo mv scitools /usr/bin/
+echo "export PATH=$PATH:/usr/bin/scitools/bin/linux64" >> ~/.bashrc
+source ~/.bashrc
