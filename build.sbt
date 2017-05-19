@@ -12,6 +12,7 @@ lazy val root = (project in file(".")).
     name := "Main",
     libraryDependencies += scalaTest % Test,    
     libraryDependencies += "com.lihaoyi" % "ammonite" % "0.8.4" cross CrossVersion.full,
+    libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.19",
     libraryDependencies += "org.scala-lang" % "scala-compiler" % scalaVersion.value
   )
 
