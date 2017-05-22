@@ -50,7 +50,7 @@ open(FILE,">$output") || die("Couldn't write to output file. $!");
 my @ents = $db->ents("function ~unknown ~unresolved, method ~unknown ~unresolved");
 
 #print header
-print FILE "Function, File, Line, DependsOnEnt,DependsOnType,DependsOnFile\n";
+print FILE "Function, Params, Return Type, File, Line, DependsOnEnt,DependsOnType,DependsOnFile\n";
 
 foreach my $function (sort {lc($a->longname()) cmp lc($b->longname());} @ents){
   #Get the file where the function is defined
@@ -69,12 +69,14 @@ foreach my $function (sort {lc($a->longname()) cmp lc($b->longname());} @ents){
     my $depDecl = getDeclRef($ref->ent); #get the declaration references for the dependent object
     
     #Print out the dependency info
-    print FILE "\"".$function->longname."(".$function->parameters.")\",";
-    print FILE "\"".$ref->file->longname."\",";
+    print FILE "\"".$function->name."\",";
+    print FILE "\"".$function->parameters()."\",";
+    print FILE "\"".$function->type()."\",";
+    print FILE "\"".$ref->file->relname."\",";
     print FILE "\"".$ref->line."\",";
     print FILE "\"".$ref->ent->name."\",";
     print FILE "\"".$ref->kindname()."\",";
-    print FILE "\"".$depDecl->file->longname if $depDecl;
+    print FILE "\"".$depDecl->file->relname if $depDecl;
     print FILE "\"\n";
   }
   print ".";  
