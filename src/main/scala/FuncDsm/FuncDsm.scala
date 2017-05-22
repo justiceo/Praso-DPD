@@ -6,6 +6,9 @@ import DPD._
 
 import scala.collection.mutable.ListBuffer
 import scala.io.Source
+import kantan.csv._
+import kantan.csv.ops._
+import kantan.csv.generic._
 
 // read all lines in file
 // use tokenizer to break up into csv columns
@@ -21,13 +24,22 @@ import scala.io.Source
 object FuncDsm {
 
   case class Csv(function: String, file: String, line: Int, dependsOnFunction: String, dependsOnType: DependencyType.Value, dependsOnFile: String)
+  case class Csv2(function: String, file: String, line: Int, dependsOnFunction: String, dependsOnType: String, dependsOnFile: String)
 
-  def oldMain(args: Array[String]): Unit = {
-    val files = getListOfFiles(new File("D:\\Code\\Tools\\art_tools\\scripts\\project399\\csv"), "csv")
-    files.par.foreach(f => genDsm(f.getAbsolutePath))
+  def main(args: Array[String]): Unit = {
+    val file = "/AhoCorasickDoubleArrayTrie_src.func.csv"
+    genDsm2(file)
   }
 
-  def getListOfFiles(dir: File, ext: String): List[File] = dir.listFiles.filter(f => f.isFile && f.getName.endsWith(ext)).toList
+  def genDsm2(file: String): Unit = {
+    try {
+      val rawData: java.net.URL = getClass.getResource(file)
+      val csv = rawData.asCsvReader[List[String]](rfc.withHeader).map(t => t.get).toList
+      csv(0).foreach(println)
+    } catch {
+      case e: Exception => println("\n***Error processing " + file + "\n" + e)
+    }
+  }
 
   def genDsm(file: String): Unit = {
     try {

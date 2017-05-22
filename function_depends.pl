@@ -69,13 +69,13 @@ foreach my $function (sort {lc($a->longname()) cmp lc($b->longname());} @ents){
     my $depDecl = getDeclRef($ref->ent); #get the declaration references for the dependent object
     
     #Print out the dependency info
-    print FILE $function->longname."(".$function->parameters."),";
-    print FILE $ref->file->longname.",";
-    print FILE $ref->line.",";
-    print FILE $ref->ent->name.",";
-    print FILE $ref->kindname().",";
-    print FILE $depDecl->file->longname if $depDecl;
-    print FILE "\n";
+    print FILE "\"".$function->longname."(".$function->parameters.")\",";
+    print FILE "\"".$ref->file->longname."\",";
+    print FILE "\"".$ref->line."\",";
+    print FILE "\"".$ref->ent->name."\",";
+    print FILE "\"".$ref->kindname()."\",";
+    print FILE "\"".$depDecl->file->longname if $depDecl;
+    print FILE "\"\n";
   }
   print ".";  
 }

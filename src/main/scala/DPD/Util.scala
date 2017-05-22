@@ -24,6 +24,8 @@ object Util {
     val rawData: java.net.URL = getClass.getResource("/Starbuzz_ClassDependencyMatrix.csv")
     val _iterator = rawData.asCsvReader[List[String]](rfc.withHeader)
     iterator = _iterator
+    val files = iterator.map(t => t.get).toList
+    println(files)
     //iterator.foreach(println)
     /*val size = iterator(0).size
     println(iterator(0))
