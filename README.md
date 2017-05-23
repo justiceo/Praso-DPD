@@ -15,16 +15,15 @@ The interactive shell uses [Ammonite](http://www.lihaoyi.com/Ammonite/ m), which
 - To run unit tests: `sbt test`
 
 ### Todo
-###### Real todo
+###### Meat
 - Inspect vetted design pattern implementations (jhotdraw, java-design-patterns, head-first, gof)
 - Create rules for as many patterns as possible
 - Add discriminatory rules to the patterns to reduce false positives
 - Add print pocket method that prints the list in pockets
 - Implement scoring system
-- Install understand
 - Try the new patterns from p.c.
 
-###### Fancy todo
+###### Spice
 - Add function dsm to the mix
 - Use machine learning to detect observer pattern
 - Generate dsm and func from source using Understand

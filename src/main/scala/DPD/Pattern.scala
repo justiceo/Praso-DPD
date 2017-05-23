@@ -5,14 +5,6 @@ import DPD.Types._
 import scala.language.postfixOps
 
 object Pattern { 
-
-  object Flag extends Enumeration {
-    val
-    IgnoreTest,
-    RemoveAnyEmpty,
-    RemoveAllEmpty
-    = Value
-  } 
   
   def observer(dsm: DSMDataStructure): Map[String, List[String]] = nice(removeTests(_observer(dsm), dsm), dsm)
   def _observer(dsm: DSMDataStructure): Map[String, Entity] = {
@@ -21,7 +13,8 @@ object Pattern {
     val obsI = sup.thatIs(TYPED, USE, dsm)
     // some pockets are removed at this point
     val conO = obsI.subClasses(sub)
-    val (subj, observerI) = dsm.classesThat(List(TYPED, USE), obsI) asEntities
+    val (t_subj, observerI) = dsm.classesThat(List(TYPED, USE), obsI) asEntities
+    val subj = obsI.reconcile(observerI).zipReconcile(t_subj)
 
     Map("Observer Interface" -> obsI,
       "Concrete Observer" -> conO,

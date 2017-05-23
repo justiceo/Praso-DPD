@@ -62,6 +62,10 @@ object Types {
 
     def reconcile(a: Entity, b: Entity): (Entity, Entity, Entity) = ???
 
+    // if a class in `a` is in `entity`, update `a` pocket to this entity pocket
+    def reconcile(a: Entity): Entity = a.map(c => { if (entity.ids.contains(c.classId)) entity.filter(d => d.classId == c.classId).head else c })
+    def zipReconcile(a: Entity): Entity = a.zip(entity).map(t => CNode(t._1.classId, t._1.score, t._2.pocket))
+
     def andIn(other: Entity): Entity = entity.filter(c => other.ids.contains(c.classId))
 
     /**
