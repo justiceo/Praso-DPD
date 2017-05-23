@@ -22,11 +22,12 @@ The interactive shell uses [Ammonite](http://www.lihaoyi.com/Ammonite/ m), which
 - Add print pocket method that prints the list in pockets
 - Implement scoring system
 - Try the new patterns from p.c.
+- Add more methods for reconciling pockets
 
 ###### Spice
 - Add function dsm to the mix
-- Use machine learning to detect observer pattern
 - Generate dsm and func from source using Understand
+- Create perl script for generating class dsms with extra sugar, then update DsmDS
 - Parse source files for additional meta-data
 
 

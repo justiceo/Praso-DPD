@@ -95,13 +95,30 @@ object Pattern {
     )
   }
 
+  /**
+   * Ignored for now
+   * - very similar to observer, resume after improved precision methods, scoring and pockets
+   * - incorrect implementation in java-design-patterns - resume after update java-design-pattern dsm
+   */
   def builder(dsm: DSMDataStructure): Map[String, List[String]] = nice(removeTests(_builder(dsm), dsm), dsm)
   def _builder(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
+    //val concBuilder = sub.that(CREATE, dsm)
+    val dir = dsm.classesThat(List(TYPED), sup)
+    val product = dsm.classesThat(List(CREATE), sub)
     //removeEmptyPockets()
-    Map()
+    Map(
+      "Director" -> List(),
+      "Builder" -> List(),
+      "Concrete Builder" -> List(),
+      "Product" -> List()
+      )
   }
 
+  /** 
+   * Ignore for now
+   * - very similar to abstract factory
+   */
   def factoryMethod(dsm: DSMDataStructure): Map[String, List[String]] = nice(removeTests(_factoryMethod(dsm), dsm), dsm)
   def _factoryMethod(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
@@ -118,15 +135,30 @@ object Pattern {
     )
   }
 
+  /**
+   * Ignore for now
+   * - looks a lot like observer pattern
+   * - less applicable
+   * - counts as spice
+   */
   def facade(dsm: DSMDataStructure): Map[String, List[String]] = nice(_facade(dsm), dsm)
   def _facade(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
-    //removeEmptyPockets()
-    Map()
+    val (f1, sub2) = dsm.classesThat(List(CREATE), sub) asEntities
+    val f2 = sub.reconcile(sub2).zipReconcile(f1)
+    val f3 = f2.thatIs(CALL, TYPED, dsm)
+    Map(
+      "Facade" -> f3,
+      "Sub components" -> sub2
+      ) // update the pockets
   }
 
   
-
+  /**
+   * Ignore for now
+   * - looks much like observer 
+   * - would require higher-level function decomposition
+   */
   def adapter(dsm: DSMDataStructure): Map[String, List[String]] = nice(removeTests(_adapter(dsm), dsm), dsm)
   def _adapter(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
@@ -144,15 +176,21 @@ object Pattern {
       "Decorator Pattern" -> decorator(dsm),
       "Composite Pattern" -> composite(dsm),
       "Abstract Factory" -> absFactory(dsm),
-      "Bridge Pattern" -> bridge(dsm),
+      "Bridge Pattern" -> bridge(dsm)
+      /*
       "Builder Pattern" -> builder(dsm),
       "Factory Method" -> factoryMethod(dsm),
       "Facada" -> facade(dsm),
-      "Adapter Pattern" -> adapter(dsm)
+      "Adapter Pattern" -> adapter(dsm)*/
       )
   }
 
   def runAll(dsm: DSMDataStructure): Map[String, Map[String, List[String]]] = {
+    _runAll(dsm).filter(t => !t._2.isEmpty && !t._2.exists(s => s._2.isEmpty))
+  }
+
+  def runAllIsolated(dsm: DSMDataStructure): Map[String, Map[String, List[String]]] = {
+    // isolate each pattern and run
     _runAll(dsm).filter(t => !t._2.isEmpty && !t._2.exists(s => s._2.isEmpty))
   }
 
