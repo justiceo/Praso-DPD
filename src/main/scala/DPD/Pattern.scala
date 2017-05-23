@@ -95,6 +95,61 @@ object Pattern {
     )
   }
 
+  def runAll(dsm: DSMDataStructure): Map[String, Map[String, List[String]]] = {
+    _runAll(dsm).filter(t => !t._2.isEmpty && !t._2.exists(s => s._2.isEmpty))
+  }
+
+  def runAllIsolated(dsm: DSMDataStructure): Map[String, Map[String, List[String]]] = {
+    // isolate each pattern and run
+    _runAll(dsm).filter(t => !t._2.isEmpty && !t._2.exists(s => s._2.isEmpty))
+  }
+
+  def _runAll(dsm: DSMDataStructure): Map[String, Map[String, List[String]]] = {    
+    Map(
+      "Observer Pattern" -> observer(dsm),
+      "Visitor Pattern" -> visitor(dsm),
+      "Decorator Pattern" -> decorator(dsm),
+      "Composite Pattern" -> composite(dsm),
+      "Abstract Factory" -> absFactory(dsm),
+      "Bridge Pattern" -> bridge(dsm)
+      /*
+      "Builder Pattern" -> builder(dsm),
+      "Factory Method" -> factoryMethod(dsm),
+      "Facada" -> facade(dsm),
+      "Adapter Pattern" -> adapter(dsm)*/
+      )
+  }
+
+  def removeTests(pattern: Map[String, Entity], dsm:DSMDataStructure): Map[String, Entity] = {
+    // for each entity, filter out nodes that are tests
+    var res: Map[String, Entity] = Map()
+    for((name, entity) <- pattern)
+      res += ( name -> entity.filterNot(a  => dsm.isTestClass(a.classId)))    
+    res
+  }
+    
+  def nice(res: Map[String, Entity], dsm: DSMDataStructure): Map[String, List[String]] = {
+    var m: Map[String, List[String]] = Map()
+    res foreach { case (name, entity) => {
+      val entStr: List[String] = entity.map(c => dsm.nice(c.classId))
+      m += (name -> entStr)
+    }}
+    m
+  }
+
+
+
+
+
+
+
+  ////////////////////
+  /// Ignored patterns
+  ////////////////////
+
+
+
+
   /**
    * Ignored for now
    * - very similar to observer, resume after improved precision methods, scoring and pockets
@@ -166,48 +221,4 @@ object Pattern {
     Map()
   }
 
-  def _runAll(dsm: DSMDataStructure): Map[String, Map[String, List[String]]] = {
-    // IgnoreTest flag can be processed here (... or passed on)
-    // RemoveAnyEmpty flag can be processed here
-    // RemoveAllEmpty flag can be processed here
-    // Pockets cannot be processed here - diff return type
-    Map("Observer Pattern" -> observer(dsm),
-      "Visitor Pattern" -> visitor(dsm),
-      "Decorator Pattern" -> decorator(dsm),
-      "Composite Pattern" -> composite(dsm),
-      "Abstract Factory" -> absFactory(dsm),
-      "Bridge Pattern" -> bridge(dsm)
-      /*
-      "Builder Pattern" -> builder(dsm),
-      "Factory Method" -> factoryMethod(dsm),
-      "Facada" -> facade(dsm),
-      "Adapter Pattern" -> adapter(dsm)*/
-      )
-  }
-
-  def runAll(dsm: DSMDataStructure): Map[String, Map[String, List[String]]] = {
-    _runAll(dsm).filter(t => !t._2.isEmpty && !t._2.exists(s => s._2.isEmpty))
-  }
-
-  def runAllIsolated(dsm: DSMDataStructure): Map[String, Map[String, List[String]]] = {
-    // isolate each pattern and run
-    _runAll(dsm).filter(t => !t._2.isEmpty && !t._2.exists(s => s._2.isEmpty))
-  }
-
-  def removeTests(pattern: Map[String, Entity], dsm:DSMDataStructure): Map[String, Entity] = {
-    // for each entity, filter out nodes that are tests
-    var res: Map[String, Entity] = Map()
-    for((name, entity) <- pattern)
-      res += ( name -> entity.filterNot(a  => dsm.isTestClass(a.classId)))    
-    res
-  }
-    
-  def nice(res: Map[String, Entity], dsm: DSMDataStructure): Map[String, List[String]] = {
-    var m: Map[String, List[String]] = Map()
-    res foreach { case (name, entity) => {
-      val entStr: List[String] = entity.map(c => dsm.nice(c.classId))
-      m += (name -> entStr)
-    }}
-    m
-  }
 }
