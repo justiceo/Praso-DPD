@@ -42,7 +42,7 @@ object Types {
       val toExclude = others.flatMap(_.ids).distinct
       entity.filterNot(t => toExclude.contains(t.classId))
     }
-
+    
     /**
       * returns this entity with members who exhibit a given dependency with classes in another entity
       */
@@ -50,6 +50,15 @@ object Types {
     def that(dep1: DependencyType.Value, dep2: DependencyType.Value, other: Entity, dsm: DSMDataStructure): Entity = that(List(dep1, dep2), other, dsm)
     def that(deps: List[DependencyType.Value], other: Entity, dsm: DSMDataStructure): Entity =
       entity.filter(t => !dsm.dependencies(t.classId, deps: _*).intersect(other.ids).isEmpty)
+
+    def thatP(deps: List[DependencyType.Value], other: Entity, dsm: DSMDataStructure): Entity = {
+      val thatr = entity.filter(t => !dsm.dependencies(t.classId, deps: _*).intersect(other.ids).isEmpty)
+      // we know thatr meets the dep criteria, we just need to mark the pockets as other entities
+      thatr
+        // find the dependents, chose the first one
+        // set my pocket to that pocket
+      
+    }
 
     def thatIs(dep: DependencyType.Value, dsm: DSMDataStructure): Entity = thatIs(List(dep), dsm)
     def thatIs(dep1: DependencyType.Value, dep2: DependencyType.Value, dsm: DSMDataStructure): Entity = thatIs(List(dep1, dep2), dsm)

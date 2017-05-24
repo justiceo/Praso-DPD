@@ -26,9 +26,9 @@ object Pattern {
   def _visitor(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities inGroups
     val elementsP = sup.that(TYPED, sup, dsm)
-    val visitorP = sup.that(TYPED, sub, dsm)
-    val concVisitor = visitorP.subClasses(sub)
     val concEle = elementsP.subClasses(sub)
+    val visitorP = sup.that(TYPED, concEle, dsm)
+    val concVisitor = visitorP.subClasses(sub)
 
     Map("Visitor Interface" -> visitorP,
       "Concrete Visitor" -> concVisitor,
@@ -63,6 +63,12 @@ object Pattern {
       "Leaf" -> leaf)
   }
 
+  def absFactoryP(dsm: DSMDataStructure): Seq[Map[String, Entity]] =  _absFactoryP(dsm).filter(t => !inCompletePattern(t))
+  def _absFactoryP(dsm: DSMDataStructure): Seq[Map[String, Entity]] = {
+    val trimmed = removeTests(_absFactory(dsm), dsm)
+    val pockets = trimmed.values.flatten.map(c => c.pocket).toList.distinct
+    for(p <- pockets) yield mapPocket(trimmed, p)
+  }
   def absFactory(dsm: DSMDataStructure): Map[String, List[String]] = nice(removeTests(_absFactory(dsm), dsm), dsm)
   def _absFactory(dsm: DSMDataStructure): Map[String, Entity] = {
     val (sub, sup) = dsm.SPECIALIZE.asEntities.inGroups
@@ -120,8 +126,11 @@ object Pattern {
       )
   }
 
+  def inCompletePattern(pattern: Map[String, Entity]): Boolean = pattern.isEmpty || pattern.exists(mapping => mapping._2.isEmpty)
+
   def removeTests(pattern: Map[String, Entity], dsm:DSMDataStructure): Map[String, Entity] = {
     // for each entity, filter out nodes that are tests
+    //pattern.transform((k,e) => e.filterNot(a => dsm.isTestClass(a.classId)) )
     var res: Map[String, Entity] = Map()
     for((name, entity) <- pattern)
       res += ( name -> entity.filterNot(a  => dsm.isTestClass(a.classId)))    
@@ -135,6 +144,15 @@ object Pattern {
       m += (name -> entStr)
     }}
     m
+  }
+
+  def mapPocket(pattern: Map[String, Entity], pocket: Int): Map[String, Entity] = {
+    var newMap: Map[String, Entity] = Map()
+    val keys = pattern.keys
+    keys.foreach(k => {
+      newMap += (k -> pattern(k).filter(c => c.pocket == pocket))
+    })
+    newMap
   }
 
 
