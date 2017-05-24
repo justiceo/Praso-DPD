@@ -128,38 +128,17 @@ object Pattern {
 
   def inCompletePattern(pattern: Map[String, Entity]): Boolean = pattern.isEmpty || pattern.exists(mapping => mapping._2.isEmpty)
 
-  def removeTests(pattern: Map[String, Entity], dsm:DSMDataStructure): Map[String, Entity] = {
-    // for each entity, filter out nodes that are tests
-    //pattern.transform((k,e) => e.filterNot(a => dsm.isTestClass(a.classId)) )
-    var res: Map[String, Entity] = Map()
-    for((name, entity) <- pattern)
-      res += ( name -> entity.filterNot(a  => dsm.isTestClass(a.classId)))    
-    res
-  }
-    
-  def nice(res: Map[String, Entity], dsm: DSMDataStructure): Map[String, List[String]] = {
-    var m: Map[String, List[String]] = Map()
-    res foreach { case (name, entity) => {
-      val entStr: List[String] = entity.map(c => dsm.nice(c.classId))
-      m += (name -> entStr)
-    }}
-    m
-  }
+  def removeTests(pattern: Map[String, Entity], dsm:DSMDataStructure): Map[String, Entity] = 
+    pattern.transform((k,e) => e.filterNot(a => dsm.isTestClass(a.classId)) )
+      
+  def nice(pattern: Map[String, Entity], dsm: DSMDataStructure): Map[String, List[String]] = 
+    pattern.transform((k,e) => e.map(c => dsm.nice(c.classId)))
+  
+  def mapPocket(pattern: Map[String, Entity], pocket: Int): Map[String, Entity] = 
+    pattern.transform((k,e) => e.filter(c => c.pocket == pocket))
+  
 
-  def mapPocket(pattern: Map[String, Entity], pocket: Int): Map[String, Entity] = {
-    var newMap: Map[String, Entity] = Map()
-    val keys = pattern.keys
-    keys.foreach(k => {
-      newMap += (k -> pattern(k).filter(c => c.pocket == pocket))
-    })
-    newMap
-  }
-
-
-
-
-
-
+  
 
   ////////////////////
   /// Ignored patterns
