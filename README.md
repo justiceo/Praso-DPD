@@ -22,8 +22,116 @@ To find the patterns in a project X
 ##### Add Scala Doc Instead
 
 
-### Shell variables
+### Common REPL variables
 In addition to the variables made available by ammonite shell, the following are included
+
+
+**dsm**
+
+Holds the representation of the dsm file in an adjacency matrix with utility methods for querying dependencies
+Sample output of running `dpd@ dsm` (with line numbers included for explanation)
+```
+0| res0: DPD.DSMDataStructure = [CALL,TYPED,CREATE,IMPLEMENT]
+1| 8
+2| 0 1100 1010 0 0 0010 0 0
+3| 0 0 0 0 0100 0 0 0
+4| 0 1111 0 0010 1100 0 0010 0010
+5| 0 0001 0 0 1100 0 0 0
+6| 0 0 0100 0100 0 0 0100 0100
+7| 0 0 0100 0100 0001 0 0100 0100
+8| 0 0001 0 0 1100 0 0 0
+9| ...
+```
+* In line 0, `dsm` is copied to a new shell variable `res0`
+* It also shows that only 4 kinds of dependencies are exhibited in this dsm: call, typed, create and implement
+* Line 1: The number represents the number of files in the dsm, which is also the length and width of the matrix
+* Line 2-8: Is the dependency matrix
+* Line 9: The `...` means that the entire output was not printed because it was too long
+* To view all the output, run `dpd@ show(dsm)`
+
+**dsm.nice**
+
+Prints a visually enhanced version of the dsm
+Sample output of running `dpd@ show(dsm.nice)`:
+```
+"""
+[CALL,TYPED,CREATE,IMPLEMENT]
+    0    1    2    3    4    5    6    7
+--------------------------------------------
+0 | 0    1100 1010 0    0    0010 0    0
+1 | 0    0    0    0    0100 0    0    0
+2 | 0    1111 0    0010 1100 0    0010 0010
+3 | 0    0001 0    0    1100 0    0    0
+4 | 0    0    0100 0100 0    0    0100 0100
+5 | 0    0    0100 0100 0001 0    0100 0100
+6 | 0    0001 0    0    1100 0    0    0
+7 | 0    0001 0    0    1100 0    0    0
+(0) Main.java
+(1) ComputerPart.java
+(2) Computer.java
+(3) Mouse.java
+(4) ComputerPartVisitor.java
+(5) ComputerPartDisplayVisitor.java
+(6) Keyboard.java
+(7) Monitor.java
+```
+
+
+**dsm.matrixStr**
+
+Returns a string representation of the adjacency matrix of the dsm as tuples of (dependency data, index) where dependency has been translated from binary string to decimal.
+Sample output of running `dpd@ dsm.matrixStr`
+```
+(12,1)(10,2)(2,5)
+(4,4)
+(15,1)(2,3)(12,4)(2,6)(2,7)
+(1,1)(12,4)
+(4,2)(4,3)(4,6)(4,7)
+(4,2)(4,3)(1,4)(4,6)(4,7)
+(1,1)(12,4)
+(1,1)(12,4)
+```
+
+**dsm.resolve**
+
+Gets a class index (ID) by it's name. Accepts a variable number of arguments.
+Sample output of running `dpd@ dsm.resolve("Computer.java", "ComputerPart.java")`
+```
+List[Int] = List(1, 2)
+```
+
+**dsm.find**
+
+Find classes by keywords. Accepts multiple keywords and any class that matches any of the keywords is included.
+Sample output of running `dpd@ dsm.find("visit")`
+```
+List[String] = List("ComputerPartVisitor.java", "ComputerPartDisplayVisitor.java")
+```
+With multiple keywords as in `dpd@ dsm.find("mou", "visit")`
+```
+List[String] = List("Mouse.java", "ComputerPartVisitor.java", "ComputerPartDisplayVisitor.java")
+```
+
+**dsm.SPECIALIZE**
+
+Returns a tuple list of class pairs that exhibit EXTEND and/or IMPLEMENT dependency type. To get pairs that exhibit only EXTEND, use **dsm.EXTEND**, and vice-versa for IMPLEMENT. 
+(A, B) is same as (A extends B) or (A implements B).
+Sample output from running `dpd@ dsm.SPECIALIZE`
+```
+List[(Int, Int)] = List((2, 1), (3, 1), (5, 4), (6, 1), (7, 1))
+```
+This can be made more readable by running `dpd@ dsm.nice(dsm.SPECIALIZE)`
+```
+res6: List[(String, String)] = List(
+  ("Computer", "ComputerPart"),
+  ("Mouse", "ComputerPart"),
+  ("ComputerPartDisplayVisitor", "ComputerPartVisitor"),
+  ("Keyboard", "ComputerPart"),
+  ("Monitor", "ComputerPart")
+)
+```
+
+
 - dsm: holds the representation of the dsm file
     - to view entire dsm run `show(dsm)`
     - .nice: prints an enhanced version of the dsm
