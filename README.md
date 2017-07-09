@@ -134,7 +134,7 @@ res6: List[(String, String)] = List(
 **dsm.subDsm**
 
 Creates a new dsm from a subset of the classes in the current dsm.
-Can we run with multiple classes as in `dpd@ dsm.subDsm("Mouse.java", "Computer.java"). 
+Can we run with multiple classes as in `dpd@ dsm.subDsm("Mouse.java", "Computer.java")`. 
 Even better using the `dsm.find` above as in `dpd@ dsm.subDsm(dsm.find('visitor'))` will generate a sub dsm for all the classes with the visitor keywords and their dependents and dependencies.
 
 Sample output of running `dpd@ dsm.subDsm("Mouse.java")` which generates a dsm of all the dependents and dependencies of Mouse.java
