@@ -69,7 +69,13 @@ object Types {
     def thatIs(deps: List[DependencyType.Value], other: Entity, dsm: DSMDataStructure): Entity =
       entity.filter(t => !dsm.dependents(t.classId, deps: _*).intersect(other.ids).isEmpty)
 
-    def reconcile(a: Entity, b: Entity): (Entity, Entity, Entity) = ???
+    // if a class in `a' is in `entity`, update `a`'s pocket and use `a`s pocket to update `b`s pockets
+    // todo: add unit test
+    def reconcile(a: Entity, b: Entity): (Entity, Entity, Entity) = {
+      val newA = reconcile(a);
+      val newB = newA.zipReconcile(b);
+      (entity, newA, newB)
+    }
 
     // if a class in `a` is in `entity`, update `a` pocket to this entity pocket
     def reconcile(a: Entity): Entity = a.map(c => { if (entity.ids.contains(c.classId)) entity.filter(d => d.classId == c.classId).head else c })

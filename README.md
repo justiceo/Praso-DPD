@@ -14,6 +14,27 @@ The interactive shell uses [Ammonite](http://www.lihaoyi.com/Ammonite/ m), which
 - Run (specify dsm): `sbt "run-main DPD.ScalaREPL dsm/simpleObserverPattern.dsm"`
 - To run unit tests: `sbt test`
 
+### More on Running
+To find the patterns in a project X
+- first download the source code for the project by running `download -github https://github.com/test/projectX`
+- generate the dsm files and other stuff by running `analyze projectX`
+
+##### Add Scala Doc Instead
+
+
+### Shell variables
+In addition to the variables made available by ammonite shell, the following are included
+- dsm: holds the representation of the dsm file
+    - to view entire dsm run `show(dsm)`
+    - .nice: prints an enhanced version of the dsm
+- $: a handle for the util class
+    - .parse(dsm_file_path): loads the given dsm
+    - .resource(rel_path): get the full path of a resource in the resource dir
+    - .export(dsm, filepath): save the dsm to the file path given
+    - .gitClone(url): download the github repo to the target dir
+    - .genDsm(project_path): generates dsm for given project
+
+
 ### Todo
 ###### Meat
 - Inspect vetted design pattern implementations (jhotdraw, java-design-patterns, head-first, gof)
