@@ -131,16 +131,37 @@ res6: List[(String, String)] = List(
 )
 ```
 
+**dsm.subDsm**
 
-- dsm: holds the representation of the dsm file
-    - to view entire dsm run `show(dsm)`
-    - .nice: prints an enhanced version of the dsm
-- $: a handle for the util class
-    - .parse(dsm_file_path): loads the given dsm
-    - .resource(rel_path): get the full path of a resource in the resource dir
-    - .export(dsm, filepath): save the dsm to the file path given
-    - .gitClone(url): download the github repo to the target dir
-    - .genDsm(project_path): generates dsm for given project
+Creates a new dsm from a subset of the classes in the current dsm.
+Can we run with multiple classes as in `dpd@ dsm.subDsm("Mouse.java", "Computer.java"). 
+Even better using the `dsm.find` above as in `dpd@ dsm.subDsm(dsm.find('visitor'))` will generate a sub dsm for all the classes with the visitor keywords and their dependents and dependencies.
+
+Sample output of running `dpd@ dsm.subDsm("Mouse.java")` which generates a dsm of all the dependents and dependencies of Mouse.java
+
+```
+DPD.DSMDataStructure = [CALL,TYPED,CREATE,IMPLEMENT]
+5
+0 0 0 0100 0
+1111 0 0010 1100 0
+0001 0 0 1100 0
+0 0100 0100 0 0
+0 0100 0100 0001 0
+D:\Code\IdeaProjects\DesignPatterns\src\CommonPatterns\visitor\ComputerPart.java
+D:\Code\IdeaProjects\DesignPatterns\src\CommonPatterns\visitor\Computer.java
+D:\Code\IdeaProjects\DesignPatterns\src\CommonPatterns\visitor\Mouse.java
+D:\Code\IdeaProjects\DesignPatterns\src\CommonPatterns\visitor\ComputerPartVisitor.java
+D:\Code\IdeaProjects\DesignPatterns\src\CommonPatterns\visitor\ComputerPartDisplayVisitor.java
+```
+
+**$**
+
+A handle for utility functions.
+- .parse(dsm_file_path): loads the given dsm
+- .resource(rel_path): get the full path of a resource in the resource dir
+- .export(dsm, filepath): save the dsm to the file path given
+- .gitClone(url): download the github repo to the target dir
+- .genDsm(project_path): generates dsm for given project
 
 
 ### Todo

@@ -73,6 +73,8 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   }
 
   /** takes fq classes names, resolves their indices and calls main subdsm */
+  def subDsm(classNames: String*): DSMDataStructure = subDsm(classNames.toList)
+  
   def subDsm(classNames: List[String]): DSMDataStructure = _subDsm(resolve(classNames: _*): _*)
 
   /** Returns a string representation of the adjacency matrix - list of tuples (dependencyType, classIndex) */
