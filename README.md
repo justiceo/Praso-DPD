@@ -163,6 +163,20 @@ A handle for utility functions.
 - .gitClone(url): download the github repo to the target dir
 - .genDsm(project_path): generates dsm for given project
 
+**To View Classes That Implement Visitor Pattern in loaded dsm**
+```
+> val subDsm = dsm.subDsm(dsm.find("visitor"))
+> pattern.visitor(subDsm)
+
+Map[String, List[String]] = Map(
+  "Visitor Interface" -> List("ComputerPartVisitor"),
+  "Concrete Visitor" -> List("ComputerPartDisplayVisitor"),
+  "Element" -> List("ComputerPart"),
+  "Concrete Element" -> List("Keyboard", "Computer", "Monitor", "Mouse")
+)
+```
+
+
 
 ### Todo
 ###### Meat
