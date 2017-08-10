@@ -9,11 +9,12 @@ lazy val root = (project in file(".")).
       scalaVersion := "2.12.1",
       version      := "0.1.0-SNAPSHOT"
     )),
+    mainClass in (Compile, run)   := Some("DPD.ScalaREPL"),
     name := "Main",
     libraryDependencies += scalaTest % Test,    
     libraryDependencies += "com.lihaoyi" % "ammonite" % "0.8.4" cross CrossVersion.full,
     libraryDependencies += "com.nrinaudo" %% "kantan.csv-generic" % "0.1.19",
-    libraryDependencies += "org.scala-lang" % "scala-compiler" % scalaVersion.value
+    libraryDependencies += "org.scala-lang" % "scala-compiler" % scalaVersion.value    
   )
 
 lazy val fixPaths = taskKey[Unit]("Fixes the file paths in DSM files")
