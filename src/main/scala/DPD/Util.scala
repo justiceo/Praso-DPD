@@ -40,6 +40,7 @@ object Util {
 
   /** takes a dsm file as input and returns a DSM data structure */
   def _parse(path: String): DSMDataStructure = {
+    // todo: check if file exists and throw a better exception otherwise
     val depLine :: countLine :: matrix_files = Source.fromFile(path).getLines().takeWhile(l => !l.startsWith("###")).toList
     val count = Integer.parseInt(countLine)
 
