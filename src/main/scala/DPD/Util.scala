@@ -102,7 +102,11 @@ object Util {
   def genDsm(projectPath:String): String = {
     val udb = projectPath + "/project.udb"
     val cytoscape = projectPath + "/cytoscape.xml"
-    val dsm = projectPath + "project.dsm"
+    val dsm = projectPath + "project.dsm";
+
+    // todo: check if project path is valid. must exist 
+    // - check if understand is installed
+    // - check if genSdsm-cmd-jdk1.6.jar is located in the jars subdir
 
     // run the bash commands to generate the dsm. the .! at the end of the string causes it to be executed immediately
     s"/usr/bin/scitools/bin/linux64/und create -db $udb -languages java".!
@@ -111,7 +115,11 @@ object Util {
     s"/usr/bin/scitools/bin/linux64/und export -dependencies file cytoscape $cytoscape $udb".!
     s"java -jar ./jars/genSdsm-cmd-jdk1.6.jar -cytoscape -f $cytoscape -o $dsm > /dev/null".!
 
-    "Done generating dsm"
+    // remove files we created in the process of generating dsm
+    s"rm $udb $cytoscape".!
+
+    // return the dsm path
+    dsm
   }
 
   /** Parse 2.0.0: When the times come, this should parse and Class Dsm  given as csv
