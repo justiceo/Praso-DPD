@@ -12,11 +12,15 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   /** The size of the matrix, also the number of files  */
   val size: Int = adjMatrix.length
 
-  /** The folder prefix to the source root, usually starting with C:/ */
+  /** Returns the absolute path to the src directory */
   lazy val sourceRoot: String = files.reduce((a, b) => a.zip(b).takeWhile((t) => t._1 == t._2).map(_._1).mkString)
+  
+  /** Returns a list of fully qualified (fq) class names generated from file path 
+   * i.e. src/main/scala/DPD/ScalaREPL.java become DPD.ScalaREPL (notice the package name is included since similar names can exist in different packages)
+   */
   val types: List[String] = files.indices.map(getFQType).toList
 
-  /** takes a variable number of dependencyTypes and returns pair classes that satisfy them all */
+  /** Returns the pairs of classes that satisfy all the given dependencies */
   def dependencyPair(deps: DependencyType.Value*): List[(Int, Int)] = {
     val bitmask = deps.map(toBinaryMask).reduceLeft(_ | _)
     adjMatrix.trio.collect { case t if (t._1 & bitmask) == bitmask => (t._3, t._2) }
@@ -72,9 +76,10 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
     )
   }
 
-  /** takes fq classes names, resolves their indices and calls main subdsm */
+  /** Alias to subDsm that fq class names as vargs and converts to list */
   def subDsm(classNames: String*): DSMDataStructure = subDsm(classNames.toList)
   
+  /** Alias to _subDsm that takes class names as string and converts them to class ids - which _subDsm needs */
   def subDsm(classNames: List[String]): DSMDataStructure = _subDsm(resolve(classNames: _*): _*)
 
   /** Returns a string representation of the adjacency matrix - list of tuples (dependencyType, classIndex) */
@@ -86,7 +91,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
     s"$depLine \n$size \n${rowsAsStrings(squarify()).mkString("\n")} \n${files.mkString("\n")}"
   }
 
-  /** Returns a "square" adjacency matrix by including the empty dependencies that were omitted */
+  /** Returns a "square" version of the adjacency matrix by including the empty dependencies that were omitted */
   def squarify(matrix: Matrix = adjMatrix): Matrix = matrix.map(arr => {
     val (el, indices) = arr.unzip
     Array.range(0, matrix.size).map(i => {
@@ -128,8 +133,18 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   def getFQType(classId: Int): String = files(classId).replace(sourceRoot, "")
 
 
+  /** Returns n-top keyInterfaces for the given dsm alongsize the number of dependents they have (as tuple)
+   * An interface is a keyInterface if it has several dependents.
+   * The more dependents an interface has, the higher it's rank in the list
+   * todo: refactor this code to something readable - not just something that works.
+   */
   def keyInterface(top: Int = 1): List[(Int, Int)] = adjMatrix.flatten.map(_._2).groupBy(i => i).mapValues(_.size).toList.sortBy(_._2).reverse.take(top)
 
+  /**
+   * Companion function to keyInterface that translates the classIds to class names for easy identification
+   * You are more likely to find this function useful
+   * KeyInterface is more useful if you want to see the number of dependents.
+   */
   def namedKeyInterfaces(top: Int = 1): List[String] = keyInterface(top).map(t => nice(t._1))
 
 
@@ -140,6 +155,9 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
 
   def EXTEND: List[(Int, Int)] = dependencyPair(DependencyType.EXTEND)
 
+  /** Returns all the extend, implement pair in the dsm
+   * Given (A, B), A extends B or A implements B for all tuples in SPECIALIZE
+   */
   def SPECIALIZE: List[(Int, Int)] = (EXTEND ::: IMPLEMENT).distinct
 
 
@@ -173,10 +191,13 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
     */
   def resolve(args: String*): List[Int] = types.zipWithIndex.collect { case t if args.contains(t._1) => t._2 }
 
+  /** Returns all the classes that either extend, or implement the given class */
   def subClasses(classId: Int): List[(Int, Int)] = SPECIALIZE.filter(t => t._2 == classId)
 
+  /** Alias for subClasses above that takes vargs */
   def subClasses(classIds: Int*): List[(Int, Int)] = classIds.flatMap(subClasses).toList
 
+  /** Returns a list of classes that exhibit the given dependencies in this entity */
   def classesThat(deps: List[DependencyType.Value], entity: Entity): List[(Int, Int)] =
     dependencyPair(deps: _*).filter(t => entity.ids.contains(t._2))
 
