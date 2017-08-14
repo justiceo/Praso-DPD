@@ -94,6 +94,8 @@ object Util {
       s"git clone $url $destination".!
       s"$repoName cloned successfully"
     }
+    // return path of cloned project
+    destination
   }
 
   /** Takes the absolute path of project's src directory and generates dsm for it

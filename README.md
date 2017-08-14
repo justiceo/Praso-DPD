@@ -10,8 +10,29 @@ The interactive shell uses [Ammonite](http://www.lihaoyi.com/Ammonite/ m), which
 ### Install & Run
 - Clone repo: `git clone https://github.com/justiceo/praso-dpd`
 - Install JDK, Scala, SBT (if not already installed): `cd praso-dpd; sudo ./install.sh`
-- Run: `sbt run` or `sbt "run-main DPD.ScalaREPL"`
-- Run (specify dsm): `sbt "run-main DPD.ScalaREPL dsm/simpleObserverPattern.dsm"`
+- Run with dsm (in resource directory): 
+For usage instructions:
+```
+sbt run
+```
+To run with dsm (that is in resource directory) (todo: add absolute path dsm)
+```
+sbt "run-main DPD.ScalaREPL --dsm dsm/simpleObserverPattern.dsm"
+```
+To generate dsm from project and run
+```
+sbt "run-main DPD.ScalaREPL --local /home/user/absolute/path/to/src"
+```
+To fetch remote project and generate dsm
+```
+sbt "run-main DPD.ScalaREPL --remote https://github.com/user/project"
+```
+To simply display the result and exit (without starting a shell add `--no-shell`), as in:
+```
+sbt "run-main DPD.ScalaREPL --remote https://github.com/user/project --no-shell"
+```
+Todo - replace --no-shell with --pattern patterName
+
 - To run unit tests: `sbt test`
 
 ### More on Running

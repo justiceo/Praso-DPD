@@ -35,7 +35,7 @@ object ScalaREPL {
 
     // if noShell, run all the patterns and exit
     if (noShell) { // run pattern.all
-      Pattern.runAll(dsm);
+      println(Pattern.runAll(dsm))
       return
     }
 
