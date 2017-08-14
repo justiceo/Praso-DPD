@@ -3,11 +3,10 @@ package DPD
 object ScalaREPL {
   def main(args: Array[String]): Unit = {
 
-    // if no dsm is specified, use default
+    // Initialize `dsm` with input dsm file. If no file was specified, use default.
     val dsmFile = if (args.length == 0) "dsm/simpleVisitorPattern.dsm" else args(0)
     lazy val dsm = Util.parse(dsmFile)
 
-    // Break into debug REPL with
     ammonite.Main(
       // see ./project/predef.sc for more set up
       predef = "println(\"Starting DPD!\")"
