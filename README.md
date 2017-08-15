@@ -10,8 +10,8 @@ The interactive shell uses [Ammonite](http://www.lihaoyi.com/Ammonite/ m), which
 ### Install & Run
 - Clone repo: `git clone https://github.com/justiceo/praso-dpd`
 - Install JDK, Scala, SBT (if not already installed): `cd praso-dpd; sudo ./install.sh`
-- Run with dsm (in resource directory): 
-For usage instructions:
+ 
+For usage instructions (in scala environment):
 ```
 sbt run
 ```
@@ -34,6 +34,13 @@ sbt "run-main DPD.ScalaREPL --remote https://github.com/user/project --no-shell"
 Todo - replace --no-shell with --pattern patterName
 
 - To run unit tests: `sbt test`
+
+To generate standalone jar file and run it
+```
+sbt assemby
+java -jar target/scala-2.12/praso.jar --dsm dsm/your-dsm.dsm
+```
+
 
 ### More on Running
 To find the patterns in a project X
