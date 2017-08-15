@@ -35,7 +35,10 @@ object ScalaREPL {
 
     // if noShell, run all the patterns and exit
     if (noShell) { // run pattern.all
-      println(Pattern.runAll(dsm))
+      val patternInJson = JsonConverter.toJson(Pattern.runAll(dsm))
+      // todo: format json to pretty-json then print
+      // json still looks better than scala map
+      println(patternInJson);
       return
     }
 
