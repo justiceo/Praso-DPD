@@ -26,7 +26,7 @@ object FuncDsm {
   case class Csv(function: String, file: String, line: Int, dependsOnFunction: String, dependsOnType: DependencyType.Value, dependsOnFile: String)
   case class Csv2(function: String, file: String, line: Int, dependsOnFunction: String, dependsOnType: String, dependsOnFile: String)
 
-  def main(args: Array[String]): Unit = {
+  def main2(args: Array[String]): Unit = {
     val file = "/AhoCorasickDoubleArrayTrie_src.func.csv"
     genDsm2(file)
   }
