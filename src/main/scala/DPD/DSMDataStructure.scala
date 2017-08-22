@@ -48,6 +48,9 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
 
   /** Returns a subDsm of all classes (dependents and dependencies) related to these classes */
   def _subDsm(classIds: Int*): DSMDataStructure = {
+    if(classIds.length < 2) {
+      throw new IllegalArgumentException("Number of files in DSM is too small");
+    }
     // adds zeros when necessary to a binary string to ensure the size is consistent
     def adjBinaryStr(n: Int): String = "00000000000" + n.toBinaryString takeRight dependencyTypes.size
 
