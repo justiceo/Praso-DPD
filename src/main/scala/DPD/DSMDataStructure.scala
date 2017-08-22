@@ -91,7 +91,7 @@ class DSMDataStructure(val dependencyTypes: List[DependencyType.Value],
   /** Returns a dsm file representation of the dependency, matrix and files */
   override def toString: String = {
     val depLine = dependencyTypes.map(_.toString).mkString("[", ",", "]")
-    s"$depLine \n$size \n${rowsAsStrings(squarify()).mkString("\n")} \n${files.mkString("\n")}"
+    s"$depLine\n$size\n${rowsAsStrings(squarify()).mkString("\n")}\n${files.mkString("\n")}"
   }
 
   /** Returns a "square" version of the adjacency matrix by including the empty dependencies that were omitted */
