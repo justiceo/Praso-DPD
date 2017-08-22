@@ -8,6 +8,8 @@ object Types {
 
   type Entity = List[CNode]
 
+  type Error = List[String]
+
   implicit class _Matrix(matrix: Matrix) {
     // converts List[Array[(data, colIndex)]] to List[(data, colIndex, rowIndex)]
     lazy val trio: List[(Int, Int, Int)] = matrix.zipWithIndex.flatMap((t) => t._1.map(d => (d._1, d._2, t._2)))

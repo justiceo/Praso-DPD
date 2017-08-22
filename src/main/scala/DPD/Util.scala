@@ -6,6 +6,7 @@ import scala.io.Source
 import kantan.csv._
 import kantan.csv.ops._
 import kantan.csv.generic._
+import DPD.Types._
 
 /** Utility functions making life on the shell easier  
   * This class is dropped whole into the shell as '$'
@@ -33,7 +34,13 @@ object Util {
    * output: "/home/username/project-dir/target/scala-2.12/classes/dsm/jafka.dsm"
    * todo: check if file exists and print useful error than wait for OS to throw exception
    */
-  def resource(file: String): String = getClass.getClassLoader.getResource(file).getPath
+  def resource(file: String): (String, Error) = {
+    try{
+      (getClass.getClassLoader.getResource(file).getPath, Nil)
+    }catch {
+      case e: Exception => { return (null, e.toString() :: Nil)}
+    }
+  }
 
   /**
   * Same as _parse but accepts relative path of file in resource folder and transforms to the absolute path
